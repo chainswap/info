@@ -3,19 +3,20 @@ import { makeStyles } from '@material-ui/styles'
 import { ButtonBase } from '@material-ui/core'
 
 interface Props {
-  text: string
   onClick?: () => void
   width?: string
   background?: string
   disabled?: boolean
   color?: string
+  children?: React.ReactNode
+  primary?: boolean
 }
 
 const useStyles = makeStyles({
   root: {
     width: (props: Props) => (props.width ? props.width : '100%'),
-    background: (props: Props) => (props.background ? props.background : '#9867FF'),
-    color: (props: Props) => (props.color ? props.color : '#fff'),
+    background: '#9867FF',
+    color: '#fff',
     height: 48,
     padding: '14px 24px',
     textAlign: 'center',
@@ -30,6 +31,9 @@ const useStyles = makeStyles({
     '&:hover': {
       background: '#7433FF',
     },
+    '& img': {
+      marginRight: 12,
+    },
   },
 })
 
@@ -38,7 +42,7 @@ export default function Button(props: Props) {
   const classes = useStyles(props)
   return (
     <ButtonBase className={classes.root} onClick={onClick} disabled={disabled}>
-      {props.text}
+      {props.children}
     </ButtonBase>
   )
 }

@@ -35,13 +35,16 @@ const useStyles = makeStyles({
       marginRight: 12,
     },
   },
+  disabled: {
+    opacity: 0.6,
+  },
 })
 
 export default function Button(props: Props) {
   const { onClick, disabled } = props
   const classes = useStyles(props)
   return (
-    <ButtonBase className={classes.root} onClick={onClick} disabled={disabled}>
+    <ButtonBase classes={{ ...classes }} onClick={onClick} disabled={disabled}>
       {props.children}
     </ButtonBase>
   )

@@ -1,8 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
+import Button from './components/Button/Button'
 
 function App() {
-  return <div></div>
+  return (
+    <React.Fragment>
+      {/* Primary */}
+      <Button text="Connect Wallet"></Button>
+      {/* Disabled */}
+      <Button text="Connect Wallet" disabled={true}></Button>
+    </React.Fragment>
+  )
 }
 
-export default App;
+export default App

@@ -6,7 +6,6 @@ interface Props {
   text: string
   onClick?: () => void
   primary?: boolean
-  type?: 'button' | 'reset' | 'submit' | undefined
   width?: string
   background?: string
   disabled?: boolean

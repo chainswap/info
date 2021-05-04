@@ -1,18 +1,33 @@
 import React from 'react'
 import Button from './components/Button/Button'
+import OutlineButton from './components/Button/OutlineButton'
+import { styled } from '@material-ui/styles'
+import FakeLogo from './assets/images/dummy_logo.png'
+
+const Background = styled('div')({
+  background: `#000000`,
+  height: '100%',
+  width: '100%',
+})
 
 function App() {
   return (
-    <React.Fragment>
-      {/* Primary */}
-      <Button text="primary"></Button>
-      {/* Disabled */}
-      <Button text="disabled" disabled={true}></Button>
-      {/* specified background */}
-      <Button text="background color #000000" background="#000000"></Button>
-      {/* specified color */}
-      <Button text="text color #000000" color="#000000"></Button>
-    </React.Fragment>
+    <Background>
+      <React.Fragment>
+        <Button text="primary"></Button>
+        <hr />
+        <Button text="disabled" disabled={true}></Button>
+        <hr />
+        <Button text="background color #C0C0C0" background="#C0C0C0"></Button>
+        <hr />
+        <Button text="text color #fff" color="#fff"></Button>
+        <hr />
+        <OutlineButton primary>Outline/Primary</OutlineButton>
+        <hr />
+        <OutlineButton>Outline/Default</OutlineButton>
+        <hr />
+      </React.Fragment>
+    </Background>
   )
 }
 

@@ -5,7 +5,6 @@ import { ButtonBase } from '@material-ui/core'
 interface Props {
   text: string
   onClick?: () => void
-  primary?: boolean
   width?: string
   background?: string
   disabled?: boolean

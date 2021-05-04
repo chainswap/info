@@ -9,12 +9,14 @@ interface Props {
   width?: string
   background?: string
   disabled?: boolean
+  color?: string
 }
 
 const useStyles = makeStyles({
   root: {
     width: (props: Props) => (props.width ? props.width : '100%'),
     background: (props: Props) => (props.background ? props.background : '#9867FF'),
+    color: (props: Props) => (props.color ? props.color : '#fff'),
     height: 48,
     padding: '14px 24px',
     textAlign: 'center',
@@ -22,7 +24,6 @@ const useStyles = makeStyles({
     fontFamily: 'Roboto',
     fontWeight: 500,
     lineHeight: '21.36px',
-    color: '#fff',
     border: 'none',
     borderRadius: 49,
     outline: 'none',

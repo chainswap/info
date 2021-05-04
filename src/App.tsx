@@ -5,9 +5,13 @@ function App() {
   return (
     <React.Fragment>
       {/* Primary */}
-      <Button text="Connect Wallet"></Button>
+      <Button text="primary"></Button>
       {/* Disabled */}
-      <Button text="Connect Wallet" disabled={true}></Button>
+      <Button text="disabled" disabled={true}></Button>
+      {/* specified background */}
+      <Button text="background color #000000" background="#000000"></Button>
+      {/* specified color */}
+      <Button text="text color #000000" color="#000000"></Button>
     </React.Fragment>
   )
 }

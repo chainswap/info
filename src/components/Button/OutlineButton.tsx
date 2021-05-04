@@ -16,6 +16,9 @@ const useStyles = makeStyles({
     color: (props: Props) => (props.primary ? '#9867FF' : '#fff'),
     padding: '14px 24px',
     borderRadius: 49,
+    '& img': {
+      marginRight: 20,
+    },
   },
 })
 

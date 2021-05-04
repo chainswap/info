@@ -26,6 +26,11 @@ function App() {
         <hr />
         <OutlineButton>Outline/Default</OutlineButton>
         <hr />
+        <OutlineButton>
+          <img src={FakeLogo} alt={'fake logo'} />
+          Outline / Icon
+        </OutlineButton>
+        <hr />
       </React.Fragment>
     </Background>
   )

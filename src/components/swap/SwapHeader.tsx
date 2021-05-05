@@ -1,6 +1,5 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
-import { Typography } from '@material-ui/core'
 
 const StyledSwapHeader = styled('div')({
   width: '100%',
@@ -13,6 +12,7 @@ const StyledSwapText = styled('p')({
   fontSize: 20,
   fontFamily: 'Futura PT',
   marginTop: 0,
+  marginBottom: 20,
 })
 
 export default function SwapHeader() {

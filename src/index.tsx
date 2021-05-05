@@ -6,9 +6,7 @@ import './index.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <div style={{ backgroundColor: 'black', padding: 0, margin: 0 }}>
-      <App />
-    </div>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 )

@@ -1,7 +1,8 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
+import { Input } from '@material-ui/core'
 
-const Label = styled('div')({
+const LabelRow = styled('div')({
   fontWeight: 400,
   fontSize: 12,
   fontFamily: 'Roboto',
@@ -10,10 +11,26 @@ const Label = styled('div')({
   opacity: 0.6,
 })
 
+const InputRow = styled('div')({
+  alignItems: 'center',
+  width: '100%',
+  height: 48,
+  borderRadius: 14,
+  background: 'rgba(255, 255, 255, 0.08)',
+})
+
+const NumericalInput = styled('input')({})
+
+const CurrencySelect = styled('button')({})
+
 export default function CurrencyInputPanel() {
   return (
     <>
-      <Label>Amount</Label>
+      <LabelRow>Amount</LabelRow>
+      <InputRow>
+        <NumericalInput placeholder="Enter amount to swap" />
+        <CurrencySelect />
+      </InputRow>
     </>
   )
 }

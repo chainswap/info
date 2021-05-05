@@ -10,6 +10,7 @@ export const BodyWrapper = styled('div')({
   padding: '12px 32px 28px',
   justifyContent: 'center',
   border: '1px solid rgba(255, 255, 255, 0.2)',
+  boxSizing: 'border-box',
 })
 
 export default function AppBody({ children }: { children: React.ReactNode }) {

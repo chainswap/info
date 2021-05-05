@@ -6,19 +6,10 @@ const StyledSwapHeader = styled('div')({
   maxWidth: 480,
   color: '#fff',
   textAlign: 'center',
-})
-
-const StyledSwapText = styled('p')({
   fontSize: 20,
   fontFamily: 'Futura PT',
-  marginTop: 0,
-  marginBottom: 20,
 })
 
 export default function SwapHeader() {
-  return (
-    <StyledSwapHeader>
-      <StyledSwapText>Cross Chain Bridge</StyledSwapText>
-    </StyledSwapHeader>
-  )
+  return <StyledSwapHeader>Cross Chain Bridge</StyledSwapHeader>
 }

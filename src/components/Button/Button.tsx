@@ -9,15 +9,15 @@ interface Props {
   disabled?: boolean
   color?: string
   children?: React.ReactNode
-  primary?: boolean
+  size?: 'small' | 'large'
 }
 
 const useStyles = makeStyles({
   root: {
     width: (props: Props) => (props.width ? props.width : '100%'),
+    height: (props: Props) => (props.size === 'large' ? 48 : 32),
     background: '#9867FF',
     color: '#fff',
-    height: 48,
     padding: '14px 24px',
     textAlign: 'center',
     fontSize: 16,

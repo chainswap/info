@@ -17,9 +17,22 @@ const InputRow = styled('div')({
   height: 48,
   borderRadius: 14,
   background: 'rgba(255, 255, 255, 0.08)',
+  overflow: 'hidden',
 })
 
-const NumericalInput = styled('input')({})
+const StyledInput = styled('input')({
+  outline: 'none',
+  border: 'none',
+  fontSize: 16,
+  fontFamily: 'Roboto',
+  fontWeight: 400,
+  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  color: '#FFFFFF',
+  width: '-webkit-fill-available',
+  height: '100%',
+  opacity: 0.4,
+  paddingLeft: 20,
+})
 
 const CurrencySelect = styled('button')({})
 
@@ -28,7 +41,7 @@ export default function CurrencyInputPanel() {
     <>
       <LabelRow>Amount</LabelRow>
       <InputRow>
-        <NumericalInput placeholder="Enter amount to swap" />
+        <StyledInput placeholder="Enter amount to swap" />
         <CurrencySelect />
       </InputRow>
     </>

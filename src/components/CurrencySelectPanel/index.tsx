@@ -7,7 +7,6 @@ import { RowBetween } from '../../components/Row'
 
 const CurrencySelect = styled('div')({
   width: 176,
-  height: 46,
   boxSizing: 'border-box',
   borderRadius: 14,
   alignItems: 'center',

@@ -28,6 +28,7 @@ const useStyles = makeStyles({
     borderRadius: 49,
     outline: 'none',
     transition: '.3s',
+    position: 'relative',
     '&:hover': {
       background: '#7433FF',
     },
@@ -37,6 +38,7 @@ const useStyles = makeStyles({
   },
   disabled: {
     opacity: 0.6,
+    cursor: 'auto',
   },
 })
 

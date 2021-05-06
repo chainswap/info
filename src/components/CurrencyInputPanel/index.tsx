@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
+import DummyLogo from '../../assets/images/dummy_logo.png'
 
 const LabelRow = styled('div')({
   fontWeight: 400,
@@ -46,9 +47,24 @@ const CurrencySelect = styled('button')({
   outline: 'none',
   border: 'none',
   cursor: 'pointer',
+  display: 'flex',
+  justifyContent: 'space-between',
   '&:hover': {
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
   },
+})
+
+const CurrencyLogo = styled('div')({
+  marginRight: 12,
+})
+
+const StyledTokenName = styled('div')({
+  fontSize: 16,
+  marginRight: 12,
+})
+
+const ArrowDown = styled('div')({
+  fontSize: 16,
 })
 
 export default function CurrencyInputPanel() {
@@ -58,9 +74,11 @@ export default function CurrencyInputPanel() {
       <InputRow>
         <StyledInput placeholder="Enter amount to swap" />
         <CurrencySelect>
-          {/* <CurrencyLogo /> */}
-          {/* <StyledTokenName /> */}
-          {/* <DropDown /> */}
+          <CurrencyLogo>
+            <img src={DummyLogo} alt="currency_logo" />
+          </CurrencyLogo>
+          <StyledTokenName>Matter</StyledTokenName>
+          <ArrowDown>V</ArrowDown>
         </CurrencySelect>
       </InputRow>
     </>

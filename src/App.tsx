@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Demo from './pages/Demo'
 import Swap from './pages/Swap'
 import { styled } from '@material-ui/core'
 
@@ -17,7 +16,6 @@ export default function App() {
     <BodyWrapper>
       <BrowserRouter>
         <Switch>
-          <Route exact strict path="/demo" component={Demo} />
           <Route exact strict path="/swap" component={Swap} />
         </Switch>
       </BrowserRouter>

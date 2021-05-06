@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { NativeSelect } from '@material-ui/core'
+import { Select } from '@material-ui/core'
 
 interface Props {
   children: React.ReactNode
@@ -19,6 +19,8 @@ const useStyles = makeStyles({
     color: '#FFFFFF',
     padding: '14px 20px 14px 20px',
     cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
+    display: 'flex',
+    alignItems: 'center',
   },
   icon: {
     right: 15,
@@ -27,17 +29,17 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Select(props: Props) {
+export default function _Select(props: Props) {
   const classes = useStyles(props)
 
   return (
-    <NativeSelect
+    <Select
       disableUnderline
       classes={{ root: classes.root, icon: classes.icon }}
       defaultValue={props.defaultValue}
       disabled={props.disabled}
     >
       {props.children}
-    </NativeSelect>
+    </Select>
   )
 }

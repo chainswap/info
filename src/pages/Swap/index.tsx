@@ -3,7 +3,7 @@ import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import SwapHeader from '../../components/swap/SwapHeader'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
-import CurrencySelectPanel from '../../components/CurrencySelectPanel'
+import CurrencySelectPanel from '../../components/CurrencySelectPanel/CurrencySelectPanel'
 import { styled } from '@material-ui/styles'
 import { Grid } from '@material-ui/core'
 

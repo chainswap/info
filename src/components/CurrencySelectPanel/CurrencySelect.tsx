@@ -39,18 +39,25 @@ const CurrencyIcon = styled('div')({
   marginRight: 12,
 })
 
-export default function CurrencySelectPanel(props: any) {
+export default function CurrencySelectPanel(props: Props) {
   const classes = useStyles(props)
+  const { label, disabled } = props
   return (
     <>
       <Column>
-        <CurrencySelectLabel>{props.label}</CurrencySelectLabel>
-        <Select defaultValue="ETH" disabled={props.disabled}>
+        <CurrencySelectLabel>{label}</CurrencySelectLabel>
+        <Select defaultValue="ETH" disabled={disabled}>
           <MenuItem value="ETH" className={classes.selectMenu}>
             <CurrencyIcon>
               <img src={DummyLogo} alt="currency_icon" />
             </CurrencyIcon>
             ETH
+          </MenuItem>
+          <MenuItem value="BNB" className={classes.selectMenu}>
+            <CurrencyIcon>
+              <img src={DummyLogo} alt="currency_icon" />
+            </CurrencyIcon>
+            BNB
           </MenuItem>
         </Select>
       </Column>

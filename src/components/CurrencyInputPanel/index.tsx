@@ -1,6 +1,6 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
-import { Input } from '@material-ui/core'
+import DropDown from '../../assets/images/dummy_logo.png'
 
 const LabelRow = styled('div')({
   fontWeight: 400,
@@ -16,8 +16,11 @@ const InputRow = styled('div')({
   width: '100%',
   height: 48,
   borderRadius: 14,
-  background: 'rgba(255, 255, 255, 0.08)',
+  backgroundColor: 'rgba(255, 255, 255, 0.08)',
   overflow: 'hidden',
+  display: 'flex',
+  padding: '14px 20px 14px 20px',
+  boxSizing: 'border-box',
 })
 
 const StyledInput = styled('input')({
@@ -26,15 +29,28 @@ const StyledInput = styled('input')({
   fontSize: 16,
   fontFamily: 'Roboto',
   fontWeight: 400,
-  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  backgroundColor: 'transparent',
   color: '#FFFFFF',
-  width: '-webkit-fill-available',
   height: '100%',
-  opacity: 0.4,
-  paddingLeft: 20,
+  position: 'relative',
+  flex: '1 1 auto',
 })
 
-const CurrencySelect = styled('button')({})
+const CurrencySelect = styled('button')({
+  alignItems: 'center',
+  height: 36,
+  fontSize: '20px',
+  fontWeight: 500,
+  backgroundColor: 'transparent',
+  color: '#FFFFFF',
+  borderRadius: 12,
+  outline: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  },
+})
 
 export default function CurrencyInputPanel() {
   return (
@@ -42,7 +58,11 @@ export default function CurrencyInputPanel() {
       <LabelRow>Amount</LabelRow>
       <InputRow>
         <StyledInput placeholder="Enter amount to swap" />
-        <CurrencySelect />
+        <CurrencySelect>
+          {/* <CurrencyLogo /> */}
+          {/* <StyledTokenName /> */}
+          {/* <DropDown /> */}
+        </CurrencySelect>
       </InputRow>
     </>
   )

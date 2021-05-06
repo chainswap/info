@@ -1,5 +1,5 @@
 import React from 'react'
-import OutlineButton from '../../components/Button/OutlineButton'
+import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import SwapHeader from '../../components/swap/SwapHeader'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
@@ -26,7 +26,7 @@ export default function Swap() {
             <CurrencySelectPanel />
           </Grid>
           <Grid container item>
-            <OutlineButton size="large">Connect Wallet</OutlineButton>
+            <Button size="large">Connect Wallet</Button>
           </Grid>
         </Grid>
       </AppBody>

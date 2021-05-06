@@ -1,6 +1,5 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
-import DropDown from '../../assets/images/dummy_logo.png'
 
 const LabelRow = styled('div')({
   fontWeight: 400,

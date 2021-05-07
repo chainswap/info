@@ -15,8 +15,6 @@ const HeaderFrame = styled('div')({
   padding: '32px 40px',
 })
 
-const HeaderRow = styled(RowFixed)({})
-
 const Title = styled('a')({
   display: 'flex',
   alignItems: 'center',
@@ -40,6 +38,13 @@ const StyledNavLink = styled(NavLink)({
   letterSpacing: '0.02em',
   color: '#FFFFFF',
   margin: '0 12px',
+  opacity: 0.5,
+  '&.active': {
+    opacity: 1,
+  },
+  '&:hover': {
+    opacity: 1,
+  },
 })
 
 export default function Header() {
@@ -47,29 +52,29 @@ export default function Header() {
 
   return (
     <HeaderFrame>
-      <HeaderRow>
-        <Title href="/swap">
+      <RowFixed>
+        <Title href=".">
           <img width={'24px'} src={DummyLogo} alt="logo" />
         </Title>
         <HeaderLinks>
           <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
             swap
           </StyledNavLink>
-          <StyledNavLink id={`swap-nav-link`} to={'/deploy'}>
+          <StyledNavLink id={`deploy-nav-link`} to={'/deploy'}>
             Deploy
           </StyledNavLink>
-          <StyledNavLink id={`swap-nav-link`} to={'/liquidity'}>
+          <StyledNavLink id={`liquidity-nav-link`} to={'/liquidity'}>
             Liquidity
           </StyledNavLink>
-          <StyledNavLink id={`swap-nav-link`} to={'/farm'}>
+          <StyledNavLink id={`farm-nav-link`} to={'/farm'}>
             Farm
           </StyledNavLink>
-          <StyledNavLink id={`swap-nav-link`} to={'/info'}>
+          <StyledNavLink id={`info-nav-link`} to={'/info'}>
             Info
           </StyledNavLink>
         </HeaderLinks>
-      </HeaderRow>
-      <Button size="small" width={140} onClick={toggleWalletModal}>
+      </RowFixed>
+      <Button size="small" width={'140'} onClick={toggleWalletModal}>
         Connect Wallet
       </Button>
     </HeaderFrame>

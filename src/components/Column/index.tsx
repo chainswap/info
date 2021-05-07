@@ -6,4 +6,9 @@ const Column = styled('div')({
   justifyContent: 'flex-start',
 })
 
+export const ColumnCenter = styled(Column)({
+  width: '100%',
+  alignItems: 'center',
+})
+
 export default Column

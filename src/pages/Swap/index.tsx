@@ -6,6 +6,13 @@ import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import CurrencySelectPanel from '../../components/CurrencySelectPanel/CurrencySelectPanel'
 import { Grid } from '@material-ui/core'
 import { useWalletModalToggle } from '../../state/application/hooks'
+import WalletModal from '../../components/WalletModal'
+import { styled } from '@material-ui/styles'
+
+const AppBodyGrid = styled('div')({
+  display: 'grid',
+  gridGap: 26,
+})
 
 export default function Swap() {
   // toggle wallet when disconnected
@@ -14,23 +21,16 @@ export default function Swap() {
   return (
     <>
       <AppBody>
-        <Grid container direction={'column'} spacing={3} justify={'flex-start'}>
-          <Grid container item>
-            <SwapHeader />
-          </Grid>
-          <Grid container item>
-            <CurrencyInputPanel />
-          </Grid>
-          <Grid container item>
-            <CurrencySelectPanel />
-          </Grid>
-          <Grid container item>
-            <Button size="large" onClick={toggleWalletModal}>
-              Connect Wallet
-            </Button>
-          </Grid>
-        </Grid>
+        <SwapHeader />
+        <AppBodyGrid>
+          <CurrencyInputPanel />
+          <CurrencySelectPanel />
+          <Button size="large" onClick={toggleWalletModal}>
+            Connect Wallet
+          </Button>
+        </AppBodyGrid>
       </AppBody>
+      <WalletModal />
     </>
   )
 }

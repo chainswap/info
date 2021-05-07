@@ -23,3 +23,5 @@ const Row = styled(Box)({
 export const RowBetween = styled(Row)({
   justifyContent: 'space-between',
 })
+
+export default Row

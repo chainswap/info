@@ -1,7 +1,13 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Swap from './Swap'
 import { styled } from '@material-ui/core'
+import Header from '../components/Header/Header'
+
+const HeaderWrapper = styled('div')({
+  width: '100%',
+  justifyContent: 'space-between',
+})
 
 const BodyWrapper = styled('div')({
   display: 'flex',
@@ -13,12 +19,15 @@ const BodyWrapper = styled('div')({
 
 export default function App() {
   return (
-    <BodyWrapper>
-      <BrowserRouter>
+    <>
+      <HeaderWrapper>
+        <Header />
+      </HeaderWrapper>
+      <BodyWrapper>
         <Switch>
           <Route exact strict path="/swap" component={Swap} />
         </Switch>
-      </BrowserRouter>
-    </BodyWrapper>
+      </BodyWrapper>
+    </>
   )
 }

@@ -21,9 +21,9 @@ const HeaderWrapper = styled('div')({
 const BodyWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
-  paddingTop: 200,
   alignItems: 'center',
+  justifyContent: 'center',
+  height: 'calc(100vh - 88px)',
 })
 
 export default function App() {

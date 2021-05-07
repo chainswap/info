@@ -24,4 +24,8 @@ export const RowBetween = styled(Row)({
   justifyContent: 'space-between',
 })
 
+export const RowFixed = styled(Row)({
+  width: 'fit-content',
+})
+
 export default Row

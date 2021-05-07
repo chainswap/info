@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Swap from './Swap'
+import Swap from './Swap/Swap'
 import { styled, createMuiTheme, Theme, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'

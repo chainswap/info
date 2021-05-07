@@ -1,8 +1,17 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Swap from './Swap'
-import { styled } from '@material-ui/core'
+import { styled, createMuiTheme, Theme, CssBaseline } from '@material-ui/core'
+import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
+
+const theme: Theme = createMuiTheme({
+  palette: {
+    background: {
+      default: '#131315',
+    },
+  },
+})
 
 const HeaderWrapper = styled('div')({
   width: '100%',
@@ -20,14 +29,17 @@ const BodyWrapper = styled('div')({
 export default function App() {
   return (
     <>
-      <HeaderWrapper>
-        <Header />
-      </HeaderWrapper>
-      <BodyWrapper>
-        <Switch>
-          <Route exact strict path="/swap" component={Swap} />
-        </Switch>
-      </BodyWrapper>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <HeaderWrapper>
+          <Header />
+        </HeaderWrapper>
+        <BodyWrapper>
+          <Switch>
+            <Route exact strict path="/swap" component={Swap} />
+          </Switch>
+        </BodyWrapper>
+      </ThemeProvider>
     </>
   )
 }

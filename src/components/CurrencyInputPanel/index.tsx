@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { styled } from '@material-ui/styles'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import Column from '../Column/index'
+import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 
 const LabelRow = styled('div')({
   fontWeight: 400,
@@ -68,14 +69,26 @@ const ArrowDown = styled('div')({
   fontSize: 16,
 })
 
+// interface CurrencyInputPanelProps {}
+
 export default function CurrencyInputPanel() {
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const handleDismissSearch = useCallback(() => {
+    setModalOpen(false)
+  }, [setModalOpen])
+
   return (
     <>
       <Column>
         <LabelRow>Amount</LabelRow>
         <InputRow>
           <StyledInput placeholder="Enter amount to swap" />
-          <CurrencySelect>
+          <CurrencySelect
+            onClick={() => {
+              setModalOpen(true)
+            }}
+          >
             <CurrencyLogo>
               <img src={DummyLogo} alt="currency_logo" />
             </CurrencyLogo>
@@ -84,6 +97,14 @@ export default function CurrencyInputPanel() {
           </CurrencySelect>
         </InputRow>
       </Column>
+      <CurrencySearchModal
+        isOpen={modalOpen}
+        onDismiss={handleDismissSearch}
+        // onCurrencySelect={onCurrencySelect}
+        // selectedCurrency={currency}
+        // otherSelectedCurrency={otherCurrency}
+        // showCommonBases={showCommonBases}
+      />
     </>
   )
 }

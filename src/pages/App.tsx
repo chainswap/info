@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Swap from './pages/Swap'
+import Swap from './Swap'
 import { styled } from '@material-ui/core'
 
 const BodyWrapper = styled('div')({

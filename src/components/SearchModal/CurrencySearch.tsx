@@ -20,9 +20,9 @@ const SearchInput = styled(Input)({
   background: 'hsla(0,0%,100%,.08)',
 })
 
-// const PaddedColumn = styled(AutoColumn)({
-//   padding: 20,
-// })
+const Padded = styled('div')({
+  padding: 20,
+})
 
 const Seperator = styled('div')({
   width: '100%',
@@ -44,10 +44,10 @@ interface Props {
 export default function CurrencySearch(props: Props) {
   return (
     <>
-      <AutoColumn gap="16px">
+      <Padded>
         <SearchInput disableUnderline placeholder={'Search by name or paste address'} />
-        <Seperator />
-      </AutoColumn>
+      </Padded>
+      <Seperator />
     </>
   )
 }

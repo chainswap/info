@@ -19,7 +19,6 @@ const useStyles = makeStyles({
     boxSizing: 'border-box',
     borderRadius: 42,
     width: 480,
-    padding: '24px 30px',
   },
   backdrop: {
     backgroundColor: 'rgba(0,0,0,.8)',
@@ -34,7 +33,7 @@ const DialogTitle = styled('div')({
   lineHeight: '26.76px',
   display: 'flex',
   justifyContent: 'center',
-  marginBottom: 20,
+  marginTop: 24,
 })
 
 const CloseIcon = styled('div')({

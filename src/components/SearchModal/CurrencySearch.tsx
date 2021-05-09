@@ -1,8 +1,7 @@
 import React from 'react'
-import { RowBetween } from '../Row/index'
 import { styled } from '@material-ui/styles'
 import { Input } from '@material-ui/core'
-import { AutoColumn } from '../Column/index'
+import CurrencyList from './CurrencyList'
 
 const SearchInput = styled(Input)({
   position: 'relative',
@@ -48,6 +47,7 @@ export default function CurrencySearch(props: Props) {
         <SearchInput disableUnderline placeholder={'Search by name or paste address'} />
       </Padded>
       <Seperator />
+      <CurrencyList />
     </>
   )
 }

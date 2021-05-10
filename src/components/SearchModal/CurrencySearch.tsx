@@ -20,24 +20,18 @@ const SearchInput = styled(Input)({
 })
 
 const Padded = styled('div')({
-  padding: 20,
+  padding: '20px 32px 0 32px',
 })
 
 const Seperator = styled('div')({
   width: '100%',
   height: 1,
   backgroundColor: 'hsla(0,0%,100%,.12)',
+  margin: '20px 0',
 })
 interface Props {
   isOpen: boolean
   onDismiss: () => void
-  // selectedCurrency?: Currency | null
-  // onCurrencySelect: (currency: Currency) => void
-  // otherSelectedCurrency?: Currency | null
-  // showCommonBases?: boolean
-  // showManageView: () => void
-  // showImportView: () => void
-  // setImportToken: (token: Token) => void
 }
 
 export default function CurrencySearch(props: Props) {

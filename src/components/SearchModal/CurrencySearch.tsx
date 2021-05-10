@@ -2,6 +2,8 @@ import React from 'react'
 import { styled } from '@material-ui/styles'
 import { Input } from '@material-ui/core'
 import CurrencyList from './CurrencyList'
+import Row, { RowFixed } from '../Row'
+import ButtonText from '../Button/ButtonText'
 
 const SearchInput = styled(Input)({
   position: 'relative',
@@ -29,6 +31,13 @@ const Seperator = styled('div')({
   backgroundColor: 'hsla(0,0%,100%,.12)',
   margin: '20px 0',
 })
+
+const Footer = styled('div')({
+  width: '100%',
+  borderRadius: '0 0 20px 20px',
+  padding: 20,
+})
+
 interface Props {
   isOpen: boolean
   onDismiss: () => void
@@ -42,6 +51,13 @@ export default function CurrencySearch(props: Props) {
       </Padded>
       <Seperator />
       <CurrencyList />
+      <Footer>
+        <Row justify="center">
+          <ButtonText>
+            <RowFixed>Manage</RowFixed>
+          </ButtonText>
+        </Row>
+      </Footer>
     </>
   )
 }

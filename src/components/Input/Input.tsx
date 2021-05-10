@@ -1,10 +1,11 @@
 import React, { ChangeEvent } from 'react'
-import { InputBase, makeStyles } from '@material-ui/core'
+import { InputBase, InputLabel, makeStyles } from '@material-ui/core'
 
 interface Props {
   placeholder?: string
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  label?: string
 }
 
 const useStyles = makeStyles({
@@ -22,5 +23,6 @@ const useStyles = makeStyles({
 
 export default function Input(props: Props) {
   const classes = useStyles(props)
+
   return <InputBase fullWidth={true} {...props} classes={{ ...classes }} />
 }

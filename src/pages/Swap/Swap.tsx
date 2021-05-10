@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import SwapHeader from '../../components/swap/SwapHeader'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
+import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import CurrencySelectPanel from '../../components/CurrencySelectPanel/CurrencySelectPanel'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import WalletModal from '../../components/WalletModal'
@@ -35,6 +35,7 @@ export default function Swap() {
             </Button>
           ) : (
             <Input
+              label={'Destination Chain Wallet Address'}
               value={address}
               placeholder={'Enter address to swap'}
               onChange={(e) => setAddress(e.currentTarget.value)}

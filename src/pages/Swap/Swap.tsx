@@ -9,6 +9,7 @@ import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
 import Input from '../../components/Input/Input'
 import Column from '../../components/Column/index'
+import { RowBetween } from '../../components/Row/index'
 
 const AppBodyGrid = styled('div')({
   display: 'grid',
@@ -17,8 +18,11 @@ const AppBodyGrid = styled('div')({
 
 export default function Swap() {
   const account = true
-  const [address, setAddress] = useState('')
   // Todo: const { account } = useActiveWeb3React()
+
+  const [address, setAddress] = useState('')
+  const [fromCurrency, setFromCurrency] = useState('ETH')
+  const [toCurrency, setToCurrency] = useState('BSC')
 
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
@@ -30,20 +34,31 @@ export default function Swap() {
         <AppBodyGrid>
           <CurrencyInputPanel />
           <CurrencySelectPanel />
-          <Column>
-            {!account ? (
-              <Button size="large" onClick={toggleWalletModal}>
-                Connect Wallet
-              </Button>
-            ) : (
-              <Input
-                label={'Destination Chain Wallet Address'}
-                value={address}
-                placeholder={'Enter address to swap'}
-                onChange={(e) => setAddress(e.currentTarget.value)}
-              />
-            )}
-          </Column>
+
+          {!account ? (
+            <Button size="large" onClick={toggleWalletModal}>
+              Connect Wallet
+            </Button>
+          ) : (
+            <>
+              <Column>
+                <Input
+                  label={'Destination Chain Wallet Address'}
+                  value={address}
+                  placeholder={'Enter address to swap'}
+                  onChange={(e) => setAddress(e.currentTarget.value)}
+                />
+              </Column>
+              <RowBetween>
+                <Button size="large" width="216px">
+                  Deposit in {fromCurrency} Chain
+                </Button>
+                <Button size="large" width="216px" disabled>
+                  Withdraw from {toCurrency} Chain
+                </Button>
+              </RowBetween>
+            </>
+          )}
         </AppBodyGrid>
       </AppBody>
       <WalletModal />

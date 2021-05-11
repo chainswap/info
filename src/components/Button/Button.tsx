@@ -18,8 +18,6 @@ const useStyles = makeStyles({
     height: (props: Props) => (props.size === 'large' ? 48 : 32),
     background: '#9867FF',
     color: '#fff',
-    padding: (props: Props) => (props.size === 'large' ? '14px 24px' : '7px 22px 6px 23px'),
-    // padding: '14px 24px',
     textAlign: 'center',
     fontSize: (props: Props) => (props.size === 'large' ? 16 : 14),
     fontFamily: 'Roboto',

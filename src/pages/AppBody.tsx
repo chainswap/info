@@ -3,8 +3,8 @@ import { styled } from '@material-ui/styles'
 
 export const BodyWrapper = styled('div')({
   position: 'relative',
-  maxWidth: 480,
-  width: 480,
+  maxWidth: 512,
+  width: 512,
   borderRadius: 32,
   background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #000000',
   padding: '12px 32px 28px',

@@ -74,7 +74,7 @@ export default function Header() {
           </StyledNavLink>
         </HeaderLinks>
       </RowFixed>
-      <Button size="small" width={'140'} onClick={toggleWalletModal}>
+      <Button size="small" width={'140px'} onClick={toggleWalletModal}>
         Connect Wallet
       </Button>
     </HeaderFrame>

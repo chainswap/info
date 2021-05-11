@@ -20,9 +20,6 @@ const useStyles = makeStyles({
     paddingLeft: 20,
     borderRadius: 14,
   },
-  '&::placeholder': {
-    color: 'blue',
-  },
 })
 
 export const StyledInputLabel = styled(InputLabel)({

@@ -101,8 +101,8 @@ const useStepIconStyles = makeStyles({
 
 function StepIcon(props: StepIconProps) {
   const classes = useStepIconStyles()
-  console.log(props)
   const { completed, active, icon } = props
+
   return (
     <div
       className={clsx(classes.root, {
@@ -119,7 +119,7 @@ function getSteps() {
 }
 
 export default function _Stepper() {
-  const [activeStep, setActiveStep] = React.useState(1)
+  const [activeStep, setActiveStep] = React.useState()
   const steps = getSteps()
 
   return (

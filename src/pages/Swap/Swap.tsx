@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import SwapHeader from '../../components/swap/SwapHeader'
@@ -22,19 +22,29 @@ export default function Swap() {
   const account = true
   // Todo: const { account } = useActiveWeb3React()
 
+  const [amount, setAmount] = useState('')
   const [address, setAddress] = useState('')
   const [fromCurrency, setFromCurrency] = useState('ETH')
   const [toCurrency, setToCurrency] = useState('BSC')
+  const [depositDisabled, setDepositDisabled] = useState(true)
 
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
+
+  const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.currentTarget.value)
+  }
+
+  const onChangeAddress = (e: ChangeEvent<HTMLInputElement>) => {
+    setAddress(e.currentTarget.value)
+  }
 
   return (
     <>
       <AppBody>
         <SwapHeader />
         <AppBodyGrid>
-          <CurrencyInputPanel />
+          <CurrencyInputPanel onChange={onChangeAmount} />
           <CurrencySelectPanel />
           {!account ? (
             <Button size="large" onClick={toggleWalletModal}>
@@ -47,11 +57,11 @@ export default function Swap() {
                   label={'Destination Chain Wallet Address'}
                   value={address}
                   placeholder={'Enter address to swap'}
-                  onChange={(e) => setAddress(e.currentTarget.value)}
+                  onChange={onChangeAddress}
                 />
               </Column>
               <RowBetween>
-                <Button size="large" width="216px">
+                <Button size="large" width="216px" disabled={depositDisabled}>
                   Deposit in {fromCurrency} Chain
                 </Button>
                 <Button size="large" width="216px" disabled>

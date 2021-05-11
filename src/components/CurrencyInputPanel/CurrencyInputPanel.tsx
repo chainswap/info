@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import Column from '../Column/index'
@@ -52,7 +52,11 @@ const ArrowDown = styled('div')({
   fontSize: 16,
 })
 
-export default function CurrencyInputPanel() {
+interface Props {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+export default function CurrencyInputPanel(props: Props) {
   const [modalOpen, setModalOpen] = useState(false)
   const [amount, setAmount] = useState('')
 
@@ -65,13 +69,7 @@ export default function CurrencyInputPanel() {
       <Column>
         <StyledInputLabel>Amount</StyledInputLabel>
         <InputRow>
-          <StyledInput
-            placeholder={'Enter amount to swap'}
-            value={amount}
-            onChange={(e) => {
-              setAmount(e.currentTarget.value)
-            }}
-          />
+          <StyledInput placeholder={'Enter amount to swap'} value={amount} onChange={props.onChange} />
           <CurrencySelect
             onClick={() => {
               setModalOpen(true)

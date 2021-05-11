@@ -11,6 +11,7 @@ import Input from '../../components/Input/Input'
 import Column from '../../components/Column/index'
 import { RowBetween } from '../../components/Row/index'
 import Stepper from '../../components/Stepper/Stepper'
+import Row from '../../components/Row/index'
 
 const AppBodyGrid = styled('div')({
   display: 'grid',
@@ -57,7 +58,9 @@ export default function Swap() {
                   Withdraw from {toCurrency} Chain
                 </Button>
               </RowBetween>
-              <Stepper />
+              <Row justify={'center'}>
+                <Stepper />
+              </Row>
             </>
           )}
         </AppBodyGrid>

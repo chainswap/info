@@ -10,6 +10,7 @@ import { styled } from '@material-ui/styles'
 import Input from '../../components/Input/Input'
 import Column from '../../components/Column/index'
 import { RowBetween } from '../../components/Row/index'
+import Stepper from '../../components/Stepper/Stepper'
 
 const AppBodyGrid = styled('div')({
   display: 'grid',
@@ -34,7 +35,6 @@ export default function Swap() {
         <AppBodyGrid>
           <CurrencyInputPanel />
           <CurrencySelectPanel />
-
           {!account ? (
             <Button size="large" onClick={toggleWalletModal}>
               Connect Wallet
@@ -57,6 +57,7 @@ export default function Swap() {
                   Withdraw from {toCurrency} Chain
                 </Button>
               </RowBetween>
+              <Stepper />
             </>
           )}
         </AppBodyGrid>

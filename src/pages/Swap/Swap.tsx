@@ -8,6 +8,7 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
 import Input from '../../components/Input/Input'
+import Column from '../../components/Column/index'
 
 const AppBodyGrid = styled('div')({
   display: 'grid',
@@ -29,18 +30,20 @@ export default function Swap() {
         <AppBodyGrid>
           <CurrencyInputPanel />
           <CurrencySelectPanel />
-          {!account ? (
-            <Button size="large" onClick={toggleWalletModal}>
-              Connect Wallet
-            </Button>
-          ) : (
-            <Input
-              label={'Destination Chain Wallet Address'}
-              value={address}
-              placeholder={'Enter address to swap'}
-              onChange={(e) => setAddress(e.currentTarget.value)}
-            />
-          )}
+          <Column>
+            {!account ? (
+              <Button size="large" onClick={toggleWalletModal}>
+                Connect Wallet
+              </Button>
+            ) : (
+              <Input
+                label={'Destination Chain Wallet Address'}
+                value={address}
+                placeholder={'Enter address to swap'}
+                onChange={(e) => setAddress(e.currentTarget.value)}
+              />
+            )}
+          </Column>
         </AppBodyGrid>
       </AppBody>
       <WalletModal />

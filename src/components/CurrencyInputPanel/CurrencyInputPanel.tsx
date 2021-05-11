@@ -3,15 +3,7 @@ import { styled } from '@material-ui/styles'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import Column from '../Column/index'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
-
-const LabelRow = styled('div')({
-  fontWeight: 400,
-  fontSize: 12,
-  fontFamily: 'Roboto',
-  lineHeight: '17.84px',
-  color: '#FFFFFF',
-  opacity: 0.6,
-})
+import Input, { StyledInputLabel } from '../Input/Input'
 
 const InputRow = styled('div')({
   alignItems: 'center',
@@ -21,21 +13,12 @@ const InputRow = styled('div')({
   backgroundColor: 'rgba(255, 255, 255, 0.08)',
   overflow: 'hidden',
   display: 'flex',
-  padding: '14px 20px 14px 20px',
+  padding: '14px 20px 14px 0',
   boxSizing: 'border-box',
 })
 
-const StyledInput = styled('input')({
-  outline: 'none',
-  border: 'none',
-  fontSize: 16,
-  fontFamily: 'Roboto',
-  fontWeight: 400,
+const StyledInput = styled(Input)({
   backgroundColor: 'transparent',
-  color: '#FFFFFF',
-  height: '100%',
-  position: 'relative',
-  flex: '1 1 auto',
 })
 
 const CurrencySelect = styled('button')({
@@ -69,10 +52,9 @@ const ArrowDown = styled('div')({
   fontSize: 16,
 })
 
-// interface CurrencyInputPanelProps {}
-
 export default function CurrencyInputPanel() {
   const [modalOpen, setModalOpen] = useState(false)
+  const [amount, setAmount] = useState('')
 
   const handleDismissSearch = useCallback(() => {
     setModalOpen(false)
@@ -81,9 +63,15 @@ export default function CurrencyInputPanel() {
   return (
     <>
       <Column>
-        <LabelRow>Amount</LabelRow>
+        <StyledInputLabel>Amount</StyledInputLabel>
         <InputRow>
-          <StyledInput placeholder="Enter amount to swap" />
+          <StyledInput
+            placeholder={'Enter amount to swap'}
+            value={amount}
+            onChange={(e) => {
+              setAmount(e.currentTarget.value)
+            }}
+          />
           <CurrencySelect
             onClick={() => {
               setModalOpen(true)

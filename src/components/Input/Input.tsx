@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { InputBase, InputLabel, makeStyles } from '@material-ui/core'
+import { styled } from '@material-ui/styles'
 
 interface Props {
   placeholder?: string
@@ -19,10 +20,27 @@ const useStyles = makeStyles({
     paddingLeft: 20,
     borderRadius: 14,
   },
+  '&::placeholder': {
+    color: 'blue',
+  },
+})
+
+export const StyledInputLabel = styled(InputLabel)({
+  fontWeight: 400,
+  fontSize: 12,
+  fontFamily: 'Roboto',
+  lineHeight: '17.84px',
+  color: '#FFFFFF',
+  opacity: 0.6,
 })
 
 export default function Input(props: Props) {
   const classes = useStyles(props)
 
-  return <InputBase fullWidth={true} {...props} classes={{ ...classes }} />
+  return (
+    <>
+      {props.label && <StyledInputLabel>{props.label}</StyledInputLabel>}
+      <InputBase fullWidth={true} {...props} classes={{ ...classes }} />
+    </>
+  )
 }

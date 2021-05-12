@@ -7,40 +7,18 @@ import CurrencySelectPanel from '../../components/CurrencySelectPanel/CurrencySe
 import { useWalletModalToggle } from '../../state/application/hooks'
 import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
+import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
 import Column from '../../components/Column/index'
 import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
 import StepperContainer from '../../components/swap/StepperContainer'
 
-const FormWrapper = styled('div')({
-  display: 'grid',
-  gridGap: 20,
-  padding: '0 32px',
-})
-
-const StepperWrapper = styled('div')({
-  display: 'grid',
-  gridGap: 16,
-  padding: '28px 32px',
-})
-
 const Seperator = styled('div')({
   width: '100%',
   height: 1,
   backgroundColor: '#FFFFFF',
   opacity: 0.2,
-})
-
-const Footer = styled('div')({
-  width: '100%',
-  borderRadius: '0 0 20px 20px',
-})
-
-const QuotaWrapper = styled('div')({
-  display: 'grid',
-  gridGap: 12,
-  padding: '24px 32px 28px 32px',
 })
 
 export default function Swap() {
@@ -95,7 +73,7 @@ export default function Swap() {
     <>
       <AppBody>
         <SwapHeader />
-        <FormWrapper>
+        <Box display="grid" gridGap="20px" padding="0 32px">
           <CurrencyInputPanel onChange={onChangeAmount} value={amount} />
           <CurrencySelectPanel />
           {account && (
@@ -108,11 +86,11 @@ export default function Swap() {
               />
             </Column>
           )}
-        </FormWrapper>
+        </Box>
 
         {account && (
           <>
-            <StepperWrapper>
+            <Box display="grid" gridGap="16px" padding="28px 32px">
               <StepperContainer
                 depositEnabled={depositEnabled}
                 withdrawEnabled={withdrawEnabled}
@@ -121,14 +99,12 @@ export default function Swap() {
                 onDeposit={onDeposit}
                 onWithdraw={onWithdraw}
               />
-            </StepperWrapper>
+            </Box>
             <Seperator />
-            <Footer>
-              <QuotaWrapper>
-                <QuotaInfo quota={quota} currency={currency} percentage={getPercentage()} />
-                <QuotaBar percentage={getPercentage()} />
-              </QuotaWrapper>
-            </Footer>
+            <Box display="grid" gridGap="12px" padding="24px 32px 28px 32px">
+              <QuotaInfo quota={quota} currency={currency} percentage={getPercentage()} />
+              <QuotaBar percentage={getPercentage()} />
+            </Box>
           </>
         )}
 

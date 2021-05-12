@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
 import { RowBetween, RowFixed } from '../Row/index'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, Box } from '@material-ui/core'
 
 interface Props {
   percentage: number
@@ -36,15 +36,15 @@ export default function QuotaInfo(props: Props) {
 
   return (
     <>
-      <RowBetween>
+      <Box display="flex" justifyContent="space-between">
         <label className={classes.label}>Your Quota:</label>
-        <RowFixed>
+        <Box display="flex">
           <div className={classes.text}>
             {quota} {currency}
           </div>
           <div className={classes.subText}>{percentage}% / 100%</div>
-        </RowFixed>
-      </RowBetween>
+        </Box>
+      </Box>
     </>
   )
 }

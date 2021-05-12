@@ -4,6 +4,7 @@ import DummyLogo from '../../assets/images/dummy_logo.png'
 import Column from '../Column/index'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input, { StyledInputLabel } from '../Input/Input'
+import { RowBetween } from '../Row'
 
 const InputRow = styled('div')({
   alignItems: 'center',
@@ -67,7 +68,10 @@ export default function CurrencyInputPanel(props: Props) {
   return (
     <>
       <Column>
-        <StyledInputLabel>Amount</StyledInputLabel>
+        <RowBetween>
+          <StyledInputLabel>Amount</StyledInputLabel>
+          <StyledInputLabel style={{ opacity: 0.4 }}>Your balance: 1.24 MATTER</StyledInputLabel>
+        </RowBetween>
         <InputRow>
           <StyledInput
             placeholder={'Enter amount to swap'}

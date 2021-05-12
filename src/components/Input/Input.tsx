@@ -38,6 +38,7 @@ export const StyledInputLabel = styled(InputLabel)({
   lineHeight: '17.84px',
   color: '#FFFFFF',
   opacity: 0.6,
+  marginBottom: 4,
 })
 
 export default function Input(props: Props) {

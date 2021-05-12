@@ -23,29 +23,6 @@ const Step = withStyles({
   },
 })(MuiStep)
 
-const StepLabel = withStyles({
-  root: {
-    // border: '1px solid white',
-    // borderRadius: '50%',
-    color: 'transparent',
-    '&$active': {
-      color: 'transparent',
-    },
-    '&$completed': {
-      color: 'transparent',
-      border: '1px solid #24FF00',
-    },
-  },
-  active: {},
-  completed: {},
-  horizontal: {
-    padding: 0,
-  },
-  text: {
-    fill: '#FFFFFF',
-  },
-})(MuiStepLabel)
-
 const Connector = withStyles({
   alternativeLabel: {
     top: 22,
@@ -61,7 +38,7 @@ const Connector = withStyles({
     },
   },
   line: {
-    backgroundColor: '#FFFFFF',
+    background: 'linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0.4) 100%)',
     height: 1,
     width: 184,
     border: 0,
@@ -77,7 +54,9 @@ const useStepIconStyles = makeStyles({
     alignItems: 'center',
   },
   active: {
-    color: '#784af4',
+    '& $circle': {
+      opacity: 1,
+    },
   },
   circle: {
     width: 24,
@@ -87,6 +66,7 @@ const useStepIconStyles = makeStyles({
     border: '1px solid #FFFFFF',
     color: '#FFFFFF',
     textAlign: 'center',
+    opacity: 0.4,
   },
   completed: {
     color: '#24FF00',
@@ -118,17 +98,18 @@ function getSteps() {
 }
 
 export default function _Stepper() {
-  const [activeStep, setActiveStep] = React.useState()
+  const [activeStep, setActiveStep] = React.useState(1)
   const steps = getSteps()
 
   return (
     <Stepper activeStep={activeStep} connector={<Connector />}>
-      {steps.map((label) => (
-        <Step key={label}>
-          <StepIcon icon={label} />
-          {/* <StepLabel StepIconComponent={StepIcon}>{label}</StepLabel> */}
-        </Step>
-      ))}
+      {steps.map((label) => {
+        return (
+          <Step key={label}>
+            <StepIcon icon={label} />
+          </Step>
+        )
+      })}
     </Stepper>
   )
 }

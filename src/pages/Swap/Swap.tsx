@@ -9,9 +9,9 @@ import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
 import Input from '../../components/Input/Input'
 import Column from '../../components/Column/index'
-import { RowBetween, RowFixed } from '../../components/Row/index'
-import Stepper from '../../components/Stepper/Stepper'
-import Row from '../../components/Row/index'
+import QuotaInfo from '../../components/swap/QuotaInfo'
+import QuotaBar from '../../components/swap/QuotaBar'
+import StepperContainer from '../../components/swap/StepperContainer'
 
 const FormWrapper = styled('div')({
   display: 'grid',
@@ -25,35 +25,6 @@ const StepperWrapper = styled('div')({
   padding: '28px 32px',
 })
 
-interface StepperContainerProps {
-  onDeposit: () => void
-  onWithdraw: () => void
-  depositEnabled: boolean
-  withdrawEnabled: boolean
-  from: string
-  to: string
-}
-
-function StepperContainer(props: StepperContainerProps) {
-  const { depositEnabled, withdrawEnabled, onDeposit, onWithdraw, from, to } = props
-
-  return (
-    <>
-      <RowBetween>
-        <Button size="large" width="216px" disabled={!depositEnabled} onClick={onDeposit}>
-          Deposit in {from} Chain
-        </Button>
-        <Button size="large" width="216px" disabled={!withdrawEnabled} onClick={onWithdraw}>
-          Withdraw from {to} Chain
-        </Button>
-      </RowBetween>
-      <Row justify={'center'}>
-        <Stepper />
-      </Row>
-    </>
-  )
-}
-
 const Seperator = styled('div')({
   width: '100%',
   height: 1,
@@ -66,51 +37,6 @@ const Footer = styled('div')({
   borderRadius: '0 0 20px 20px',
   padding: 20,
 })
-
-const QuotaLabel = styled('label')({
-  color: '#FFFFFF',
-  opacity: 0.6,
-  fontSize: 14,
-  fontFamily: 'Roboto',
-})
-
-const QuotaData = styled('div')({
-  display: 'flex',
-  color: '#FFFFFF',
-  fontWeight: 400,
-  '& .percentage': {
-    opacity: 0.4,
-    marginLeft: 12,
-  },
-})
-
-interface QuotaInfoProps {
-  amount: number
-  quota: number
-  currency: string
-}
-
-function QuotaInfo(props: QuotaInfoProps) {
-  const { amount, quota, currency } = props
-  console.log(amount)
-  // const amount = 0
-  // const quota = 800
-  // const currency = 'MATTER'
-  const percentage = ((quota - amount) / quota) * 100
-  return (
-    <>
-      <RowBetween>
-        <QuotaLabel>Your Quota</QuotaLabel>
-        <QuotaData>
-          <div>
-            {quota} {currency}
-          </div>
-          <div className="percentage">{percentage}% / 100%</div>
-        </QuotaData>
-      </RowBetween>
-    </>
-  )
-}
 
 export default function Swap() {
   const [account, setAccouny] = useState(true)
@@ -156,6 +82,10 @@ export default function Swap() {
     alert('withdraw')
   }
 
+  function getPercentage() {
+    return ((quota - parseFloat(amount)) / quota) * 100
+  }
+
   return (
     <>
       <AppBody>
@@ -189,8 +119,8 @@ export default function Swap() {
             </StepperWrapper>
             <Seperator />
             <Footer>
-              <QuotaInfo amount={parseFloat(amount)} quota={quota} currency={currency} />
-              {/* <QuotaChart /> */}
+              <QuotaInfo quota={quota} currency={currency} percentage={getPercentage()} />
+              <QuotaBar percentage={getPercentage()} />
             </Footer>
           </>
         )}

@@ -8,6 +8,7 @@ const StyledSwapHeader = styled('div')({
   textAlign: 'center',
   fontSize: 20,
   fontFamily: 'Futura PT',
+  margin: '12px 0 18px 0',
 })
 
 export default function SwapHeader() {

@@ -5,7 +5,6 @@ import MuiStepLabel from '@material-ui/core/StepLabel'
 import MuiStepConnector from '@material-ui/core/StepConnector'
 import { makeStyles, withStyles } from '@material-ui/core'
 import { StepIconProps } from '@material-ui/core/StepIcon'
-import Check from '@material-ui/icons/Check'
 import clsx from 'clsx'
 
 const Stepper = withStyles({

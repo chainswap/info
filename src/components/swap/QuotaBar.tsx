@@ -1,19 +1,28 @@
 import React from 'react'
-import { styled } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core'
 
 interface Props {
   percentage: number
 }
 
-const Border = styled('div')({
-  backgroundColor: 'rgba(255, 255, 255, .4)',
-  borderRadius: 5,
+const useStyles = makeStyles({
+  border: {
+    backgroundColor: 'rgba(255, 255, 255, .4)',
+    borderRadius: 5,
+  },
+  value: {
+    height: '4px',
+    width: (props: Props) => `${props.percentage}%`,
+    backgroundColor: '#9867FF',
+  },
 })
 
 export default function QuotaBar(props: Props) {
+  const classes = useStyles(props)
+
   return (
-    <Border>
-      <div style={{ height: '4px', width: `${props.percentage}%`, backgroundColor: '#9867FF' }}></div>
-    </Border>
+    <div className={classes.border}>
+      <div className={classes.value} />
+    </div>
   )
 }

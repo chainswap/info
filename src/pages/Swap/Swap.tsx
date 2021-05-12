@@ -35,7 +35,12 @@ const Seperator = styled('div')({
 const Footer = styled('div')({
   width: '100%',
   borderRadius: '0 0 20px 20px',
-  padding: 20,
+})
+
+const QuotaWrapper = styled('div')({
+  display: 'grid',
+  gridGap: 12,
+  padding: '24px 32px 28px 32px',
 })
 
 export default function Swap() {
@@ -119,8 +124,10 @@ export default function Swap() {
             </StepperWrapper>
             <Seperator />
             <Footer>
-              <QuotaInfo quota={quota} currency={currency} percentage={getPercentage()} />
-              <QuotaBar percentage={getPercentage()} />
+              <QuotaWrapper>
+                <QuotaInfo quota={quota} currency={currency} percentage={getPercentage()} />
+                <QuotaBar percentage={getPercentage()} />
+              </QuotaWrapper>
             </Footer>
           </>
         )}

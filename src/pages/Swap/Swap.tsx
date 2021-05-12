@@ -32,22 +32,30 @@ export default function Swap() {
   const toggleWalletModal = useWalletModalToggle()
 
   const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
-    let currentValue = e.currentTarget.value
+    let currentAmount = e.currentTarget.value
+    
     setAmount(e.currentTarget.value)
-    checkDeposit(currentValue)
+    checkDeposit(currentAmount, address)
   }
 
   const onChangeAddress = (e: ChangeEvent<HTMLInputElement>) => {
-    setAddress(e.currentTarget.value)
+    let currentAddress = e.currentTarget.value
+    
+    setAddress(currentAddress)
+    checkDeposit(amount, currentAddress)
   }
 
-  function checkDeposit(currentValue: string) {
-    if (currentValue !== '') {
+  function checkDeposit(amount: string, address: string) {
+    if (amount && address) {
       setDepositEnabled(true)
       return
     }
     setDepositEnabled(false)
   } 
+
+  function deposit() {
+    alert('deposit')
+  }
 
   return (
     <>
@@ -71,7 +79,7 @@ export default function Swap() {
                 />
               </Column>
               <RowBetween>
-                <Button size="large" width="216px" disabled={!depositEnabled}>
+                <Button size="large" width="216px" disabled={!depositEnabled} onClick={deposit}>
                   Deposit in {fromCurrency} Chain
                 </Button>
                 <Button size="large" width="216px" disabled>

@@ -7,6 +7,7 @@ interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   label?: string
+  type?: string
 }
 
 const useStyles = makeStyles({
@@ -19,6 +20,14 @@ const useStyles = makeStyles({
     height: 48,
     paddingLeft: 20,
     borderRadius: 14,
+  },
+  input: {
+    '&::-webkit-outer-spin-button': {
+      '-webkit-appearance': 'none',
+    },
+    '&::-webkit-inner-spin-button': {
+      '-webkit-appearance': 'none',
+    },
   },
 })
 

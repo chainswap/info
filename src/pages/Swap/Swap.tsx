@@ -9,7 +9,7 @@ import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
 import Input from '../../components/Input/Input'
 import Column from '../../components/Column/index'
-import { RowBetween } from '../../components/Row/index'
+import { RowBetween, RowFixed } from '../../components/Row/index'
 import Stepper from '../../components/Stepper/Stepper'
 import Row from '../../components/Row/index'
 
@@ -67,6 +67,51 @@ const Footer = styled('div')({
   padding: 20,
 })
 
+const QuotaLabel = styled('label')({
+  color: '#FFFFFF',
+  opacity: 0.6,
+  fontSize: 14,
+  fontFamily: 'Roboto',
+})
+
+const QuotaData = styled('div')({
+  display: 'flex',
+  color: '#FFFFFF',
+  fontWeight: 400,
+  '& .percentage': {
+    opacity: 0.4,
+    marginLeft: 12,
+  },
+})
+
+interface QuotaInfoProps {
+  amount: number
+  quota: number
+  currency: string
+}
+
+function QuotaInfo(props: QuotaInfoProps) {
+  const { amount, quota, currency } = props
+  console.log(amount)
+  // const amount = 0
+  // const quota = 800
+  // const currency = 'MATTER'
+  const percentage = ((quota - amount) / quota) * 100
+  return (
+    <>
+      <RowBetween>
+        <QuotaLabel>Your Quota</QuotaLabel>
+        <QuotaData>
+          <div>
+            {quota} {currency}
+          </div>
+          <div className="percentage">{percentage}% / 100%</div>
+        </QuotaData>
+      </RowBetween>
+    </>
+  )
+}
+
 export default function Swap() {
   const [account, setAccouny] = useState(true)
   const [amount, setAmount] = useState('')
@@ -75,6 +120,8 @@ export default function Swap() {
   const [to, setTo] = useState('BSC')
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
+  const [quota, setQuota] = useState(800)
+  const [currency, setCurrency] = useState('MATTER')
 
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
@@ -141,7 +188,10 @@ export default function Swap() {
               />
             </StepperWrapper>
             <Seperator />
-            <Footer></Footer>
+            <Footer>
+              <QuotaInfo amount={parseFloat(amount)} quota={quota} currency={currency} />
+              {/* <QuotaChart /> */}
+            </Footer>
           </>
         )}
 

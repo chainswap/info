@@ -69,7 +69,12 @@ export default function CurrencyInputPanel(props: Props) {
       <Column>
         <StyledInputLabel>Amount</StyledInputLabel>
         <InputRow>
-          <StyledInput placeholder={'Enter amount to swap'} value={props.value} onChange={props.onChange} />
+          <StyledInput
+            placeholder={'Enter amount to swap'}
+            value={props.value.toString()}
+            onChange={props.onChange}
+            type={'number'}
+          />
           <CurrencySelect
             onClick={() => {
               setModalOpen(true)

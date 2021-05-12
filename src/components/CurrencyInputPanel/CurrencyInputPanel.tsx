@@ -53,12 +53,12 @@ const ArrowDown = styled('div')({
 })
 
 interface Props {
+  value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export default function CurrencyInputPanel(props: Props) {
   const [modalOpen, setModalOpen] = useState(false)
-  const [amount, setAmount] = useState('')
 
   const handleDismissSearch = useCallback(() => {
     setModalOpen(false)
@@ -69,7 +69,7 @@ export default function CurrencyInputPanel(props: Props) {
       <Column>
         <StyledInputLabel>Amount</StyledInputLabel>
         <InputRow>
-          <StyledInput placeholder={'Enter amount to swap'} value={amount} onChange={props.onChange} />
+          <StyledInput placeholder={'Enter amount to swap'} value={props.value} onChange={props.onChange} />
           <CurrencySelect
             onClick={() => {
               setModalOpen(true)

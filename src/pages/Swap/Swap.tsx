@@ -26,25 +26,35 @@ export default function Swap() {
   const [address, setAddress] = useState('')
   const [fromCurrency, setFromCurrency] = useState('ETH')
   const [toCurrency, setToCurrency] = useState('BSC')
-  const [depositDisabled, setDepositDisabled] = useState(true)
+  const [depositEnabled, setDepositEnabled] = useState(false)
 
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
 
   const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    let currentValue = e.currentTarget.value
     setAmount(e.currentTarget.value)
+    checkDeposit(currentValue)
   }
 
   const onChangeAddress = (e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.currentTarget.value)
   }
 
+  function checkDeposit(currentValue: string) {
+    if (currentValue !== '') {
+      setDepositEnabled(true)
+      return
+    }
+    setDepositEnabled(false)
+  } 
+
   return (
     <>
       <AppBody>
         <SwapHeader />
         <AppBodyGrid>
-          <CurrencyInputPanel onChange={onChangeAmount} />
+          <CurrencyInputPanel onChange={onChangeAmount} value={amount} />
           <CurrencySelectPanel />
           {!account ? (
             <Button size="large" onClick={toggleWalletModal}>
@@ -61,7 +71,7 @@ export default function Swap() {
                 />
               </Column>
               <RowBetween>
-                <Button size="large" width="216px" disabled={depositDisabled}>
+                <Button size="large" width="216px" disabled={!depositEnabled}>
                   Deposit in {fromCurrency} Chain
                 </Button>
                 <Button size="large" width="216px" disabled>

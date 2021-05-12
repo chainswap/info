@@ -9,7 +9,6 @@ import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
-import Column from '../../components/Column/index'
 import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
 import StepperContainer from '../../components/swap/StepperContainer'
@@ -77,14 +76,14 @@ export default function Swap() {
           <CurrencyInputPanel onChange={onChangeAmount} value={amount} />
           <CurrencySelectPanel />
           {account && (
-            <Column>
+            <Box>
               <Input
                 label={'Destination Chain Wallet Address'}
                 value={address}
                 placeholder={'Enter address to swap'}
                 onChange={onChangeAddress}
               />
-            </Column>
+            </Box>
           )}
         </Box>
 

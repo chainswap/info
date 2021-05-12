@@ -1,17 +1,16 @@
 import React from 'react'
-
 import SwitchArrow from '../../assets/images/switch_arrow.svg'
-import { RowBetween } from '../Row'
 import CurrencySelect from './CurrencySelect'
+import { Box } from '@material-ui/core'
 
 export default function CurrencySelectPanel() {
   return (
     <>
-      <RowBetween>
+      <Box display="flex" justifyContent="space-between">
         <CurrencySelect label={'From'} disabled />
         <img src={SwitchArrow} alt={'switch_arrow_icon'} />
         <CurrencySelect label={'To'} />
-      </RowBetween>
+      </Box>
     </>
   )
 }

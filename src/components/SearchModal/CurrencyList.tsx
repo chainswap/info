@@ -2,18 +2,13 @@ import React, { CSSProperties } from 'react'
 import { FixedSizeList } from 'react-window'
 import CurrencyLogo from '../../assets/images/dummy_logo.png'
 import { styled } from '@material-ui/styles'
-import Column from '../Column'
-import { RowFixed } from '../Row'
+import { Box } from '@material-ui/core'
 
 const MenuItem = styled('div')({
   padding: '0 32px',
   height: 48,
   display: 'flex',
   justifyContent: 'space-between',
-})
-
-const StyledColumn = styled(Column)({
-  marginLeft: 16,
 })
 
 const CurrencySymbol = styled('div')({
@@ -35,13 +30,13 @@ const Balance = styled('div')({
 const CurrencyRow = ({ style, currency, onSelect }: { style: CSSProperties; currency: any; onSelect: () => void }) => {
   return (
     <MenuItem>
-      <RowFixed>
+      <Box display="flex">
         <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
-        <StyledColumn>
+        <Box display="flex" flexDirection="column" marginLeft="16px">
           <CurrencySymbol>{currency}</CurrencySymbol>
           <CurrencyName>Ether</CurrencyName>
-        </StyledColumn>
-      </RowFixed>
+        </Box>
+      </Box>
       <Balance>15.78</Balance>
     </MenuItem>
   )

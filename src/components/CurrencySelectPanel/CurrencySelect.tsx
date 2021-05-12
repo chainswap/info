@@ -1,10 +1,9 @@
 import React from 'react'
 import DummyLogo from '../../assets/images/dummy_logo.png'
-import { MenuItem } from '@material-ui/core'
+import { MenuItem, Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { styled } from '@material-ui/styles'
 import Select from '../Select/Select'
-import Column from '../Column/index'
 
 interface Props {
   label: string
@@ -44,7 +43,7 @@ export default function CurrencySelectPanel(props: Props) {
   const { label, disabled } = props
   return (
     <>
-      <Column>
+      <Box>
         <CurrencySelectLabel>{label}</CurrencySelectLabel>
         <Select defaultValue="ETH" disabled={disabled}>
           <MenuItem value="ETH" className={classes.selectMenu}>
@@ -60,7 +59,7 @@ export default function CurrencySelectPanel(props: Props) {
             BNB
           </MenuItem>
         </Select>
-      </Column>
+      </Box>
     </>
   )
 }

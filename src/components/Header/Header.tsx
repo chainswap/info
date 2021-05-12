@@ -1,8 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { styled } from '@material-ui/core'
+import { styled, Box } from '@material-ui/core'
 import DummyLogo from '../../assets/images/dummy_logo.png'
-import { RowFixed } from '../Row'
 import Button from '../../components/Button/Button'
 import { useWalletModalToggle } from '../../state/application/hooks'
 
@@ -52,7 +51,7 @@ export default function Header() {
 
   return (
     <HeaderFrame>
-      <RowFixed>
+      <Box display="flex">
         <Title href=".">
           <img width={'24px'} src={DummyLogo} alt="logo" />
         </Title>
@@ -73,7 +72,7 @@ export default function Header() {
             Info
           </StyledNavLink>
         </HeaderLinks>
-      </RowFixed>
+      </Box>
       <Button size="small" width={'140px'} onClick={toggleWalletModal}>
         Connect Wallet
       </Button>

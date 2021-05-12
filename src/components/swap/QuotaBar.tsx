@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, Box } from '@material-ui/core'
 
 interface Props {
   percentage: number
@@ -21,8 +21,8 @@ export default function QuotaBar(props: Props) {
   const classes = useStyles(props)
 
   return (
-    <div className={classes.border}>
-      <div className={classes.value} />
-    </div>
+    <Box className={classes.border}>
+      <Box className={classes.value} />
+    </Box>
   )
 }

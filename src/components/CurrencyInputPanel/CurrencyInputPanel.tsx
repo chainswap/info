@@ -1,10 +1,9 @@
 import React, { useState, useCallback, ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
+import { Box } from '@material-ui/core'
 import DummyLogo from '../../assets/images/dummy_logo.png'
-import Column from '../Column/index'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input, { StyledInputLabel } from '../Input/Input'
-import { RowBetween } from '../Row'
 
 const InputRow = styled('div')({
   alignItems: 'center',
@@ -67,11 +66,11 @@ export default function CurrencyInputPanel(props: Props) {
 
   return (
     <>
-      <Column>
-        <RowBetween>
+      <Box>
+        <Box display="flex" justifyContent="space-between">
           <StyledInputLabel>Amount</StyledInputLabel>
           <StyledInputLabel style={{ opacity: 0.4 }}>Your balance: 1.24 MATTER</StyledInputLabel>
-        </RowBetween>
+        </Box>
         <InputRow>
           <StyledInput
             placeholder={'Enter amount to swap'}
@@ -91,7 +90,7 @@ export default function CurrencyInputPanel(props: Props) {
             <ArrowDown>V</ArrowDown>
           </CurrencySelect>
         </InputRow>
-      </Column>
+      </Box>
       <CurrencySearchModal
         isOpen={modalOpen}
         onDismiss={handleDismissSearch}

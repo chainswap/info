@@ -27,10 +27,46 @@ const useStyles = makeStyles({
     color: '#FFFFFF',
     display: (props: Props) => (props.disabled ? 'none' : 'block'),
   },
+  paper: {
+    borderRadius: 14,
+    marginTop: 8,
+    overflow: 'hide',
+    '& ul': {
+      background: '#1f1f1f',
+      outline: 'none',
+      padding: 0,
+    },
+    '& li': {
+      fontSize: 16,
+      fontWeight: 500,
+      color: '#FFFFFF',
+      border: '1px solid transparent',
+      borderBottomColor: 'hsla(0,0%,100%,.12)',
+      display: 'flex',
+      alignItems: 'center',
+      padding: 14,
+    },
+  },
 })
 
 export default function _Select(props: Props) {
   const classes = useStyles(props)
+
+  // moves the menu below the select input
+  const menuProps = {
+    classes: {
+      paper: classes.paper,
+    },
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+    transformOrigin: {
+      vertical: 'top',
+      horizontal: 'left',
+    },
+    getContentAnchorEl: null,
+  }
 
   return (
     <Select
@@ -38,6 +74,18 @@ export default function _Select(props: Props) {
       classes={{ root: classes.root, icon: classes.icon }}
       defaultValue={props.defaultValue}
       disabled={props.disabled}
+      MenuProps={{
+        classes: { paper: classes.paper },
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        transformOrigin: {
+          vertical: 'top',
+          horizontal: 'left',
+        },
+        getContentAnchorEl: null,
+      }}
     >
       {props.children}
     </Select>

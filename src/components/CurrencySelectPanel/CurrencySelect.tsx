@@ -1,29 +1,14 @@
 import React from 'react'
-import DummyLogo from '../../assets/images/dummy_logo.png'
 import { MenuItem, Box } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
 import { styled } from '@material-ui/styles'
+import DummyLogo from '../../assets/images/dummy_logo.png'
 import Select from '../Select/Select'
+import { StyledInputLabel } from '../Input/Input'
 
 interface Props {
   label: string
   disabled?: boolean
 }
-
-const useStyles = makeStyles({
-  select: {
-    background: '#ffffff !important',
-    border: 'solid 1px #cccccc',
-    borderRadius: 5,
-    padding: '11px 12px',
-    '.Mui-focused &': {
-      borderRadius: 16,
-    },
-  },
-  selectMenu: {
-    backgroundColor: '#ffffff !important',
-  },
-})
 
 const CurrencySelectLabel = styled('div')({
   color: '#FFFFFF',
@@ -39,20 +24,19 @@ const CurrencyIcon = styled('div')({
 })
 
 export default function CurrencySelectPanel(props: Props) {
-  const classes = useStyles(props)
   const { label, disabled } = props
   return (
     <>
       <Box>
-        <CurrencySelectLabel>{label}</CurrencySelectLabel>
+        <StyledInputLabel>{label}</StyledInputLabel>
         <Select defaultValue="ETH" disabled={disabled}>
-          <MenuItem value="ETH" className={classes.selectMenu}>
+          <MenuItem value="ETH">
             <CurrencyIcon>
               <img src={DummyLogo} alt="currency_icon" />
             </CurrencyIcon>
             ETH
           </MenuItem>
-          <MenuItem value="BNB" className={classes.selectMenu}>
+          <MenuItem value="BNB">
             <CurrencyIcon>
               <img src={DummyLogo} alt="currency_icon" />
             </CurrencyIcon>

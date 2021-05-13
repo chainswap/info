@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { useState, ChangeEvent, useEffect, useCallback } from 'react'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import SwapHeader from '../../components/swap/SwapHeader'
@@ -12,6 +12,7 @@ import Input from '../../components/Input/Input'
 import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
 import StepperContainer from '../../components/swap/StepperContainer'
+import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 
 const Seperator = styled('div')({
   width: '100%',
@@ -30,6 +31,8 @@ export default function Swap() {
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
   const [currency, setCurrency] = useState('MATTER')
+
+  const [showConfirmDeposit, setShowConfirmDeposit] = useState(false)
 
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
@@ -56,17 +59,21 @@ export default function Swap() {
     setDepositEnabled(false)
   }
 
-  function onDeposit() {
-    alert('deposit')
+  const onDeposit = () => {
+    setShowConfirmDeposit(true)
   }
 
-  function onWithdraw() {
+  const onWithdraw = () => {
     alert('withdraw')
   }
 
-  function getPercentage() {
+  const getPercentage = () => {
     return ((quota - parseFloat(amount)) / quota) * 100
   }
+
+  const handleShowConfirmDepositDismiss = useCallback(() => {
+    setShowConfirmDeposit(false)
+  }, [showConfirmDeposit])
 
   return (
     <>
@@ -114,6 +121,8 @@ export default function Swap() {
         )}
       </AppBody>
       <WalletModal />
+      <ConfirmDepositModal isOpen={showConfirmDeposit} onDismiss={handleShowConfirmDepositDismiss} />
+      {/* <confirmWithdrawModal /> */}
     </>
   )
 }

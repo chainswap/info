@@ -15,6 +15,21 @@ import StepperContainer from '../../components/swap/StepperContainer'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 
+const currencyList = [
+  {
+    logo: DummyLogo,
+    symbol: 'TOKEN',
+    name: 'ChainSwap.com Governance Token',
+    balance: 0,
+  },
+  {
+    logo: DummyLogo,
+    symbol: 'MATTER',
+    name: 'Antimatter.Finance Governance Token',
+    balance: 0,
+  },
+]
+
 const Seperator = styled('div')({
   width: '100%',
   height: 1,
@@ -32,7 +47,6 @@ export default function Swap() {
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
   const [currency, setCurrency] = useState('MATTER')
-
   const [showConfirmDeposit, setShowConfirmDeposit] = useState(false)
 
   // toggle wallet when disconnected
@@ -81,7 +95,13 @@ export default function Swap() {
       <AppBody>
         <SwapHeader />
         <Box display="grid" gridGap="20px" padding="0 32px">
-          <CurrencyInputPanel onChange={onChangeAmount} value={amount} />
+          <CurrencyInputPanel
+            onChange={onChangeAmount}
+            value={amount}
+            selectedCurrency={currencyList[0]}
+            defaultCurrency={currencyList[0]}
+            options={currencyList}
+          />
           <CurrencySelectPanel />
           {account && (
             <Box>

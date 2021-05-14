@@ -5,6 +5,20 @@ import DummyLogo from '../../assets/images/dummy_logo.png'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input, { StyledInputLabel } from '../Input/Input'
 
+interface Currency {
+  logo: string
+  symbol: string
+  name: string
+  balance: number
+}
+interface Props {
+  value: string
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  defaultCurrency: Currency
+  selectedCurrency?: Currency
+  options: Currency[]
+}
+
 const InputRow = styled('div')({
   alignItems: 'center',
   width: '100%',
@@ -52,12 +66,8 @@ const ArrowDown = styled('div')({
   fontSize: 16,
 })
 
-interface Props {
-  value: string
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-}
-
 export default function CurrencyInputPanel(props: Props) {
+  const { selectedCurrency } = props
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleDismissSearch = useCallback(() => {
@@ -69,7 +79,13 @@ export default function CurrencyInputPanel(props: Props) {
       <Box>
         <Box display="flex" justifyContent="space-between">
           <StyledInputLabel>Amount</StyledInputLabel>
-          <StyledInputLabel style={{ opacity: 0.4 }}>Your balance: 1.24 MATTER</StyledInputLabel>
+          <StyledInputLabel style={{ opacity: 0.4 }}>
+            {selectedCurrency && (
+              <>
+                your balance: {selectedCurrency.balance} {selectedCurrency.symbol}
+              </>
+            )}
+          </StyledInputLabel>
         </Box>
         <InputRow>
           <StyledInput

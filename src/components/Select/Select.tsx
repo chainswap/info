@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Select } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 interface Props {
   children: React.ReactNode
@@ -21,6 +22,10 @@ const useStyles = makeStyles({
     cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
     display: 'flex',
     alignItems: 'center',
+    '&:focus': {
+      backgroundColor: '#1f1f1f',
+      borderRadius: 14,
+    },
   },
   icon: {
     right: 15,
@@ -52,22 +57,6 @@ const useStyles = makeStyles({
 export default function _Select(props: Props) {
   const classes = useStyles(props)
 
-  // moves the menu below the select input
-  const menuProps = {
-    classes: {
-      paper: classes.paper,
-    },
-    anchorOrigin: {
-      vertical: 'bottom',
-      horizontal: 'left',
-    },
-    transformOrigin: {
-      vertical: 'top',
-      horizontal: 'left',
-    },
-    getContentAnchorEl: null,
-  }
-
   return (
     <Select
       disableUnderline
@@ -86,6 +75,7 @@ export default function _Select(props: Props) {
         },
         getContentAnchorEl: null,
       }}
+      IconComponent={ExpandMoreIcon}
     >
       {props.children}
     </Select>

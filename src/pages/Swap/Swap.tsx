@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect, useCallback } from 'react'
+import React, { useState, ChangeEvent, useCallback } from 'react'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import SwapHeader from '../../components/swap/SwapHeader'
@@ -20,13 +20,13 @@ const currencyList = [
     logo: DummyLogo,
     symbol: 'TOKEN',
     name: 'ChainSwap.com Governance Token',
-    balance: 0,
+    balance: 800,
   },
   {
     logo: DummyLogo,
     symbol: 'MATTER',
     name: 'Antimatter.Finance Governance Token',
-    balance: 0,
+    balance: 400,
   },
 ]
 
@@ -41,8 +41,8 @@ export default function Swap() {
   const [account, setAccouny] = useState(true)
   const [amount, setAmount] = useState('')
   const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
-  const [from, setFrom] = useState('ETH')
-  const [to, setTo] = useState('BSC')
+  const [from, setFrom] = useState(currencyList[0])
+  const [to, setTo] = useState(currencyList[1])
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
@@ -90,6 +90,10 @@ export default function Swap() {
     setShowConfirmDeposit(false)
   }, [showConfirmDeposit])
 
+  const getSelectedCurrency = () => {
+    return currencyList[0]
+  }
+
   return (
     <>
       <AppBody>
@@ -98,11 +102,11 @@ export default function Swap() {
           <CurrencyInputPanel
             onChange={onChangeAmount}
             value={amount}
-            selectedCurrency={currencyList[0]}
-            defaultCurrency={currencyList[0]}
+            selectedCurrency={getSelectedCurrency()}
+            defaultCurrency={getSelectedCurrency()}
             options={currencyList}
           />
-          <CurrencySelectPanel />
+          <CurrencySelectPanel currencyList={currencyList} />
           {account && (
             <Box>
               <Input
@@ -121,8 +125,8 @@ export default function Swap() {
               <StepperContainer
                 depositEnabled={depositEnabled}
                 withdrawEnabled={withdrawEnabled}
-                from={from}
-                to={to}
+                from={from.symbol}
+                to={to.symbol}
                 onDeposit={onDeposit}
                 onWithdraw={onWithdraw}
               />
@@ -147,12 +151,12 @@ export default function Swap() {
       <ConfirmDepositModal
         isOpen={showConfirmDeposit}
         onDismiss={handleShowConfirmDepositDismiss}
-        fromLogo={DummyLogo}
-        toLogo={DummyLogo}
         from={from}
         to={to}
         walletLogo={DummyLogo}
         address={address}
+        value={amount}
+        selectedCurrency={getSelectedCurrency()}
       />
       {/* <confirmWithdrawModal /> */}
     </>

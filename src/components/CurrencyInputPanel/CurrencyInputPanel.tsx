@@ -1,17 +1,13 @@
 import React, { useState, useCallback, ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
-import DummyLogo from '../../assets/images/dummy_logo.png'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input, { StyledInputLabel } from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
+import Currency from '../../models/currency'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
 
-interface Currency {
-  logo: string
-  symbol: string
-  name: string
-  balance: number
-}
 interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -36,9 +32,9 @@ const StyledInput = styled(Input)({
   backgroundColor: 'transparent',
 })
 
-const CurrencySelect = styled('button')({
+const CurrencySelect = styled('div')({
+  display: 'flex',
   alignItems: 'center',
-  height: 36,
   fontSize: '20px',
   fontWeight: 500,
   backgroundColor: 'transparent',
@@ -47,28 +43,11 @@ const CurrencySelect = styled('button')({
   outline: 'none',
   border: 'none',
   cursor: 'pointer',
-  display: 'flex',
   justifyContent: 'space-between',
-  '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-  },
-})
-
-const CurrencyLogo = styled('div')({
-  marginRight: 12,
-})
-
-const StyledTokenName = styled('div')({
-  fontSize: 16,
-  marginRight: 12,
-})
-
-const ArrowDown = styled('div')({
-  fontSize: 16,
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency } = props
+  const { selectedCurrency, defaultCurrency } = props
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleDismissSearch = useCallback(() => {
@@ -105,11 +84,8 @@ export default function CurrencyInputPanel(props: Props) {
               setModalOpen(true)
             }}
           >
-            <CurrencyLogo>
-              <img src={DummyLogo} alt="currency_logo" />
-            </CurrencyLogo>
-            <StyledTokenName>Matter</StyledTokenName>
-            <ArrowDown>V</ArrowDown>
+            <CurrencyLogo currency={selectedCurrency ? selectedCurrency : defaultCurrency} />
+            <ExpandMoreIcon />
           </CurrencySelect>
         </InputRow>
       </Box>

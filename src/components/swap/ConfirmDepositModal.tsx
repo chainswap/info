@@ -5,18 +5,19 @@ import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
 import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import Currency from '../../models/currency'
 
 interface Props {
   isOpen: boolean
   onDismiss: () => void
   children?: React.ReactNode
   label?: string
-  fromLogo: string
-  from: string
-  toLogo: string
-  to: string
+  from: Currency
+  to: Currency
   walletLogo: string
   address: string
+  value: string
+  selectedCurrency: Currency
 }
 
 const Label = styled('label')({
@@ -25,17 +26,7 @@ const Label = styled('label')({
   marginRight: '12px',
 })
 
-const SwapCurrency = ({
-  fromLogo,
-  from,
-  toLogo,
-  to,
-}: {
-  fromLogo: string
-  from: string
-  toLogo: string
-  to: string
-}) => {
+const SwapCurrency = ({ from, to }: { from: Currency; to: Currency }) => {
   // const {fromLogo, from, toLogo, to} = props
   return (
     <Box
@@ -50,24 +41,24 @@ const SwapCurrency = ({
     >
       <Box display="flex">
         <Label>From: </Label>
-        <CurrencyLogo currency={from} src={fromLogo} />
+        <CurrencyLogo currency={from} />
       </Box>
       <Box color={'#FFFFFF'}>
         <ArrowForwardIcon />
       </Box>
       <Box display="flex">
         <Label>To: </Label>
-        <CurrencyLogo currency={to} src={toLogo} />
+        <CurrencyLogo currency={to} />
       </Box>
     </Box>
   )
 }
 
 export default function ConfirmDepositModal(props: Props) {
-  const { isOpen, onDismiss, fromLogo, from, toLogo, to, walletLogo, address } = props
+  const { isOpen, onDismiss, from, to, walletLogo, address, value, selectedCurrency } = props
 
   const trimmedAddress = (address: string) => {
-    const limit = 30
+    const limit = 25
 
     if (address.length > limit) {
       return address.substring(0, 20) + '...' + address.substr(-5)
@@ -78,20 +69,22 @@ export default function ConfirmDepositModal(props: Props) {
     <>
       <Modal isOpen={isOpen} onDismiss={onDismiss} label={'Confirm Deposit'}>
         <Box fontSize="28px" margin="20px 0 24px" textAlign="center" color="#FFFFFF" fontWeight="500">
-          400 MATTER
+          {value} {selectedCurrency.symbol}
         </Box>
         <Box>
-          <SwapCurrency fromLogo={fromLogo} from={from} toLogo={toLogo} to={to} />
+          <SwapCurrency from={from} to={to} />
         </Box>
         <Box color="#FFFFFF" display="flex" justifyContent="space-between" margin="16px 32px 0 32px">
           <Label>Destination Chain Address:</Label>
-          <Box>{trimmedAddress(address)}</Box>
+          <Box display="flex" alignItems="center">
+            <img src={walletLogo} alt={'wallet logo'} />
+            <Box marginLeft="8px" fontSize="12px">
+              {trimmedAddress(address)}
+            </Box>
+          </Box>
         </Box>
         <Box margin="32px 32px 28px">
-          <Button size="large">
-            <img src={walletLogo} alt={'wallet logo'} />
-            Confirm
-          </Button>
+          <Button size="large">Confirm</Button>
         </Box>
       </Modal>
     </>

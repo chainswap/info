@@ -9,7 +9,9 @@ export default function CurrencySelectPanel() {
     <>
       <Box display="flex" justifyContent="space-between">
         <CurrencySelect label={'From'} disabled />
-        <img src={SwitchArrow} alt={'switch_arrow_icon'} />
+        <Box paddingTop="30px">
+          <img src={SwitchArrow} alt={'switch_arrow_icon'} />
+        </Box>
         <CurrencySelect label={'To'} />
         {/* <CurrencyMenu /> */}
       </Box>

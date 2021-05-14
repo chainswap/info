@@ -13,6 +13,7 @@ import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
 import StepperContainer from '../../components/swap/StepperContainer'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
+import DummyLogo from '../../assets/images/dummy_logo.png'
 
 const Seperator = styled('div')({
   width: '100%',
@@ -121,8 +122,24 @@ export default function Swap() {
         )}
       </AppBody>
       <WalletModal />
-      <ConfirmDepositModal isOpen={showConfirmDeposit} onDismiss={handleShowConfirmDepositDismiss} />
+      <ConfirmDepositModal
+        isOpen={showConfirmDeposit}
+        onDismiss={handleShowConfirmDepositDismiss}
+        fromLogo={DummyLogo}
+        toLogo={DummyLogo}
+        from={from}
+        to={to}
+        walletLogo={DummyLogo}
+        address={address}
+      />
       {/* <confirmWithdrawModal /> */}
     </>
   )
 }
+
+// fromLogo: string
+// from: string
+// toLogo: string
+// to: string
+// walletLogo: string
+// address: string

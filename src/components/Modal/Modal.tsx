@@ -2,6 +2,7 @@ import React from 'react'
 import { Dialog, makeStyles } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import DummyLogo from '../../assets/images/dummy_logo.png'
+import CloseIcon from '@material-ui/icons/Close'
 
 interface Props {
   isOpen: boolean
@@ -36,18 +37,19 @@ const DialogTitle = styled('div')({
   marginTop: 24,
 })
 
-const CloseIcon = styled('div')({
+const CloseBox = styled('div')({
   position: 'absolute',
   right: 24,
   top: 24,
+  color: '#FFFFFF',
+  opacity: 0.6,
   '&:hover': {
     cursor: 'pointer',
-    opacity: 0.6,
   },
 })
 
 export default function Modal(props: Props) {
-  const { isOpen, children, label } = props
+  const { isOpen, children, label, onDismiss } = props
   const classes = useStyles(props)
 
   return (
@@ -59,9 +61,9 @@ export default function Modal(props: Props) {
         BackdropProps={{ className: classes.backdrop }}
       >
         <DialogTitle>{label}</DialogTitle>
-        <CloseIcon onClick={props.onDismiss}>
-          <img src={DummyLogo} alt="close-icon" />
-        </CloseIcon>
+        <CloseBox onClick={onDismiss}>
+          <CloseIcon />
+        </CloseBox>
         {children}
       </Dialog>
     </>

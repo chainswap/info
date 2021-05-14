@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input, { StyledInputLabel } from '../Input/Input'
+import OutlineButton from '../Button/OutlineButton'
 
 interface Currency {
   logo: string
@@ -94,6 +95,11 @@ export default function CurrencyInputPanel(props: Props) {
             onChange={props.onChange}
             type={'number'}
           />
+          <Box marginRight="20px">
+            <OutlineButton width="64px" height="28px">
+              Max
+            </OutlineButton>
+          </Box>
           <CurrencySelect
             onClick={() => {
               setModalOpen(true)

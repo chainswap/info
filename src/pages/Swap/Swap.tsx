@@ -136,9 +136,11 @@ export default function Swap() {
         )}
 
         {!account && (
-          <Button size="large" onClick={toggleWalletModal}>
-            Connect Wallet
-          </Button>
+          <Box padding="27px 32px 31px">
+            <Button size="large" onClick={toggleWalletModal}>
+              Connect Wallet
+            </Button>
+          </Box>
         )}
       </AppBody>
       <WalletModal />

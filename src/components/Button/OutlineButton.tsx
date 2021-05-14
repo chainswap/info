@@ -6,6 +6,7 @@ interface Props {
   primary?: boolean
   children: React.ReactNode
   width?: string
+  height?: string
   size?: 'small' | 'large'
   disabled?: boolean
 }
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
     width: (props: Props) => (props.width ? props.width : '100%'),
     border: (props: Props) => (props.primary ? 'solid 1px #9867FF' : 'solid 1px #fff'),
     fontSize: (props: Props) => (props.size === 'large' ? '16px' : '14px'),
-    height: (props: Props) => (props.size === 'large' ? 48 : 30),
+    height: (props: Props) => (props.height ? props.height : '48px'),
     color: (props: Props) => (props.primary ? '#9867FF' : '#fff'),
     padding: '14px 24px',
     textAlign: 'center',

@@ -11,9 +11,9 @@ import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
 import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
-import StepperContainer from '../../components/swap/StepperContainer'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 import DummyLogo from '../../assets/images/dummy_logo.png'
+import Stepper from '../../components/Stepper/Stepper'
 
 const currencyList = [
   {
@@ -38,7 +38,7 @@ const Seperator = styled('div')({
 })
 
 export default function Swap() {
-  const [account, setAccouny] = useState(true)
+  const [account, setAccount] = useState(true)
   const [amount, setAmount] = useState('')
   const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
   const [from, setFrom] = useState(currencyList[0])
@@ -122,14 +122,17 @@ export default function Swap() {
         {account && (
           <>
             <Box display="grid" gridGap="16px" padding="28px 32px">
-              <StepperContainer
-                depositEnabled={depositEnabled}
-                withdrawEnabled={withdrawEnabled}
-                from={from.symbol}
-                to={to.symbol}
-                onDeposit={onDeposit}
-                onWithdraw={onWithdraw}
-              />
+              <Box display="flex" justifyContent="space-between">
+                <Button size="large" width="216px" disabled={!depositEnabled} onClick={onDeposit}>
+                  Deposit in {from.symbol} Chain
+                </Button>
+                <Button size="large" width="216px" disabled={!withdrawEnabled} onClick={onWithdraw}>
+                  Withdraw from {to.symbol} Chain
+                </Button>
+              </Box>
+              <Box display="flex" justifyContent="center">
+                <Stepper />
+              </Box>
             </Box>
             <Seperator />
             <Box display="grid" gridGap="12px" padding="24px 32px 28px 32px">
@@ -162,10 +165,3 @@ export default function Swap() {
     </>
   )
 }
-
-// fromLogo: string
-// from: string
-// toLogo: string
-// to: string
-// walletLogo: string
-// address: string

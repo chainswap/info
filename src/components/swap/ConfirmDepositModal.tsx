@@ -18,6 +18,7 @@ interface Props {
   address: string
   value: string
   selectedCurrency: Currency
+  onConfirm: () => void
 }
 
 const Label = styled('label')({
@@ -55,7 +56,7 @@ const SwapCurrency = ({ from, to }: { from: Currency; to: Currency }) => {
 }
 
 export default function ConfirmDepositModal(props: Props) {
-  const { isOpen, onDismiss, from, to, walletLogo, address, value, selectedCurrency } = props
+  const { isOpen, onDismiss, from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
 
   const trimmedAddress = (address: string) => {
     const limit = 25
@@ -84,7 +85,9 @@ export default function ConfirmDepositModal(props: Props) {
           </Box>
         </Box>
         <Box margin="32px 32px 28px">
-          <Button size="large">Confirm</Button>
+          <Button size="large" onClick={onConfirm}>
+            Confirm
+          </Button>
         </Box>
       </Modal>
     </>

@@ -8,6 +8,7 @@ interface Props {
   onDismiss: () => void
   children?: React.ReactNode
   label?: string
+  hideClose?: boolean
 }
 
 const useStyles = makeStyles({
@@ -33,7 +34,6 @@ const DialogTitle = styled('div')({
   lineHeight: '26.76px',
   display: 'flex',
   justifyContent: 'center',
-  marginTop: 24,
 })
 
 const CloseBox = styled('div')({
@@ -48,7 +48,7 @@ const CloseBox = styled('div')({
 })
 
 export default function Modal(props: Props) {
-  const { isOpen, children, label, onDismiss } = props
+  const { isOpen, children, label, onDismiss, hideClose } = props
   const classes = useStyles(props)
 
   return (
@@ -60,9 +60,12 @@ export default function Modal(props: Props) {
         BackdropProps={{ className: classes.backdrop }}
       >
         <DialogTitle>{label}</DialogTitle>
-        <CloseBox onClick={onDismiss}>
-          <CloseIcon />
-        </CloseBox>
+        {!hideClose && (
+          <CloseBox onClick={onDismiss}>
+            <CloseIcon />
+          </CloseBox>
+        )}
+
         {children}
       </Dialog>
     </>

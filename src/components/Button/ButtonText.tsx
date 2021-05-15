@@ -5,6 +5,7 @@ import { ButtonBase } from '@material-ui/core'
 interface Props {
   onClick?: () => void
   children: React.ReactNode
+  size?: string
 }
 
 const useStyles = makeStyles({
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
     background: 'none',
     textDecoration: 'none',
     color: '#9867FF',
-    fontSize: 16,
+    fontSize: (props: Props) => (props.size ? props.size : 16),
   },
 })
 

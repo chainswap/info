@@ -14,6 +14,7 @@ import QuotaBar from '../../components/swap/QuotaBar'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import Stepper from '../../components/Stepper/Stepper'
+import TxnSubmittedModal from '../../components/swap/TxnSubmittedModal'
 
 const currencyList = [
   {
@@ -37,6 +38,8 @@ const Seperator = styled('div')({
   opacity: 0.2,
 })
 
+interface SwapStatus {}
+
 export default function Swap() {
   const [account, setAccount] = useState(true)
   const [amount, setAmount] = useState('')
@@ -47,7 +50,18 @@ export default function Swap() {
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
   const [currency, setCurrency] = useState('MATTER')
-  const [showConfirmDeposit, setShowConfirmDeposit] = useState(false)
+  // const [showConfirmDeposit, setShowConfirmDeposit] = useState(false)
+
+  // modal and loading
+  const [{ showConfirmDeposit, attemptingDeposit, showTxnSubmitted }, setSwapState] = useState<{
+    showConfirmDeposit: boolean
+    attemptingDeposit: boolean
+    showTxnSubmitted: boolean
+  }>({
+    showConfirmDeposit: false,
+    attemptingDeposit: false,
+    showTxnSubmitted: false,
+  })
 
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
@@ -75,7 +89,7 @@ export default function Swap() {
   }
 
   const onDeposit = () => {
-    setShowConfirmDeposit(true)
+    setSwapState({ showConfirmDeposit: true, attemptingDeposit: false, showTxnSubmitted: false })
   }
 
   const onWithdraw = () => {
@@ -86,13 +100,25 @@ export default function Swap() {
     return ((quota - parseFloat(amount)) / quota) * 100
   }
 
-  const handleShowConfirmDepositDismiss = useCallback(() => {
-    setShowConfirmDeposit(false)
-  }, [showConfirmDeposit])
+  const onDismissShowConfirmDeposit = useCallback(() => {
+    setSwapState({ showConfirmDeposit: false, attemptingDeposit: false, showTxnSubmitted: false })
+  }, [showConfirmDeposit, attemptingDeposit])
 
   const getSelectedCurrency = () => {
     return currencyList[0]
   }
+
+  const onConfirmDeposit = useCallback(() => {
+    setSwapState({ showConfirmDeposit: false, attemptingDeposit: true, showTxnSubmitted: false })
+    setTimeout(function () {
+      setSwapState({ showConfirmDeposit: false, attemptingDeposit: false, showTxnSubmitted: false })
+    }, 3000)
+    setSwapState({ showConfirmDeposit: false, attemptingDeposit: false, showTxnSubmitted: true })
+  }, [])
+
+  const onDismissTxnSubmitted = useCallback(() => {
+    setSwapState({ showConfirmDeposit: false, attemptingDeposit: false, showTxnSubmitted: false })
+  }, [showTxnSubmitted])
 
   return (
     <>
@@ -124,7 +150,7 @@ export default function Swap() {
             <Box display="grid" gridGap="16px" padding="28px 32px">
               <Box display="flex" justifyContent="space-between">
                 <Button size="large" width="216px" disabled={!depositEnabled} onClick={onDeposit}>
-                  Deposit in {from.symbol} Chain
+                  {attemptingDeposit ? <>Depositing</> : <>Deposit in {from.symbol} Chain</>}
                 </Button>
                 <Button size="large" width="216px" disabled={!withdrawEnabled} onClick={onWithdraw}>
                   Withdraw from {to.symbol} Chain
@@ -153,13 +179,20 @@ export default function Swap() {
       <WalletModal />
       <ConfirmDepositModal
         isOpen={showConfirmDeposit}
-        onDismiss={handleShowConfirmDepositDismiss}
+        onDismiss={onDismissShowConfirmDeposit}
+        onConfirm={onConfirmDeposit}
         from={from}
         to={to}
         walletLogo={DummyLogo}
         address={address}
         value={amount}
         selectedCurrency={getSelectedCurrency()}
+      />
+      <TxnSubmittedModal
+        isOpen={true}
+        onDismiss={onDismissTxnSubmitted}
+        currency={from}
+        wallet={{ logo: DummyLogo, name: 'MetaMask' }}
       />
       {/* <confirmWithdrawModal /> */}
     </>

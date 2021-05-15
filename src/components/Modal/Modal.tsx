@@ -1,7 +1,6 @@
 import React from 'react'
 import { Dialog, makeStyles } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
-import DummyLogo from '../../assets/images/dummy_logo.png'
 import CloseIcon from '@material-ui/icons/Close'
 
 interface Props {

@@ -15,6 +15,7 @@ import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import Stepper from '../../components/Stepper/Stepper'
 import TxnSubmittedModal from '../../components/swap/TxnSubmittedModal'
+import MetaMask from '../../assets/images/meta_mask.svg'
 
 const currencyList = [
   {
@@ -111,9 +112,8 @@ export default function Swap() {
   const onConfirmDeposit = useCallback(() => {
     setSwapState({ showConfirmDeposit: false, attemptingDeposit: true, showTxnSubmitted: false })
     setTimeout(function () {
-      setSwapState({ showConfirmDeposit: false, attemptingDeposit: false, showTxnSubmitted: false })
+      setSwapState({ showConfirmDeposit: false, attemptingDeposit: false, showTxnSubmitted: true })
     }, 3000)
-    setSwapState({ showConfirmDeposit: false, attemptingDeposit: false, showTxnSubmitted: true })
   }, [])
 
   const onDismissTxnSubmitted = useCallback(() => {
@@ -189,10 +189,10 @@ export default function Swap() {
         selectedCurrency={getSelectedCurrency()}
       />
       <TxnSubmittedModal
-        isOpen={true}
+        isOpen={showTxnSubmitted}
         onDismiss={onDismissTxnSubmitted}
         currency={from}
-        wallet={{ logo: DummyLogo, name: 'MetaMask' }}
+        wallet={{ logo: MetaMask, name: 'MetaMask' }}
       />
       {/* <confirmWithdrawModal /> */}
     </>

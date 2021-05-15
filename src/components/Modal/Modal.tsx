@@ -34,6 +34,7 @@ const DialogTitle = styled('div')({
   lineHeight: '26.76px',
   display: 'flex',
   justifyContent: 'center',
+  marginTop: 24,
 })
 
 const CloseBox = styled('div')({

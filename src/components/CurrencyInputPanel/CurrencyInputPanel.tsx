@@ -2,11 +2,12 @@ import React, { useState, useCallback, ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
-import Input, { StyledInputLabel } from '../Input/Input'
+import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
 import Currency from '../../models/currency'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
+import { TYPE } from '../../theme/index'
 
 interface Props {
   value: string
@@ -58,14 +59,10 @@ export default function CurrencyInputPanel(props: Props) {
     <>
       <Box>
         <Box display="flex" justifyContent="space-between">
-          <StyledInputLabel>Amount</StyledInputLabel>
-          <StyledInputLabel style={{ opacity: 0.4 }}>
-            {selectedCurrency && (
-              <>
-                your balance: {selectedCurrency.balance} {selectedCurrency.symbol}
-              </>
-            )}
-          </StyledInputLabel>
+          <TYPE.label opacity={0.4}>Amount</TYPE.label>
+          <TYPE.label>
+            {selectedCurrency ? `your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}` : ''}
+          </TYPE.label>
         </Box>
         <InputRow>
           <StyledInput

@@ -1,5 +1,6 @@
 import React from 'react'
-import { makeStyles, Box } from '@material-ui/core'
+import { Box } from '@material-ui/core'
+import { TYPE } from '../../theme/index'
 
 interface Props {
   percentage: number
@@ -7,40 +8,22 @@ interface Props {
   currency: string
 }
 
-const useStyles = makeStyles({
-  label: {
-    color: '#FFFFFF',
-    opacity: 0.6,
-    fontSize: 14,
-    fontFamily: 'Roboto',
-  },
-  text: {
-    color: '#FFFFFF',
-    fontFamily: 'Roboto',
-    fontSize: 14,
-    marginRight: 12,
-  },
-  subText: {
-    color: '#FFFFFF',
-    fontFamily: 'Roboto',
-    fontSize: 14,
-    opacity: 0.6,
-  },
-})
-
 export default function QuotaInfo(props: Props) {
   const { percentage, quota, currency } = props
-  const classes = useStyles()
 
   return (
     <>
       <Box display="flex" justifyContent="space-between">
-        <label className={classes.label}>Your Quota:</label>
+        <TYPE.light opacity={'0.6'}>Your Quota:</TYPE.light>
         <Box display="flex">
-          <Box className={classes.text}>
-            {quota} {currency}
+          <Box marginRight="12px">
+            <TYPE.light>
+              {quota} {currency}
+            </TYPE.light>
           </Box>
-          <Box className={classes.subText}>{percentage}% / 100%</Box>
+          <Box>
+            <TYPE.light opacity={'0.6'}>{percentage}% / 100%</TYPE.light>
+          </Box>
         </Box>
       </Box>
     </>

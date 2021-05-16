@@ -1,7 +1,7 @@
 import React from 'react'
 import { MenuItem, Box } from '@material-ui/core'
 import Select from '../Select/Select'
-import { StyledInputLabel } from '../Input/Input'
+import { TYPE } from '../../theme/index'
 import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
 import Currency from '../../models/currency'
 
@@ -16,7 +16,7 @@ export default function CurrencySelectPanel(props: Props) {
   return (
     <>
       <Box>
-        <StyledInputLabel>{label}</StyledInputLabel>
+        <TYPE.label>{label}</TYPE.label>
         <Select defaultValue="ETH" disabled={disabled}>
           {currencyList.map((currency) => (
             <MenuItem value="ETH">

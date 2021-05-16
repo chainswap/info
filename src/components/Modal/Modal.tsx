@@ -2,6 +2,8 @@ import React from 'react'
 import { Dialog, makeStyles } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
+import { Typography, Box } from '@material-ui/core'
+import { TYPE } from '../../theme'
 
 interface Props {
   isOpen: boolean
@@ -60,7 +62,10 @@ export default function Modal(props: Props) {
         PaperProps={{ className: classes.paper }}
         BackdropProps={{ className: classes.backdrop }}
       >
-        <DialogTitle>{label}</DialogTitle>
+        <Box marginTop="24px">
+          <TYPE.subheader align="center">{label}</TYPE.subheader>
+        </Box>
+
         {!hideClose && (
           <CloseBox onClick={onDismiss}>
             <CloseIcon />

@@ -1,17 +1,10 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Swap from './Swap/Swap'
-import { styled, createMuiTheme, Theme, CssBaseline } from '@material-ui/core'
+import { styled, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
-
-const theme: Theme = createMuiTheme({
-  palette: {
-    background: {
-      default: '#131315',
-    },
-  },
-})
+import theme from '../theme/index'
 
 const HeaderWrapper = styled('div')({
   width: '100%',

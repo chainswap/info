@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import { InputBase, InputLabel, makeStyles } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
+import { TYPE } from '../../theme/index'
 
 interface Props {
   placeholder?: string
@@ -8,6 +9,7 @@ interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   label?: string
   type?: string
+  style?: React.CSSProperties
 }
 
 const useStyles = makeStyles({
@@ -31,22 +33,12 @@ const useStyles = makeStyles({
   },
 })
 
-export const StyledInputLabel = styled(InputLabel)({
-  fontWeight: 400,
-  fontSize: 12,
-  fontFamily: 'Roboto',
-  lineHeight: '17.84px',
-  color: '#FFFFFF',
-  opacity: 0.6,
-  marginBottom: 4,
-})
-
 export default function Input(props: Props) {
   const classes = useStyles(props)
 
   return (
     <>
-      {props.label && <StyledInputLabel>{props.label}</StyledInputLabel>}
+      {props.label && <TYPE.label>{props.label}</TYPE.label>}
       <InputBase fullWidth={true} {...props} classes={{ ...classes }} />
     </>
   )

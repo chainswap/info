@@ -1,13 +1,12 @@
 import React, { useState, ChangeEvent, useCallback } from 'react'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
-import SwapHeader from '../../components/swap/SwapHeader'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import CurrencySelectPanel from '../../components/CurrencySelectPanel/CurrencySelectPanel'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
-import { Box } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import Input from '../../components/Input/Input'
 import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
@@ -17,6 +16,7 @@ import Stepper from '../../components/Stepper/Stepper'
 import TxnSubmittedModal from '../../components/swap/TxnSubmittedModal'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from '../../components/swap/confirmWithdrawModal'
+import { TYPE } from '../../theme'
 
 const currencyList = [
   {
@@ -243,7 +243,9 @@ export default function Swap() {
   return (
     <>
       <AppBody>
-        <SwapHeader />
+        <Box margin="12px 0 18px 0">
+          <TYPE.header align="center">Cross Chain Bridge</TYPE.header>
+        </Box>
         <Box display="grid" gridGap="20px" padding="0 32px">
           <CurrencyInputPanel
             onChange={onChangeAmount}

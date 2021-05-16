@@ -63,7 +63,7 @@ export default function Modal(props: Props) {
         BackdropProps={{ className: classes.backdrop }}
       >
         <Box marginTop="24px">
-          <TYPE.subheader align="center">{label}</TYPE.subheader>
+          <TYPE.subheader textAlign={'center'}>{label}</TYPE.subheader>
         </Box>
 
         {!hideClose && (

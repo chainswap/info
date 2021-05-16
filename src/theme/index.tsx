@@ -1,7 +1,7 @@
 import React from 'react'
 import { createMuiTheme, Theme, Typography } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
-import { Text } from 'rebass'
+import { Text, TextProps } from 'rebass'
 
 const theme: Theme = createMuiTheme({
   palette: {
@@ -14,28 +14,21 @@ const theme: Theme = createMuiTheme({
   },
 })
 
-interface TextProps {
-  opacity?: number
-  align?: 'center' | 'left' | 'right' | 'justify'
-}
-
-const TextWrapper = styled(Text)({
-  opacity: (props: TextProps) => props.opacity,
-  textAlign: (props: TextProps) => props.align,
-})
-
 export const TYPE = {
-  header(props: any) {
-    return <TextWrapper fontWeight={500} fontSize={20} fontFamily={'Futura PT'} textAlign="center" {...props} />
+  header(props: TextProps) {
+    return <Text fontWeight={500} fontSize={20} fontFamily={'Futura PT'} {...props} />
   },
-  subheader(props: any) {
-    return <TextWrapper fontWeight={400} fontSize={18} align={'center'} {...props} />
+  smallheader(props: TextProps) {
+    return <Text fontWeight={500} fontSize={18} {...props} />
   },
-  label(props: any) {
-    return <TextWrapper fontWeight={400} fontSize={12} opacity={0.6} {...props} />
+  subheader(props: TextProps) {
+    return <Text fontWeight={400} fontSize={18} {...props} />
   },
-  light(props: any) {
-    return <TextWrapper fontWeight={400} fontSize={14} {...props} />
+  label(props: TextProps) {
+    return <Text fontWeight={400} fontSize={12} opacity={0.6} {...props} />
+  },
+  light(props: TextProps) {
+    return <Text fontWeight={400} fontSize={14} {...props} />
   },
 }
 

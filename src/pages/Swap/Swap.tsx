@@ -244,7 +244,7 @@ export default function Swap() {
     <>
       <AppBody>
         <Box margin="12px 0 18px 0">
-          <TYPE.header align="center">Cross Chain Bridge</TYPE.header>
+          <TYPE.header textAlign="center">Cross Chain Bridge</TYPE.header>
         </Box>
         <Box display="grid" gridGap="20px" padding="0 32px">
           <CurrencyInputPanel
@@ -305,7 +305,7 @@ export default function Swap() {
         onConfirm={onConfirmDeposit}
         from={from}
         to={to}
-        walletLogo={DummyLogo}
+        walletLogo={MetaMask}
         address={address}
         value={amount}
         selectedCurrency={getSelectedCurrency()}
@@ -322,7 +322,7 @@ export default function Swap() {
         onConfirm={onConfirmWithdraw}
         from={from}
         to={to}
-        walletLogo={DummyLogo}
+        walletLogo={MetaMask}
         address={address}
         value={amount}
         selectedCurrency={getSelectedCurrency()}

@@ -6,6 +6,8 @@ import Button from '../Button/Button'
 import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Currency from '../../models/currency'
+import { TYPE } from '../../theme/index'
+import { Text } from 'rebass'
 
 interface Props {
   isOpen: boolean
@@ -78,8 +80,10 @@ export default function ConfirmWithdrawModal(props: Props) {
     <>
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
         <Box color="#FFFFFF" padding="40px 32px 28px" fontSize="18px">
-          1. Please switch <strong>your wallet network</strong> to BSC to complete token swap. 2. Also please{' '}
-          <strong>switch to your wallet</strong> with the destination address
+          <TYPE.smallheader textAlign="center">
+            1. Please switch <strong>your wallet network</strong> to BSC to complete token swap. 2. Also please{' '}
+            <strong>switch to your wallet</strong> with the destination address
+          </TYPE.smallheader>
         </Box>
         <Box>
           <SwapCurrency from={from} to={to} />
@@ -94,21 +98,18 @@ export default function ConfirmWithdrawModal(props: Props) {
           </Box>
         </Box>
         <Seperator />
-        <Box
-          fontWeight="400"
-          fontSize="18px"
-          color="#FFFFFF"
-          display="flex"
-          justifyContent="center"
-          marginBottom="12px"
-        >
-          3. Confirm Withdraw
+        <Box marginBottom="12px">
+          <TYPE.subheader textAlign={'center'} opacity={0.2}>
+            3. Confirm Withdraw
+          </TYPE.subheader>
         </Box>
-        <Box fontWeight="500" fontSize="28px" color="#FFFFFF" display="flex" justifyContent="center">
-          {value} {selectedCurrency.symbol}
+        <Box>
+          <Text fontWeight={'500'} fontSize={'28px'} textAlign={'center'} opacity={0.2}>
+            {value} {selectedCurrency.symbol}
+          </Text>
         </Box>
         <Box margin="28px 32px 29px">
-          <Button size="large" onClick={onConfirm}>
+          <Button size="large" onClick={onConfirm} disabled>
             Confirm
           </Button>
         </Box>

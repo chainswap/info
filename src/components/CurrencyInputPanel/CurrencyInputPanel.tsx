@@ -59,8 +59,8 @@ export default function CurrencyInputPanel(props: Props) {
     <>
       <Box>
         <Box display="flex" justifyContent="space-between">
-          <TYPE.label opacity={0.4}>Amount</TYPE.label>
-          <TYPE.label>
+          <TYPE.label>Amount</TYPE.label>
+          <TYPE.label opacity={0.4}>
             {selectedCurrency ? `your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}` : ''}
           </TYPE.label>
         </Box>

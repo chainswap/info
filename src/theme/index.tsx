@@ -1,10 +1,7 @@
 import React from 'react'
 import { createMuiTheme, Theme, Typography } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
-
-const Colors = {
-  white: '#FFFFFF',
-}
+import { Text } from 'rebass'
 
 const theme: Theme = createMuiTheme({
   palette: {
@@ -15,59 +12,30 @@ const theme: Theme = createMuiTheme({
       primary: '#FFFFFF',
     },
   },
-  typography: {
-    h1: {
-      fontWeight: 500,
-      fontSize: 20,
-      fontFamily: 'Futura PT',
-      color: Colors.white,
-      lineHeight: '29.74px',
-    },
-    subtitle1: {
-      fontWeight: 400,
-      fontSize: 18,
-      fontFamily: 'Roboto',
-      color: Colors.white,
-    },
-    subtitle2: {
-      fontWeight: 400,
-      fontSize: 12,
-      fontFamily: 'Roboto',
-      color: Colors.white,
-    },
-    body1: {
-      fontWeight: 500,
-      fontSize: 16,
-      color: Colors.white,
-    },
-    body2: {
-      fontWeight: 400,
-      fontSize: 14,
-      color: Colors.white,
-    },
-  },
 })
 
 interface TextProps {
   opacity?: number
+  align?: 'center' | 'left' | 'right' | 'justify'
 }
 
-const TextWrapper = styled(Typography)({
+const TextWrapper = styled(Text)({
   opacity: (props: TextProps) => props.opacity,
+  textAlign: (props: TextProps) => props.align,
 })
 
 export const TYPE = {
   header(props: any) {
-    return <TextWrapper variant={'h1'} {...props} />
+    return <TextWrapper fontWeight={500} fontSize={20} fontFamily={'Futura PT'} textAlign="center" {...props} />
   },
   subheader(props: any) {
-    return <TextWrapper variant={'subtitle1'} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={18} align={'center'} {...props} />
   },
   label(props: any) {
-    return <TextWrapper variant={'subtitle2'} opacity={0.6} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={12} opacity={0.6} {...props} />
   },
   light(props: any) {
-    return <TextWrapper variant={'body2'} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={14} {...props} />
   },
 }
 

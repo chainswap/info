@@ -6,7 +6,7 @@ import Button from '../Button/Button'
 import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Currency from '../../models/currency'
-import CurrencyInputPanel from '../CurrencyInputPanel/CurrencyInputPanel'
+import { Typography } from '@material-ui/core'
 
 interface Props {
   isOpen: boolean
@@ -56,6 +56,14 @@ const SwapCurrency = ({ from, to }: { from: Currency; to: Currency }) => {
   )
 }
 
+const Seperator = styled('div')({
+  width: '100%',
+  height: 1,
+  backgroundColor: '#FFFFFF',
+  opacity: 0.2,
+  margin: '20px auto 24px',
+})
+
 export default function ConfirmDepositModal(props: Props) {
   const { isOpen, onDismiss, from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
 
@@ -69,9 +77,10 @@ export default function ConfirmDepositModal(props: Props) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onDismiss={onDismiss} label={'Confirm Deposit'}>
-        <Box fontSize="28px" margin="20px 0 24px" textAlign="center" color="#FFFFFF" fontWeight="500">
-          {value} {selectedCurrency.symbol}
+      <Modal isOpen={isOpen} onDismiss={onDismiss}>
+        <Box color="#FFFFFF" padding="40px 32px 28px" fontSize="18px">
+          1. Please switch <strong>your wallet network</strong> to BSC to complete token swap. 2. Also please{' '}
+          <strong>switch to your wallet</strong> with the destination address
         </Box>
         <Box>
           <SwapCurrency from={from} to={to} />
@@ -85,7 +94,21 @@ export default function ConfirmDepositModal(props: Props) {
             </Box>
           </Box>
         </Box>
-        <Box margin="32px 32px 28px">
+        <Seperator />
+        <Box
+          fontWeight="400"
+          fontSize="18px"
+          color="#FFFFFF"
+          display="flex"
+          justifyContent="center"
+          marginBottom="12px"
+        >
+          3. Confirm Withdraw
+        </Box>
+        <Box fontWeight="500" fontSize="28px" color="#FFFFFF" display="flex" justifyContent="center">
+          {value} {selectedCurrency.symbol}
+        </Box>
+        <Box margin="28px 32px 29px">
           <Button size="large" onClick={onConfirm}>
             Confirm
           </Button>

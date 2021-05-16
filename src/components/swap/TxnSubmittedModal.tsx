@@ -50,7 +50,7 @@ export default function TxnSubmittedModal(props: Props) {
         </Box>
 
         <Box margin="32px auto 28px">
-          <OutlineButton width="180px" primary>
+          <OutlineButton width="180px" primary onClick={onDismiss}>
             Close
           </OutlineButton>
         </Box>

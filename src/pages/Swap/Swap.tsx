@@ -15,7 +15,7 @@ import DummyLogo from '../../assets/images/dummy_logo.png'
 import Stepper from '../../components/Stepper/Stepper'
 import TxnSubmittedModal from '../../components/swap/TxnSubmittedModal'
 import MetaMask from '../../assets/images/meta_mask.svg'
-import ConfirmWithdrawModal from '../../components/swap/confirmWithdrawModal'
+import ConfirmWithdrawModal from '../../components/swap/_ConfirmWithdrawModal'
 import { TYPE } from '../../theme'
 
 const currencyList = [

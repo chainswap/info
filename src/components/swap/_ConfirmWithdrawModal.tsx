@@ -6,7 +6,6 @@ import Button from '../Button/Button'
 import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Currency from '../../models/currency'
-import { Typography } from '@material-ui/core'
 
 interface Props {
   isOpen: boolean
@@ -64,7 +63,7 @@ const Seperator = styled('div')({
   margin: '20px auto 24px',
 })
 
-export default function ConfirmDepositModal(props: Props) {
+export default function ConfirmWithdrawModal(props: Props) {
   const { isOpen, onDismiss, from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
 
   const trimmedAddress = (address: string) => {

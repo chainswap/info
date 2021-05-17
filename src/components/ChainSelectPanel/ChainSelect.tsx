@@ -3,24 +3,24 @@ import { MenuItem, Box } from '@material-ui/core'
 import Select from '../Select/Select'
 import { TYPE } from '../../theme/index'
 import LogoText from '../LogoText/LogoText'
-import Currency from '../../models/currency'
+import Chain from '../../models/chain'
 
 interface Props {
   label: string
   disabled?: boolean
-  currencyList: Currency[]
+  chainList: Chain[]
 }
 
 export default function CurrencySelectPanel(props: Props) {
-  const { label, disabled, currencyList } = props
+  const { label, disabled, chainList } = props
   return (
     <>
       <Box>
         <TYPE.label>{label}</TYPE.label>
         <Select defaultValue="ETH" disabled={disabled}>
-          {currencyList.map((currency) => (
+          {chainList.map((chain) => (
             <MenuItem value="ETH">
-              <LogoText logo={currency.logo} text={currency.symbol} />
+              <LogoText logo={chain.logo} text={chain.symbol} />
             </MenuItem>
           ))}
         </Select>

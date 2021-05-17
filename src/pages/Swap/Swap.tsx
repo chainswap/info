@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useCallback } from 'react'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
-import CurrencySelectPanel from '../../components/CurrencySelectPanel/CurrencySelectPanel'
+import ChainSelectPanel from '../../components/ChainSelectPanel/ChainSelectPanel'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
@@ -18,7 +18,7 @@ import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
 import { TYPE } from '../../theme'
 
-const currencyList = [
+const CurrencyList = [
   {
     logo: DummyLogo,
     symbol: 'TOKEN',
@@ -74,7 +74,7 @@ export default function Swap() {
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
-  const [currency, setCurrency] = useState(currencyList[0])
+  const [currency, setCurrency] = useState(CurrencyList[0])
   // const [showConfirmDeposit, setShowConfirmDeposit] = useState(false)
 
   // modal and loading
@@ -185,7 +185,7 @@ export default function Swap() {
   }, [])
 
   const getSelectedCurrency = () => {
-    return currencyList[0]
+    return CurrencyList[0]
   }
 
   const onConfirmDeposit = useCallback(() => {
@@ -274,9 +274,9 @@ export default function Swap() {
             onChange={onChangeAmount}
             value={amount}
             selectedCurrency={getSelectedCurrency()}
-            options={currencyList}
+            options={CurrencyList}
           />
-          <CurrencySelectPanel currencyList={currencyList} />
+          <ChainSelectPanel chainList={ChainList} />
           {account && (
             <Box>
               <Input

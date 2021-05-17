@@ -20,8 +20,8 @@ export default function ChainSelectPanel(props: Props) {
         <TYPE.Label>{label}</TYPE.Label>
         <Select defaultValue="ETH" disabled={disabled}>
           {chainList.map((chain) => (
-            <MenuItem value="ETH">
-              <LogoText logo={selectedChain.logo} text={selectedChain.symbol} />
+            <MenuItem value={chain.symbol} key={chain.symbol}>
+              <LogoText logo={chain.logo} text={chain.symbol} />
             </MenuItem>
           ))}
         </Select>

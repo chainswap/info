@@ -1,8 +1,25 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useCallback } from 'react'
 import { FixedSizeList } from 'react-window'
 import CurrencyLogo from '../../assets/images/dummy_logo.png'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
+import Currency from '../../models/currency'
+
+function currencyKey(currency: Currency): string {
+  return currency ? currency.symbol : ''
+}
+
+interface Props {
+  currencies: Currency[]
+  selectedCurrency?: Currency | null
+  // onCurrencySelect: (currency: Currency) => void
+  // otherCurrency?: Currency | null
+  // fixedListRef?: MutableRefObject<FixedSizeList | undefined>
+  // showETH: boolean
+  // showImportView: () => void
+  // setImportToken: (token: Token) => void
+  // breakIndex: number | undefined
+}
 
 const MenuItem = styled('div')({
   padding: '0 32px',
@@ -33,27 +50,43 @@ const CurrencyRow = ({ style, currency, onSelect }: { style: CSSProperties; curr
       <Box display="flex">
         <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
         <Box display="flex" flexDirection="column" marginLeft="16px">
-          <CurrencySymbol>{currency}</CurrencySymbol>
-          <CurrencyName>Ether</CurrencyName>
+          <CurrencySymbol>{currency.symbol}</CurrencySymbol>
+          <CurrencyName>{currency.name}</CurrencyName>
         </Box>
       </Box>
-      <Balance>15.78</Balance>
+      <Balance>{currency.balance}</Balance>
     </MenuItem>
   )
 }
 
-const Row = ({ data, index, style }: any) => {
-  const currency = 'ETH'
-  const handleSelect = () => {
-    alert('onCurrencySelect')
-  }
+export default function CurrencyList(props: Props) {
+  const { currencies, selectedCurrency } = props
 
-  return <CurrencyRow style={style} currency={currency} onSelect={handleSelect} />
-}
+  const Row = useCallback(
+    ({ data, index, style }: any) => {
+      const currency: Currency = data[index]
+      console.log(currency)
 
-export default function CurrencyList() {
+      const onSelect = () => {
+        alert('onCurrencySelect')
+      }
+
+      return <CurrencyRow style={style} currency={currency} onSelect={onSelect} />
+    },
+    [selectedCurrency]
+  )
+
+  const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), [])
+
   return (
-    <FixedSizeList height={500} width="100%" itemCount={20} itemSize={56}>
+    <FixedSizeList
+      height={290}
+      width="100%"
+      itemCount={currencies.length}
+      itemSize={56}
+      itemData={currencies}
+      itemKey={itemKey}
+    >
       {Row}
     </FixedSizeList>
   )

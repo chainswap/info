@@ -47,7 +47,7 @@ const CurrencySelect = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency } = props
+  const { selectedCurrency, options } = props
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleDismissSearch = useCallback(() => {
@@ -85,7 +85,7 @@ export default function CurrencyInputPanel(props: Props) {
           </CurrencySelect>
         </InputRow>
       </Box>
-      <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} />
+      <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} currencies={options} />
     </>
   )
 }

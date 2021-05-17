@@ -1,10 +1,12 @@
 import React from 'react'
 import Modal from '../Modal/Modal'
 import CurrencySearch from './CurrencySearch'
+import Currency from '../../models/currency'
 
 interface Props {
   isOpen: boolean
   onDismiss: () => void
+  currencies: Currency[]
   // selectedCurrency?: Currency | null
   // onCurrencySelect: (currency: Currency) => void
   // otherSelectedCurrency?: Currency | null
@@ -12,10 +14,12 @@ interface Props {
 }
 
 export default function CurrencySearchModal(props: Props) {
+  const { currencies, isOpen, onDismiss } = props
+
   return (
     <>
-      <Modal isOpen={props.isOpen} onDismiss={props.onDismiss} label={'Select a token'}>
-        <CurrencySearch isOpen={props.isOpen} onDismiss={props.onDismiss} />
+      <Modal isOpen={isOpen} onDismiss={onDismiss} label={'Select a token'}>
+        <CurrencySearch currencies={currencies} />
       </Modal>
     </>
   )

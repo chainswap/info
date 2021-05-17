@@ -3,6 +3,7 @@ import { styled } from '@material-ui/styles'
 import { Input, Box } from '@material-ui/core'
 import CurrencyList from './CurrencyList'
 import ButtonText from '../Button/ButtonText'
+import Currency from '../../models/currency'
 
 const SearchInput = styled(Input)({
   position: 'relative',
@@ -24,23 +25,23 @@ const Seperator = styled('div')({
   width: '100%',
   height: 1,
   backgroundColor: 'hsla(0,0%,100%,.12)',
-  margin: '20px 0',
 })
 
 interface Props {
-  isOpen: boolean
-  onDismiss: () => void
+  currencies: Currency[]
 }
 
 export default function CurrencySearch(props: Props) {
+  const { currencies } = props
   return (
     <>
-      <Box padding="20px 32px 0 32px">
+      <Box padding="20px 32px 20px 32px">
         <SearchInput disableUnderline placeholder={'Search by name or paste address'} />
       </Box>
       <Seperator />
-      <CurrencyList />
-      <Box width="100%" borderRadius="0 0 20px 20px" padding="20px" justifyContent="center" display="flex">
+      <CurrencyList currencies={currencies} />
+      <Seperator />
+      <Box width="100%" borderRadius="0 0 20px 20px" padding="12px 0 13px 0" justifyContent="center" display="flex">
         <ButtonText>Manage</ButtonText>
       </Box>
     </>

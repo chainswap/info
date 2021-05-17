@@ -1,7 +1,6 @@
 import React from 'react'
 import MuiStepper from '@material-ui/core/Stepper'
 import MuiStep from '@material-ui/core/Step'
-import MuiStepLabel from '@material-ui/core/StepLabel'
 import MuiStepConnector from '@material-ui/core/StepConnector'
 import { makeStyles, withStyles } from '@material-ui/core'
 import { StepIconProps } from '@material-ui/core/StepIcon'

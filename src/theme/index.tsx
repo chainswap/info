@@ -1,6 +1,5 @@
 import React from 'react'
-import { createMuiTheme, Theme, Typography } from '@material-ui/core'
-import { styled } from '@material-ui/styles'
+import { createMuiTheme, Theme } from '@material-ui/core'
 import { Text, TextProps } from 'rebass'
 
 const theme: Theme = createMuiTheme({
@@ -15,20 +14,17 @@ const theme: Theme = createMuiTheme({
 })
 
 export const TYPE = {
-  header(props: TextProps) {
+  Header(props: TextProps) {
     return <Text fontWeight={500} fontSize={20} fontFamily={'Futura PT'} {...props} />
   },
-  smallheader(props: TextProps) {
+  Smallheader(props: TextProps) {
     return <Text fontWeight={500} fontSize={18} {...props} />
   },
-  subheader(props: TextProps) {
+  Subheader(props: TextProps) {
     return <Text fontWeight={400} fontSize={18} {...props} />
   },
-  label(props: TextProps) {
+  Label(props: TextProps) {
     return <Text fontWeight={400} fontSize={12} opacity={0.6} {...props} />
-  },
-  light(props: TextProps) {
-    return <Text fontWeight={400} fontSize={14} {...props} />
   },
 }
 

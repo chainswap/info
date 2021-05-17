@@ -1,23 +1,25 @@
 import React from 'react'
 import SwitchArrow from '../../assets/images/switch_arrow.svg'
-import CurrencySelect from './ChainSelect'
+import ChainSelect from './ChainSelect'
 import { Box } from '@material-ui/core'
 import Chain from '../../models/chain'
 
 interface Props {
   chainList: Chain[]
+  from: Chain
+  to: Chain
 }
 
 export default function CurrencySelectPanel(props: Props) {
-  const { chainList } = props
+  const { from, to, chainList } = props
   return (
     <>
       <Box display="flex" justifyContent="space-between">
-        <CurrencySelect label={'From'} disabled chainList={chainList} />
+        <ChainSelect label={'From'} disabled selectedChain={from} chainList={chainList} />
         <Box paddingTop="30px">
           <img src={SwitchArrow} alt={'switch_arrow_icon'} />
         </Box>
-        <CurrencySelect label={'To'} chainList={chainList} />
+        <ChainSelect label={'To'} selectedChain={to} chainList={chainList} />
       </Box>
     </>
   )

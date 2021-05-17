@@ -2,7 +2,7 @@ import React from 'react'
 import { Dialog, makeStyles } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
-import { Typography, Box } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { TYPE } from '../../theme'
 
 interface Props {
@@ -28,17 +28,6 @@ const useStyles = makeStyles({
   },
 })
 
-const DialogTitle = styled('div')({
-  color: '#FFFFFF',
-  fontFamily: 'Roboto',
-  fontWeight: 400,
-  fontSize: 18,
-  lineHeight: '26.76px',
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: 24,
-})
-
 const CloseBox = styled('div')({
   position: 'absolute',
   right: 24,
@@ -62,9 +51,11 @@ export default function Modal(props: Props) {
         PaperProps={{ className: classes.paper }}
         BackdropProps={{ className: classes.backdrop }}
       >
-        <Box marginTop="24px">
-          <TYPE.subheader textAlign={'center'}>{label}</TYPE.subheader>
-        </Box>
+        {label && (
+          <Box marginTop="24px">
+            <TYPE.Subheader textAlign={'center'}>{label}</TYPE.Subheader>
+          </Box>
+        )}
 
         {!hideClose && (
           <CloseBox onClick={onDismiss}>

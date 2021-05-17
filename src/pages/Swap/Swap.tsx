@@ -63,8 +63,6 @@ const Seperator = styled('div')({
   opacity: 0.2,
 })
 
-interface SwapStatus {}
-
 export default function Swap() {
   const [account, setAccount] = useState(true)
   const [amount, setAmount] = useState('')
@@ -267,7 +265,7 @@ export default function Swap() {
     <>
       <AppBody>
         <Box margin="12px 0 18px 0">
-          <TYPE.header textAlign="center">Cross Chain Bridge</TYPE.header>
+          <TYPE.Header textAlign="center">Cross Chain Bridge</TYPE.Header>
         </Box>
         <Box display="grid" gridGap="20px" padding="0 32px">
           <CurrencyInputPanel
@@ -276,7 +274,7 @@ export default function Swap() {
             selectedCurrency={getSelectedCurrency()}
             options={CurrencyList}
           />
-          <ChainSelectPanel chainList={ChainList} />
+          <ChainSelectPanel from={from} to={to} chainList={ChainList} />
           {account && (
             <Box>
               <Input

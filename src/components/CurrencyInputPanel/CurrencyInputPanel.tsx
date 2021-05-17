@@ -58,10 +58,10 @@ export default function CurrencyInputPanel(props: Props) {
     <>
       <Box>
         <Box display="flex" justifyContent="space-between">
-          <TYPE.label>Amount</TYPE.label>
-          <TYPE.label opacity={0.4}>
+          <TYPE.Label>Amount</TYPE.Label>
+          <TYPE.Label opacity={0.4}>
             {selectedCurrency ? `your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}` : ''}
-          </TYPE.label>
+          </TYPE.Label>
         </Box>
         <InputRow>
           <StyledInput
@@ -85,14 +85,7 @@ export default function CurrencyInputPanel(props: Props) {
           </CurrencySelect>
         </InputRow>
       </Box>
-      <CurrencySearchModal
-        isOpen={modalOpen}
-        onDismiss={handleDismissSearch}
-        // onCurrencySelect={onCurrencySelect}
-        // selectedCurrency={currency}
-        // otherSelectedCurrency={otherCurrency}
-        // showCommonBases={showCommonBases}
-      />
+      <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} />
     </>
   )
 }

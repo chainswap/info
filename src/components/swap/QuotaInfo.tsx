@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import { TYPE } from '../../theme/index'
+import { Text } from 'rebass'
 
 interface Props {
   percentage: number
@@ -14,15 +14,19 @@ export default function QuotaInfo(props: Props) {
   return (
     <>
       <Box display="flex" justifyContent="space-between">
-        <TYPE.light opacity={'0.6'}>Your Quota:</TYPE.light>
+        <Text fontWeight={400} fontSize={14} opacity={0.6}>
+          Your Quota:
+        </Text>
         <Box display="flex">
           <Box marginRight="12px">
-            <TYPE.light>
+            <Text fontWeight={400} fontSize={14} opacity={0.6}>
               {quota} {currency}
-            </TYPE.light>
+            </Text>
           </Box>
           <Box>
-            <TYPE.light opacity={'0.6'}>{percentage}% / 100%</TYPE.light>
+            <Text fontWeight={400} fontSize={14} opacity={0.6}>
+              {percentage}% / 100%
+            </Text>
           </Box>
         </Box>
       </Box>

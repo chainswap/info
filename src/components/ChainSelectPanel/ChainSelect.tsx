@@ -9,18 +9,19 @@ interface Props {
   label: string
   disabled?: boolean
   chainList: Chain[]
+  selectedChain: Chain
 }
 
-export default function CurrencySelectPanel(props: Props) {
-  const { label, disabled, chainList } = props
+export default function ChainSelectPanel(props: Props) {
+  const { label, disabled, selectedChain, chainList } = props
   return (
     <>
       <Box>
-        <TYPE.label>{label}</TYPE.label>
+        <TYPE.Label>{label}</TYPE.Label>
         <Select defaultValue="ETH" disabled={disabled}>
           {chainList.map((chain) => (
             <MenuItem value="ETH">
-              <LogoText logo={chain.logo} text={chain.symbol} />
+              <LogoText logo={selectedChain.logo} text={selectedChain.symbol} />
             </MenuItem>
           ))}
         </Select>

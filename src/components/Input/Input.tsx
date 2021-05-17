@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import { InputBase, InputLabel, makeStyles } from '@material-ui/core'
-import { styled } from '@material-ui/styles'
+import { InputBase, makeStyles } from '@material-ui/core'
 import { TYPE } from '../../theme/index'
 
 interface Props {
@@ -38,7 +37,7 @@ export default function Input(props: Props) {
 
   return (
     <>
-      {props.label && <TYPE.label>{props.label}</TYPE.label>}
+      {props.label && <TYPE.Label>{props.label}</TYPE.Label>}
       <InputBase fullWidth={true} {...props} classes={{ ...classes }} />
     </>
   )

@@ -33,6 +33,29 @@ const currencyList = [
   },
 ]
 
+const ChainList = [
+  {
+    logo: DummyLogo,
+    symbol: 'ETH',
+  },
+  {
+    logo: DummyLogo,
+    symbol: 'BSC',
+  },
+  {
+    logo: DummyLogo,
+    symbol: 'OEC',
+  },
+  {
+    logo: DummyLogo,
+    symbol: 'HECO',
+  },
+  {
+    logo: DummyLogo,
+    symbol: 'Polygon',
+  },
+]
+
 const Seperator = styled('div')({
   width: '100%',
   height: 1,
@@ -46,12 +69,12 @@ export default function Swap() {
   const [account, setAccount] = useState(true)
   const [amount, setAmount] = useState('')
   const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
-  const [from, setFrom] = useState(currencyList[0])
-  const [to, setTo] = useState(currencyList[1])
+  const [from, setFrom] = useState(ChainList[0])
+  const [to, setTo] = useState(ChainList[1])
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
-  const [currency, setCurrency] = useState('MATTER')
+  const [currency, setCurrency] = useState(currencyList[0])
   // const [showConfirmDeposit, setShowConfirmDeposit] = useState(false)
 
   // modal and loading
@@ -283,7 +306,7 @@ export default function Swap() {
             </Box>
             <Seperator />
             <Box display="grid" gridGap="12px" padding="24px 32px 28px 32px">
-              <QuotaInfo quota={quota} currency={currency} percentage={getPercentage()} />
+              <QuotaInfo quota={quota} currency={currency.symbol} percentage={getPercentage()} />
               <QuotaBar percentage={getPercentage()} />
             </Box>
           </>
@@ -312,7 +335,7 @@ export default function Swap() {
       <TxnSubmittedModal
         isOpen={showTxnSubmitted}
         onDismiss={onDismissTxnSubmitted}
-        currency={from}
+        currency={currency}
         wallet={{ logo: MetaMask, name: 'MetaMask' }}
       />
       <ConfirmWithdrawModal

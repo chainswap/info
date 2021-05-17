@@ -6,6 +6,7 @@ import Button from '../Button/Button'
 import LogoText from '../LogoText/LogoText'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Currency from '../../models/currency'
+import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
 import { Text } from 'rebass'
 
@@ -19,8 +20,8 @@ interface Props {
   onDismiss: () => void
   children?: React.ReactNode
   label?: string
-  from: Currency
-  to: Currency
+  from: Chain
+  to: Chain
   walletLogo: string
   address: string
   value: string
@@ -38,7 +39,7 @@ const FadedBox = styled(Box)({
   opacity: 0.2,
 })
 
-const Instruction = ({ to }: { to: Currency; faded?: boolean }) => {
+const Instruction = ({ to }: { to: Chain }) => {
   return (
     <Box color="#FFFFFF" padding="40px 32px 0" fontSize="18px">
       <TYPE.smallheader textAlign="center">
@@ -49,7 +50,7 @@ const Instruction = ({ to }: { to: Currency; faded?: boolean }) => {
   )
 }
 
-const SwapCurrency = ({ from, to }: { from: Currency; to: Currency }) => {
+const SwapCurrency = ({ from, to }: { from: Chain; to: Chain }) => {
   // const {fromLogo, from, toLogo, to} = props
   return (
     <Box

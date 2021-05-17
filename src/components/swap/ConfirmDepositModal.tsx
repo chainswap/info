@@ -6,14 +6,15 @@ import Button from '../Button/Button'
 import LogoText from '../LogoText/LogoText'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Currency from '../../models/currency'
+import Chain from '../../models/chain'
 
 interface Props {
   isOpen: boolean
   onDismiss: () => void
   children?: React.ReactNode
   label?: string
-  from: Currency
-  to: Currency
+  from: Chain
+  to: Chain
   walletLogo: string
   address: string
   value: string
@@ -27,7 +28,7 @@ const Label = styled('label')({
   marginRight: '12px',
 })
 
-const SwapCurrency = ({ from, to }: { from: Currency; to: Currency }) => {
+const SwapCurrency = ({ from, to }: { from: Chain; to: Chain }) => {
   // const {fromLogo, from, toLogo, to} = props
   return (
     <Box

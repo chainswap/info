@@ -3,10 +3,9 @@ import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
-import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
+import LogoText from '../LogoText/LogoText'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Currency from '../../models/currency'
-import CurrencyInputPanel from '../CurrencyInputPanel/CurrencyInputPanel'
 
 interface Props {
   isOpen: boolean
@@ -43,14 +42,14 @@ const SwapCurrency = ({ from, to }: { from: Currency; to: Currency }) => {
     >
       <Box display="flex">
         <Label>From: </Label>
-        <CurrencyLogo currency={from} />
+        <LogoText logo={from.logo} text={from.symbol} />
       </Box>
       <Box color={'#FFFFFF'}>
         <ArrowForwardIcon />
       </Box>
       <Box display="flex">
         <Label>To: </Label>
-        <CurrencyLogo currency={to} />
+        <LogoText logo={to.logo} text={to.symbol} />
       </Box>
     </Box>
   )

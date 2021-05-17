@@ -6,7 +6,7 @@ import CurrencySelectPanel from '../../components/CurrencySelectPanel/CurrencySe
 import { useWalletModalToggle } from '../../state/application/hooks'
 import WalletModal from '../../components/WalletModal'
 import { styled } from '@material-ui/styles'
-import { Box, Typography } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
 import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
@@ -251,7 +251,6 @@ export default function Swap() {
             onChange={onChangeAmount}
             value={amount}
             selectedCurrency={getSelectedCurrency()}
-            defaultCurrency={getSelectedCurrency()}
             options={currencyList}
           />
           <CurrencySelectPanel currencyList={currencyList} />

@@ -6,14 +6,13 @@ import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
 import Currency from '../../models/currency'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import CurrencyLogo from '../CurrencyLogo/CurrencyLogo'
+import LogoText from '../LogoText/LogoText'
 import { TYPE } from '../../theme/index'
 
 interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  defaultCurrency: Currency
-  selectedCurrency?: Currency
+  selectedCurrency: Currency
   options: Currency[]
 }
 
@@ -48,7 +47,7 @@ const CurrencySelect = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency, defaultCurrency } = props
+  const { selectedCurrency } = props
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleDismissSearch = useCallback(() => {
@@ -81,7 +80,7 @@ export default function CurrencyInputPanel(props: Props) {
               setModalOpen(true)
             }}
           >
-            <CurrencyLogo currency={selectedCurrency ? selectedCurrency : defaultCurrency} />
+            <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
             <ExpandMoreIcon />
           </CurrencySelect>
         </InputRow>

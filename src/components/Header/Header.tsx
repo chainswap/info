@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { styled, Box } from '@material-ui/core'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import Button from '../../components/Button/Button'
 import { useWalletModalToggle } from '../../state/application/hooks'
+import OutlineButton from '../Button/OutlineButton'
 
 const HeaderFrame = styled('div')({
   display: 'flex',
@@ -48,6 +49,7 @@ const StyledNavLink = styled(NavLink)({
 
 export default function Header() {
   const toggleWalletModal = useWalletModalToggle()
+  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
 
   return (
     <HeaderFrame>
@@ -73,9 +75,17 @@ export default function Header() {
           </StyledNavLink>
         </HeaderLinks>
       </Box>
-      <Button size="small" width={'140px'} onClick={toggleWalletModal}>
-        Connect Wallet
-      </Button>
+      {address ? (
+        <>
+          <OutlineButton width={'100px'} height={'32px'}>
+            Claim List
+          </OutlineButton>
+        </>
+      ) : (
+        <Button size="small" width={'140px'} onClick={toggleWalletModal}>
+          Connect Wallet
+        </Button>
+      )}
     </HeaderFrame>
   )
 }

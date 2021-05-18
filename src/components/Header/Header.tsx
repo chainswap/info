@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { styled, Box, MenuItem } from '@material-ui/core'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import Button from '../../components/Button/Button'
-import { useWalletModalToggle } from '../../state/application/hooks'
+import { useWalletModalToggle, useClaimModalToggle } from '../../state/application/hooks'
 import OutlineButton from '../Button/OutlineButton'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
@@ -106,7 +106,9 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
 
 export default function Header() {
   const toggleWalletModal = useWalletModalToggle()
+  const toggleClaimModal = useClaimModalToggle()
   const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  // const address = null
   const [chain, setChain] = useState('BSC')
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
@@ -139,7 +141,7 @@ export default function Header() {
         {address ? (
           <Box display="flex">
             <Box marginRight={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'}>
+              <OutlineButton width={'100px'} height={'32px'} onClick={toggleClaimModal}>
                 Claim List
               </OutlineButton>
             </Box>

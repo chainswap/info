@@ -17,3 +17,7 @@ export function useToggleModal(modal: ApplicationModal): () => void {
 export function useWalletModalToggle(): () => void {
   return useToggleModal(ApplicationModal.WALLET)
 }
+
+export function useClaimModalToggle(): () => void {
+  return useToggleModal(ApplicationModal.CLAIM)
+}

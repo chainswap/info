@@ -3,7 +3,7 @@ import { createAction } from '@reduxjs/toolkit'
 export enum ApplicationModal {
   WALLET,
   // SETTINGS,
-  // SELF_CLAIM,
+  CLAIM,
   // ADDRESS_CLAIM,
   // CLAIM_POPUP,
   // MENU,

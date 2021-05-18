@@ -1,18 +1,20 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
+import { Text } from 'rebass'
 
 interface Props {
   logo: string
   text: string
+  size?: 'small' | 'large'
 }
 
 export default function LogoText(props: Props) {
-  const { logo, text } = props
+  const { logo, text, size } = props
   return (
-    <Box display="flex">
+    <Box display="flex" marginLeft={size == 'small' ? '8px' : '20px'}>
       <img src={logo} alt={`${text} logo`} />
-      <Box marginLeft="12px" color="#FFFFFF" fontSize="16px">
-        {text}
+      <Box marginLeft={size == 'small' ? '4px' : '12px'}>
+        <Text fontSize={size == 'small' ? '13px' : '16px'}>{text}</Text>
       </Box>
     </Box>
   )

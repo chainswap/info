@@ -8,17 +8,17 @@ interface Props {
   // onChange: (e: ChangeEvent<HTMLSelectElement>) => void
   defaultValue: any
   disabled?: boolean
+  size?: 'large' | 'small'
 }
 
 const useStyles = makeStyles({
   root: {
-    width: 176,
-    height: 46,
-    borderRadius: 14,
+    width: (props: Props) => (props.size == 'small' ? 80 : 176),
+    height: (props: Props) => (props.size == 'small' ? 32 : 46),
+    borderRadius: (props: Props) => (props.size == 'small' ? 4 : 14),
     boxSizing: 'border-box',
     backgroundColor: '#1f1f1f',
     color: '#FFFFFF',
-    padding: '14px 20px 14px 20px',
     cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
     display: 'flex',
     alignItems: 'center',
@@ -28,9 +28,10 @@ const useStyles = makeStyles({
     },
   },
   icon: {
-    right: 15,
+    right: (props: Props) => (props.size == 'small' ? 6.51 : 15),
     color: '#FFFFFF',
     display: (props: Props) => (props.disabled ? 'none' : 'block'),
+    opacity: (props: Props) => (props.size == 'small' ? 0.5 : 1),
   },
   paper: {
     borderRadius: 14,

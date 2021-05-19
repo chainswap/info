@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 
 const CloseBox = styled('div')({
   position: 'absolute',
-  right: 24,
+  right: 30,
   top: 24,
   color: '#FFFFFF',
   opacity: 0.6,

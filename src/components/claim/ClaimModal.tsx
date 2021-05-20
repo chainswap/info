@@ -1,7 +1,6 @@
 import React from 'react'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useClaimModalToggle } from '../../state/application/hooks'
-// import Modal from '../Modal/Modal'
 import { makeStyles, Modal } from '@material-ui/core'
 import { Box, Divider, MenuItem } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
@@ -9,11 +8,12 @@ import { Text } from 'rebass'
 import OutlineSelect from '../Select/OutlineSelect'
 import CloseIcon from '@material-ui/icons/Close'
 import ButtonText from '../Button/ButtonText'
-import DummuLogo from '../../assets/images/bsc.svg'
+import DummyLogo from '../../assets/images/bsc.svg'
 import Image from '../Image/Image'
 import OutlineButton from '../Button/OutlineButton'
 import ArrowForward from '../../assets/images/arrow_forward.svg'
-import abbreviateString from '../../utils/abbreviateString'
+import Chain from '../../models/chain'
+import Currency from '../../models/currency'
 
 const useStyles = makeStyles({
   root: {
@@ -100,13 +100,13 @@ const ClaimListItem = ({
   address,
   amount,
 }: {
-  from: string
-  to: string
-  currency: string
+  from: Chain
+  to: Chain
+  currency: Currency
   address: string
   amount: number
 }) => {
-  const amountText = `${amount} ${currency}`
+  const amountText = `${amount} ${currency}`.substr(0, 9) + '...'
 
   return (
     <Box
@@ -120,12 +120,12 @@ const ClaimListItem = ({
       marginBottom={'12px'}
     >
       <Box display={'flex'} alignItems={'center'}>
-        <KV k={'From:'} v={from} logo={DummuLogo} marginRight={'12px'} />
+        <KV k={'From:'} v={from.symbol} logo={from.logo} marginRight={'12px'} />
         <KV k={''} v={''} logo={ArrowForward} marginRight={'12px'} />
-        <KV k={'To:'} v={to} logo={DummuLogo} marginRight={'24px'} />
-        <KV k={'Token:'} v={currency} logo={DummuLogo} marginRight={'20px'} />
+        <KV k={'To:'} v={to.symbol} logo={to.logo} marginRight={'24px'} />
+        <KV k={'Token:'} v={currency.symbol} logo={currency.logo} marginRight={'20px'} />
         <KV k={'Destination:'} v={address} smallText marginRight={'18px'} />
-        <KV k={'Amount:'} v={abbreviateString(amountText, 9, 0)} />
+        <KV k={'Amount:'} v={amountText} />
       </Box>
       <Box>
         <OutlineButton width={'62px'} height={'36px'} primary>
@@ -136,14 +136,64 @@ const ClaimListItem = ({
   )
 }
 
-const ClaimList = () => {
+const ETH: Chain = {
+  logo: DummyLogo,
+  symbol: 'ETH',
+}
+
+const BSC: Chain = {
+  logo: DummyLogo,
+  symbol: 'BSC',
+}
+
+const MATTER: Currency = {
+  logo: DummyLogo,
+  symbol: 'MATTER',
+  name: 'MATTER',
+  balance: 0,
+}
+
+const dataItems = [
+  {
+    from: ETH,
+    to: BSC,
+    currency: MATTER,
+    address: '0x72ef...7123',
+    amount: 10500,
+  },
+  {
+    from: ETH,
+    to: BSC,
+    currency: MATTER,
+    address: '0x72ef...7123',
+    amount: 10500,
+  },
+]
+
+interface ClaimListItemProps {
+  from: Chain
+  to: Chain
+  currency: Currency
+  address: string
+  amount: number
+}
+
+interface ClaimListProps {
+  dataItems: ClaimListItemProps[]
+}
+
+const ClaimList = (props: ClaimListProps) => {
   return (
     <>
-      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
-      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
-      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
-      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
-      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
+      {props.dataItems.map((item) => (
+        <ClaimListItem
+          from={item.from}
+          to={item.to}
+          currency={item.currency}
+          address={item.address}
+          amount={item.amount}
+        />
+      ))}
     </>
   )
 }
@@ -155,16 +205,10 @@ export default function ClaimModal() {
   const toggleClaimModal = useClaimModalToggle()
 
   return (
-    <Modal
-      className={classes.root}
-      open={claimModalOpen}
-      onClose={() => {
-        console.log(11)
-      }}
-    >
+    <Modal className={classes.root} open={claimModalOpen} onClose={toggleClaimModal}>
       <Box padding={'18px 32px 16px 32px'}>
         <ClaimHeader />
-        <ClaimList />
+        <ClaimList dataItems={dataItems} />
         <Divider />
         <Box textAlign={'center'}>
           <ButtonText>Clear All</ButtonText>

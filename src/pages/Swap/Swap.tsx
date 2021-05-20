@@ -12,50 +12,12 @@ import Input from '../../components/Input/Input'
 import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
-import DummyLogo from '../../assets/images/dummy_logo.png'
 import Stepper from '../../components/Stepper/Stepper'
 import TxnSubmittedModal from '../../components/swap/TxnSubmittedModal'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
 import { TYPE } from '../../theme'
-
-const CurrencyList = [
-  {
-    logo: DummyLogo,
-    symbol: 'TOKEN',
-    name: 'ChainSwap.com Governance Token',
-    balance: 800,
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'MATTER',
-    name: 'Antimatter.Finance Governance Token',
-    balance: 400,
-  },
-]
-
-const ChainList = [
-  {
-    logo: DummyLogo,
-    symbol: 'ETH',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'BSC',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'OEC',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'HECO',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'Polygon',
-  },
-]
+import { CurrencyList, ChainList } from '../../data/dummyData'
 
 const Seperator = styled('div')({
   width: '100%',

@@ -10,7 +10,7 @@ import LogoText from '../LogoText/LogoText'
 import CopyIcon from '../../assets/images/copy.svg'
 import Image from '../Image/Image'
 import Bulb from '../../assets/images/bulb.svg'
-import trimAddress from '../../utils/trimAddress'
+import abbreviateString from '../../utils/abbreviateString'
 import { Text } from 'rebass'
 
 const ChainList = [
@@ -95,7 +95,7 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
         <Image src={Bulb} alt={'bulb icon'} />
         <Box margin={'0 6px'}>
           <Text fontSize={12} fontWeight={400} opacity={0.6}>
-            {trimAddress(address, 6, 4)}
+            {abbreviateString(address, 6, 4)}
           </Text>
         </Box>
         <Image src={CopyIcon} alt={'copy icon'} />

@@ -13,6 +13,7 @@ import DummuLogo from '../../assets/images/bsc.svg'
 import Image from '../Image/Image'
 import OutlineButton from '../Button/OutlineButton'
 import ArrowForward from '../../assets/images/arrow_forward.svg'
+import abbreviateString from '../../utils/abbreviateString'
 
 const useStyles = makeStyles({
   root: {
@@ -92,7 +93,21 @@ const KV = ({
   )
 }
 
-const ClaimListRow = () => {
+const ClaimListItem = ({
+  from,
+  to,
+  currency,
+  address,
+  amount,
+}: {
+  from: string
+  to: string
+  currency: string
+  address: string
+  amount: number
+}) => {
+  const amountText = `${amount} ${currency}`
+
   return (
     <Box
       height={64}
@@ -102,14 +117,15 @@ const ClaimListRow = () => {
       alignItems={'center'}
       justifyContent={'space-between'}
       padding={'0 16px'}
+      marginBottom={'12px'}
     >
       <Box display={'flex'} alignItems={'center'}>
-        <KV k={'From:'} v={'ETH'} logo={DummuLogo} marginRight={'12px'} />
+        <KV k={'From:'} v={from} logo={DummuLogo} marginRight={'12px'} />
         <KV k={''} v={''} logo={ArrowForward} marginRight={'12px'} />
-        <KV k={'To:'} v={'BSC'} logo={DummuLogo} marginRight={'24px'} />
-        <KV k={'Token:'} v={'BSC'} logo={DummuLogo} marginRight={'20px'} />
-        <KV k={'Destination:'} v={'0x72ef...7123'} smallText marginRight={'18px'} />
-        <KV k={'Amount:'} v={'10 500 MATTER'} />
+        <KV k={'To:'} v={to} logo={DummuLogo} marginRight={'24px'} />
+        <KV k={'Token:'} v={currency} logo={DummuLogo} marginRight={'20px'} />
+        <KV k={'Destination:'} v={address} smallText marginRight={'18px'} />
+        <KV k={'Amount:'} v={abbreviateString(amountText, 9, 0)} />
       </Box>
       <Box>
         <OutlineButton width={'62px'} height={'36px'} primary>
@@ -123,11 +139,11 @@ const ClaimListRow = () => {
 const ClaimList = () => {
   return (
     <>
-      <ClaimListRow />
-      <ClaimListRow />
-      <ClaimListRow />
-      <ClaimListRow />
-      <ClaimListRow />
+      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
+      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
+      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
+      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
+      <ClaimListItem from={'ETH'} to={'BSC'} currency={'MATTER'} address={'0x72ef...7123'} amount={10500} />
     </>
   )
 }

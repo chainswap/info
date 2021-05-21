@@ -9,6 +9,7 @@ import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
 import SwapChain from './SwapChain'
 import ChainAddress from './ChainAddress'
+import Divider from '../../components/Divider/Divider'
 
 enum Mode {
   INSTRUCTION,
@@ -44,14 +45,6 @@ const Instruction = ({ to }: { to: Chain }) => {
   )
 }
 
-const Seperator = styled('div')({
-  width: '100%',
-  height: 1,
-  backgroundColor: '#FFFFFF',
-  opacity: 0.2,
-  margin: '20px auto 24px',
-})
-
 export default function ConfirmWithdrawModal(props: Props) {
   const { isOpen, onDismiss, from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
   const [mode, setMode] = useState(Mode.INSTRUCTION)
@@ -64,7 +57,7 @@ export default function ConfirmWithdrawModal(props: Props) {
             <Instruction to={to} />
             <SwapChain from={from} to={to} />
             <ChainAddress walletLogo={walletLogo} address={address} />
-            <Seperator />
+            <Divider orientation={'horizontal'} margin={'20px 0 24px 0'} />
             <FadedBox>
               <Box marginBottom="12px">
                 <TYPE.Subheader textAlign={'center'}>3. Confirm Withdraw</TYPE.Subheader>
@@ -81,7 +74,7 @@ export default function ConfirmWithdrawModal(props: Props) {
             <FadedBox>
               <Instruction to={to} />
             </FadedBox>
-            <Seperator />
+            <Divider orientation={'horizontal'} margin={'20px 0 24px 0'} />
             <Box marginBottom="12px">
               <TYPE.Subheader textAlign={'center'}>3. Confirm Withdraw</TYPE.Subheader>
             </Box>

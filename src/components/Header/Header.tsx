@@ -13,6 +13,7 @@ import Bulb from '../../assets/images/bulb.svg'
 import abbreviateString from '../../utils/abbreviateString'
 import { Text } from 'rebass'
 import { ChainList } from '../../data/dummyData'
+import Divider from '../../components/Divider/Divider'
 
 const HeaderFrame = styled('div')({
   display: 'flex',
@@ -65,11 +66,11 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
       borderRadius={'4px'}
       alignItems={'center'}
     >
-      <Box margin={'0 10px 0 12px'}>
+      <Box marginLeft={'12px'}>
         <Text fontSize={13} fontWeight={400}>{`${amount} ${currency}`}</Text>
       </Box>
-      <Box width={'1px'} height={'100%'} bgcolor={'#FFFFFF'} />
-      <Box padding={'0 10.26px 0 8px'} display={'flex'}>
+      <Divider orientation={'vertical'} opacity={1} margin={'0 8px 0 10px'} />
+      <Box paddingRight={'10.26px'} display={'flex'}>
         <Image src={Bulb} alt={'bulb icon'} />
         <Box margin={'0 6px'}>
           <Text fontSize={12} fontWeight={400} opacity={0.6}>

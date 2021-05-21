@@ -4,7 +4,6 @@ import AppBody from '../AppBody'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import ChainSelectPanel from '../../components/ChainSelectPanel/ChainSelectPanel'
 import { useWalletModalToggle } from '../../state/application/hooks'
-import WalletModal from '../../components/WalletModal/WalletModal'
 import ClaimModal from '../../components/claim/ClaimModal'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
@@ -18,13 +17,7 @@ import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
 import { TYPE } from '../../theme'
 import { CurrencyList, ChainList } from '../../data/dummyData'
-
-const Seperator = styled('div')({
-  width: '100%',
-  height: 1,
-  backgroundColor: '#FFFFFF',
-  opacity: 0.2,
-})
+import Divider from '../../components/Divider/Divider'
 
 export default function Swap() {
   const [account, setAccount] = useState(true)
@@ -252,7 +245,7 @@ export default function Swap() {
 
         {account && (
           <>
-            <Box display="grid" gridGap="16px" padding="28px 32px">
+            <Box display="grid" gridGap="16px" padding="28px 32px 0 32px">
               <Box display="flex" justifyContent="space-between">
                 <Button size="large" width="216px" disabled={!depositEnabled} onClick={onDeposit}>
                   {attemptingDeposit ? <>Depositing</> : <>Deposit in {from.symbol} Chain</>}
@@ -265,8 +258,8 @@ export default function Swap() {
                 <Stepper />
               </Box>
             </Box>
-            <Seperator />
-            <Box display="grid" gridGap="12px" padding="24px 32px 28px 32px">
+            <Divider orientation={'horizontal'} margin={'24px 0 22px 0'} />
+            <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
               <QuotaInfo quota={quota} currency={currency.symbol} percentage={getPercentage()} />
               <QuotaBar percentage={getPercentage()} />
             </Box>

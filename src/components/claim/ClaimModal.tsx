@@ -2,7 +2,7 @@ import React from 'react'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useClaimModalToggle } from '../../state/application/hooks'
 import { makeStyles } from '@material-ui/core'
-import { Box, Divider, MenuItem, Dialog } from '@material-ui/core'
+import { Box, MenuItem, Dialog } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
 import OutlineSelect from '../Select/OutlineSelect'
@@ -12,6 +12,7 @@ import { claimModalData } from '../../data/dummyData'
 import CloseIcon from '../../assets/images/close_icon.svg'
 import Image from '../Image/Image'
 import Pager from '../Pager/Pager'
+import Divider from '../Divider/Divider'
 
 const useStyles = makeStyles({
   paper: {
@@ -27,13 +28,6 @@ const useStyles = makeStyles({
   },
   backdrop: {
     backgroundColor: 'rgba(0,0,0,.8)',
-  },
-  divider: {
-    border: 'none',
-    height: '1px',
-    backgroundColor: '#FFFFFF',
-    opacity: 0.2,
-    margin: '8px 0 20px 0',
   },
   footer: {
     position: 'absolute',
@@ -115,7 +109,7 @@ export default function ClaimModal() {
         <Box padding={'0 32px'}>
           <ClaimList dataItems={dataReady} />
         </Box>
-        <Divider className={classes.divider} />
+        <Divider orientation={'horizontal'} margin={'8px 0 20px 0'} />
         <Box padding={'0 32px'}>
           <ClaimList dataItems={dataCompleted} />
         </Box>

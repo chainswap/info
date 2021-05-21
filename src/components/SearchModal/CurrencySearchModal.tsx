@@ -18,7 +18,7 @@ export default function CurrencySearchModal(props: Props) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onDismiss={onDismiss} label={'Select a token'}>
+      <Modal isOpen={isOpen} onDismiss={onDismiss} label={'Select a token'} showIcon>
         <CurrencySearch currencies={currencies} />
       </Modal>
     </>

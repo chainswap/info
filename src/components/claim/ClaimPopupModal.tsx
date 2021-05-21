@@ -20,7 +20,7 @@ export default function ClaimPopupModal() {
   }
 
   return (
-    <Modal isOpen={claimPopupModalOpen} onDismiss={toggleClaimPopupModal} label={label}>
+    <Modal isOpen={claimPopupModalOpen} onDismiss={toggleClaimPopupModal} label={label} showIcon>
       <Box margin={'32px 52px 18px'}>
         <Input placeholder={placeHolder} value={hash} onChange={onChangeHash} />
       </Box>

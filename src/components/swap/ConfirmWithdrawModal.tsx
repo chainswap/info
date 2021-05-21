@@ -51,7 +51,7 @@ export default function ConfirmWithdrawModal(props: Props) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onDismiss={onDismiss}>
+      <Modal isOpen={isOpen} onDismiss={onDismiss} showIcon>
         {mode === Mode.INSTRUCTION ? (
           <>
             <Instruction to={to} />

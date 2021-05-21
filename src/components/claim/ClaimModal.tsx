@@ -1,12 +1,11 @@
 import React from 'react'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useClaimModalToggle } from '../../state/application/hooks'
-import { makeStyles, Modal } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import { Box, Divider, MenuItem, Dialog } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
 import OutlineSelect from '../Select/OutlineSelect'
-// import CloseIcon from '@material-ui/icons/Close'
 import ButtonText from '../Button/ButtonText'
 import ClaimList from './ClaimList'
 import { claimModalData } from '../../data/dummyData'
@@ -14,7 +13,6 @@ import CloseIcon from '../../assets/images/close_icon.svg'
 import Image from '../Image/Image'
 
 const useStyles = makeStyles({
-  root: {},
   paper: {
     background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #000000',
     border: '1px solid rgba(255, 255, 255, 0.2)',
@@ -82,7 +80,6 @@ export default function ClaimModal() {
     <>
       <Dialog
         open={claimModalOpen}
-        className={classes.root}
         PaperProps={{ className: classes.paper }}
         BackdropProps={{ className: classes.backdrop }}
       >

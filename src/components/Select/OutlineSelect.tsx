@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 interface Props {
   children: React.ReactNode
-  // onChange: (e: ChangeEvent<HTMLSelectElement>) => void
   defaultValue: any
   disabled?: boolean
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
 const useStyles = makeStyles({
@@ -16,16 +16,8 @@ const useStyles = makeStyles({
     height: 32,
     borderRadius: 4,
     boxSizing: 'border-box',
-    // backgroundColor: '#1f1f1f',
-    // color: '#FFFFFF',
     cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
-    // display: 'flex',
-    // alignItems: 'center',
-    // '&:focus': {
-    //   backgroundColor: '#1f1f1f',
-    //   borderRadius: 14,
-    // },
-    opacity: 0.2,
+    // opacity: 0.2,
     border: '1px solid #FFFFFF',
   },
   icon: {

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 interface Props {
   children: React.ReactNode
-  // onChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  onChange: (e: any) => void
   defaultValue: any
   disabled?: boolean
   size?: 'large' | 'small'
@@ -61,7 +61,7 @@ export default function _Select(props: Props) {
   return (
     <Select
       disableUnderline
-      classes={{ root: classes.root, icon: classes.icon }}
+      classes={{ ...classes }}
       defaultValue={props.defaultValue}
       disabled={props.disabled}
       MenuProps={{
@@ -77,6 +77,7 @@ export default function _Select(props: Props) {
         getContentAnchorEl: null,
       }}
       IconComponent={ExpandMoreIcon}
+      onChange={props.onChange}
     >
       {props.children}
     </Select>

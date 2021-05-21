@@ -39,8 +39,18 @@ const ClaimHeader = () => {
         Claim List
       </Text>
       <Box display={'flex'}>
-        <OutlineSelect defaultValue={''}>
-          <MenuItem value="ETH">ETH</MenuItem>
+        <OutlineSelect
+          defaultValue={'Token: All'}
+          onChange={() => {
+            alert('setToken')
+          }}
+        >
+          <MenuItem key={'ETH'} value={'ETH'}>
+            ETH
+          </MenuItem>
+          <MenuItem key={'BSC'} value={'BSC'}>
+            BSC
+          </MenuItem>
         </OutlineSelect>
         <CloseButton>
           <CloseIcon />

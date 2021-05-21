@@ -12,29 +12,7 @@ import Image from '../Image/Image'
 import Bulb from '../../assets/images/bulb.svg'
 import abbreviateString from '../../utils/abbreviateString'
 import { Text } from 'rebass'
-
-const ChainList = [
-  {
-    logo: DummyLogo,
-    symbol: 'ETH',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'BSC',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'OEC',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'HECO',
-  },
-  {
-    logo: DummyLogo,
-    symbol: 'Polygon',
-  },
-]
+import { ChainList } from '../../data/dummyData'
 
 const HeaderFrame = styled('div')({
   display: 'flex',
@@ -113,6 +91,10 @@ export default function Header() {
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
 
+  const onChangeChain = (e: any) => {
+    alert(e.target.value)
+  }
+
   return (
     <HeaderFrame>
       <Box display="flex">
@@ -146,7 +128,7 @@ export default function Header() {
               </OutlineButton>
             </Box>
             <Box marginRight={'8px'}>
-              <Select defaultValue={chain} size={'small'}>
+              <Select defaultValue={chain} size={'small'} onChange={onChangeChain}>
                 {ChainList.map((chain) => (
                   <MenuItem value={chain.symbol} key={chain.symbol}>
                     <LogoText logo={chain.logo} text={chain.symbol} size={'small'} />

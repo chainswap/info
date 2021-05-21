@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { MenuItem, Box } from '@material-ui/core'
 import Select from '../Select/Select'
 import { TYPE } from '../../theme/index'
@@ -14,11 +14,16 @@ interface Props {
 
 export default function ChainSelectPanel(props: Props) {
   const { label, disabled, selectedChain, chainList } = props
+
+  const onSelectChain = (e: any) => {
+    alert(e.target.value)
+  }
+
   return (
     <>
       <Box>
         <TYPE.Label>{label}</TYPE.Label>
-        <Select defaultValue="ETH" disabled={disabled}>
+        <Select defaultValue={selectedChain.symbol} disabled={disabled} onChange={onSelectChain}>
           {chainList.map((chain) => (
             <MenuItem value={chain.symbol} key={chain.symbol}>
               <LogoText logo={chain.logo} text={chain.symbol} />

@@ -4,7 +4,7 @@ import AppBody from '../AppBody'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import ChainSelectPanel from '../../components/ChainSelectPanel/ChainSelectPanel'
 import { useWalletModalToggle } from '../../state/application/hooks'
-import WalletModal from '../../components/WalletModal'
+import WalletModal from '../../components/WalletModal/WalletModal'
 import ClaimModal from '../../components/claim/ClaimModal'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
@@ -281,7 +281,7 @@ export default function Swap() {
           </Box>
         )}
       </AppBody>
-      <WalletModal />
+      {/* <WalletModal /> */}
       <ClaimModal />
       <ConfirmDepositModal
         isOpen={showConfirmDeposit}

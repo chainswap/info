@@ -70,7 +70,7 @@ function NextButton() {
 function PageInput() {
   const classes = useStyles()
 
-  return <InputBase className={classes.input} />
+  return <InputBase className={classes.input} defaultValue={1} />
 }
 
 export default function Pager() {

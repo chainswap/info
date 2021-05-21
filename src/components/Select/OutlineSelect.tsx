@@ -1,8 +1,9 @@
 import React, { ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Select } from '@material-ui/core'
+import { Select, Box } from '@material-ui/core'
+import { Text } from 'rebass'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
+import Image from '../Image/Image'
 interface Props {
   children: React.ReactNode
   defaultValue: any
@@ -17,11 +18,11 @@ const useStyles = makeStyles({
     borderRadius: 4,
     boxSizing: 'border-box',
     cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
-    // opacity: 0.2,
-    border: '1px solid #FFFFFF',
+    opacity: 0.6,
+    border: '1px solid rgba(255, 255, 255, 0.2)',
   },
   icon: {
-    right: 12,
+    right: 10,
     color: '#FFFFFF',
     opacity: 0.8,
   },
@@ -35,14 +36,14 @@ const useStyles = makeStyles({
       padding: 0,
     },
     '& li': {
-      fontSize: 16,
-      fontWeight: 500,
+      fontSize: 12,
+      fontWeight: 400,
       color: '#FFFFFF',
       border: '1px solid transparent',
-      borderBottomColor: 'hsla(0,0%,100%,.12)',
+      // borderBottomColor: 'hsla(0,0%,100%,.12)',
       display: 'flex',
       alignItems: 'center',
-      padding: 14,
+      // padding: 14,
     },
   },
 })
@@ -71,7 +72,13 @@ export default function OutlineSelect(props: Props) {
       IconComponent={ExpandMoreIcon}
       displayEmpty={true}
       renderValue={() => {
-        return 'Token: All'
+        return (
+          <Box marginLeft={'12px'}>
+            <Text fontSize={12} fontWeight={400} opacity={0.6}>
+              Token: All
+            </Text>
+          </Box>
+        )
       }}
     >
       {props.children}

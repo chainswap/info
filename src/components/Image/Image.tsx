@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Image(props: Props) {
-  const { src, alt, size } = props
+  const { src, alt, size, style } = props
 
-  return <img src={src} alt={alt} width={size} height={size} />
+  return <img src={src} alt={alt} width={size} height={size} style={style} />
 }

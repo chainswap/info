@@ -26,7 +26,7 @@ export default function TxnSubmittedMessageBox(props: Props) {
           View on Etherscan
         </ButtonText>
       </Box>
-      <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center" marginBottom={'32px'}>
         <Box
           width="210px"
           height="32px"

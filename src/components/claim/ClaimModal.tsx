@@ -21,10 +21,16 @@ const useStyles = makeStyles({
     boxSizing: 'border-box',
     borderRadius: 32,
     width: 620,
-    height: 504,
   },
   backdrop: {
     backgroundColor: 'rgba(0,0,0,.8)',
+  },
+  divider: {
+    border: 'none',
+    height: '1px',
+    backgroundColor: '#FFFFFF',
+    opacity: 0.2,
+    margin: '8px 0 20px 0',
   },
 })
 
@@ -81,9 +87,14 @@ export default function ClaimModal() {
         BackdropProps={{ className: classes.backdrop }}
       >
         <ClaimHeader />
-        <ClaimList dataItems={claimModalData} />
-        <Divider />
-        <Box textAlign={'center'}>
+        <Box padding={'0 32px'}>
+          <ClaimList dataItems={claimModalData} />
+        </Box>
+        <Divider className={classes.divider} />
+        <Box padding={'0 32px'}>
+          <ClaimList dataItems={claimModalData} />
+        </Box>
+        <Box textAlign={'center'} margin={'1px auto 16px'}>
           <ButtonText>Clear All</ButtonText>
         </Box>
       </Dialog>

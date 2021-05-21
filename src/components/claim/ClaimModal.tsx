@@ -11,6 +11,7 @@ import ClaimList from './ClaimList'
 import { claimModalData } from '../../data/dummyData'
 import CloseIcon from '../../assets/images/close_icon.svg'
 import Image from '../Image/Image'
+import Pager from '../Pager/Pager'
 
 const useStyles = makeStyles({
   paper: {
@@ -19,6 +20,10 @@ const useStyles = makeStyles({
     boxSizing: 'border-box',
     borderRadius: 32,
     width: '620px',
+    overflow: 'visible',
+    '&.MuiDialog-paperWidthSm': {
+      maxWidth: '620px',
+    },
   },
   backdrop: {
     backgroundColor: 'rgba(0,0,0,.8)',
@@ -29,6 +34,13 @@ const useStyles = makeStyles({
     backgroundColor: '#FFFFFF',
     opacity: 0.2,
     margin: '8px 0 20px 0',
+  },
+  footer: {
+    position: 'absolute',
+    width: '620px',
+    height: '63px',
+    display: 'flex',
+    alignItems: 'center',
   },
 })
 
@@ -71,6 +83,21 @@ const ClaimHeader = () => {
   )
 }
 
+const ClaimFooter = () => {
+  const classes = useStyles()
+  return (
+    <Box className={classes.footer} display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
+      <Text fontSize={'14px'} fontWeight={400} color={'#FFFFFF'}>
+        Don't see your claim request?
+        <a href="#" style={{ color: '#FFFFFF' }}>
+          Import now
+        </a>
+      </Text>
+      <Pager />
+    </Box>
+  )
+}
+
 export default function ClaimModal() {
   const classes = useStyles()
   const claimModalOpen = useModalOpen(ApplicationModal.CLAIM)
@@ -96,6 +123,9 @@ export default function ClaimModal() {
           <ButtonText fontSize={'12px'} fontWeight={400} underline>
             Clear All
           </ButtonText>
+        </Box>
+        <Box position={'relative'}>
+          <ClaimFooter />
         </Box>
       </Dialog>
     </>

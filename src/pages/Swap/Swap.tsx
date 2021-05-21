@@ -5,7 +5,6 @@ import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInpu
 import ChainSelectPanel from '../../components/ChainSelectPanel/ChainSelectPanel'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import ClaimModal from '../../components/claim/ClaimModal'
-import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
 import QuotaInfo from '../../components/swap/QuotaInfo'
@@ -18,6 +17,7 @@ import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
 import { TYPE } from '../../theme'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
+import ClaimPopupModal from '../../components/claim/ClaimPopupModal'
 
 export default function Swap() {
   const [account, setAccount] = useState(true)
@@ -304,6 +304,7 @@ export default function Swap() {
         value={amount}
         selectedCurrency={getSelectedCurrency()}
       />
+      <ClaimPopupModal />
     </>
   )
 }

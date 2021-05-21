@@ -21,3 +21,7 @@ export function useWalletModalToggle(): () => void {
 export function useClaimModalToggle(): () => void {
   return useToggleModal(ApplicationModal.CLAIM)
 }
+
+export function useClaimPopupModalToggle(): () => void {
+  return useToggleModal(ApplicationModal.CLAIM_POPUP)
+}

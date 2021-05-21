@@ -16,11 +16,14 @@ const useStyles = makeStyles({
     fontSize: 16,
     color: '#FFFFFF',
     fontFamily: 'Roboto',
-    fontWeight: 500,
+    fontWeight: 400,
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
     height: 48,
     paddingLeft: 20,
     borderRadius: 14,
+  },
+  focused: {
+    border: '1px solid #9867FF',
   },
   input: {
     '&::-webkit-outer-spin-button': {

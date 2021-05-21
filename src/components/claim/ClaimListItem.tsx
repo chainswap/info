@@ -9,6 +9,7 @@ import Image from '../Image/Image'
 import { Text } from 'rebass'
 import SuccessIcon from '../../assets/images/claim_list_success.svg'
 import FailureIcon from '../../assets/images/claim_list_failure.svg'
+import { useClaimPopupModalToggle } from '../../state/application/hooks'
 
 enum Status {
   READY = 'ready',
@@ -67,6 +68,8 @@ export default function ClaimListItem({ from, to, currency, address, amount, sta
   const amountText = `${amount} ${currency.symbol}`
   const amountTextAbbreviated = amountText.substr(0, 9) + '...'
 
+  const toggleClaimPopupModal = useClaimPopupModalToggle()
+
   return (
     <Box
       height={64}
@@ -88,7 +91,7 @@ export default function ClaimListItem({ from, to, currency, address, amount, sta
       </Box>
       <Box>
         {status === Status.READY ? (
-          <OutlineButton width={'62px'} height={'36px'}>
+          <OutlineButton width={'62px'} height={'36px'} onClick={toggleClaimPopupModal}>
             Claim
           </OutlineButton>
         ) : status === Status.SUCCESS ? (

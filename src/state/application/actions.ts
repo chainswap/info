@@ -5,7 +5,7 @@ export enum ApplicationModal {
   // SETTINGS,
   CLAIM,
   // ADDRESS_CLAIM,
-  // CLAIM_POPUP,
+  CLAIM_POPUP,
   // MENU,
   // DELEGATE,
   // VOTE

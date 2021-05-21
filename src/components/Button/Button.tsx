@@ -5,6 +5,7 @@ import { ButtonBase } from '@material-ui/core'
 interface Props {
   onClick?: () => void
   width?: string
+  height?: string
   background?: string
   disabled?: boolean
   color?: string
@@ -15,7 +16,7 @@ interface Props {
 const useStyles = makeStyles({
   root: {
     width: (props: Props) => (props.width ? props.width : '100%'),
-    height: (props: Props) => (props.size === 'large' ? 48 : 32),
+    height: (props: Props) => (props.height ? props.height : 48),
     background: '#9867FF',
     color: '#fff',
     textAlign: 'center',

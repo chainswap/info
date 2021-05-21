@@ -10,7 +10,7 @@ interface Props {
   onDismiss: () => void
   children?: React.ReactNode
   label?: string
-  hideClose?: boolean
+  showIcon?: boolean
 }
 
 const useStyles = makeStyles({
@@ -40,7 +40,7 @@ const CloseBox = styled('div')({
 })
 
 export default function Modal(props: Props) {
-  const { isOpen, children, label, onDismiss, hideClose } = props
+  const { isOpen, children, label, onDismiss, showIcon } = props
   const classes = useStyles(props)
 
   return (
@@ -57,7 +57,7 @@ export default function Modal(props: Props) {
           </Box>
         )}
 
-        {!hideClose && (
+        {showIcon && (
           <CloseBox onClick={onDismiss}>
             <CloseIcon />
           </CloseBox>

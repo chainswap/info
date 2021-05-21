@@ -15,7 +15,7 @@ interface Props {
   }
 }
 
-export default function TxnSubmittedModal(props: Props) {
+export default function TxnSubmittedMessageBox(props: Props) {
   const { isOpen, onDismiss, currency, wallet } = props
   const message = 'Transaction Submitted'
 

@@ -11,7 +11,7 @@ import QuotaInfo from '../../components/swap/QuotaInfo'
 import QuotaBar from '../../components/swap/QuotaBar'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 import Stepper from '../../components/Stepper/Stepper'
-import TxnSubmittedModal from '../../components/swap/TxnSubmittedModal'
+import TxnSubmittedMessageBox from '../../components/swap/TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
 import { TYPE } from '../../theme'
@@ -287,7 +287,7 @@ export default function Swap() {
         value={amount}
         selectedCurrency={getSelectedCurrency()}
       />
-      <TxnSubmittedModal
+      <TxnSubmittedMessageBox
         isOpen={showTxnSubmitted}
         onDismiss={onDismissTxnSubmitted}
         currency={currency}

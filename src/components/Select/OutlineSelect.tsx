@@ -9,6 +9,7 @@ interface Props {
   defaultValue: any
   disabled?: boolean
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  placeholder?: string
 }
 
 const useStyles = makeStyles({
@@ -48,6 +49,16 @@ const useStyles = makeStyles({
   },
 })
 
+const Placehoder = ({ text }: { text: string }) => {
+  return (
+    <Box marginLeft={'12px'}>
+      <Text fontSize={12} fontWeight={400} opacity={0.6}>
+        {text}
+      </Text>
+    </Box>
+  )
+}
+
 export default function OutlineSelect(props: Props) {
   const classes = useStyles(props)
 
@@ -72,13 +83,7 @@ export default function OutlineSelect(props: Props) {
       IconComponent={ExpandMoreIcon}
       displayEmpty={true}
       renderValue={() => {
-        return (
-          <Box marginLeft={'12px'}>
-            <Text fontSize={12} fontWeight={400} opacity={0.6}>
-              Token: All
-            </Text>
-          </Box>
-        )
+        return <Placehoder text={'Token: All'} />
       }}
     >
       {props.children}

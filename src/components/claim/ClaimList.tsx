@@ -15,6 +15,7 @@ export default function ClaimList(props: ClaimListProps) {
           currency={item.currency}
           address={item.address}
           amount={item.amount}
+          status={item.status}
         />
       ))}
     </>

@@ -7,6 +7,14 @@ import ArrowForward from '../../assets/images/arrow_forward.svg'
 import OutlineButton from '../Button/OutlineButton'
 import Image from '../Image/Image'
 import { Text } from 'rebass'
+import SuccessIcon from '../../assets/images/claim_list_success.svg'
+import FailureIcon from '../../assets/images/claim_list_failure.svg'
+
+enum Status {
+  READY = 'ready',
+  SUCCESS = 'success',
+  FAILURE = 'failure',
+}
 
 export interface Props {
   from: Chain
@@ -14,6 +22,7 @@ export interface Props {
   currency: Currency
   address: string
   amount: number
+  status: string
 }
 
 const Label = styled(Box)({
@@ -54,8 +63,9 @@ const KV = ({
   )
 }
 
-export default function ClaimListItem({ from, to, currency, address, amount }: Props) {
-  const amountText = `${amount} ${currency.symbol}`.substr(0, 9) + '...'
+export default function ClaimListItem({ from, to, currency, address, amount, status }: Props) {
+  const amountText = `${amount} ${currency.symbol}`
+  const amountTextAbbreviated = amountText.substr(0, 9) + '...'
 
   return (
     <Box
@@ -74,12 +84,18 @@ export default function ClaimListItem({ from, to, currency, address, amount }: P
         <KV k={'To:'} v={to.symbol} logo={to.logo} marginRight={'24px'} />
         <KV k={'Token:'} v={currency.symbol} logo={currency.logo} marginRight={'20px'} />
         <KV k={'Destination:'} v={address} smallText marginRight={'18px'} />
-        <KV k={'Amount:'} v={amountText} />
+        <KV k={'Amount:'} v={status === Status.READY ? amountTextAbbreviated : amountText} />
       </Box>
       <Box>
-        <OutlineButton width={'62px'} height={'36px'} primary>
-          Claim
-        </OutlineButton>
+        {status === Status.READY ? (
+          <OutlineButton width={'62px'} height={'36px'}>
+            Claim
+          </OutlineButton>
+        ) : status === Status.SUCCESS ? (
+          <Image src={SuccessIcon} alt={'success icon'} />
+        ) : (
+          <Image src={FailureIcon} alt={'failure icon'} />
+        )}
       </Box>
     </Box>
   )

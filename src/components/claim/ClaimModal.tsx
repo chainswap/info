@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     border: '1px solid rgba(255, 255, 255, 0.2)',
     boxSizing: 'border-box',
     borderRadius: 32,
-    width: 620,
+    width: '620px',
   },
   backdrop: {
     backgroundColor: 'rgba(0,0,0,.8)',
@@ -73,8 +73,9 @@ const ClaimHeader = () => {
 
 export default function ClaimModal() {
   const classes = useStyles()
-
   const claimModalOpen = useModalOpen(ApplicationModal.CLAIM)
+  const dataReady = claimModalData.filter((item) => item.status === 'ready')
+  const dataCompleted = claimModalData.filter((item) => item.status !== 'ready')
 
   return (
     <>
@@ -85,14 +86,16 @@ export default function ClaimModal() {
       >
         <ClaimHeader />
         <Box padding={'0 32px'}>
-          <ClaimList dataItems={claimModalData} />
+          <ClaimList dataItems={dataReady} />
         </Box>
         <Divider className={classes.divider} />
         <Box padding={'0 32px'}>
-          <ClaimList dataItems={claimModalData} />
+          <ClaimList dataItems={dataCompleted} />
         </Box>
         <Box textAlign={'center'} margin={'1px auto 16px'}>
-          <ButtonText>Clear All</ButtonText>
+          <ButtonText fontSize={'12px'} fontWeight={400} underline>
+            Clear All
+          </ButtonText>
         </Box>
       </Dialog>
     </>

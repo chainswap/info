@@ -29,7 +29,9 @@ export default function TxnSubmittedModal(props: Props) {
           Transaction Submitted
         </Box>
         <Box marginBottom="12px">
-          <ButtonText size="13px">View on Etherscan</ButtonText>
+          <ButtonText fontSize="13px" fontWeight={400} underline>
+            View on Etherscan
+          </ButtonText>
         </Box>
         <Box display="flex" justifyContent="center">
           <Box

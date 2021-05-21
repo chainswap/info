@@ -24,6 +24,7 @@ export const claimModalData = [
     currency: MATTER,
     address: '0x72ef...7123',
     amount: 10500,
+    status: 'ready',
   },
   {
     from: ETH,
@@ -31,6 +32,23 @@ export const claimModalData = [
     currency: MATTER,
     address: '0x72ef...7123',
     amount: 10500,
+    status: 'ready',
+  },
+  {
+    from: ETH,
+    to: BSC,
+    currency: MATTER,
+    address: '0x72ef...7123',
+    amount: 10500,
+    status: 'success',
+  },
+  {
+    from: ETH,
+    to: BSC,
+    currency: MATTER,
+    address: '0x72ef...7123',
+    amount: 10500,
+    status: 'failure',
   },
 ]
 

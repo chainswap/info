@@ -5,7 +5,10 @@ import { ButtonBase } from '@material-ui/core'
 interface Props {
   onClick?: () => void
   children: React.ReactNode
-  size?: string
+  fontSize?: string
+  fontWeight?: number
+  primary?: boolean
+  underline?: boolean
 }
 
 const useStyles = makeStyles({
@@ -13,9 +16,10 @@ const useStyles = makeStyles({
     padding: 0,
     width: 'fit-content',
     background: 'none',
-    textDecoration: 'none',
-    color: '#9867FF',
-    fontSize: (props: Props) => (props.size ? props.size : 16),
+    textDecoration: (props: Props) => (props.underline ? 'underline' : 'none'),
+    color: (props: Props) => (props.primary ? '#9867FF' : '#FFFFFF'),
+    fontSize: (props: Props) => (props.fontSize ? props.fontSize : 16),
+    fontWeight: (props: Props) => (props.fontWeight ? props.fontWeight : 500),
   },
 })
 

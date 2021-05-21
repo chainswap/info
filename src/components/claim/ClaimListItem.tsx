@@ -55,7 +55,7 @@ const KV = ({
 }
 
 export default function ClaimListItem({ from, to, currency, address, amount }: Props) {
-  const amountText = `${amount} ${currency}`.substr(0, 9) + '...'
+  const amountText = `${amount} ${currency.symbol}`.substr(0, 9) + '...'
 
   return (
     <Box

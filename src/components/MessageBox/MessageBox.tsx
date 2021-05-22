@@ -4,13 +4,14 @@ import { Box } from '@material-ui/core'
 import Modal from '../Modal/Modal'
 import SuccessIcon from '../../assets/images/success_icon.svg'
 import FailureIcon from '../../assets/images/failure_icon.svg'
+import SupportIcon from '../../assets/images/support_icon.svg'
 import Image from '../Image/Image'
 import OutlineButton from '../../components/Button/OutlineButton'
 import Button from '../../components/Button/Button'
 import { Text } from 'rebass'
 
 interface Props {
-  type: 'success' | 'failure'
+  type: 'success' | 'failure' | 'support'
   isOpen: boolean
   onDismiss: () => void
   message: string
@@ -25,8 +26,10 @@ export default function MessageBox(props: Props) {
         <Box padding="32px 0 16px">
           {type === 'success' ? (
             <Image src={SuccessIcon} alt={'success icon'} size={'32px'} />
-          ) : (
+          ) : type === 'failure' ? (
             <Image src={FailureIcon} alt={'failure icon'} size={'32px'} />
+          ) : (
+            <Image src={SupportIcon} alt={'support icon'} size={'32px'} />
           )}
         </Box>
         <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>

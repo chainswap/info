@@ -62,27 +62,43 @@ export default function CurrencyInputPanel(props: Props) {
             {selectedCurrency ? `your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}` : ''}
           </TYPE.Label>
         </Box>
-        <InputRow>
+        <Box position={'relative'} width={'100%'} height={'48px'}>
+          <Box position={'absolute'} width={'100%'}>
+            <Input
+              placeholder={'Enter amount to swap'}
+              value={props.value.toString()}
+              onChange={props.onChange}
+              type={'number'}
+            />
+          </Box>
+
+          <Box position={'absolute'} right={'160px'} height={'100%'} display="flex" alignItems={'center'}>
+            <OutlineButton width="64px" height="28px">
+              Max
+            </OutlineButton>
+          </Box>
+          <Box position={'absolute'} right={'18px'} height={'100%'} display="flex" alignItems={'center'}>
+            <CurrencySelect
+              onClick={() => {
+                setModalOpen(true)
+              }}
+            >
+              <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
+              <ExpandMoreIcon />
+            </CurrencySelect>
+          </Box>
+        </Box>
+
+        {/* <InputRow>
           <StyledInput
             placeholder={'Enter amount to swap'}
             value={props.value.toString()}
             onChange={props.onChange}
             type={'number'}
           />
-          <Box marginRight="20px">
-            <OutlineButton width="64px" height="28px">
-              Max
-            </OutlineButton>
-          </Box>
-          <CurrencySelect
-            onClick={() => {
-              setModalOpen(true)
-            }}
-          >
-            <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
-            <ExpandMoreIcon />
-          </CurrencySelect>
-        </InputRow>
+
+
+        </InputRow> */}
       </Box>
       <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} currencies={options} />
     </>

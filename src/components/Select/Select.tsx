@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     '&:focus': {
       backgroundColor: '#1f1f1f',
-      borderRadius: 14,
+      borderRadius: (props: Props) => (props.size == 'small' ? 4 : 14),
     },
   },
   icon: {

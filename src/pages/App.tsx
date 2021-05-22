@@ -5,6 +5,7 @@ import { styled, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
 import theme from '../theme/index'
+import Demo from './Demo/Demo'
 
 const HeaderWrapper = styled('div')({
   width: '100%',
@@ -30,6 +31,7 @@ export default function App() {
         <BodyWrapper>
           <Switch>
             <Route exact strict path="/swap" component={Swap} />
+            <Route exact strict path="/demo" component={Demo} />
           </Switch>
         </BodyWrapper>
       </ThemeProvider>

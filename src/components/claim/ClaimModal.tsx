@@ -13,6 +13,8 @@ import CloseIcon from '../../assets/images/close_icon.svg'
 import Image from '../Image/Image'
 import Pager from '../Pager/Pager'
 import Divider from '../Divider/Divider'
+import Chain from '../../models/chain'
+import Currency from '../../models/currency'
 
 const useStyles = makeStyles({
   paper: {
@@ -95,8 +97,10 @@ const ClaimFooter = () => {
 export default function ClaimModal() {
   const classes = useStyles()
   const claimModalOpen = useModalOpen(ApplicationModal.CLAIM)
-  const dataReady = claimModalData.filter((item) => item.status === 'ready')
-  const dataCompleted = claimModalData.filter((item) => item.status !== 'ready')
+  // const data = claimModalData
+  const data: { from: Chain; to: Chain; currency: Currency; address: string; amount: number; status: string }[] = []
+  const dataReady = data.filter((item) => item.status === 'ready')
+  const dataCompleted = data.filter((item) => item.status !== 'ready')
 
   return (
     <>
@@ -106,18 +110,43 @@ export default function ClaimModal() {
         BackdropProps={{ className: classes.backdrop }}
       >
         <ClaimHeader />
-        <Box padding={'0 32px'}>
-          <ClaimList dataItems={dataReady} />
-        </Box>
-        <Divider orientation={'horizontal'} margin={'8px 0 20px 0'} />
-        <Box padding={'0 32px'}>
-          <ClaimList dataItems={dataCompleted} />
-        </Box>
-        <Box textAlign={'center'} margin={'1px auto 16px'}>
-          <ButtonText fontSize={'12px'} fontWeight={400} underline>
-            Clear All
-          </ButtonText>
-        </Box>
+
+        {dataReady.length > 0 && (
+          <Box padding={'0 32px'}>
+            <ClaimList dataItems={dataReady} />
+          </Box>
+        )}
+
+        {dataCompleted.length > 0 && (
+          <>
+            <Divider orientation={'horizontal'} margin={'8px 0 20px 0'} />
+            <Box padding={'0 32px'}>
+              <ClaimList dataItems={dataCompleted} />
+            </Box>
+          </>
+        )}
+
+        {data.length > 0 ? (
+          <Box textAlign={'center'} margin={'1px auto 16px'}>
+            <ButtonText fontSize={'12px'} fontWeight={400} underline>
+              Clear All
+            </ButtonText>
+          </Box>
+        ) : (
+          <Box
+            display={'flex'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            margin={'114px auto 180px'}
+            width={'266px'}
+            textAlign={'center'}
+          >
+            <Text fontSize={'16px'} fontWeight={400}>
+              You currently don't have transactions in the Claim List
+            </Text>
+          </Box>
+        )}
+
         <Box position={'relative'}>
           <ClaimFooter />
         </Box>

@@ -94,11 +94,20 @@ const ClaimFooter = () => {
   )
 }
 
+interface DataItem {
+  from: Chain
+  to: Chain
+  currency: Currency
+  address: string
+  amount: number
+  status: string
+}
+
 export default function ClaimModal() {
   const classes = useStyles()
   const claimModalOpen = useModalOpen(ApplicationModal.CLAIM)
-  // const data = claimModalData
-  const data: { from: Chain; to: Chain; currency: Currency; address: string; amount: number; status: string }[] = []
+  const data: DataItem[] = claimModalData
+  // const data: DataItem[] = []
   const dataReady = data.filter((item) => item.status === 'ready')
   const dataCompleted = data.filter((item) => item.status !== 'ready')
 

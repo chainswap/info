@@ -274,8 +274,6 @@ export default function Swap() {
           </Box>
         )}
       </AppBody>
-      {/* <WalletModal /> */}
-      <ClaimModal />
       <ConfirmDepositModal
         isOpen={showConfirmDeposit}
         onDismiss={onDismissShowConfirmDeposit}

@@ -31,6 +31,7 @@ export default function App() {
         <BodyWrapper>
           <Switch>
             <Route exact strict path="/swap" component={Swap} />
+
             <Route exact strict path="/demo" component={Demo} />
           </Switch>
         </BodyWrapper>

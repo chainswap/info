@@ -25,11 +25,11 @@ export default function MessageBox(props: Props) {
       <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
         <Box padding="32px 0 16px">
           {type === 'success' ? (
-            <Image src={SuccessIcon} alt={'success icon'} size={'32px'} />
+            <Image src={SuccessIcon} alt={'success icon'} style={{ height: 32, width: 32 }} />
           ) : type === 'failure' ? (
-            <Image src={FailureIcon} alt={'failure icon'} size={'32px'} />
+            <Image src={FailureIcon} alt={'failure icon'} style={{ height: 32, width: 32 }} />
           ) : (
-            <Image src={SupportIcon} alt={'support icon'} size={'32px'} />
+            <Image src={SupportIcon} alt={'support icon'} style={{ height: 32, width: 32 }} />
           )}
         </Box>
         <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>

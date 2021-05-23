@@ -61,7 +61,7 @@ export default function _Select(props: Props) {
   return (
     <Select
       disableUnderline
-      classes={{ ...classes }}
+      classes={{ root: classes.root, icon: classes.icon }}
       defaultValue={props.defaultValue}
       disabled={props.disabled}
       MenuProps={{

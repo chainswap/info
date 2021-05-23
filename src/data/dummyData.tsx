@@ -1,4 +1,6 @@
 import DummyLogo from '../assets/images/bsc.svg'
+import MetaMaskIcon from '../assets/images/meta_mask.svg'
+import WalletConnect from '../assets/images/wallet_connect.svg'
 
 export const ETH = {
   logo: DummyLogo,
@@ -87,5 +89,16 @@ export const ChainList = [
   {
     logo: DummyLogo,
     symbol: 'Polygon',
+  },
+]
+
+export const WalletOptions = [
+  {
+    name: 'MetaMask',
+    logo: MetaMaskIcon,
+  },
+  {
+    name: 'WalletConnect',
+    logo: WalletConnect,
   },
 ]

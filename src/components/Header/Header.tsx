@@ -14,6 +14,8 @@ import abbreviateString from '../../utils/abbreviateString'
 import { Text } from 'rebass'
 import { ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
+import WalletModal from '../../components/WalletModal/WalletModal'
+import ClaimModal from '../../components/claim/ClaimModal'
 
 const HeaderFrame = styled('div')({
   display: 'flex',
@@ -86,8 +88,8 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
 export default function Header() {
   const toggleWalletModal = useWalletModalToggle()
   const toggleClaimModal = useClaimModalToggle()
-  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
-  // const address = null
+  // const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  const address = null
   const [chain, setChain] = useState('BSC')
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
@@ -97,54 +99,58 @@ export default function Header() {
   }
 
   return (
-    <HeaderFrame>
-      <Box display="flex">
-        <Title href=".">
-          <img width={'24px'} src={DummyLogo} alt="logo" />
-        </Title>
-        <HeaderLinks>
-          <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
-            swap
-          </StyledNavLink>
-          <StyledNavLink id={`deploy-nav-link`} to={'/deploy'}>
-            Deploy
-          </StyledNavLink>
-          <StyledNavLink id={`liquidity-nav-link`} to={'/liquidity'}>
-            Liquidity
-          </StyledNavLink>
-          <StyledNavLink id={`farm-nav-link`} to={'/farm'}>
-            Farm
-          </StyledNavLink>
-          <StyledNavLink id={`info-nav-link`} to={'/info'}>
-            Info
-          </StyledNavLink>
-        </HeaderLinks>
-      </Box>
-      <Box marginRight={'60px'}>
-        {address ? (
-          <Box display="flex">
-            <Box marginRight={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'} onClick={toggleClaimModal}>
-                Claim List
-              </OutlineButton>
+    <>
+      <HeaderFrame>
+        <Box display="flex">
+          <Title href=".">
+            <img width={'24px'} src={DummyLogo} alt="logo" />
+          </Title>
+          <HeaderLinks>
+            <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
+              swap
+            </StyledNavLink>
+            <StyledNavLink id={`deploy-nav-link`} to={'/deploy'}>
+              Deploy
+            </StyledNavLink>
+            <StyledNavLink id={`liquidity-nav-link`} to={'/liquidity'}>
+              Liquidity
+            </StyledNavLink>
+            <StyledNavLink id={`farm-nav-link`} to={'/farm'}>
+              Farm
+            </StyledNavLink>
+            <StyledNavLink id={`info-nav-link`} to={'/info'}>
+              Info
+            </StyledNavLink>
+          </HeaderLinks>
+        </Box>
+        <Box marginRight={'60px'}>
+          {address ? (
+            <Box display="flex">
+              <Box marginRight={'16px'}>
+                <OutlineButton width={'100px'} height={'32px'} onClick={toggleClaimModal}>
+                  Claim List
+                </OutlineButton>
+              </Box>
+              <Box marginRight={'8px'}>
+                <Select defaultValue={chain} size={'small'} onChange={onChangeChain}>
+                  {ChainList.map((chain) => (
+                    <MenuItem value={chain.symbol} key={chain.symbol}>
+                      <LogoText logo={chain.logo} text={chain.symbol} size={'small'} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Box>
+              <WalletInfo amount={amount} currency={currency} address={address} />
             </Box>
-            <Box marginRight={'8px'}>
-              <Select defaultValue={chain} size={'small'} onChange={onChangeChain}>
-                {ChainList.map((chain) => (
-                  <MenuItem value={chain.symbol} key={chain.symbol}>
-                    <LogoText logo={chain.logo} text={chain.symbol} size={'small'} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
-            <WalletInfo amount={amount} currency={currency} address={address} />
-          </Box>
-        ) : (
-          <Button size="small" width={'140px'} height={'32px'} onClick={toggleWalletModal}>
-            Connect Wallet
-          </Button>
-        )}
-      </Box>
-    </HeaderFrame>
+          ) : (
+            <Button size="small" width={'140px'} height={'32px'} onClick={toggleWalletModal}>
+              Connect Wallet
+            </Button>
+          )}
+        </Box>
+      </HeaderFrame>
+      <WalletModal />
+      <ClaimModal />
+    </>
   )
 }

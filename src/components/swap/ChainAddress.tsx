@@ -1,8 +1,8 @@
 import React from 'react'
 import { Text } from 'rebass'
 import { Box } from '@material-ui/core'
-import abbreviateString from '../../utils/abbreviateString'
 import Image from '../Image/Image'
+import { shortenAddress } from '../../utils/utils'
 
 interface Props {
   walletLogo: string
@@ -18,7 +18,7 @@ export default function ChainAddress(props: Props) {
       <Box display="flex" alignItems="center">
         <Image src={walletLogo} alt={'wallet logo'} style={{ width: 16, height: 14.3 }} />
         <Box marginLeft="8px" fontSize="12px">
-          {abbreviateString(address, 25, 5)}
+          {shortenAddress(address)}
         </Box>
       </Box>
     </Box>

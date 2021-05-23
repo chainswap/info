@@ -91,14 +91,3 @@ export const ChainList = [
     symbol: 'Polygon',
   },
 ]
-
-export const WalletOptions = [
-  {
-    name: 'MetaMask',
-    logo: MetaMaskIcon,
-  },
-  {
-    name: 'WalletConnect',
-    logo: WalletConnect,
-  },
-]

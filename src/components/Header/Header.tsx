@@ -7,9 +7,9 @@ import { useWalletModalToggle, useClaimModalToggle } from '../../state/applicati
 import OutlineButton from '../Button/OutlineButton'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
-import CopyIcon from '../../assets/images/copy.svg'
+import CopyIcon from '../../assets/images/copy_icon.svg'
 import Image from '../Image/Image'
-import Bulb from '../../assets/images/bulb.svg'
+import StatusIcon from '../../assets/images/status_icon.svg'
 import abbreviateString from '../../utils/abbreviateString'
 import { Text } from 'rebass'
 import { ChainList } from '../../data/dummyData'
@@ -73,7 +73,7 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
       </Box>
       <Divider orientation={'vertical'} opacity={1} margin={'0 8px 0 10px'} />
       <Box paddingRight={'10.26px'} display={'flex'}>
-        <Image src={Bulb} alt={'bulb icon'} />
+        <Image src={StatusIcon} alt={'status icon'} />
         <Box margin={'0 6px'}>
           <Text fontSize={12} fontWeight={400} opacity={0.6}>
             {abbreviateString(address, 6, 4)}

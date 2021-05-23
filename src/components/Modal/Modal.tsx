@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 })
 
-const CloseBox = styled('div')({
+const CloseBtn = styled('div')({
   position: 'absolute',
   right: 30,
   top: 24,
@@ -58,9 +58,9 @@ export default function Modal(props: Props) {
         )}
 
         {showIcon && (
-          <CloseBox onClick={onDismiss}>
+          <CloseBtn onClick={onDismiss}>
             <CloseIcon />
-          </CloseBox>
+          </CloseBtn>
         )}
 
         {children}

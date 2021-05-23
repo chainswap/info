@@ -10,12 +10,13 @@ import LogoText from '../LogoText/LogoText'
 import CopyIcon from '../../assets/images/copy_icon.svg'
 import Image from '../Image/Image'
 import StatusIcon from '../../assets/images/status_icon.svg'
-import abbreviateString from '../../utils/abbreviateString'
+import { shortenAddress } from '../../utils/utils'
 import { Text } from 'rebass'
 import { ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
 import ClaimModal from '../../components/claim/ClaimModal'
+import Copy from '../Copy/Copy'
 
 const HeaderFrame = styled('div')({
   display: 'flex',
@@ -72,14 +73,14 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
         <Text fontSize={13} fontWeight={400}>{`${amount} ${currency}`}</Text>
       </Box>
       <Divider orientation={'vertical'} opacity={1} margin={'0 8px 0 10px'} />
-      <Box paddingRight={'10.26px'} display={'flex'}>
-        <Image src={StatusIcon} alt={'status icon'} />
+      <Box paddingRight={'10.26px'} display={'flex'} alignItems={'center'}>
+        <Image src={StatusIcon} alt={'status icon'} style={{ width: '12px', height: '12px' }} />
         <Box margin={'0 6px'}>
           <Text fontSize={12} fontWeight={400} opacity={0.6}>
-            {abbreviateString(address, 6, 4)}
+            {shortenAddress(address)}
           </Text>
         </Box>
-        <Image src={CopyIcon} alt={'copy icon'} />
+        <Copy toCopy={address} />
       </Box>
     </Box>
   )
@@ -88,8 +89,8 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
 export default function Header() {
   const toggleWalletModal = useWalletModalToggle()
   const toggleClaimModal = useClaimModalToggle()
-  // const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
-  const address = null
+  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  // const address = null
   const [chain, setChain] = useState('BSC')
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')

@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+// import ExpandMoreIcon from '../../assets/images/expand_more_icon.svg'
 
 interface Props {
   children: React.ReactNode
@@ -32,6 +33,8 @@ const useStyles = makeStyles({
     color: '#FFFFFF',
     display: (props: Props) => (props.disabled ? 'none' : 'block'),
     opacity: (props: Props) => (props.size == 'small' ? 0.5 : 1),
+    fontSize: (props: Props) => (props.size == 'small' ? '12px' : '24px'),
+    top: (props: Props) => (props.size == 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)'),
   },
   paper: {
     borderRadius: 14,

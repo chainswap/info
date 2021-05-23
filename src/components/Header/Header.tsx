@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { styled, Box, MenuItem } from '@material-ui/core'
-import DummyLogo from '../../assets/images/dummy_logo.png'
-import Button from '../../components/Button/Button'
+import { Text } from 'rebass'
 import { useWalletModalToggle, useClaimModalToggle } from '../../state/application/hooks'
+import StatusIcon from '../../assets/images/status_icon.svg'
+import DummyLogo from '../../assets/images/dummy_logo.png'
+import { ChainList } from '../../data/dummyData'
 import OutlineButton from '../Button/OutlineButton'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
-import CopyIcon from '../../assets/images/copy_icon.svg'
 import Image from '../Image/Image'
-import StatusIcon from '../../assets/images/status_icon.svg'
 import { shortenAddress } from '../../utils/utils'
-import { Text } from 'rebass'
-import { ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
 import ClaimModal from '../../components/claim/ClaimModal'
+import Button from '../../components/Button/Button'
 import Copy from '../Copy/Copy'
+import NotifyBox from './NotifyBox'
 
 const HeaderFrame = styled('div')({
   display: 'flex',
@@ -24,7 +24,7 @@ const HeaderFrame = styled('div')({
   alignItems: 'center',
   width: '100%',
   height: 88,
-  padding: '32px 40px',
+  padding: '32px 60px 24px 32px',
 })
 
 const Title = styled('a')({
@@ -124,32 +124,31 @@ export default function Header() {
             </StyledNavLink>
           </HeaderLinks>
         </Box>
-        <Box marginRight={'60px'}>
-          {address ? (
-            <Box display="flex">
-              <Box marginRight={'16px'}>
-                <OutlineButton width={'100px'} height={'32px'} onClick={toggleClaimModal}>
-                  Claim List
-                </OutlineButton>
-              </Box>
-              <Box marginRight={'8px'}>
-                <Select defaultValue={chain} size={'small'} onChange={onChangeChain}>
-                  {ChainList.map((chain) => (
-                    <MenuItem value={chain.symbol} key={chain.symbol}>
-                      <LogoText logo={chain.logo} text={chain.symbol} size={'small'} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Box>
-              <WalletInfo amount={amount} currency={currency} address={address} />
+        {address ? (
+          <Box display="flex">
+            <Box marginRight={'16px'}>
+              <OutlineButton width={'100px'} height={'32px'} onClick={toggleClaimModal}>
+                Claim List
+              </OutlineButton>
             </Box>
-          ) : (
-            <Button size="small" width={'140px'} height={'32px'} onClick={toggleWalletModal}>
-              Connect Wallet
-            </Button>
-          )}
-        </Box>
+            <Box marginRight={'8px'}>
+              <Select defaultValue={chain} size={'small'} onChange={onChangeChain}>
+                {ChainList.map((chain) => (
+                  <MenuItem value={chain.symbol} key={chain.symbol}>
+                    <LogoText logo={chain.logo} text={chain.symbol} size={'small'} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <WalletInfo amount={amount} currency={currency} address={address} />
+          </Box>
+        ) : (
+          <Button size="small" width={'140px'} height={'32px'} onClick={toggleWalletModal}>
+            Connect Wallet
+          </Button>
+        )}
       </HeaderFrame>
+      <NotifyBox />
       <WalletModal />
       <ClaimModal />
     </>

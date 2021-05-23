@@ -40,7 +40,7 @@ export default function TxnSubmittedMessageBox(props: Props) {
           <Box marginRight="8px">
             Add {currency.symbol} to {wallet.name}
           </Box>
-          <Image src={wallet.logo} alt={`wallet logo-${wallet.name}`} />
+          <Image src={wallet.logo} alt={`wallet logo-${wallet.name}`} style={{ width: '16px', height: '14.3px' }} />
         </Box>
       </Box>
     </MessageBox>

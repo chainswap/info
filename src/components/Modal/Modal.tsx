@@ -56,13 +56,11 @@ export default function Modal(props: Props) {
             <TYPE.Subheader textAlign={'center'}>{label}</TYPE.Subheader>
           </Box>
         )}
-
         {showIcon && (
           <CloseBtn onClick={onDismiss}>
             <CloseIcon />
           </CloseBtn>
         )}
-
         {children}
       </Dialog>
     </>

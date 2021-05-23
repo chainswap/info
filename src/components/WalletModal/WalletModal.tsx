@@ -4,10 +4,17 @@ import Modal from '../Modal/Modal'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useWalletModalToggle } from '../../state/application/hooks'
 import { Box } from '@material-ui/core'
+import { styled } from '@material-ui/styles'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
 import usePrevious from '../../hooks/usePrevious'
 import AccountDetails from '../AccountDetails/AccountDetails'
+
+const Header = styled(Box)({
+  marginBottom: '32px',
+  fontWeight: 400,
+  fontSize: '18px',
+})
 
 const WALLET_VIEWS = {
   OPTIONS: 'options',
@@ -92,6 +99,8 @@ export default function WalletModal() {
     return (
       <>
         <Box padding="32px" display="flex" flexDirection="column" alignItems="center">
+          <Header>Connect to a wallet</Header>
+
           <Box display="grid" gridGap="12px">
             {getOptions()}
           </Box>

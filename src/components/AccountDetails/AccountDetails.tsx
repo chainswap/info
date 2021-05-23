@@ -33,13 +33,16 @@ const TransactionListWrapper = styled(Box)({
   border: '1px solid rgba(255, 255, 255, 0.2)',
   padding: '16px 24px',
   margin: '36px auto 31px',
-  display: 'grid',
-  gridGap: '8px',
 })
 
 const TransactionListHeader = styled(Box)({
   fontSize: 16,
   marginBottom: 16,
+})
+
+const TransactionListItemsWrapper = styled(Box)({
+  display: 'grid',
+  gridGap: '8px',
 })
 
 export default function AccountDetails(props: Props) {
@@ -87,8 +90,10 @@ export default function AccountDetails(props: Props) {
       </Box>
       <TransactionListWrapper>
         <TransactionListHeader>Recent Transactions</TransactionListHeader>
-        {renderTransactions(pendingTransactions)}
-        {renderTransactions(confirmedTransactions)}
+        <TransactionListItemsWrapper>
+          {renderTransactions(pendingTransactions)}
+          {renderTransactions(confirmedTransactions)}
+        </TransactionListItemsWrapper>
       </TransactionListWrapper>
     </>
   )

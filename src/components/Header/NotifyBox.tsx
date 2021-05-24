@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles, styled } from '@material-ui/styles'
-import { Text } from 'rebass'
 import TxnSuccessIcon from '../../assets/images/txn_success_icon.svg'
 import ButtonText from '../Button/ButtonText'
 import Image from '../Image/Image'

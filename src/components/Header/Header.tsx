@@ -148,7 +148,9 @@ export default function Header() {
           </Button>
         )}
       </HeaderFrame>
-      <NotifyBox />
+      <Box position={'absolute'} right={'60px'} top={'72px'}>
+        <NotifyBox />
+      </Box>
       <WalletModal />
       <ClaimModal />
     </>

@@ -5,9 +5,11 @@ import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
 import Currency from '../../models/currency'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import LogoText from '../LogoText/LogoText'
 import { TYPE } from '../../theme/index'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+// import ExpandMoreIcon from '../../assets/images/expand_more_icon.svg'
+// import Image from '../Image/Image'
 
 interface Props {
   value: string
@@ -16,31 +18,11 @@ interface Props {
   options: Currency[]
 }
 
-const InputRow = styled('div')({
-  alignItems: 'center',
-  width: '100%',
-  height: 48,
-  borderRadius: 14,
-  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-  overflow: 'hidden',
-  display: 'flex',
-  padding: '14px 20px 14px 0',
-  boxSizing: 'border-box',
-})
-
-const StyledInput = styled(Input)({
-  backgroundColor: 'transparent',
-})
-
 const CurrencySelect = styled('div')({
   display: 'flex',
   alignItems: 'center',
   fontSize: '20px',
   fontWeight: 500,
-  // backgroundColor: 'transparent',
-  // borderRadius: 12,
-  // outline: 'none',
-  // border: 'none',
   cursor: 'pointer',
   justifyContent: 'space-between',
 })
@@ -85,20 +67,10 @@ export default function CurrencyInputPanel(props: Props) {
             >
               <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
               <ExpandMoreIcon />
+              {/* <Image src={ExpandMoreIcon} alt={'expand more icon'} /> */}
             </CurrencySelect>
           </Box>
         </Box>
-
-        {/* <InputRow>
-          <StyledInput
-            placeholder={'Enter amount to swap'}
-            value={props.value.toString()}
-            onChange={props.onChange}
-            type={'number'}
-          />
-
-
-        </InputRow> */}
       </Box>
       <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} currencies={options} />
     </>

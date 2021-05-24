@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Modal from '../Modal/Modal'
 import CurrencySearch from './CurrencySearch'
 import Currency from '../../models/currency'
+import Manage from './Manage'
+
+const VIEWS = {
+  SEARCH: 'search',
+  MANAGE: 'manage',
+}
 
 interface Props {
   isOpen: boolean
@@ -15,11 +21,16 @@ interface Props {
 
 export default function CurrencySearchModal(props: Props) {
   const { currencies, isOpen, onDismiss } = props
+  const [view, setView] = useState(VIEWS.SEARCH)
+
+  function onManage() {
+    setView(VIEWS.MANAGE)
+  }
 
   return (
     <>
       <Modal isOpen={isOpen} onDismiss={onDismiss} label={'Select a token'} showIcon>
-        <CurrencySearch currencies={currencies} />
+        {view === VIEWS.SEARCH ? <CurrencySearch currencies={currencies} onManage={onManage} /> : <Manage />}
       </Modal>
     </>
   )

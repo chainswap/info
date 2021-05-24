@@ -24,10 +24,12 @@ const SearchInput = styled(Input)({
 
 interface Props {
   currencies: Currency[]
+  onManage: () => void
 }
 
 export default function CurrencySearch(props: Props) {
-  const { currencies } = props
+  const { currencies, onManage } = props
+
   return (
     <>
       <Box padding="20px 32px 0 32px">
@@ -37,7 +39,7 @@ export default function CurrencySearch(props: Props) {
       <CurrencyList currencies={currencies} />
       <Divider orientation={'horizontal'} margin={'20px 0 20px 0'} opacity={0.12} />
       <Box width="100%" borderRadius="0 0 20px 20px" padding="0 0 13px 0" justifyContent="center" display="flex">
-        <ButtonText>Manage</ButtonText>
+        <ButtonText onClick={onManage}>Manage</ButtonText>
       </Box>
     </>
   )

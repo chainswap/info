@@ -1,7 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { ButtonBase } from '@material-ui/core'
-
 interface Props {
   onClick?: () => void
   children: React.ReactNode

@@ -39,7 +39,9 @@ export default function CurrencySearch(props: Props) {
       <CurrencyList currencies={currencies} />
       <Divider orientation={'horizontal'} margin={'20px 0 20px 0'} opacity={0.12} />
       <Box width="100%" borderRadius="0 0 20px 20px" padding="0 0 13px 0" justifyContent="center" display="flex">
-        <ButtonText onClick={onManage}>Manage</ButtonText>
+        <ButtonText onClick={onManage} primary>
+          Manage
+        </ButtonText>
       </Box>
     </>
   )

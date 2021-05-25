@@ -1,8 +1,22 @@
 import React, { useState, ChangeEvent } from 'react'
+import { styled } from '@material-ui/styles'
 import TabToggle from '../TabToggle/TabToggle'
 import Input from '../Input/Input'
 import Divider from '../Divider/Divider'
-import SwitchToggle from '../SwitchToggle/SwitchToggle'
+import DummyLogo from '../../assets/images/dummy_logo.png'
+import ManageList from './ManageList'
+
+const UpperSection = styled('div')({
+  padding: '20px 32px 0',
+  display: 'grid',
+  gridGap: '12px',
+})
+
+const ListWrapper = styled('div')({
+  padding: '0 32px 50px',
+  display: 'grid',
+  gridGap: '12px',
+})
 
 export default function Manage() {
   const [tab, setTab] = useState(0)
@@ -22,12 +36,46 @@ export default function Manage() {
     setValue(e.target.value)
   }
 
+  function getLists() {
+    // Dummy Data
+    const lists = [
+      {
+        logo: DummyLogo,
+        name: 'AAVE TOKEN LIST',
+        amount: 21,
+        checked: true,
+      },
+      {
+        logo: DummyLogo,
+        name: 'AAVE TOKEN LIST',
+        amount: 21,
+        checked: false,
+      },
+      {
+        logo: DummyLogo,
+        name: 'AAVE TOKEN LIST',
+        amount: 21,
+        checked: false,
+      },
+      {
+        logo: DummyLogo,
+        name: 'AAVE TOKEN LIST',
+        amount: 21,
+        checked: false,
+      },
+    ]
+
+    return lists.map((list) => <ManageList {...list} onChangeSwitchToggle={onChangeSwitchToggle} />)
+  }
+
   return (
     <>
-      <TabToggle labelOptions={['Lists', 'Tokens']} value={tab} onChange={onChangeTabToggle} />
-      <Input value={value} onChange={onChangeInput} placeholder={placeholder} />
+      <UpperSection>
+        <TabToggle labelOptions={['Lists', 'Tokens']} value={tab} onChange={onChangeTabToggle} />
+        <Input value={value} onChange={onChangeInput} placeholder={placeholder} />
+      </UpperSection>
       <Divider margin={'20px 0'} orientation={'horizontal'} />
-      <SwitchToggle checked={toggled} onChange={onChangeSwitchToggle} />
+      <ListWrapper>{getLists()}</ListWrapper>
     </>
   )
 }

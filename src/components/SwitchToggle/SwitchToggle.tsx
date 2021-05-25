@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     width: 80,
     height: 36,
     opacity: '1 !important',
+    backgroundColor: 'transparent',
     border: '1px solid rgba(255,255,255,0.8)',
     borderRadius: 49,
     position: 'relative',

@@ -21,19 +21,21 @@ interface Props {
 
 export default function MessageBox(props: Props) {
   const { type, isOpen, onDismiss, message, children } = props
+
+  const icon =
+    type === 'success'
+      ? SuccessIcon
+      : type === 'failure'
+      ? FailureIcon
+      : type === 'support'
+      ? SupportIcon
+      : NetworkErrorIcon
+
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
         <Box padding="32px 0 16px">
-          {type === 'success' ? (
-            <Image src={SuccessIcon} alt={'success icon'} style={{ height: 32, width: 32 }} />
-          ) : type === 'failure' ? (
-            <Image src={FailureIcon} alt={'failure icon'} style={{ height: 32, width: 32 }} />
-          ) : type === 'support' ? (
-            <Image src={SupportIcon} alt={'support icon'} style={{ height: 32, width: 32 }} />
-          ) : (
-            <Image src={NetworkErrorIcon} alt={'network error icon'} style={{ height: 32, width: 32 }} />
-          )}
+          <Image src={icon} alt={`${type} icon`} style={{ height: 32, width: 32 }} />
         </Box>
         <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
           <Text fontWeight="400" fontSize="18px" color="#FFFFFF">

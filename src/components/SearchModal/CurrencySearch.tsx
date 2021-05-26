@@ -1,26 +1,18 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
-import { Input, Box } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import CurrencyList from './CurrencyList'
 import ButtonText from '../Button/ButtonText'
 import Currency from '../../models/currency'
 import Divider from '../../components/Divider/Divider'
+import Input from '../../components/Input/Input'
 
-const SearchInput = styled(Input)({
-  position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%',
-  color: '#fff',
-  outline: 'none',
-  padding: '0 20px',
-  margin: '0 auto',
-  height: 48,
-  borderRadius: 14,
-  boxSizing: 'border-box',
-  border: '1px solid rgba(255, 255, 255, 0.4)',
-  background: 'hsla(0,0%,100%,.08)',
-})
+interface Props {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  value: string
+  showImportView: () => void
+  setImportToken: (token: Currency) => void
+}
 
 interface Props {
   currencies: Currency[]
@@ -28,15 +20,16 @@ interface Props {
 }
 
 export default function CurrencySearch(props: Props) {
-  const { currencies, onManage } = props
+  const { value, currencies, onManage, onChange, showImportView, setImportToken } = props
+  const placeholder = 'Search by name or paste address'
 
   return (
     <>
       <Box padding="20px 32px 0 32px">
-        <SearchInput disableUnderline placeholder={'Search by name or paste address'} />
+        <Input value={value} onChange={onChange} placeholder={placeholder} />
       </Box>
       <Divider orientation={'horizontal'} margin={'20px 0 20px 0'} opacity={0.12} />
-      <CurrencyList currencies={currencies} />
+      <CurrencyList currencies={currencies} showImportView={showImportView} setImportToken={setImportToken} />
       <Divider orientation={'horizontal'} margin={'20px 0 20px 0'} opacity={0.12} />
       <Box width="100%" borderRadius="0 0 20px 20px" padding="0 0 13px 0" justifyContent="center" display="flex">
         <ButtonText onClick={onManage} primary>

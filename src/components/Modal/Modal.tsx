@@ -21,7 +21,6 @@ const useStyles = makeStyles({
     border: '1px solid rgba(255, 255, 255, 0.2)',
     boxSizing: 'border-box',
     borderRadius: 42,
-    width: 480,
   },
   backdrop: {
     backgroundColor: 'rgba(0,0,0,.8)',

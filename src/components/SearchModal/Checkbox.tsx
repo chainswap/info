@@ -7,6 +7,7 @@ interface Props {
   onCheck: () => void
 }
 
+// Todo: style checkbox
 const useStyles = makeStyles({
   root: {
     color: '#9C6DFF',

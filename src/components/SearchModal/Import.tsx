@@ -70,7 +70,7 @@ const Warning = ({ checked, onCheck }: { checked: boolean; onCheck: () => void }
         Anyone can bridge a token, including creating fake versions of existing tokens that claim to represent projects
       </Text>
       <Box display={'flex'} alignItems={'center'} marginTop={'12px'}>
-        <Checkbox checked={checked} onCheck={onCheck} label={'I understand'} />
+        <Checkbox checked={checked} onChange={onCheck} label={'I understand'} />
       </Box>
     </WarningCard>
   )

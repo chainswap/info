@@ -9,7 +9,7 @@ import CheckboxCheckedIcon from '../../assets/images/checkbox_checked.svg'
 
 interface Props {
   checked: boolean
-  onCheck: () => void
+  onChange: () => void
   label: string
 }
 
@@ -37,14 +37,15 @@ const useStyles = makeStyles({
 
 export default function _Checkbox(props: Props) {
   const classes = useStyles(props)
-  const { checked, onCheck, label } = props
+  const { checked, onChange, label } = props
   return (
     <FormControlLabel
       classes={{ root: classes.root, label: classes.label }}
-      value="right"
+      value={checked}
       control={<Checkbox className={classes.checkbox} icon={<Icon />} checkedIcon={<CheckedIcon />} />}
       label={label}
       labelPlacement="end"
+      onChange={onChange}
     />
   )
 }

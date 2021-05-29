@@ -89,8 +89,8 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
 export default function Header() {
   const toggleWalletModal = useWalletModalToggle()
   const toggleClaimModal = useClaimModalToggle()
-  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
-  // const address = null
+  // const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  const address = null
   const [chain, setChain] = useState('BSC')
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')

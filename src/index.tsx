@@ -1,11 +1,10 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import { HashRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import App from './pages/App'
 import reportWebVitals from './reportWebVitals'
-import './index.css'
 import store from './state'
-import { HashRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>

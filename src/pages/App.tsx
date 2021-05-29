@@ -7,11 +7,6 @@ import Header from '../components/Header/Header'
 import theme from '../theme/index'
 import Demo from './Demo/Demo'
 
-const HeaderWrapper = styled('div')({
-  width: '100%',
-  justifyContent: 'space-between',
-})
-
 const BodyWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
@@ -25,13 +20,10 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <HeaderWrapper>
-          <Header />
-        </HeaderWrapper>
+        <Header />
         <BodyWrapper>
           <Switch>
             <Route exact strict path="/swap" component={Swap} />
-
             <Route exact strict path="/demo" component={Demo} />
           </Switch>
         </BodyWrapper>

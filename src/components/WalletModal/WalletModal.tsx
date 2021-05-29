@@ -98,7 +98,7 @@ export default function WalletModal() {
 
     return (
       <>
-        <Box padding="32px" display="flex" flexDirection="column" alignItems="center">
+        <Box width={480} padding="32px" display="flex" flexDirection="column" alignItems="center">
           <Header>Connect to a wallet</Header>
 
           <Box display="grid" gridGap="12px">

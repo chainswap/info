@@ -36,9 +36,7 @@ export default function ConfirmDepositModal(props: Props) {
         <SwapChain from={from} to={to} />
         <ChainAddress walletLogo={walletLogo} address={address} />
         <Box margin="32px 32px 28px">
-          <Button size="large" onClick={onConfirm}>
-            Confirm
-          </Button>
+          <Button onClick={onConfirm}>Confirm</Button>
         </Box>
       </Modal>
     </>

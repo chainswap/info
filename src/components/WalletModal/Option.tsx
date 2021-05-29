@@ -29,7 +29,7 @@ export default function Option(props: Props) {
     id,
   } = props
   return (
-    <OutlineButton size="large" width="280px" onClick={onClick}>
+    <OutlineButton width="280px" onClick={onClick}>
       <Image src={icon} alt={`wallet icon-${header}`} />
       {header}
     </OutlineButton>

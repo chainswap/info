@@ -246,10 +246,10 @@ export default function Swap() {
           <>
             <Box display="grid" gridGap="16px" padding="28px 32px 0 32px">
               <Box display="flex" justifyContent="space-between">
-                <Button size="large" width="216px" disabled={!depositEnabled} onClick={onDeposit}>
+                <Button width={'216px'} disabled={!depositEnabled} onClick={onDeposit}>
                   {attemptingDeposit ? <>Depositing</> : <>Deposit in {from.symbol} Chain</>}
                 </Button>
-                <Button size={'large'} width={'216px'} disabled={!withdrawEnabled} onClick={onWithdraw}>
+                <Button width={'216px'} disabled={!withdrawEnabled} onClick={onWithdraw}>
                   Withdraw from {to.symbol} Chain
                 </Button>
               </Box>
@@ -267,9 +267,7 @@ export default function Swap() {
 
         {!account && (
           <Box padding="27px 32px 31px">
-            <Button size="large" onClick={toggleWalletModal}>
-              Connect Wallet
-            </Button>
+            <Button onClick={toggleWalletModal}>Connect Wallet</Button>
           </Box>
         )}
       </AppBody>

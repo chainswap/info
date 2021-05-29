@@ -53,7 +53,7 @@ export default function ClaimPopupModal() {
           <Input placeholder={placeHolder} value={hash} onChange={onChangeHash} />
         </Box>
         <Box margin={'0 52px 31px'}>
-          <Button width={'376px'} size={'large'} onClick={onImport}>
+          <Button width={'376px'} onClick={onImport}>
             Import
           </Button>
         </Box>

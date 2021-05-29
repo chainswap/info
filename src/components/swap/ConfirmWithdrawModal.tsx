@@ -88,7 +88,7 @@ export default function ConfirmWithdrawModal(props: Props) {
           </>
         )}
         <Box margin="28px 32px 29px">
-          <Button size="large" onClick={onConfirm} disabled={mode === Mode.INSTRUCTION}>
+          <Button onClick={onConfirm} disabled={mode === Mode.INSTRUCTION}>
             Confirm
           </Button>
         </Box>

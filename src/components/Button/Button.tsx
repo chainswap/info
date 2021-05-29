@@ -10,7 +10,7 @@ interface Props {
   disabled?: boolean
   color?: string
   children?: React.ReactNode
-  size?: 'small' | 'large'
+  fontSize?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: (props: Props) => props.width || '100%',
       height: (props: Props) => props.height || 48,
-      fontSize: (props: Props) => (props.size === 'large' ? 16 : 14),
+      fontSize: (props: Props) => props.fontSize || 16,
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,
       fontWeight: 500,

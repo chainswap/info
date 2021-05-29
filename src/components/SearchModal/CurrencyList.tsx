@@ -50,7 +50,7 @@ const CurrencyRow = ({
         </Box>
       </Box>
       {showImport ? (
-        <OutlineButton size={'small'} width={'84px'} height={'36px'} primary onClick={showImportView}>
+        <OutlineButton fontSize={'14px'} width={'84px'} height={'36px'} primary onClick={showImportView}>
           Import
         </OutlineButton>
       ) : (

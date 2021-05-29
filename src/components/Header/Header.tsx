@@ -143,7 +143,7 @@ export default function Header() {
             <WalletInfo amount={amount} currency={currency} address={address} />
           </Box>
         ) : (
-          <Button size="small" width={'140px'} height={'32px'} onClick={toggleWalletModal}>
+          <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={toggleWalletModal}>
             Connect Wallet
           </Button>
         )}

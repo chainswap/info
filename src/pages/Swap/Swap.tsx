@@ -249,7 +249,7 @@ export default function Swap() {
                 <Button size="large" width="216px" disabled={!depositEnabled} onClick={onDeposit}>
                   {attemptingDeposit ? <>Depositing</> : <>Deposit in {from.symbol} Chain</>}
                 </Button>
-                <Button size="large" width="216px" disabled={!withdrawEnabled} onClick={onWithdraw}>
+                <Button size={'large'} width={'216px'} disabled={!withdrawEnabled} onClick={onWithdraw}>
                   Withdraw from {to.symbol} Chain
                 </Button>
               </Box>

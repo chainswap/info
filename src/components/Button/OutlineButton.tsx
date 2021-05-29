@@ -1,5 +1,6 @@
 import React from 'react'
-import { ButtonBase, makeStyles } from '@material-ui/core'
+import { ButtonBase, Theme } from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/styles'
 
 interface Props {
   onClick?: () => void
@@ -11,29 +12,25 @@ interface Props {
   disabled?: boolean
 }
 
-const useStyles = makeStyles({
-  root: {
-    width: (props: Props) => (props.width ? props.width : '100%'),
-    border: (props: Props) => (props.primary ? 'solid 1px #9867FF' : 'solid 1px #fff'),
-    fontSize: (props: Props) => (props.size === 'large' ? '16px' : '14px'),
-    height: (props: Props) => (props.height ? props.height : '48px'),
-    color: (props: Props) => (props.primary ? '#9867FF' : '#fff'),
-    textAlign: 'center',
-    fontFamily: 'Roboto',
-    fontWeight: 500,
-    borderRadius: 49,
-    '& img': {
-      marginRight: 20,
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: (props: Props) => props.width || '100%',
+      border: (props: Props) => `solid 1px ${props.primary ? theme.palette.primary.main : '#FFFFFF'}`,
+      fontSize: (props: Props) => (props.size === 'large' ? 16 : 14),
+      height: (props: Props) => props.height || 48,
+      color: (props: Props) => (props.primary ? theme.palette.primary.main : '#FFFFFF'),
+      borderRadius: 49,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        borderColor: theme.palette.primary.dark,
+      },
     },
-    '&:hover': {
-      color: '#9867FF',
-      border: 'solid 1px #9867FF',
+    disabled: {
+      opacity: theme.palette.action.disabledOpacity,
     },
-  },
-  disabled: {
-    opacity: 0.4,
-  },
-})
+  })
+)
 
 export default function OutlineButton(props: Props) {
   const { onClick, disabled } = props

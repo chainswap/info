@@ -1,73 +1,76 @@
 import React, { ChangeEvent } from 'react'
-import { makeStyles, Switch } from '@material-ui/core'
+import { Switch, Theme } from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/styles'
 
 interface Props {
   checked: boolean
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const useStyles = makeStyles({
-  root: {
-    width: 80,
-    height: 36,
-    padding: 0,
-  },
-  switchBase: {
-    padding: '8px',
-  },
-  thumb: {
-    width: 20,
-    height: 20,
-    backgroundColor: '#FFFFFF',
-  },
-  track: {
-    width: 80,
-    height: 36,
-    opacity: '1 !important',
-    backgroundColor: 'transparent',
-    border: '1px solid rgba(255,255,255,0.8)',
-    borderRadius: 49,
-    position: 'relative',
-    '&:before, &:after': {
-      display: 'inline-block',
-      position: 'absolute',
-      top: '50%',
-      width: '50%',
-      transform: 'translateY(-50%)',
-      textAlign: 'center',
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: 80,
+      height: 36,
+      padding: 0,
     },
-    '&:before': {
-      content: '"On"',
-      left: 4,
-      opacity: 0,
+    switchBase: {
+      padding: '8px',
     },
-    '&:after': {
-      content: '"Off"',
-      right: 4,
+    thumb: {
+      width: 20,
+      height: 20,
+      backgroundColor: '#FFFFFF',
     },
-  },
-  checked: {
-    '&$switchBase': {
-      transform: 'translateX(44px)',
-      '&:hover': {},
-    },
-    '& $thumb': {
-      backgroundColor: '#9867FF',
-    },
-    '& + $track': {
-      background: 'transparent !important',
+    track: {
+      width: 80,
+      height: 36,
       opacity: '1 !important',
+      backgroundColor: 'transparent',
       border: '1px solid rgba(255,255,255,0.8)',
       borderRadius: 49,
-      '&:before': {
-        opacity: 1,
+      position: 'relative',
+      '&:before, &:after': {
+        display: 'inline-block',
+        position: 'absolute',
+        top: '50%',
+        width: '50%',
+        transform: 'translateY(-50%)',
+        textAlign: 'center',
       },
-      '&:after': {
+      '&:before': {
+        content: '"On"',
+        left: 4,
         opacity: 0,
       },
+      '&:after': {
+        content: '"Off"',
+        right: 4,
+      },
     },
-  },
-})
+    checked: {
+      '&$switchBase': {
+        transform: 'translateX(44px)',
+        '&:hover': {},
+      },
+      '& $thumb': {
+        backgroundColor: theme.palette.primary.main,
+      },
+      '& + $track': {
+        background: 'transparent !important',
+        opacity: '1 !important',
+        border: '1px solid rgba(255,255,255,0.8)',
+        borderRadius: 49,
+        '&:before': {
+          opacity: 1,
+        },
+        '&:after': {
+          opacity: 0,
+        },
+      },
+    },
+  })
+)
 
 export default function SwitchToggle(props: Props) {
   const classes = useStyles()

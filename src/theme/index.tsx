@@ -1,6 +1,5 @@
 import React from 'react'
 import { createMuiTheme, Theme } from '@material-ui/core'
-import { Text, TextProps } from 'rebass'
 
 const theme: Theme = createMuiTheme({
   palette: {

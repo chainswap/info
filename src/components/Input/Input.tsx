@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react'
-import { InputBase, makeStyles } from '@material-ui/core'
+import { InputBase, Theme } from '@material-ui/core'
+import { createStyles, makeStyles } from '@material-ui/styles'
 import InputLabel from '../InputLabel/InputLabel'
 
 interface Props {
@@ -11,29 +12,32 @@ interface Props {
   style?: React.CSSProperties
 }
 
-const useStyles = makeStyles({
-  root: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontFamily: 'Roboto',
-    fontWeight: 400,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    height: 48,
-    paddingLeft: 20,
-    borderRadius: 14,
-  },
-  focused: {
-    border: '1px solid #9867FF',
-  },
-  input: {
-    '&::-webkit-outer-spin-button': {
-      '-webkit-appearance': 'none',
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      fontSize: 16,
+      color: '#FFFFFF',
+      fontFamily: 'Roboto',
+      fontWeight: 400,
+      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+      height: 48,
+      paddingLeft: 20,
+      borderRadius: 14,
     },
-    '&::-webkit-inner-spin-button': {
-      '-webkit-appearance': 'none',
+    focused: {
+      border: '1px solid',
+      borderColor: theme.palette.primary.main,
     },
-  },
-})
+    input: {
+      '&::-webkit-outer-spin-button': {
+        '-webkit-appearance': 'none',
+      },
+      '&::-webkit-inner-spin-button': {
+        '-webkit-appearance': 'none',
+      },
+    },
+  })
+)
 
 export default function Input(props: Props) {
   const classes = useStyles(props)

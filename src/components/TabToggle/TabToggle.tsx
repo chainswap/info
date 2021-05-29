@@ -1,6 +1,6 @@
 import React from 'react'
-import { Tabs, Tab } from '@material-ui/core'
-import { makeStyles, withStyles } from '@material-ui/styles'
+import { Tabs, Tab, Theme } from '@material-ui/core'
+import { makeStyles, withStyles, createStyles } from '@material-ui/styles'
 
 interface Props {
   labelOptions: string[]
@@ -26,25 +26,26 @@ const useStyles = makeStyles({
   },
 })
 
-const StyledTab = withStyles({
-  root: {
-    textTransform: 'none',
-    boxSizing: 'border-box',
-    width: '50%',
-    height: '100%',
+const StyledTab = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      textTransform: 'none',
+      boxSizing: 'border-box',
+      width: '50%',
+      height: '100%',
 
-    '& MuiTab-wrapper': {
-      opacity: 0.6,
+      '& MuiTab-wrapper': {
+        opacity: 0.6,
+      },
     },
-  },
-
-  selected: {
-    backgroundColor: '#9867FF',
-    borderRadius: '14px',
-    boxShadow: '0px 0px 0px 1px #FFFFFF',
-    boxSizing: 'border-box',
-  },
-})(Tab)
+    selected: {
+      backgroundColor: theme.palette.primary.main,
+      borderRadius: '14px',
+      boxShadow: '0px 0px 0px 1px #FFFFFF',
+      boxSizing: 'border-box',
+    },
+  })
+)(Tab)
 
 export default function TabToggle(props: Props) {
   const classes = useStyles(props)

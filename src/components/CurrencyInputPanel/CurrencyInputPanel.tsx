@@ -16,12 +16,8 @@ interface Props {
   options: Currency[]
 }
 
-const CurrencySelect = styled('div')({
+const LabelRow = styled('div')({
   display: 'flex',
-  alignItems: 'center',
-  fontSize: '20px',
-  fontWeight: 500,
-  cursor: 'pointer',
   justifyContent: 'space-between',
 })
 
@@ -30,6 +26,41 @@ const Hint = styled('div')({
   opacity: 0.4,
   fontWeight: 400,
   fontSize: 12,
+})
+
+const InputRow = styled('div')({
+  position: 'relative',
+  width: '100%',
+  height: '48px',
+})
+
+const StyledInput = styled(Input)({
+  position: 'absolute',
+})
+
+const ButtonWrapper = styled('div')({
+  position: 'absolute',
+  right: '160px',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+})
+
+const SelectWrapper = styled('div')({
+  position: 'absolute',
+  right: '18px',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+})
+
+const CurrencySelect = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  fontSize: '20px',
+  fontWeight: 500,
+  cursor: 'pointer',
+  justifyContent: 'space-between',
 })
 
 export default function CurrencyInputPanel(props: Props) {
@@ -41,45 +72,40 @@ export default function CurrencyInputPanel(props: Props) {
   }, [setModalOpen])
 
   return (
-    <>
-      <Box>
-        <Box display="flex" justifyContent="space-between">
-          <InputLabel>Amount</InputLabel>
-          {selectedCurrency && (
-            <Hint>
-              your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}
-            </Hint>
-          )}
-        </Box>
-        <Box position={'relative'} width={'100%'} height={'48px'}>
-          <Box position={'absolute'} width={'100%'}>
-            <Input
-              placeholder={'Enter amount to swap'}
-              value={props.value.toString()}
-              onChange={props.onChange}
-              type={'number'}
-            />
-          </Box>
+    <div>
+      <LabelRow>
+        <InputLabel>Amount</InputLabel>
+        {selectedCurrency && (
+          <Hint>
+            your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}
+          </Hint>
+        )}
+      </LabelRow>
+      <InputRow>
+        <StyledInput
+          placeholder={'Enter amount to swap'}
+          value={props.value.toString()}
+          onChange={props.onChange}
+          type={'number'}
+        />
+        <ButtonWrapper>
+          <OutlineButton width="64px" height="28px">
+            Max
+          </OutlineButton>
+        </ButtonWrapper>
 
-          <Box position={'absolute'} right={'160px'} height={'100%'} display="flex" alignItems={'center'}>
-            <OutlineButton width="64px" height="28px">
-              Max
-            </OutlineButton>
-          </Box>
-          <Box position={'absolute'} right={'18px'} height={'100%'} display="flex" alignItems={'center'}>
-            <CurrencySelect
-              onClick={() => {
-                setModalOpen(true)
-              }}
-            >
-              <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
-              <ExpandMoreIcon />
-              {/* <Image src={ExpandMoreIcon} alt={'expand more icon'} /> */}
-            </CurrencySelect>
-          </Box>
-        </Box>
-      </Box>
+        <SelectWrapper>
+          <CurrencySelect
+            onClick={() => {
+              setModalOpen(true)
+            }}
+          >
+            <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
+            <ExpandMoreIcon />
+          </CurrencySelect>
+        </SelectWrapper>
+      </InputRow>
       <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} currencies={options} />
-    </>
+    </div>
   )
 }

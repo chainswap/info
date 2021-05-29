@@ -6,7 +6,7 @@ import { Box, MenuItem, Dialog } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
 import OutlineSelect from '../Select/OutlineSelect'
-import ButtonText from '../Button/ButtonText'
+import TextButton from '../Button/TextButton'
 import ClaimList from './ClaimList'
 import { claimModalData } from '../../data/dummyData'
 import CloseIcon from '../../assets/images/close_icon.svg'
@@ -137,9 +137,9 @@ export default function ClaimModal() {
 
         {data.length > 0 ? (
           <Box textAlign={'center'} margin={'1px auto 16px'}>
-            <ButtonText fontSize={'12px'} fontWeight={400} underline>
+            <TextButton fontSize={12} fontWeight={400} underline>
               Clear All
-            </ButtonText>
+            </TextButton>
           </Box>
         ) : (
           <Box

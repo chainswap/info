@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles, styled } from '@material-ui/styles'
 import TxnSuccessIcon from '../../assets/images/txn_success_icon.svg'
-import ButtonText from '../Button/ButtonText'
+import TextButton from '../Button/TextButton'
 import Image from '../Image/Image'
 
 interface Props {
@@ -66,9 +66,9 @@ export default function NotifyBox() {
         </div>
       </Box>
       <Box marginLeft={'48px'}>
-        <ButtonText fontWeight={400} underline>
+        <TextButton fontWeight={400} underline>
           View on Etherscan
-        </ButtonText>
+        </TextButton>
       </Box>
       <Box marginTop={'21px'}>
         <LoadingBar percentage={0.7} />

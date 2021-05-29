@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import CurrencyList from './CurrencyList'
-import ButtonText from '../Button/ButtonText'
+import TextButton from '../Button/TextButton'
 import Currency from '../../models/currency'
 import Divider from '../../components/Divider/Divider'
 import Input from '../../components/Input/Input'
@@ -32,9 +32,9 @@ export default function CurrencySearch(props: Props) {
       <CurrencyList currencies={currencies} showImportView={showImportView} setImportToken={setImportToken} />
       <Divider orientation={'horizontal'} margin={'20px 0 20px 0'} opacity={0.12} />
       <Box width="100%" borderRadius="0 0 20px 20px" padding="0 0 13px 0" justifyContent="center" display="flex">
-        <ButtonText onClick={onManage} primary>
+        <TextButton onClick={onManage} primary>
           Manage
-        </ButtonText>
+        </TextButton>
       </Box>
     </>
   )

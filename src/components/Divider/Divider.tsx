@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     border: 'none',
     height: (props: Props) => (props.orientation === 'horizontal' ? '1px' : '100%'),
     backgroundColor: '#FFFFFF',
-    opacity: (props: Props) => (props.opacity ? props.opacity : 0.2),
+    opacity: (props: Props) => props.opacity || 0.2,
     margin: (props: Props) => props.margin,
   },
 })

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import Image from '../Image/Image'
-import ButtonText from '../Button/ButtonText'
+import TextButton from '../Button/TextButton'
 import Currency from '../../models/currency'
 import MessageBox from '../MessageBox/MessageBox'
 
@@ -22,9 +22,9 @@ export default function TxnSubmittedMessageBox(props: Props) {
   return (
     <MessageBox isOpen={isOpen} onDismiss={onDismiss} type={'success'} message={message}>
       <Box marginBottom="12px">
-        <ButtonText fontSize="13px" fontWeight={400} primary>
+        <TextButton fontSize={13} fontWeight={400} primary>
           View on Etherscan
-        </ButtonText>
+        </TextButton>
       </Box>
       <Box display="flex" justifyContent="center" marginBottom={'32px'}>
         <Box

@@ -7,7 +7,7 @@ import WarningIcon from '../../assets/images/warning_icon.svg'
 import DummyLogo from '../../assets/images/dummy_logo.png'
 import CoinGecko from '../../assets/images/coin_gecko.svg'
 import Image from '../Image/Image'
-import ButtonText from '../Button/ButtonText'
+import TextButton from '../Button/TextButton'
 import Checkbox from './Checkbox'
 
 const Wrapper = styled('div')({
@@ -46,9 +46,9 @@ const TokenInfo = () => {
           TOKEN
         </Text>
       </Box>
-      <ButtonText fontSize={'14px'} fontWeight={400} primary>
+      <TextButton fontSize={14} fontWeight={400} primary>
         0xKos369cd4se1oos369cd4se1s369cd4se187ujv
-      </ButtonText>
+      </TextButton>
       <Box display={'flex'} marginTop={'6px'}>
         <Image src={CoinGecko} alt={'src icon'} />
         <Text fontSize={12} fontWeight={400} opacity={0.6} marginLeft={'6px'}>

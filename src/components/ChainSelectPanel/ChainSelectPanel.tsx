@@ -11,14 +11,12 @@ interface Props {
   to: Chain
 }
 
-export default function CurrencySelectPanel(props: Props) {
+export default function ChainSelectPanel(props: Props) {
   const { from, to, chainList } = props
   return (
     <Box display="flex" justifyContent="space-between">
       <ChainSelect label={'From'} disabled selectedChain={from} chainList={chainList} />
-      <Box paddingTop="24px">
-        <Image src={SwitchArrow} alt={'switch_arrow_icon'} />
-      </Box>
+      <Image src={SwitchArrow} alt={'switch_arrow_icon'} style={{ marginTop: 12 }} />
       <ChainSelect label={'To'} selectedChain={to} chainList={chainList} />
     </Box>
   )

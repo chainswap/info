@@ -20,7 +20,7 @@ export default function ChainSelectPanel(props: Props) {
   }
 
   return (
-    <Box>
+    <div>
       <InputLabel>{label}</InputLabel>
       <Select defaultValue={selectedChain.symbol} disabled={disabled} onChange={onSelectChain}>
         {chainList.map((chain) => (
@@ -29,6 +29,6 @@ export default function ChainSelectPanel(props: Props) {
           </MenuItem>
         ))}
       </Select>
-    </Box>
+    </div>
   )
 }

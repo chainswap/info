@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, useCallback } from 'react'
+import { styled } from '@material-ui/styles'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
@@ -13,10 +14,17 @@ import Stepper from '../../components/Stepper/Stepper'
 import TxnSubmittedMessageBox from '../../components/swap/TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
-import { TYPE } from '../../theme'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import ClaimPopupModal from '../../components/claim/ClaimPopupModal'
+
+const AppHeader = styled('div')({
+  fontWeight: 500,
+  fontSize: 20,
+  fontFamily: 'Futura PT',
+  margin: '12px 0 18px 0',
+  textAlign: 'center',
+})
 
 export default function Swap() {
   const [account, setAccount] = useState(true)
@@ -219,9 +227,8 @@ export default function Swap() {
   return (
     <>
       <AppBody>
-        <Box margin="12px 0 18px 0">
-          <TYPE.Header textAlign="center">Cross Chain Bridge</TYPE.Header>
-        </Box>
+        <AppHeader>Cross Chain Bridge</AppHeader>
+
         <Box display="grid" gridGap="20px" padding="0 32px">
           <CurrencyInputPanel
             onChange={onChangeAmount}

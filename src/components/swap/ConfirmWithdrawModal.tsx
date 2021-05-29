@@ -6,7 +6,6 @@ import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
 import Currency from '../../models/currency'
 import Chain from '../../models/chain'
-import { TYPE } from '../../theme/index'
 import SwapChain from './SwapChain'
 import ChainAddress from './ChainAddress'
 import Divider from '../../components/Divider/Divider'
@@ -37,10 +36,10 @@ const FadedBox = styled(Box)({
 const Instruction = ({ to }: { to: Chain }) => {
   return (
     <Box color="#FFFFFF" margin="40px 32px 0" width={416}>
-      <TYPE.Smallheader textAlign="center">
+      <Text fontWeight={500} fontSize={18} textAlign={'center'}>
         1. Please switch <strong>your wallet network</strong> to {to.symbol} to complete token swap. 2. Also please{' '}
         <strong>switch to your wallet</strong> with the destination address
-      </TYPE.Smallheader>
+      </Text>
     </Box>
   )
 }
@@ -60,10 +59,12 @@ export default function ConfirmWithdrawModal(props: Props) {
             <Divider orientation={'horizontal'} margin={'20px 0 24px 0'} />
             <FadedBox>
               <Box marginBottom="12px">
-                <TYPE.Subheader textAlign={'center'}>3. Confirm Withdraw</TYPE.Subheader>
+                <Text fontWeight={500} fontSize={18} textAlign={'center'}>
+                  3. Confirm Withdraw
+                </Text>
               </Box>
               <Box>
-                <Text fontWeight={'500'} fontSize={'28px'} textAlign={'center'}>
+                <Text fontWeight={'500'} fontSize={28} textAlign={'center'}>
                   {value} {selectedCurrency.symbol}
                 </Text>
               </Box>
@@ -76,10 +77,12 @@ export default function ConfirmWithdrawModal(props: Props) {
             </FadedBox>
             <Divider orientation={'horizontal'} margin={'20px 0 24px 0'} />
             <Box marginBottom="12px">
-              <TYPE.Subheader textAlign={'center'}>3. Confirm Withdraw</TYPE.Subheader>
+              <Text fontWeight={400} fontSize={18} textAlign={'center'}>
+                3. Confirm Withdraw
+              </Text>
             </Box>
             <Box>
-              <Text fontWeight={'500'} fontSize={'28px'} textAlign={'center'}>
+              <Text fontWeight={'500'} fontSize={28} textAlign={'center'}>
                 {value} {selectedCurrency.symbol}
               </Text>
             </Box>

@@ -3,7 +3,7 @@ import { Dialog, makeStyles } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
 import { Box } from '@material-ui/core'
-import { TYPE } from '../../theme'
+import { Text } from 'rebass'
 
 interface Props {
   isOpen: boolean
@@ -52,7 +52,9 @@ export default function Modal(props: Props) {
       >
         {label && (
           <Box marginTop="24px">
-            <TYPE.Subheader textAlign={'center'}>{label}</TYPE.Subheader>
+            <Text fontWeight={400} fontSize={18} textAlign={'center'}>
+              {label}
+            </Text>
           </Box>
         )}
         {showIcon && (

@@ -6,7 +6,6 @@ import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
 import Currency from '../../models/currency'
 import LogoText from '../LogoText/LogoText'
-import { TYPE } from '../../theme/index'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import InputLabel from '../InputLabel/InputLabel'
 

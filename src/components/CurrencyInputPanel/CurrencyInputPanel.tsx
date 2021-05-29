@@ -8,8 +8,7 @@ import Currency from '../../models/currency'
 import LogoText from '../LogoText/LogoText'
 import { TYPE } from '../../theme/index'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-// import ExpandMoreIcon from '../../assets/images/expand_more_icon.svg'
-// import Image from '../Image/Image'
+import InputLabel from '../InputLabel/InputLabel'
 
 interface Props {
   value: string
@@ -27,6 +26,13 @@ const CurrencySelect = styled('div')({
   justifyContent: 'space-between',
 })
 
+const Hint = styled('div')({
+  color: '#FFFFFF',
+  opacity: 0.4,
+  fontWeight: 400,
+  fontSize: 12,
+})
+
 export default function CurrencyInputPanel(props: Props) {
   const { selectedCurrency, options } = props
   const [modalOpen, setModalOpen] = useState(false)
@@ -39,10 +45,12 @@ export default function CurrencyInputPanel(props: Props) {
     <>
       <Box>
         <Box display="flex" justifyContent="space-between">
-          <TYPE.Label>Amount</TYPE.Label>
-          <TYPE.Label opacity={0.4}>
-            {selectedCurrency ? `your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}` : ''}
-          </TYPE.Label>
+          <InputLabel>Amount</InputLabel>
+          {selectedCurrency && (
+            <Hint>
+              your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}
+            </Hint>
+          )}
         </Box>
         <Box position={'relative'} width={'100%'} height={'48px'}>
           <Box position={'absolute'} width={'100%'}>

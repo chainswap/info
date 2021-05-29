@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Select } from '@material-ui/core'
+import { Select, InputLabel } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 // import ExpandMoreIcon from '../../assets/images/expand_more_icon.svg'
 
@@ -60,29 +60,32 @@ const useStyles = makeStyles({
 
 export default function _Select(props: Props) {
   const classes = useStyles(props)
+  const { defaultValue, disabled, onChange, children } = props
 
   return (
-    <Select
-      disableUnderline
-      classes={{ root: classes.root, icon: classes.icon }}
-      defaultValue={props.defaultValue}
-      disabled={props.disabled}
-      MenuProps={{
-        classes: { paper: classes.paper },
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'left',
-        },
-        transformOrigin: {
-          vertical: 'top',
-          horizontal: 'left',
-        },
-        getContentAnchorEl: null,
-      }}
-      IconComponent={ExpandMoreIcon}
-      onChange={props.onChange}
-    >
-      {props.children}
-    </Select>
+    <>
+      <Select
+        disableUnderline
+        classes={{ root: classes.root, icon: classes.icon }}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        MenuProps={{
+          classes: { paper: classes.paper },
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left',
+          },
+          getContentAnchorEl: null,
+        }}
+        IconComponent={ExpandMoreIcon}
+        onChange={onChange}
+      >
+        {children}
+      </Select>
+    </>
   )
 }

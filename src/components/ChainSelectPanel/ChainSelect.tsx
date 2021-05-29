@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { MenuItem, Box } from '@material-ui/core'
 import Select from '../Select/Select'
-import { TYPE } from '../../theme/index'
 import LogoText from '../LogoText/LogoText'
 import Chain from '../../models/chain'
+import InputLabel from '../InputLabel/InputLabel'
 
 interface Props {
   label: string
@@ -20,17 +20,15 @@ export default function ChainSelectPanel(props: Props) {
   }
 
   return (
-    <>
-      <Box>
-        <TYPE.Label>{label}</TYPE.Label>
-        <Select defaultValue={selectedChain.symbol} disabled={disabled} onChange={onSelectChain}>
-          {chainList.map((chain) => (
-            <MenuItem value={chain.symbol} key={chain.symbol}>
-              <LogoText logo={chain.logo} text={chain.symbol} />
-            </MenuItem>
-          ))}
-        </Select>
-      </Box>
-    </>
+    <Box>
+      <InputLabel>{label}</InputLabel>
+      <Select defaultValue={selectedChain.symbol} disabled={disabled} onChange={onSelectChain}>
+        {chainList.map((chain) => (
+          <MenuItem value={chain.symbol} key={chain.symbol}>
+            <LogoText logo={chain.logo} text={chain.symbol} />
+          </MenuItem>
+        ))}
+      </Select>
+    </Box>
   )
 }

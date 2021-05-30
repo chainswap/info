@@ -30,6 +30,7 @@ export default function ChainSelectPanel(props: Props) {
         selectedIcon={selectedChain.logo}
         selectedName={selectedChain.symbol}
         value={value}
+        size={'large'}
       >
         {chainList.map((chain) => (
           <MenuItem value={chain.symbol} key={chain.symbol}>

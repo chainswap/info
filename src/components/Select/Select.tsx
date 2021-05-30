@@ -33,15 +33,6 @@ const useStyles = makeStyles({
       borderRadius: (props: Props) => (props.size == 'small' ? 4 : 14),
     },
   },
-  // icon: {
-  //   right: (props: Props) => (props.size == 'small' ? 6.51 : 15),
-  //   color: '#FFFFFF',
-  //   display: (props: Props) => (props.disabled ? 'none' : 'block'),
-  //   opacity: (props: Props) => (props.size == 'small' ? 0.5 : 1),
-  //   fontSize: (props: Props) => (props.size == 'small' ? '12px' : '24px'),
-  //   top: (props: Props) => (props.size == 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)'),
-  // },
-
   paper: {
     width: (props: Props) => (props.size == 'small' ? 172 : 176),
     borderRadius: 14,
@@ -69,9 +60,10 @@ const useStyles = makeStyles({
     },
   },
   button: {
+    width: (props: Props) => (props.size == 'small' ? 80 : 176),
+    height: (props: Props) => (props.size == 'small' ? 32 : 46),
     display: 'flex',
     alignItems: 'center',
-    height: 32,
     cursor: 'pointer',
     backgroundColor: 'rgba(255, 255, 255, 0.12)',
     borderRadius: 4,

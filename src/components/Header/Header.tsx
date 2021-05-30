@@ -20,7 +20,6 @@ import NotifyBox from './NotifyBox'
 import ChainSwap from '../../assets/images/chain_swap.svg'
 import routes from '../../constants/routes'
 import SelectedIcon from '../../assets/images/selected_icon.svg'
-import SelectButton from '../Select/SelectButton'
 
 enum Mode {
   VISITOR,

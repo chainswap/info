@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { styled, Box, MenuItem } from '@material-ui/core'
+import { AppBar, Box, Menu, MenuItem } from '@material-ui/core'
+import { styled, makeStyles } from '@material-ui/styles'
 import { Text } from 'rebass'
 import { useWalletModalToggle, useClaimModalToggle } from '../../state/application/hooks'
 import StatusIcon from '../../assets/images/status_icon.svg'
@@ -17,46 +18,74 @@ import Button from '../../components/Button/Button'
 import Copy from '../Copy/Copy'
 import NotifyBox from './NotifyBox'
 import ChainSwap from '../../assets/images/chain_swap.svg'
+import routes from '../../constants/routes'
+import SelectedIcon from '../../assets/images/selected_icon.svg'
+import SelectButton from '../Select/SelectButton'
 
-const HeaderFrame = styled('div')({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  height: 88,
-  padding: '32px 60px 24px 32px',
-})
+enum Mode {
+  VISITOR,
+  USER,
+}
 
-const Title = styled('a')({
-  display: 'flex',
-  alignItems: 'center',
-  justifySelf: 'flex-start',
-  marginRight: 12,
-  '&:hover': {
-    cursor: 'pointer',
+const NavLinks = [
+  {
+    name: 'Swap',
+    link: routes.swap,
+  },
+  {
+    name: 'Deploy',
+    link: routes.deploy,
+  },
+  {
+    name: 'Liquidity',
+    link: routes.liquidity,
+  },
+  {
+    name: 'Farm',
+    link: routes.farm,
+  },
+  {
+    name: 'Info',
+    link: routes.info,
+  },
+]
+
+const useStyles = makeStyles({
+  root: {
+    height: 88,
+    backgroundColor: '#131315',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    boxShadow: 'none',
+    padding: '0 60px 00 40px',
+  },
+  mainLogo: {
+    '& img': {
+      width: 180.8,
+      height: 34.7,
+    },
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  navLink: {
+    textDecoration: 'none',
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.5,
+    marginRight: 28,
+    '&.active': {
+      opacity: 1,
+    },
+    '&:hover': {
+      opacity: 1,
+    },
   },
 })
 
-const HeaderLinks = styled('div')({
-  marginLeft: 24,
-})
-
-const StyledNavLink = styled(NavLink)({
-  alignItem: 'left',
-  textDecoration: 'none',
-  fontSize: 14,
-  fontFamily: 'Roboto',
-  lineHeight: '18.69px',
-  letterSpacing: '0.02em',
-  color: '#FFFFFF',
-  margin: '0 12px',
-  opacity: 0.5,
-  '&.active': {
-    opacity: 1,
-  },
-  '&:hover': {
-    opacity: 1,
-  },
+const LinksWrapper = styled('div')({
+  marginLeft: 60.2,
 })
 
 const WalletInfo = ({ amount, currency, address }: { amount: number; currency: string; address: string }) => {
@@ -87,55 +116,73 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
 }
 
 export default function Header() {
+  const classes = useStyles()
+
+  const [mode, setMode] = useState(Mode.USER)
   const toggleWalletModal = useWalletModalToggle()
   const toggleClaimModal = useClaimModalToggle()
-  // const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
-  const address = null
-  const [chain, setChain] = useState('BSC')
+  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  // const address = null
+  const [chain, setChain] = useState(ChainList[0])
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
+  const [showMenu, setShowMenu] = useState(false)
+  const [value, setValue] = useState(null)
 
-  const onChangeChain = (e: any) => {
-    alert(e.target.value)
+  // function onChangeChain(e: any) {
+  //   const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
+  //   setChain(chain)
+  //   setShowMenu(false)
+  //   console.log(e)
+  // }
+
+  function openMenu() {
+    console.log('open')
+    setShowMenu(true)
+  }
+
+  function onSelectCurrency(e: any) {
+    console.log(e.target.value)
+    setValue(e.target.value)
+    setShowMenu(false)
   }
 
   return (
     <>
-      <HeaderFrame>
-        <Box display="flex" alignItems={'center'}>
-          <Title href=".">
-            <Image src={ChainSwap} alt={'chainswap'} style={{ width: 180.8, height: 34.7 }} />
-          </Title>
-          <HeaderLinks>
-            <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
-              swap
-            </StyledNavLink>
-            <StyledNavLink id={`deploy-nav-link`} to={'/deploy'}>
-              Deploy
-            </StyledNavLink>
-            <StyledNavLink id={`liquidity-nav-link`} to={'/liquidity'}>
-              Liquidity
-            </StyledNavLink>
-            <StyledNavLink id={`farm-nav-link`} to={'/farm'}>
-              Farm
-            </StyledNavLink>
-            <StyledNavLink id={`info-nav-link`} to={'/info'}>
-              Info
-            </StyledNavLink>
-          </HeaderLinks>
+      <AppBar className={classes.root}>
+        <Box display="flex" alignItems="center">
+          <NavLink id={'chainswap'} to={routes.swap} className={classes.mainLogo}>
+            <Image src={ChainSwap} alt={'chainswap'} />
+          </NavLink>
+          <LinksWrapper>
+            {NavLinks.map((nav) => (
+              <NavLink id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
+                {nav.name}
+              </NavLink>
+            ))}
+          </LinksWrapper>
         </Box>
-        {address ? (
+
+        {mode === Mode.USER && address ? (
           <Box display="flex">
-            <Box marginRight={'16px'}>
+            <Box mr={'16px'}>
               <OutlineButton width={'100px'} height={'32px'} onClick={toggleClaimModal}>
                 Claim List
               </OutlineButton>
             </Box>
-            <Box marginRight={'8px'}>
-              <Select defaultValue={chain} size={'small'} onChange={onChangeChain}>
-                {ChainList.map((chain) => (
-                  <MenuItem value={chain.symbol} key={chain.symbol}>
-                    <LogoText logo={chain.logo} text={chain.symbol} size={'small'} />
+            <Box mr={'8px'}>
+              <Select
+                defaultValue={chain}
+                size={'small'}
+                onChange={onSelectCurrency}
+                selectedIcon={chain.logo}
+                selectedName={chain.symbol}
+                value={value}
+              >
+                {ChainList.map((option) => (
+                  <MenuItem value={option.symbol} key={option.symbol} onClick={onSelectCurrency}>
+                    {chain.symbol === option.symbol && <Image src={SelectedIcon} alt={'selected icon'} />}
+                    <LogoText logo={option.logo} text={option.symbol} size={'small'} />
                   </MenuItem>
                 ))}
               </Select>
@@ -147,10 +194,14 @@ export default function Header() {
             Connect Wallet
           </Button>
         )}
-      </HeaderFrame>
-      <Box position={'absolute'} right={'60px'} top={'72px'}>
-        <NotifyBox />
-      </Box>
+      </AppBar>
+
+      {mode === Mode.USER && (
+        <Box position={'absolute'} right={'60px'} top={'72px'}>
+          <NotifyBox />
+        </Box>
+      )}
+
       <WalletModal />
       <ClaimModal />
     </>

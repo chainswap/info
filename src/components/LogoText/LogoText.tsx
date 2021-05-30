@@ -1,6 +1,8 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import { Text } from 'rebass'
+import Image from '../Image/Image'
 
 interface Props {
   logo: string
@@ -8,14 +10,23 @@ interface Props {
   size?: 'small' | 'large'
 }
 
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    '& img': {
+      marginRight: (props: Props) => (props.size === 'small' ? '4px' : '12px'),
+    },
+  },
+})
+
 export default function LogoText(props: Props) {
+  const classes = useStyles(props)
   const { logo, text, size } = props
   return (
-    <Box display="flex" marginLeft={size == 'small' ? '8px' : '20px'}>
-      <img src={logo} alt={`${text} logo`} />
-      <Box marginLeft={size == 'small' ? '4px' : '12px'}>
-        <Text fontSize={size == 'small' ? '13px' : '16px'}>{text}</Text>
-      </Box>
-    </Box>
+    <div className={classes.root}>
+      <Image src={logo} alt={`${text} logo`} />
+      <Text fontSize={size == 'small' ? '13px' : '16px'}>{text}</Text>
+    </div>
   )
 }

@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
 import theme from '../theme/index'
 import Demo from './Demo/Demo'
+import routes from '../constants/routes'
 
 const BodyWrapper = styled('div')({
   display: 'flex',
@@ -23,8 +24,11 @@ export default function App() {
         <Header />
         <BodyWrapper>
           <Switch>
-            <Route exact strict path="/swap" component={Swap} />
-            <Route exact strict path="/demo" component={Demo} />
+            <Route strict path={routes.swap} exact component={Swap} />
+            <Route strict path={routes.deploy} exact component={Swap} />
+            <Route strict path={routes.liquidity} exact component={Swap} />
+            <Route strict path={routes.farm} exact component={Swap} />
+            <Route strict path={routes.info} exact component={Swap} />
           </Switch>
         </BodyWrapper>
       </ThemeProvider>

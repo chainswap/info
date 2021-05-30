@@ -4,7 +4,6 @@ import { styled, Box, MenuItem } from '@material-ui/core'
 import { Text } from 'rebass'
 import { useWalletModalToggle, useClaimModalToggle } from '../../state/application/hooks'
 import StatusIcon from '../../assets/images/status_icon.svg'
-import DummyLogo from '../../assets/images/dummy_logo.png'
 import { ChainList } from '../../data/dummyData'
 import OutlineButton from '../Button/OutlineButton'
 import Select from '../Select/Select'
@@ -17,6 +16,7 @@ import ClaimModal from '../../components/claim/ClaimModal'
 import Button from '../../components/Button/Button'
 import Copy from '../Copy/Copy'
 import NotifyBox from './NotifyBox'
+import ChainSwap from '../../assets/images/chain_swap.svg'
 
 const HeaderFrame = styled('div')({
   display: 'flex',
@@ -102,9 +102,9 @@ export default function Header() {
   return (
     <>
       <HeaderFrame>
-        <Box display="flex">
+        <Box display="flex" alignItems={'center'}>
           <Title href=".">
-            <img width={'24px'} src={DummyLogo} alt="logo" />
+            <Image src={ChainSwap} alt={'chainswap'} style={{ width: 180.8, height: 34.7 }} />
           </Title>
           <HeaderLinks>
             <StyledNavLink id={`swap-nav-link`} to={'/swap'}>

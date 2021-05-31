@@ -10,28 +10,16 @@ interface Props {
   disabled?: boolean
   chainList: Chain[]
   selectedChain: Chain
+  onChange: (e: any) => void
 }
 
 export default function ChainSelectPanel(props: Props) {
-  const { label, disabled, selectedChain, chainList } = props
-  const [value, setValue] = useState(null)
-
-  const onSelectChain = (e: any) => {
-    setValue(e.target.value)
-  }
+  const { label, disabled, chainList, onChange, selectedChain } = props
 
   return (
     <div>
       <InputLabel>{label}</InputLabel>
-      <Select
-        defaultValue={selectedChain.symbol}
-        disabled={disabled}
-        onChange={onSelectChain}
-        selectedIcon={selectedChain.logo}
-        selectedName={selectedChain.symbol}
-        value={value}
-        size={'large'}
-      >
+      <Select defaultValue={selectedChain.symbol} value={selectedChain.symbol} disabled={disabled} onChange={onChange}>
         {chainList.map((chain) => (
           <MenuItem value={chain.symbol} key={chain.symbol}>
             <LogoText logo={chain.logo} text={chain.symbol} />

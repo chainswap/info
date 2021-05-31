@@ -125,25 +125,11 @@ export default function Header() {
   const [chain, setChain] = useState(ChainList[0])
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
-  const [showMenu, setShowMenu] = useState(false)
-  const [value, setValue] = useState(null)
 
-  // function onChangeChain(e: any) {
-  //   const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
-  //   setChain(chain)
-  //   setShowMenu(false)
-  //   console.log(e)
-  // }
-
-  function openMenu() {
-    console.log('open')
-    setShowMenu(true)
-  }
-
-  function onSelectCurrency(e: any) {
-    console.log(e.target.value)
-    setValue(e.target.value)
-    setShowMenu(false)
+  function onChangeChain(e: any) {
+    const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
+    console.log(chain)
+    setChain(chain)
   }
 
   return (
@@ -170,16 +156,9 @@ export default function Header() {
               </OutlineButton>
             </Box>
             <Box mr={'8px'}>
-              <Select
-                defaultValue={chain}
-                size={'small'}
-                onChange={onSelectCurrency}
-                selectedIcon={chain.logo}
-                selectedName={chain.symbol}
-                value={value}
-              >
+              <Select defaultValue={chain.symbol} value={chain.symbol} size={'small'} onChange={onChangeChain}>
                 {ChainList.map((option) => (
-                  <MenuItem value={option.symbol} key={option.symbol} onClick={onSelectCurrency}>
+                  <MenuItem value={option.symbol} key={option.symbol}>
                     {chain.symbol === option.symbol && <Image src={SelectedIcon} alt={'selected icon'} />}
                     <LogoText logo={option.logo} text={option.symbol} size={'small'} />
                   </MenuItem>

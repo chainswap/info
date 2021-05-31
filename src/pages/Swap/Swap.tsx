@@ -224,6 +224,14 @@ export default function Swap() {
     })
   }, [])
 
+  function onChangeTo(e: any) {
+    setTo(e.target.value)
+  }
+
+  function onChangeFrom(e: any) {
+    setFrom(e.target.value)
+  }
+
   return (
     <>
       <AppBody>
@@ -236,7 +244,13 @@ export default function Swap() {
             selectedCurrency={getSelectedCurrency()}
             options={CurrencyList}
           />
-          <ChainSelectPanel from={from} to={to} chainList={ChainList} />
+          <ChainSelectPanel
+            from={from}
+            to={to}
+            chainList={ChainList}
+            onChangeTo={onChangeTo}
+            onChangeFrom={onChangeFrom}
+          />
           {account && (
             <Box>
               <Input

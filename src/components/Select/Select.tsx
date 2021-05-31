@@ -1,31 +1,28 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Menu, Button, Box } from '@material-ui/core'
-import LogoText from '../LogoText/LogoText'
-import Image from '../Image/Image'
-import ExpandMoreIcon from '../../assets/images/expand_more_icon.svg'
+import { Select, InputLabel } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+// import ExpandMoreIcon from '../../assets/images/expand_more_icon.svg'
 
 interface Props {
   children: React.ReactNode
   onChange: (e: any) => void
-  defaultValue: any
-  value: number | null
+  defaultValue?: any
+  value: string
   disabled?: boolean
   size?: 'large' | 'small'
-  selectedIcon: string
-  showSelectedIcon?: boolean
-  selectedName: string
 }
 
 const useStyles = makeStyles({
   root: {
-    width: (props: Props) => (props.size == 'small' ? 80 : 176),
+    width: (props: Props) => (props.size == 'small' ? 'fit-content' : 176),
     height: (props: Props) => (props.size == 'small' ? 32 : 46),
     borderRadius: (props: Props) => (props.size == 'small' ? 4 : 14),
+    paddingLeft: (props: Props) => (props.size == 'small' ? 8 : 24),
+    cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
     boxSizing: 'border-box',
     backgroundColor: '#1f1f1f',
     color: '#FFFFFF',
-    cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
     display: 'flex',
     alignItems: 'center',
     '&:focus': {
@@ -33,10 +30,19 @@ const useStyles = makeStyles({
       borderRadius: (props: Props) => (props.size == 'small' ? 4 : 14),
     },
   },
+  icon: {
+    right: (props: Props) => (props.size == 'small' ? 6.51 : 15),
+    color: '#FFFFFF',
+    display: (props: Props) => (props.disabled ? 'none' : 'block'),
+    opacity: (props: Props) => (props.size == 'small' ? 0.5 : 1),
+    fontSize: (props: Props) => (props.size == 'small' ? '12px' : '24px'),
+    top: (props: Props) => (props.size == 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)'),
+  },
   paper: {
-    width: (props: Props) => (props.size == 'small' ? 172 : 176),
+    width: (props: Props) => (props.size == 'small' ? 'fit-content' : 176),
     borderRadius: 14,
     marginTop: 8,
+    overflow: 'hide',
     '& ul': {
       background: '#1f1f1f',
       outline: 'none',
@@ -52,65 +58,43 @@ const useStyles = makeStyles({
       alignItems: 'center',
       padding: 14,
     },
-    '& li:last-child': {
-      borderBottom: 'none',
-    },
     '& li:hover': {
       backgroundColor: 'rgba(255,255,255,0.08)',
     },
-  },
-  button: {
-    width: (props: Props) => (props.size == 'small' ? 80 : 176),
-    height: (props: Props) => (props.size == 'small' ? 32 : 46),
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-    borderRadius: 4,
-    padding: '0 6.51px 0 8px',
+    '& li:last-child': {
+      borderBottom: 'none',
+    },
   },
 })
 
 export default function _Select(props: Props) {
   const classes = useStyles(props)
-  const [anchorEl, setAnchorEl] = useState(null)
-  const { defaultValue, disabled, onChange, children, value, selectedIcon, selectedName } = props
-  const [showMenu, setShowMenu] = useState(false)
-
-  function onClose() {
-    setShowMenu(false)
-    setAnchorEl(null)
-  }
-
-  function openMenu(e: any) {
-    setShowMenu(true)
-    setAnchorEl(e.currentTarget)
-  }
+  const { defaultValue, disabled, onChange, children } = props
 
   return (
     <>
-      <Button className={classes.button} onClick={openMenu}>
-        <Box mr={'4px'}>
-          <LogoText logo={selectedIcon} text={selectedName} size={'small'} />
-        </Box>
-        <Image src={ExpandMoreIcon} alt={'expand more icon'} />
-      </Button>
-      <Menu
-        className={classes.paper}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+      <Select
+        disableUnderline
+        classes={{ root: classes.root, icon: classes.icon }}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        MenuProps={{
+          classes: { paper: classes.paper },
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left',
+          },
+          getContentAnchorEl: null,
         }}
-        // transformOrigin={{
-        //   vertical: 'top',
-        //   horizontal: 'left',
-        // }}
-        open={showMenu}
-        onClose={onClose}
+        IconComponent={ExpandMoreIcon}
+        onChange={onChange}
       >
         {children}
-      </Menu>
+      </Select>
     </>
   )
 }

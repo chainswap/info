@@ -125,11 +125,15 @@ export default function Header() {
   const [chain, setChain] = useState(ChainList[0])
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
+  const [showSelectedIcon, setShowSelectedIcon] = useState(false)
 
   function onChangeChain(e: any) {
     const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
-    console.log(chain)
     setChain(chain)
+  }
+
+  function toggleSelectedIcon() {
+    setShowSelectedIcon(!showSelectedIcon)
   }
 
   return (
@@ -156,10 +160,19 @@ export default function Header() {
               </OutlineButton>
             </Box>
             <Box mr={'8px'}>
-              <Select defaultValue={chain.symbol} value={chain.symbol} size={'small'} onChange={onChangeChain}>
+              <Select
+                defaultValue={chain.symbol}
+                value={chain.symbol}
+                size={'small'}
+                onChange={onChangeChain}
+                onClose={toggleSelectedIcon}
+                onOpen={toggleSelectedIcon}
+              >
                 {ChainList.map((option) => (
                   <MenuItem value={option.symbol} key={option.symbol}>
-                    {chain.symbol === option.symbol && <Image src={SelectedIcon} alt={'selected icon'} />}
+                    {showSelectedIcon && chain.symbol === option.symbol && (
+                      <Image src={SelectedIcon} alt={'selected icon'} />
+                    )}
                     <LogoText logo={option.logo} text={option.symbol} size={'small'} />
                   </MenuItem>
                 ))}

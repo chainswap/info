@@ -4,6 +4,8 @@ import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Chain from '../../models/chain'
 import InputLabel from '../InputLabel/InputLabel'
+import SelectedIcon from '../../assets/images/selected_icon.svg'
+import Image from '../Image/Image'
 
 interface Props {
   label: string
@@ -15,14 +17,29 @@ interface Props {
 
 export default function ChainSelectPanel(props: Props) {
   const { label, disabled, chainList, onChange, selectedChain } = props
+  const [showSelectedIcon, setShowSelectedIcon] = useState(false)
+
+  function toggleSelectedIcon() {
+    setShowSelectedIcon(!showSelectedIcon)
+  }
 
   return (
     <div>
       <InputLabel>{label}</InputLabel>
-      <Select defaultValue={selectedChain.symbol} value={selectedChain.symbol} disabled={disabled} onChange={onChange}>
-        {chainList.map((chain) => (
-          <MenuItem value={chain.symbol} key={chain.symbol}>
-            <LogoText logo={chain.logo} text={chain.symbol} />
+      <Select
+        defaultValue={selectedChain.symbol}
+        value={selectedChain.symbol}
+        disabled={disabled}
+        onChange={onChange}
+        onClose={toggleSelectedIcon}
+        onOpen={toggleSelectedIcon}
+      >
+        {chainList.map((option) => (
+          <MenuItem value={option.symbol} key={option.symbol}>
+            {showSelectedIcon && selectedChain.symbol === option.symbol && (
+              <Image src={SelectedIcon} alt={'selected icon'} />
+            )}
+            <LogoText logo={option.logo} text={option.symbol} />
           </MenuItem>
         ))}
       </Select>

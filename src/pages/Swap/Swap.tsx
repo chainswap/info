@@ -225,11 +225,13 @@ export default function Swap() {
   }, [])
 
   function onChangeTo(e: any) {
-    setTo(e.target.value)
+    const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
+    setTo(chain)
   }
 
   function onChangeFrom(e: any) {
-    setFrom(e.target.value)
+    const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
+    setFrom(chain)
   }
 
   return (

@@ -11,6 +11,8 @@ interface Props {
   value: string
   disabled?: boolean
   size?: 'large' | 'small'
+  onClose?: () => void
+  onOpen?: () => void
 }
 
 const useStyles = makeStyles({
@@ -39,12 +41,12 @@ const useStyles = makeStyles({
     top: (props: Props) => (props.size == 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)'),
   },
   paper: {
-    width: (props: Props) => (props.size == 'small' ? 'fit-content' : 176),
+    width: (props: Props) => (props.size == 'small' ? 172 : 176),
     borderRadius: 14,
     marginTop: 8,
     overflow: 'hide',
     '& ul': {
-      background: '#1f1f1f',
+      background: '#0F0F10',
       outline: 'none',
       padding: 0,
     },
@@ -69,7 +71,7 @@ const useStyles = makeStyles({
 
 export default function _Select(props: Props) {
   const classes = useStyles(props)
-  const { defaultValue, disabled, onChange, children } = props
+  const { defaultValue, disabled, onChange, children, onOpen, onClose } = props
 
   return (
     <>
@@ -92,6 +94,8 @@ export default function _Select(props: Props) {
         }}
         IconComponent={ExpandMoreIcon}
         onChange={onChange}
+        onOpen={onOpen}
+        onClose={onClose}
       >
         {children}
       </Select>

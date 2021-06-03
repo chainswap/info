@@ -17,28 +17,14 @@ interface Props {
 
 export default function ChainSelectPanel(props: Props) {
   const { label, disabled, chainList, onChange, selectedChain } = props
-  const [showSelectedIcon, setShowSelectedIcon] = useState(false)
-
-  function toggleSelectedIcon() {
-    setShowSelectedIcon(!showSelectedIcon)
-  }
 
   return (
     <div>
       <InputLabel>{label}</InputLabel>
-      <Select
-        defaultValue={selectedChain.symbol}
-        value={selectedChain.symbol}
-        disabled={disabled}
-        onChange={onChange}
-        onClose={toggleSelectedIcon}
-        onOpen={toggleSelectedIcon}
-      >
+      <Select defaultValue={selectedChain.symbol} value={selectedChain.symbol} disabled={disabled} onChange={onChange}>
         {chainList.map((option) => (
           <MenuItem value={option.symbol} key={option.symbol}>
-            {showSelectedIcon && selectedChain.symbol === option.symbol && (
-              <Image src={SelectedIcon} alt={'selected icon'} />
-            )}
+            {selectedChain.symbol === option.symbol && <Image src={SelectedIcon} alt={'selected icon'} />}
             <LogoText logo={option.logo} text={option.symbol} />
           </MenuItem>
         ))}

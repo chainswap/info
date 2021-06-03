@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Image from '../Image/Image'
 import CopyIcon from '../../assets/images/copy_icon.svg'
-
+import CheckIcon from '@material-ui/icons/Check'
 import useCopyClipboard from '../../hooks/useCopyClipboard'
 
 interface Props {
@@ -25,8 +25,8 @@ export default function Copy(props: Props) {
 
   return (
     <Box className={classes.root} onClick={() => setCopied(toCopy)}>
-      <Image src={CopyIcon} alt={'copy icon'} />
-      {children}
+      {isCopied ? <CheckIcon /> : <Image src={CopyIcon} alt={'copy icon'} />}
+      {isCopied ? '' : children}
     </Box>
   )
 }

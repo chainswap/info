@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { MenuItem, Box } from '@material-ui/core'
+import { MenuItem, Box, makeStyles } from '@material-ui/core'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Chain from '../../models/chain'
 import InputLabel from '../InputLabel/InputLabel'
 import SelectedIcon from '../../assets/images/selected_icon.svg'
-import Image from '../Image/Image'
 
 interface Props {
   label: string
@@ -15,7 +14,27 @@ interface Props {
   onChange: (e: any) => void
 }
 
+const useStyles = makeStyles({
+  menuItem: {
+    '&::before': {
+      content: '""',
+      width: 30,
+      height: 20,
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    '&.Mui-selected::before': {
+      content: `url(${SelectedIcon})`,
+      width: 30,
+      height: 20,
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
+})
+
 export default function ChainSelectPanel(props: Props) {
+  const classes = useStyles(props)
   const { label, disabled, chainList, onChange, selectedChain } = props
 
   return (
@@ -23,8 +42,12 @@ export default function ChainSelectPanel(props: Props) {
       <InputLabel>{label}</InputLabel>
       <Select defaultValue={selectedChain.symbol} value={selectedChain.symbol} disabled={disabled} onChange={onChange}>
         {chainList.map((option) => (
-          <MenuItem value={option.symbol} key={option.symbol}>
-            {selectedChain.symbol === option.symbol && <Image src={SelectedIcon} alt={'selected icon'} />}
+          <MenuItem
+            className={classes.menuItem}
+            value={option.symbol}
+            key={option.symbol}
+            selected={selectedChain.symbol === option.symbol}
+          >
             <LogoText logo={option.logo} text={option.symbol} />
           </MenuItem>
         ))}

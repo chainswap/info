@@ -11,8 +11,6 @@ interface Props {
   value: string
   disabled?: boolean
   size?: 'large' | 'small'
-  onClose?: () => void
-  onOpen?: () => void
 }
 
 const useStyles = makeStyles({
@@ -58,7 +56,9 @@ const useStyles = makeStyles({
       borderBottomColor: 'hsla(0,0%,100%,.12)',
       display: 'flex',
       alignItems: 'center',
-      padding: 14,
+      // padding: 14,
+      padding: '12px 0',
+      boxSizing: 'border-box',
     },
     '& li:hover': {
       backgroundColor: 'rgba(255,255,255,0.08)',
@@ -71,7 +71,7 @@ const useStyles = makeStyles({
 
 export default function _Select(props: Props) {
   const classes = useStyles(props)
-  const { defaultValue, disabled, onChange, children, onOpen, onClose } = props
+  const { defaultValue, disabled, onChange, children } = props
 
   return (
     <>
@@ -94,8 +94,6 @@ export default function _Select(props: Props) {
         }}
         IconComponent={ExpandMoreIcon}
         onChange={onChange}
-        onOpen={onOpen}
-        onClose={onClose}
       >
         {children}
       </Select>

@@ -14,6 +14,7 @@ interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   selectedCurrency: Currency
   options: Currency[]
+  onMax: () => void
 }
 
 const LabelRow = styled('div')({
@@ -64,7 +65,7 @@ const CurrencySelect = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency, options } = props
+  const { selectedCurrency, options, onMax } = props
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleDismissSearch = useCallback(() => {
@@ -89,7 +90,7 @@ export default function CurrencyInputPanel(props: Props) {
           type={'number'}
         />
         <ButtonWrapper>
-          <OutlineButton width="64px" height="28px">
+          <OutlineButton width="64px" height="28px" onClick={onMax}>
             Max
           </OutlineButton>
         </ButtonWrapper>

@@ -234,6 +234,11 @@ export default function Swap() {
     setFrom(chain)
   }
 
+  function onMax() {
+    const maxAmount = quota.toString()
+    setAmount(maxAmount)
+  }
+
   return (
     <>
       <AppBody>
@@ -245,6 +250,7 @@ export default function Swap() {
             value={amount}
             selectedCurrency={getSelectedCurrency()}
             options={CurrencyList}
+            onMax={onMax}
           />
           <ChainSelectPanel
             from={from}

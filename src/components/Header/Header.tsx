@@ -81,6 +81,22 @@ const useStyles = makeStyles({
       opacity: 1,
     },
   },
+  menuItem: {
+    '&::before': {
+      content: '""',
+      width: 30,
+      height: 20,
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    '&.Mui-selected::before': {
+      content: `url(${SelectedIcon})`,
+      width: 30,
+      height: 20,
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
 })
 
 const LinksWrapper = styled('div')({
@@ -125,15 +141,10 @@ export default function Header() {
   const [chain, setChain] = useState(ChainList[0])
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
-  const [showSelectedIcon, setShowSelectedIcon] = useState(false)
 
   function onChangeChain(e: any) {
     const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
     setChain(chain)
-  }
-
-  function toggleSelectedIcon() {
-    setShowSelectedIcon(!showSelectedIcon)
   }
 
   return (
@@ -160,19 +171,14 @@ export default function Header() {
               </OutlineButton>
             </Box>
             <Box mr={'8px'}>
-              <Select
-                defaultValue={chain.symbol}
-                value={chain.symbol}
-                size={'small'}
-                onChange={onChangeChain}
-                onClose={toggleSelectedIcon}
-                onOpen={toggleSelectedIcon}
-              >
+              <Select defaultValue={chain.symbol} value={chain.symbol} size={'small'} onChange={onChangeChain}>
                 {ChainList.map((option) => (
-                  <MenuItem value={option.symbol} key={option.symbol}>
-                    {showSelectedIcon && chain.symbol === option.symbol && (
-                      <Image src={SelectedIcon} alt={'selected icon'} />
-                    )}
+                  <MenuItem
+                    className={classes.menuItem}
+                    value={option.symbol}
+                    key={option.symbol}
+                    selected={chain.symbol === option.symbol}
+                  >
                     <LogoText logo={option.logo} text={option.symbol} size={'small'} />
                   </MenuItem>
                 ))}

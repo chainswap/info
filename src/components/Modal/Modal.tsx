@@ -11,11 +11,13 @@ interface Props {
   children?: React.ReactNode
   label?: string
   showIcon?: boolean
+  width?: string
 }
 
 const useStyles = makeStyles({
   root: {},
   paper: {
+    width: (props: Props) => props.width || 480,
     background:
       '#000 linear-gradient(283.31deg,hsla(0,0%,100%,.18) -2.53%,hsla(0,0%,100%,.17) 18.66%,hsla(0,0%,100%,0) 98.68%)',
     border: '1px solid rgba(255, 255, 255, 0.2)',

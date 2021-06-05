@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useCallback, useContext } from 'react'
+import React, { useState, ChangeEvent, useCallback, useContext, useEffect } from 'react'
 import { styled } from '@material-ui/styles'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
@@ -28,7 +28,6 @@ const AppHeader = styled('div')({
 })
 
 export default function Swap() {
-  // const [account, setAccount] = useState(false)
   const userLogined = useUserLogined()
   const [amount, setAmount] = useState('')
   const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
@@ -39,6 +38,7 @@ export default function Swap() {
   const [quota, setQuota] = useState(800)
   const [currency, setCurrency] = useState(CurrencyList[0])
   const { showModal, hideModal } = useContext(ModalContext)
+  const [percentage, setPercentage] = useState(0)
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapState] = useState<{
@@ -53,43 +53,39 @@ export default function Swap() {
     withdrawCompleted: false,
   })
 
-  const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
-    let currentAmount = e.currentTarget.value
-
-    setAmount(e.currentTarget.value)
-    checkDeposit(currentAmount, address)
-  }
-
-  const onChangeAddress = (e: ChangeEvent<HTMLInputElement>) => {
-    let currentAddress = e.currentTarget.value
-
-    setAddress(currentAddress)
-    checkDeposit(amount, currentAddress)
-  }
-
-  const checkDeposit = (amount: string, address: string) => {
+  useEffect(() => {
     if (amount && address) {
       setDepositEnabled(true)
       return
     }
     setDepositEnabled(false)
+  }, [amount, address])
+
+  useEffect(() => {
+    const percentage = ((quota - parseFloat(amount)) / quota) * 100
+    setPercentage(percentage)
+  }, [quota, amount])
+
+  const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.currentTarget.value)
   }
 
-  const getPercentage = () => {
-    return ((quota - parseFloat(amount)) / quota) * 100
+  const onChangeAddress = (e: ChangeEvent<HTMLInputElement>) => {
+    let currentAddress = e.currentTarget.value
+    setAddress(currentAddress)
   }
 
-  function onChangeTo(e: any) {
+  const onChangeTo = (e: any) => {
     const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
     setTo(chain)
   }
 
-  function onChangeFrom(e: any) {
+  const onChangeFrom = (e: any) => {
     const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
     setFrom(chain)
   }
 
-  function onMax() {
+  const onMax = () => {
     const maxAmount = quota.toString()
     setAmount(maxAmount)
   }
@@ -123,7 +119,7 @@ export default function Swap() {
     }, 1500)
   }, [])
 
-  function showConfirmDepositModal() {
+  const showConfirmDepositModal = () => {
     showModal({
       component: ConfirmDepositModal,
       modalProps: {
@@ -163,7 +159,7 @@ export default function Swap() {
     alert('complete withdraw')
   }, [])
 
-  function showConfirmWithdrawModal() {
+  const showConfirmWithdrawModal = () => {
     showModal({
       component: ConfirmWithdrawModal,
       modalProps: {
@@ -179,7 +175,7 @@ export default function Swap() {
     })
   }
 
-  function showWalletModal() {
+  const showWalletModal = () => {
     showModal({
       component: WalletModal,
       modalProps: {
@@ -238,8 +234,8 @@ export default function Swap() {
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 22px 0'} />
             <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
-              <QuotaInfo quota={quota} currency={currency.symbol} percentage={getPercentage()} />
-              <QuotaBar percentage={getPercentage()} />
+              <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />
+              <QuotaBar percentage={percentage} />
             </Box>
           </>
         )}

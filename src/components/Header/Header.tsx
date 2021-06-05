@@ -224,8 +224,6 @@ export default function Header() {
           <NotifyBox />
         </Box>
       )}
-
-      <WalletModal />
     </>
   )
 }

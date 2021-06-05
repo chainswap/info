@@ -51,11 +51,6 @@ export default function WalletModal() {
   }
 
   function getModalContent() {
-    const account = true
-    // Todo: Get account from useWeb3React()
-    // if (error) {
-    //   return <>Error Message</>
-    // }
     if (userLogined && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails

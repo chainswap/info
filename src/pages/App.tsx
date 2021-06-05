@@ -6,7 +6,8 @@ import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
 import theme from '../theme/index'
 import routes from '../constants/routes'
-import { ModalContext, ModalProvider } from '../context/ModalContext'
+import { ModalProvider } from '../context/ModalContext'
+import ModalRoot from '../components/ModalRoot/ModalRoot'
 
 const BodyWrapper = styled('div')({
   display: 'flex',
@@ -15,11 +16,6 @@ const BodyWrapper = styled('div')({
   justifyContent: 'center',
   height: 'calc(100vh - 88px)',
 })
-
-const ModalRoot: React.FC<{}> = () => {
-  const { component: Component, isOpen, hideModal, modalProps } = React.useContext(ModalContext)
-  return Component ? <Component {...modalProps} isOpen={isOpen} onDismiss={hideModal} /> : null
-}
 
 export default function App() {
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AppBar, Box, Menu, MenuItem } from '@material-ui/core'
 import { styled, makeStyles } from '@material-ui/styles'
@@ -20,6 +20,7 @@ import NotifyBox from './NotifyBox'
 import ChainSwap from '../../assets/images/chain_swap.svg'
 import routes from '../../constants/routes'
 import SelectedIcon from '../../assets/images/selected_icon.svg'
+import { ModalContext } from '../../context/ModalContext'
 
 enum Mode {
   VISITOR,
@@ -135,16 +136,28 @@ export default function Header() {
 
   const [mode, setMode] = useState(Mode.USER)
   const toggleWalletModal = useWalletModalToggle()
-  const toggleClaimModal = useClaimModalToggle()
+  // const toggleClaimModal = useClaimModalToggle()
   const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
   // const address = null
   const [chain, setChain] = useState(ChainList[0])
   const [amount, setAmount] = useState(1.24)
   const [currency, setCurrency] = useState('MATTER')
 
+  const { showModal, hideModal } = useContext(ModalContext)
+
   function onChangeChain(e: any) {
     const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
     setChain(chain)
+  }
+
+  function showClaimModal() {
+    console.log('a')
+    showModal({
+      component: ClaimModal,
+      modalProps: {
+        onDismiss: hideModal,
+      },
+    })
   }
 
   return (
@@ -166,7 +179,7 @@ export default function Header() {
         {mode === Mode.USER && address ? (
           <Box display="flex">
             <Box mr={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'} onClick={toggleClaimModal}>
+              <OutlineButton width={'100px'} height={'32px'} onClick={showClaimModal}>
                 Claim List
               </OutlineButton>
             </Box>
@@ -200,7 +213,6 @@ export default function Header() {
       )}
 
       <WalletModal />
-      <ClaimModal />
     </>
   )
 }

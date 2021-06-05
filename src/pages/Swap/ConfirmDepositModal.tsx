@@ -23,7 +23,6 @@ interface Props {
 
 export default function ConfirmDepositModal(props: Props) {
   const { isOpen, hideModal } = useContext(ModalContext)
-
   const { value, selectedCurrency, from, to, walletLogo, address, onConfirm } = props
 
   return (

@@ -16,7 +16,6 @@ import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from './ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
-import ClaimPopupModal from '../../components/claim/ClaimPopupModal'
 
 import { ModalContext } from '../../context/ModalContext'
 
@@ -244,7 +243,6 @@ export default function Swap() {
           </Box>
         )}
       </AppBody>
-      <ClaimPopupModal />
     </>
   )
 }

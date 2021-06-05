@@ -1,6 +1,4 @@
-import React from 'react'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useClaimModalToggle } from '../../state/application/hooks'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Box, MenuItem, Dialog } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
@@ -15,6 +13,7 @@ import Pager from '../Pager/Pager'
 import Divider from '../Divider/Divider'
 import Chain from '../../models/chain'
 import Currency from '../../models/currency'
+import { ModalContext } from '../../context/ModalContext'
 
 const useStyles = makeStyles({
   paper: {
@@ -49,9 +48,7 @@ const CloseBox = styled('div')({
   },
 })
 
-const ClaimHeader = () => {
-  const toggleClaimModal = useClaimModalToggle()
-
+const ClaimHeader = ({ hideModal }: { hideModal: () => void }) => {
   return (
     <Box display={'flex'} justifyContent={'space-between'} height={'62px'} alignItems={'center'}>
       <Text fontFamily={'Futura PT'} fontSize={20} fontWeight={500} marginLeft={'32px'}>
@@ -72,7 +69,7 @@ const ClaimHeader = () => {
           </MenuItem>
         </OutlineSelect>
       </Box>
-      <CloseBox onClick={toggleClaimModal}>
+      <CloseBox onClick={hideModal}>
         <Image src={CloseIcon} alt={'close icon'} />
       </CloseBox>
     </Box>
@@ -105,20 +102,21 @@ interface DataItem {
 
 export default function ClaimModal() {
   const classes = useStyles()
-  const claimModalOpen = useModalOpen(ApplicationModal.CLAIM)
   const data: DataItem[] = claimModalData
-  // const data: DataItem[] = []
   const dataReady = data.filter((item) => item.status === 'ready')
   const dataCompleted = data.filter((item) => item.status !== 'ready')
+
+  const { isOpen, hideModal } = useContext(ModalContext)
 
   return (
     <>
       <Dialog
-        open={claimModalOpen}
+        open={isOpen}
+        onClose={hideModal}
         PaperProps={{ className: classes.paper }}
         BackdropProps={{ className: classes.backdrop }}
       >
-        <ClaimHeader />
+        <ClaimHeader hideModal={hideModal} />
 
         {dataReady.length > 0 && (
           <Box padding={'0 32px'}>

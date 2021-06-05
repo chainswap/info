@@ -17,7 +17,7 @@ const BodyWrapper = styled('div')({
 })
 
 const ModalRoot: React.FC<{}> = () => {
-  const { component: Component, isOpen, modalProps, hideModal } = React.useContext(ModalContext)
+  const { component: Component, isOpen, hideModal, modalProps } = React.useContext(ModalContext)
   return Component ? <Component {...modalProps} isOpen={isOpen} onDismiss={hideModal} /> : null
 }
 
@@ -26,9 +26,9 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header />
         <ModalProvider>
           <ModalRoot />
+          <Header />
           <BodyWrapper>
             <Switch>
               <Route strict path={routes.swap} exact component={Swap} />

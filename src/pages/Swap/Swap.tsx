@@ -4,7 +4,6 @@ import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import ChainSelectPanel from '../../components/ChainSelectPanel/ChainSelectPanel'
-import { useWalletModalToggle } from '../../state/application/hooks'
 import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
 import QuotaInfo from './QuotaInfo'
@@ -16,8 +15,9 @@ import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from './ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
-
+import WalletModal from '../../components/WalletModal/WalletModal'
 import { ModalContext } from '../../context/ModalContext'
+import { useUserLogined } from '../../state/user/hooks'
 
 const AppHeader = styled('div')({
   fontWeight: 500,
@@ -28,7 +28,8 @@ const AppHeader = styled('div')({
 })
 
 export default function Swap() {
-  const [account, setAccount] = useState(true)
+  // const [account, setAccount] = useState(false)
+  const userLogined = useUserLogined()
   const [amount, setAmount] = useState('')
   const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
   const [from, setFrom] = useState(ChainList[0])
@@ -37,7 +38,6 @@ export default function Swap() {
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
   const [currency, setCurrency] = useState(CurrencyList[0])
-
   const { showModal, hideModal } = useContext(ModalContext)
 
   // swap state
@@ -52,9 +52,6 @@ export default function Swap() {
     depositCompleted: false,
     withdrawCompleted: false,
   })
-
-  // toggle wallet when disconnected
-  const toggleWalletModal = useWalletModalToggle()
 
   const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
     let currentAmount = e.currentTarget.value
@@ -182,6 +179,16 @@ export default function Swap() {
     })
   }
 
+  function showWalletModal() {
+    showModal({
+      component: WalletModal,
+      modalProps: {
+        onDismiss: hideModal,
+        onConfirm: onConfirmWithdraw,
+      },
+    })
+  }
+
   return (
     <>
       <AppBody>
@@ -202,7 +209,7 @@ export default function Swap() {
             onChangeTo={onChangeTo}
             onChangeFrom={onChangeFrom}
           />
-          {account && (
+          {userLogined && (
             <Box>
               <Input
                 label={'Destination Chain Wallet Address'}
@@ -214,7 +221,7 @@ export default function Swap() {
           )}
         </Box>
 
-        {account && (
+        {userLogined && (
           <>
             <Box display="grid" gridGap="16px" padding="28px 32px 0 32px">
               <Box display="flex" justifyContent="space-between">
@@ -237,9 +244,9 @@ export default function Swap() {
           </>
         )}
 
-        {!account && (
+        {!userLogined && (
           <Box padding="27px 32px 31px">
-            <Button onClick={toggleWalletModal}>Connect Wallet</Button>
+            <Button onClick={showWalletModal}>Connect Wallet</Button>
           </Box>
         )}
       </AppBody>

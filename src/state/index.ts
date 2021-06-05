@@ -1,12 +1,12 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 // import { save, load } from 'redux-localstorage-simple'
-import application from './application/reducer'
+import user from './user/reducer'
 
 // const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
 
 const store = configureStore({
   reducer: {
-    application,
+    user,
   },
   middleware: [...getDefaultMiddleware({ thunk: false })],
   // preloadedState: load({ states: PERSISTED_KEYS }),

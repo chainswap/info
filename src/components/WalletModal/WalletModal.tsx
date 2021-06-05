@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import React, { useState, useContext } from 'react'
 import Modal from '../Modal/Modal'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useWalletModalToggle } from '../../state/application/hooks'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
-import usePrevious from '../../hooks/usePrevious'
 import AccountDetails from '../AccountDetails/AccountDetails'
+import { ModalContext } from '../../context/ModalContext'
+
+import { useSetUser, useUserLogined } from '../../state/user/hooks'
+
+const WALLET_VIEWS = {
+  OPTIONS: 'options',
+  ACCOUNT: 'account',
+}
 
 const Header = styled(Box)({
   marginBottom: '32px',
@@ -16,45 +20,17 @@ const Header = styled(Box)({
   fontSize: '18px',
 })
 
-const WALLET_VIEWS = {
-  OPTIONS: 'options',
-  // OPTIONS_SECONDARY: 'options_secondary',
-  ACCOUNT: 'account',
-  // PENDING: 'pending',
-}
-
 export default function WalletModal() {
-  const { active, account, connector, activate, error } = useWeb3React()
-  const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
-  const walletModalOpen = useModalOpen(ApplicationModal.WALLET)
-  const toggleWalletModal = useWalletModalToggle()
-  const previousAccount = usePrevious(account)
+  const [walletView, setWalletView] = useState(WALLET_VIEWS.OPTIONS)
+  const { isOpen, hideModal } = useContext(ModalContext)
+  const userLogined = useUserLogined()
+  const setUser = useSetUser()
 
-  // close on connection, when logged out before
-  useEffect(() => {
-    if (account && !previousAccount && walletModalOpen) {
-      toggleWalletModal()
-    }
-  }, [account, previousAccount, toggleWalletModal, walletModalOpen])
+  const onClickOption = () => {
+    setUser({ address: '1234' })
+    setWalletView(WALLET_VIEWS.ACCOUNT)
+  }
 
-  // always reset to account view
-  useEffect(() => {
-    if (walletModalOpen) {
-      // setPendingError(false)
-      setWalletView(WALLET_VIEWS.ACCOUNT)
-    }
-  }, [walletModalOpen])
-
-  // close modal when a connection is successful
-  const activePrevious = usePrevious(active)
-  const connectorPrevious = usePrevious(connector)
-  useEffect(() => {
-    if (walletModalOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
-      setWalletView(WALLET_VIEWS.ACCOUNT)
-    }
-  }, [setWalletView, active, error, connector, walletModalOpen, activePrevious, connectorPrevious])
-
-  // get wallets user can switch too, depending on device/browser
   function getOptions() {
     return Object.keys(SUPPORTED_WALLETS).map((key) => {
       const option = SUPPORTED_WALLETS[key]
@@ -62,15 +38,12 @@ export default function WalletModal() {
       return (
         <Option
           id={`connect-${key}`}
-          onClick={() => {
-            setWalletView(WALLET_VIEWS.ACCOUNT)
-          }}
+          onClick={onClickOption}
           key={key}
-          active={option.connector === connector}
           color={option.color}
           link={option.href}
           header={option.name}
-          subheader={null} //use option.descriptio to bring back multi-line
+          subheader={null}
           icon={option.iconURL}
         />
       )
@@ -80,16 +53,15 @@ export default function WalletModal() {
   function getModalContent() {
     const account = true
     // Todo: Get account from useWeb3React()
-    if (error) {
-      return <>Error Message</>
-    }
-    if (account && walletView === WALLET_VIEWS.ACCOUNT) {
+    // if (error) {
+    //   return <>Error Message</>
+    // }
+    if (userLogined && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails
-          toggleWalletModal={toggleWalletModal}
           openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}
           ENSName={'0xe60b...e6d3'}
-          onClose={toggleWalletModal}
+          onClose={hideModal}
           pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
           confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}
         />
@@ -110,7 +82,7 @@ export default function WalletModal() {
   }
 
   return (
-    <Modal isOpen={walletModalOpen} onDismiss={toggleWalletModal} showIcon={walletView === WALLET_VIEWS.OPTIONS}>
+    <Modal isOpen={isOpen} onDismiss={hideModal} showIcon={walletView === WALLET_VIEWS.OPTIONS}>
       {getModalContent()}
     </Modal>
   )

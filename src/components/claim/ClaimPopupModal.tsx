@@ -2,14 +2,16 @@ import React, { useState, ChangeEvent } from 'react'
 import Modal from '../Modal/Modal'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-import { ApplicationModal } from '../../state/application/actions'
-import { useClaimPopupModalToggle, useModalOpen } from '../../state/application/hooks'
 import { Box } from '@material-ui/core'
 import MessageBox from '../MessageBox/MessageBox'
 
-export default function ClaimPopupModal() {
-  const claimPopupModalOpen = useModalOpen(ApplicationModal.CLAIM_POPUP)
-  const toggleClaimPopupModal = useClaimPopupModalToggle()
+interface Props {
+  isOpen: boolean
+  onDismiss: () => void
+}
+
+export default function ClaimPopupModal(props: Props) {
+  const { isOpen, onDismiss } = props
   const [hash, setHash] = useState('')
   const label = 'Please Enter the transaction hash'
   const placeHolder = 'Enter the transaction hash'
@@ -48,7 +50,7 @@ export default function ClaimPopupModal() {
 
   return (
     <>
-      <Modal isOpen={claimPopupModalOpen} onDismiss={toggleClaimPopupModal} label={label} showIcon>
+      <Modal isOpen={isOpen} onDismiss={onDismiss} label={label} showIcon>
         <Box margin={'32px 52px 18px'}>
           <Input placeholder={placeHolder} value={hash} onChange={onChangeHash} />
         </Box>

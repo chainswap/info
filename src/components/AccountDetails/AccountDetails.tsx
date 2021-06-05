@@ -11,7 +11,6 @@ import Button from '../Button/Button'
 import Transaction from './Transaction'
 
 interface Props {
-  toggleWalletModal: () => void
   pendingTransactions: string[]
   confirmedTransactions: string[]
   ENSName?: string

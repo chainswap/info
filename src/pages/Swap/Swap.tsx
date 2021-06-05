@@ -20,6 +20,7 @@ import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
 import Loader from '../../assets/images/loader.svg'
 import Image from '../../components/Image/Image'
+import { Text } from 'rebass'
 
 const AppHeader = styled('div')({
   fontWeight: 500,
@@ -234,20 +235,28 @@ export default function Swap() {
                   {attemptingDeposit ? (
                     <>
                       <Image src={Loader} alt={'loader icon'} />
-                      Depositing
+                      <Text marginLeft={12} fontSize={16}>
+                        Depositing
+                      </Text>
                     </>
                   ) : (
-                    <>Deposit in {from.symbol} Chain</>
+                    <Text marginLeft={12} fontSize={16}>
+                      Deposit in {from.symbol} Chain
+                    </Text>
                   )}
                 </Button>
                 <Button width={'216px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
                   {attemptingWithdraw ? (
                     <>
                       <Image src={Loader} alt={'loader icon'} />
-                      Withdrawing
+                      <Text marginLeft={12} fontSize={16}>
+                        Withdrawing
+                      </Text>
                     </>
                   ) : (
-                    <>Withdraw from {to.symbol} Chain</>
+                    <Text marginLeft={12} fontSize={16}>
+                      Withdraw from {to.symbol} Chain
+                    </Text>
                   )}
                 </Button>
               </Box>

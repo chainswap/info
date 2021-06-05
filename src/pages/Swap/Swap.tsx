@@ -18,6 +18,8 @@ import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
 import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
+import Loader from '../../assets/images/loader.svg'
+import Image from '../../components/Image/Image'
 
 const AppHeader = styled('div')({
   fontWeight: 500,
@@ -39,6 +41,7 @@ export default function Swap() {
   const [currency, setCurrency] = useState(CurrencyList[0])
   const { showModal, hideModal } = useContext(ModalContext)
   const [percentage, setPercentage] = useState(0)
+  const [step, setStep] = useState(0)
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapState] = useState<{
@@ -65,6 +68,14 @@ export default function Swap() {
     const percentage = ((quota - parseFloat(amount)) / quota) * 100
     setPercentage(percentage)
   }, [quota, amount])
+
+  useEffect(() => {
+    if (depositCompleted && withdrawCompleted) {
+      setStep(2)
+    } else if (depositCompleted) {
+      setStep(1)
+    }
+  }, [depositCompleted, withdrawCompleted])
 
   const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
     setAmount(e.currentTarget.value)
@@ -96,7 +107,7 @@ export default function Swap() {
     setSwapState({
       attemptingDeposit: true,
       attemptingWithdraw: false,
-      depositCompleted: true,
+      depositCompleted: false,
       withdrawCompleted: false,
     })
 
@@ -155,8 +166,6 @@ export default function Swap() {
       setDepositEnabled(false)
       setWithdrawEnabled(false)
     }, 1500)
-
-    alert('complete withdraw')
   }, [])
 
   const showConfirmWithdrawModal = () => {
@@ -222,14 +231,28 @@ export default function Swap() {
             <Box display="grid" gridGap="16px" padding="28px 32px 0 32px">
               <Box display="flex" justifyContent="space-between">
                 <Button width={'216px'} disabled={!depositEnabled} onClick={showConfirmDepositModal}>
-                  {attemptingDeposit ? <>Depositing</> : <>Deposit in {from.symbol} Chain</>}
+                  {attemptingDeposit ? (
+                    <>
+                      <Image src={Loader} alt={'loader icon'} />
+                      Depositing
+                    </>
+                  ) : (
+                    <>Deposit in {from.symbol} Chain</>
+                  )}
                 </Button>
                 <Button width={'216px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
-                  {attemptingWithdraw ? <>Withdrawing</> : <>Withdraw from {to.symbol} Chain</>}
+                  {attemptingWithdraw ? (
+                    <>
+                      <Image src={Loader} alt={'loader icon'} />
+                      Withdrawing
+                    </>
+                  ) : (
+                    <>Withdraw from {to.symbol} Chain</>
+                  )}
                 </Button>
               </Box>
               <Box display="flex" justifyContent="center">
-                <Stepper />
+                <Stepper activeStep={step} />
               </Box>
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 22px 0'} />

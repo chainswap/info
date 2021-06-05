@@ -3,5 +3,5 @@ import { ModalContext } from '../../context/ModalContext'
 
 export default function ModalRoot() {
   const { component: Component, isOpen, hideModal, modalProps } = useContext(ModalContext)
-  return Component ? <Component {...modalProps} isOpen={isOpen} onDismiss={hideModal} /> : null
+  return Component ? <Component {...modalProps} /> : null
 }

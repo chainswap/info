@@ -6,6 +6,10 @@ import { makeStyles, withStyles } from '@material-ui/core'
 import { StepIconProps } from '@material-ui/core/StepIcon'
 import clsx from 'clsx'
 
+interface Props {
+  activeStep: number
+}
+
 const Stepper = withStyles({
   root: {
     background: 'transparent',
@@ -96,8 +100,9 @@ function getSteps() {
   return [1, 2]
 }
 
-export default function _Stepper() {
-  const [activeStep, setActiveStep] = React.useState(0)
+export default function _Stepper(props: Props) {
+  const { activeStep } = props
+  // const [activeStep, setActiveStep] = React.useState(1)
   const steps = getSteps()
 
   return (

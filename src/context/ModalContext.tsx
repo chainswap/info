@@ -8,16 +8,11 @@ interface ModalContextType {
   hideModal: () => void
 }
 
-interface ShowModalType {
-  component: React.FC | null
-  modalProps: any
-}
-
 export const ModalContext = React.createContext<ModalContextType>({
   component: null,
   isOpen: false,
   modalProps: {},
-  showModal: ({}: ShowModalType) => {},
+  showModal: ({}) => {},
   hideModal: () => {},
 })
 
@@ -34,7 +29,7 @@ export const ModalProvider = ({ children }: { children: React.ReactChild | React
     })
   }
 
-  const showModal = ({ component, modalProps }: ShowModalType) => {
+  const showModal = ({ component, modalProps }: { component: React.FC | null; modalProps: any }) => {
     setModalState({
       component,
       modalProps,

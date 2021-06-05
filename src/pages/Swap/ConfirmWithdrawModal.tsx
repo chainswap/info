@@ -1,23 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
-import Modal from '../Modal/Modal'
-import Button from '../Button/Button'
+import Modal from '../../components/Modal/Modal'
+import Button from '../../components/Button/Button'
 import Currency from '../../models/currency'
 import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import ChainAddress from './ChainAddress'
 import Divider from '../../components/Divider/Divider'
+import { ModalContext } from '../../context/ModalContext'
 
-enum Mode {
+export enum Mode {
   INSTRUCTION,
   CONFIRM,
 }
 
 interface Props {
-  isOpen: boolean
-  onDismiss: () => void
   children?: React.ReactNode
   label?: string
   from: Chain
@@ -45,12 +44,18 @@ const Instruction = ({ to }: { to: Chain }) => {
 }
 
 export default function ConfirmWithdrawModal(props: Props) {
-  const { isOpen, onDismiss, from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
+  const { isOpen, hideModal } = useContext(ModalContext)
+  const { from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
+
   const [mode, setMode] = useState(Mode.INSTRUCTION)
 
+  function onClick() {
+    setMode(Mode.CONFIRM)
+  }
+
   return (
-    <>
-      <Modal isOpen={isOpen} onDismiss={onDismiss} showIcon>
+    <div onClick={onClick}>
+      <Modal isOpen={isOpen} onDismiss={hideModal} showIcon>
         {mode === Mode.INSTRUCTION ? (
           <>
             <Instruction to={to} />
@@ -96,6 +101,6 @@ export default function ConfirmWithdrawModal(props: Props) {
           </Button>
         </Box>
       </Modal>
-    </>
+    </div>
   )
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import Image from '../Image/Image'
-import TextButton from '../Button/TextButton'
+import Image from '../../components/Image/Image'
+import TextButton from '../../components/Button/TextButton'
 import Currency from '../../models/currency'
-import MessageBox from '../MessageBox/MessageBox'
+import MessageBox from '../../components/MessageBox/MessageBox'
 
 interface Props {
   isOpen: boolean

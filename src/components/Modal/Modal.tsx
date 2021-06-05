@@ -35,6 +35,7 @@ const CloseBtn = styled('div')({
   top: 24,
   color: '#FFFFFF',
   opacity: 0.6,
+  zIndex: 999,
   '&:hover': {
     cursor: 'pointer',
   },

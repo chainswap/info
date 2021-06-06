@@ -24,6 +24,7 @@ import { Text } from 'rebass'
 import Currency from '../../models/currency'
 import CheckIcon from '../../assets/images/check_icon.svg'
 import TextButton from '../../components/Button/TextButton'
+import ClaimModal from '../../components/claim/ClaimModal'
 
 const AppHeader = styled('div')({
   fontWeight: 500,
@@ -224,6 +225,15 @@ export default function Swap() {
     setAutorized(true)
   }
 
+  const showClaimModal = () => {
+    showModal({
+      component: ClaimModal,
+      modalProps: {
+        onDismiss: hideModal,
+      },
+    })
+  }
+
   return (
     <>
       <AppBody>
@@ -309,7 +319,9 @@ export default function Swap() {
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />
             <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
-              <TextButton primary>Claim List</TextButton>
+              <TextButton onClick={showClaimModal} primary>
+                Claim List
+              </TextButton>
             </Box>
             {/* <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
               <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />

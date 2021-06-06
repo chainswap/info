@@ -1,8 +1,7 @@
 import React from 'react'
 import { Theme, ButtonBase } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/styles'
-import ExpandMoreIcon from '../../assets/images/expand_more.svg'
-import Image from '../Image/Image'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 interface Props {
   onClick?: () => void
@@ -44,7 +43,7 @@ export default function SelectButton(props: Props) {
   return (
     <ButtonBase classes={{ root: classes.root, disabled: classes.disabled }} onClick={onClick} disabled={disabled}>
       {props.children}
-      <Image src={ExpandMoreIcon} alt={'expand more icon'} />
+      <ExpandMoreIcon />
     </ButtonBase>
   )
 }

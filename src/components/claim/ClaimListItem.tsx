@@ -96,7 +96,7 @@ export default function ClaimListItem({ from, to, currency, address, amount, sta
         </Box>
         <Box>
           {status === Status.READY ? (
-            <OutlineButton width={'62px'} height={'36px'} onClick={() => setShowClaimPopupModal(true)}>
+            <OutlineButton width={'62px'} height={'36px'} onClick={() => setShowClaimPopupModal(true)} primary>
               Claim
             </OutlineButton>
           ) : status === Status.SUCCESS ? (

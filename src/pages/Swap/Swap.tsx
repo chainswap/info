@@ -39,7 +39,7 @@ export default function Swap() {
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
-  const [currency, setCurrency] = useState(CurrencyList[0])
+  const [currency, setCurrency] = useState(null)
   const { showModal, hideModal } = useContext(ModalContext)
   const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
@@ -195,6 +195,8 @@ export default function Swap() {
     })
   }
 
+  const onClickSelect = () => {}
+
   return (
     <>
       <AppBody>
@@ -207,23 +209,28 @@ export default function Swap() {
             selectedCurrency={currency}
             options={CurrencyList}
             onMax={onMax}
-          />
-          <ChainSelectPanel
-            from={from}
-            to={to}
-            chainList={ChainList}
-            onChangeTo={onChangeTo}
-            onChangeFrom={onChangeFrom}
+            onClickSelect={onClickSelect}
+            disabled={!userLogined}
           />
           {userLogined && (
-            <Box>
-              <Input
-                label={'Destination Chain Wallet Address'}
-                value={address}
-                placeholder={'Enter address to swap'}
-                onChange={onChangeAddress}
+            <>
+              <ChainSelectPanel
+                from={from}
+                to={to}
+                chainList={ChainList}
+                onChangeTo={onChangeTo}
+                onChangeFrom={onChangeFrom}
               />
-            </Box>
+
+              <Box>
+                <Input
+                  label={'Destination Chain Wallet Address'}
+                  value={address}
+                  placeholder={'Enter address to swap'}
+                  onChange={onChangeAddress}
+                />
+              </Box>
+            </>
           )}
         </Box>
 
@@ -265,10 +272,10 @@ export default function Swap() {
               </Box>
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 22px 0'} />
-            <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
+            {/* <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
               <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />
               <QuotaBar percentage={percentage} />
-            </Box>
+            </Box> */}
           </>
         )}
 

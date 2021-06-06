@@ -1,6 +1,6 @@
 import React, { useState, useCallback, ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
-import { Box } from '@material-ui/core'
+import { Box, MenuItem } from '@material-ui/core'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
@@ -8,13 +8,19 @@ import Currency from '../../models/currency'
 import LogoText from '../LogoText/LogoText'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import InputLabel from '../InputLabel/InputLabel'
+import Select from '../Select/Select'
+import { Text } from 'rebass'
+import { currencyEquals } from '@uniswap/sdk'
+import SelectButton from '../Button/SelectButton'
 
 interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  selectedCurrency: Currency
+  selectedCurrency: Currency | null
   options: Currency[]
   onMax: () => void
+  onClickSelect: () => void
+  disabled: boolean
 }
 
 const LabelRow = styled('div')({
@@ -33,6 +39,8 @@ const InputRow = styled('div')({
   position: 'relative',
   width: '100%',
   height: '48px',
+  display: 'flex',
+  justifyContent: 'flex-end',
 })
 
 const StyledInput = styled(Input)({
@@ -53,6 +61,7 @@ const SelectWrapper = styled('div')({
   height: '100%',
   display: 'flex',
   alignItems: 'center',
+  backgroundColor: 'rgba(255, 255, 255, 0.08)',
 })
 
 const CurrencySelect = styled('div')({
@@ -65,7 +74,7 @@ const CurrencySelect = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency, options, onMax } = props
+  const { selectedCurrency, options, onMax, value, onClickSelect, disabled } = props
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleDismissSearch = useCallback(() => {
@@ -85,26 +94,38 @@ export default function CurrencyInputPanel(props: Props) {
       <InputRow>
         <StyledInput
           placeholder={'Enter amount to swap'}
-          value={props.value.toString()}
+          value={value.toString()}
           onChange={props.onChange}
           type={'number'}
+          disabled={disabled}
         />
-        <ButtonWrapper>
-          <OutlineButton width="64px" height="28px" onClick={onMax}>
-            Max
-          </OutlineButton>
-        </ButtonWrapper>
+        {selectedCurrency && (
+          <ButtonWrapper>
+            <OutlineButton width="64px" height="28px" onClick={onMax}>
+              Max
+            </OutlineButton>
+          </ButtonWrapper>
+        )}
 
-        <SelectWrapper>
-          <CurrencySelect
+        {/* <SelectWrapper> */}
+        <SelectButton width={'160px'} onClick={onClickSelect} disabled={disabled}>
+          Select Token
+        </SelectButton>
+        {/* <CurrencySelect
             onClick={() => {
               setModalOpen(true)
             }}
           >
-            <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
+            {selectedCurrency ? (
+              <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
+            ) : (
+              <Text fontSize={16} opacity={0.6}>
+                Select token
+              </Text>
+            )}
             <ExpandMoreIcon />
-          </CurrencySelect>
-        </SelectWrapper>
+          </CurrencySelect> */}
+        {/* </SelectWrapper> */}
       </InputRow>
       <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} currencies={options} />
     </div>

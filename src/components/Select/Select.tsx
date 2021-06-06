@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 interface Props {
   children: React.ReactNode
-  onChange: (e: any) => void
+  onChange?: (e: any) => void
   defaultValue?: any
   value: string
   disabled?: boolean
@@ -76,6 +76,7 @@ export default function _Select(props: Props) {
   return (
     <>
       <Select
+        displayEmpty
         disableUnderline
         classes={{ root: classes.root, icon: classes.icon }}
         defaultValue={defaultValue}

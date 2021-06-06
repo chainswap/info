@@ -10,6 +10,7 @@ interface Props {
   label?: string
   type?: string
   style?: React.CSSProperties
+  disabled?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&::-webkit-inner-spin-button': {
         '-webkit-appearance': 'none',
       },
+    },
+    disabled: {
+      color: theme.palette.primary.contrastText,
     },
   })
 )

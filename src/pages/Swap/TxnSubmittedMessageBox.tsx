@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box } from '@material-ui/core'
 import Image from '../../components/Image/Image'
 import TextButton from '../../components/Button/TextButton'
 import Currency from '../../models/currency'
 import MessageBox from '../../components/MessageBox/MessageBox'
+import { ModalContext } from '../../context/ModalContext'
 
 interface Props {
-  isOpen: boolean
-  onDismiss: () => void
   currency: Currency
   wallet: {
     logo: string
@@ -16,11 +15,12 @@ interface Props {
 }
 
 export default function TxnSubmittedMessageBox(props: Props) {
-  const { isOpen, onDismiss, currency, wallet } = props
+  const { isOpen, hideModal } = useContext(ModalContext)
+  const { currency, wallet } = props
   const message = 'Transaction Submitted'
 
   return (
-    <MessageBox isOpen={isOpen} onDismiss={onDismiss} type={'success'} message={message}>
+    <MessageBox isOpen={isOpen} onDismiss={hideModal} type={'success'} message={message}>
       <Box marginBottom="12px">
         <TextButton fontSize={13} fontWeight={400} primary>
           View on Etherscan

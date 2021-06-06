@@ -19,14 +19,11 @@ interface Props {
 
 export default function CurrencySearchModal(props: Props) {
   const { isOpen, hideModal, modalProps } = useContext(ModalContext)
-  console.log(modalProps)
 
   const { currencies, onCurrencySelect } = props
 
   const [view, setView] = useState(VIEWS.SEARCH)
   const [currency, setCurrency] = useState('')
-
-  console.log(currencies)
 
   function onManage() {
     setView(VIEWS.MANAGE)

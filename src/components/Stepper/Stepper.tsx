@@ -5,6 +5,8 @@ import MuiStepConnector from '@material-ui/core/StepConnector'
 import { makeStyles, withStyles } from '@material-ui/core'
 import { StepIconProps } from '@material-ui/core/StepIcon'
 import clsx from 'clsx'
+import CheckIcon from '../../assets/images/check_icon.svg'
+import Image from '../Image/Image'
 
 interface Props {
   activeStep: number
@@ -91,7 +93,7 @@ function StepIcon(props: StepIconProps) {
         [classes.active]: active,
       })}
     >
-      {completed ? <div className={classes.completed}>V</div> : <div className={classes.circle}>{icon}</div>}
+      {completed ? <Image src={CheckIcon} alt={'check icon'} /> : <div className={classes.circle}>{icon}</div>}
     </div>
   )
 }
@@ -102,15 +104,14 @@ function getSteps() {
 
 export default function _Stepper(props: Props) {
   const { activeStep } = props
-  // const [activeStep, setActiveStep] = React.useState(1)
   const steps = getSteps()
 
   return (
     <Stepper activeStep={activeStep} connector={<Connector />}>
-      {steps.map((label) => {
+      {steps.map((step) => {
         return (
-          <Step key={label}>
-            <StepIcon icon={label} />
+          <Step key={step}>
+            <StepIcon icon={step} />
           </Step>
         )
       })}

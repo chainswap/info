@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     opacity: 0.6,
     fontWeight: 400,
     fontSize: 12,
+    height: 18,
   },
 })
 

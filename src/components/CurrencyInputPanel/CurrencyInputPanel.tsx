@@ -7,6 +7,7 @@ import Currency from '../../models/currency'
 import InputLabel from '../InputLabel/InputLabel'
 import SelectButton from '../Button/SelectButton'
 import { ModalContext } from '../../context/ModalContext'
+import LogoText from '../LogoText/LogoText'
 
 interface Props {
   value: string
@@ -21,6 +22,7 @@ interface Props {
 const LabelRow = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
 })
 
 const Hint = styled('div')({
@@ -90,7 +92,11 @@ export default function CurrencyInputPanel(props: Props) {
           </ButtonWrapper>
         )}
         <SelectButton width={'160px'} onClick={showCurrencySearch} disabled={disabled}>
-          Select Token
+          {selectedCurrency ? (
+            <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
+          ) : (
+            <>Select Token</>
+          )}
         </SelectButton>
       </InputRow>
     </div>

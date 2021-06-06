@@ -11,6 +11,7 @@ interface Props {
   value: string
   disabled?: boolean
   size?: 'large' | 'small'
+  selected?: boolean
 }
 
 const useStyles = makeStyles({

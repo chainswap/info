@@ -14,7 +14,7 @@ import TxnSubmittedMessageBox from './TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from './ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
-// import Divider from '../../components/Divider/Divider'
+import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
 import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
@@ -22,6 +22,8 @@ import Loader from '../../assets/images/loader.svg'
 import Image from '../../components/Image/Image'
 import { Text } from 'rebass'
 import Currency from '../../models/currency'
+import CheckIcon from '../../assets/images/check_icon.svg'
+import TextButton from '../../components/Button/TextButton'
 
 const AppHeader = styled('div')({
   fontWeight: 500,
@@ -29,6 +31,18 @@ const AppHeader = styled('div')({
   fontFamily: 'Futura PT',
   margin: '12px 0 18px 0',
   textAlign: 'center',
+})
+
+const Notification = styled('div')({
+  width: 448,
+  height: 48,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '0 30px',
+  border: '1px solid rgba(255, 255, 255, 0.2)',
+  borderRadius: 32,
+  margin: '20px auto 0',
 })
 
 export default function Swap() {
@@ -44,6 +58,8 @@ export default function Swap() {
   const { showModal, hideModal } = useContext(ModalContext)
   // const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
+  const [authorized, setAutorized] = useState(false)
+  const [wallet, setWallet] = useState({ logo: MetaMask, name: 'MetaMask' })
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapState] = useState<{
@@ -118,7 +134,7 @@ export default function Swap() {
         component: TxnSubmittedMessageBox,
         modalProps: {
           currency: currency,
-          wallet: { logo: MetaMask, name: 'MetaMask' },
+          wallet: wallet,
         },
       })
       setSwapState({
@@ -129,7 +145,7 @@ export default function Swap() {
       })
       setWithdrawEnabled(true)
     }, 1500)
-  }, [])
+  }, [currency])
 
   const showConfirmDepositModal = () => {
     showModal({
@@ -157,6 +173,13 @@ export default function Swap() {
     })
 
     setTimeout(function () {
+      showModal({
+        component: TxnSubmittedMessageBox,
+        modalProps: {
+          currency: currency,
+          wallet: wallet,
+        },
+      })
       setSwapState({
         attemptingDeposit: false,
         attemptingWithdraw: false,
@@ -166,7 +189,7 @@ export default function Swap() {
       setDepositEnabled(false)
       setWithdrawEnabled(false)
     }, 1500)
-  }, [])
+  }, [currency])
 
   const showConfirmWithdrawModal = () => {
     showModal({
@@ -195,6 +218,10 @@ export default function Swap() {
   const onCurrencySelect = (currency: Currency) => {
     setCurrency(currency)
     hideModal()
+  }
+
+  const authorize = () => {
+    setAutorized(true)
   }
 
   return (
@@ -229,13 +256,22 @@ export default function Swap() {
                   placeholder={'Enter address to swap'}
                   onChange={onChangeAddress}
                 />
+                <Text fontSize={12} opacity={0.5} marginTop={'6px'}>
+                  This is destination address of the To network
+                </Text>
               </Box>
             </>
           )}
         </Box>
 
-        {userLogined && currency && (
+        {/* Buttons */}
+
+        {userLogined && currency && authorized && (
           <>
+            <Notification>
+              <Text>Now you can swap Matter</Text>
+              <Image src={CheckIcon} alt={'check icon'} />
+            </Notification>
             <Box display="grid" gridGap="16px" padding="28px 32px 0 32px">
               <Box display="flex" justifyContent="space-between">
                 <Button width={'216px'} disabled={!depositEnabled} onClick={showConfirmDepositModal}>
@@ -271,12 +307,21 @@ export default function Swap() {
                 <Stepper activeStep={step} />
               </Box>
             </Box>
-            {/* <Divider orientation={'horizontal'} margin={'24px 0 22px 0'} /> */}
+            <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />
+            <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
+              <TextButton primary>Claim List</TextButton>
+            </Box>
             {/* <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
               <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />
               <QuotaBar percentage={percentage} />
             </Box> */}
           </>
+        )}
+
+        {userLogined && currency && !authorized && (
+          <Box padding="32px 32px 36px 32px">
+            <Button onClick={authorize}>Allow the Chainswap protocol to use your Matter</Button>
+          </Box>
         )}
 
         {userLogined && !currency && (

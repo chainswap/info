@@ -46,7 +46,7 @@ const StyledInput = styled(Input)({
 
 const ButtonWrapper = styled('div')({
   position: 'absolute',
-  right: '160px',
+  right: '180px',
   height: '100%',
   display: 'flex',
   alignItems: 'center',

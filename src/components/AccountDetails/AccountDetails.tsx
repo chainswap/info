@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Image from '../Image/Image'
@@ -9,13 +9,13 @@ import Copy from '../Copy/Copy'
 import OutlineButton from '../Button/OutlineButton'
 import Button from '../Button/Button'
 import Transaction from './Transaction'
+import { ModalContext } from '../../context/ModalContext'
 
 interface Props {
   pendingTransactions: string[]
   confirmedTransactions: string[]
   ENSName?: string
   openOptions: () => void
-  onClose: () => void
 }
 
 const Header = styled(Box)({
@@ -45,9 +45,10 @@ const TransactionListItemsWrapper = styled(Box)({
 })
 
 export default function AccountDetails(props: Props) {
-  const { openOptions, onClose, pendingTransactions, confirmedTransactions } = props
+  const { openOptions, pendingTransactions, confirmedTransactions } = props
   const name = 'MetaMask'
   const account = '0x72ef586A2c515B605A873ad9a8FBdFD43Df77123'
+  const { hideModal } = useContext(ModalContext)
 
   function getStatusIcon() {
     return <Image src={StatusIcon} alt={'status icon'} style={{ width: 28, height: 28 }} />
@@ -80,7 +81,7 @@ export default function AccountDetails(props: Props) {
         </Copy>
       </Box>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mx={'52px'}>
-        <OutlineButton width={'180px'} onClick={onClose} primary>
+        <OutlineButton width={'180px'} onClick={hideModal} primary>
           Close
         </OutlineButton>
         <Button width={'180px'} onClick={openOptions}>

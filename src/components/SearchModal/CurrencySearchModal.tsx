@@ -1,9 +1,10 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useContext } from 'react'
 import Modal from '../Modal/Modal'
 import CurrencySearch from './CurrencySearch'
 import Currency from '../../models/currency'
 import Manage from './Manage'
 import Import from './Import'
+import { ModalContext } from '../../context/ModalContext'
 
 const VIEWS = {
   SEARCH: 'search',
@@ -12,20 +13,20 @@ const VIEWS = {
 }
 
 interface Props {
-  isOpen: boolean
-  onDismiss: () => void
   currencies: Currency[]
-  // selectedCurrency?: Currency | null
-  // onCurrencySelect: (currency: Currency) => void
-  // otherSelectedCurrency?: Currency | null
-  // showCommonBases?: boolean
+  onCurrencySelect: (currency: Currency) => void
 }
 
 export default function CurrencySearchModal(props: Props) {
-  const { currencies, isOpen, onDismiss } = props
-  const [view, setView] = useState(VIEWS.SEARCH)
+  const { isOpen, hideModal, modalProps } = useContext(ModalContext)
+  console.log(modalProps)
 
+  const { currencies, onCurrencySelect } = props
+
+  const [view, setView] = useState(VIEWS.SEARCH)
   const [currency, setCurrency] = useState('')
+
+  console.log(currencies)
 
   function onManage() {
     setView(VIEWS.MANAGE)
@@ -45,7 +46,7 @@ export default function CurrencySearchModal(props: Props) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onDismiss={onDismiss} label={'Select a token'} showIcon>
+      <Modal isOpen={isOpen} onDismiss={hideModal} label={'Select a token'} showIcon>
         {view === VIEWS.SEARCH ? (
           <CurrencySearch
             currencies={currencies}
@@ -54,6 +55,7 @@ export default function CurrencySearchModal(props: Props) {
             value={currency}
             showImportView={showImportView}
             setImportToken={setImportToken}
+            onCurrencySelect={onCurrencySelect}
           />
         ) : view === VIEWS.MANAGE ? (
           <Manage />

@@ -6,21 +6,22 @@ import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInpu
 import ChainSelectPanel from '../../components/ChainSelectPanel/ChainSelectPanel'
 import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
-import QuotaInfo from './QuotaInfo'
-import QuotaBar from './QuotaBar'
+// import QuotaInfo from './QuotaInfo'
+// import QuotaBar from './QuotaBar'
 import ConfirmDepositModal from './ConfirmDepositModal'
 import Stepper from '../../components/Stepper/Stepper'
 import TxnSubmittedMessageBox from './TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from './ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
-import Divider from '../../components/Divider/Divider'
+// import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
 import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
 import Loader from '../../assets/images/loader.svg'
 import Image from '../../components/Image/Image'
 import { Text } from 'rebass'
+import Currency from '../../models/currency'
 
 const AppHeader = styled('div')({
   fontWeight: 500,
@@ -39,9 +40,9 @@ export default function Swap() {
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota, setQuota] = useState(800)
-  const [currency, setCurrency] = useState(null)
+  const [currency, setCurrency] = useState<Currency | null>(null)
   const { showModal, hideModal } = useContext(ModalContext)
-  const [percentage, setPercentage] = useState(0)
+  // const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
 
   // swap state
@@ -65,10 +66,10 @@ export default function Swap() {
     setDepositEnabled(false)
   }, [amount, address])
 
-  useEffect(() => {
-    const percentage = ((quota - parseFloat(amount)) / quota) * 100
-    setPercentage(percentage)
-  }, [quota, amount])
+  // useEffect(() => {
+  //   const percentage = ((quota - parseFloat(amount)) / quota) * 100
+  //   setPercentage(percentage)
+  // }, [quota, amount])
 
   useEffect(() => {
     if (depositCompleted && withdrawCompleted) {
@@ -116,7 +117,6 @@ export default function Swap() {
       showModal({
         component: TxnSubmittedMessageBox,
         modalProps: {
-          onDismiss: hideModal,
           currency: currency,
           wallet: { logo: MetaMask, name: 'MetaMask' },
         },
@@ -135,7 +135,6 @@ export default function Swap() {
     showModal({
       component: ConfirmDepositModal,
       modalProps: {
-        onDismiss: hideModal,
         onConfirm: onConfirmDeposit,
         from: from,
         to: to,
@@ -173,7 +172,6 @@ export default function Swap() {
     showModal({
       component: ConfirmWithdrawModal,
       modalProps: {
-        onDismiss: hideModal,
         onConfirm: onConfirmWithdraw,
         from: from,
         to: to,
@@ -189,13 +187,15 @@ export default function Swap() {
     showModal({
       component: WalletModal,
       modalProps: {
-        onDismiss: hideModal,
         onConfirm: onConfirmWithdraw,
       },
     })
   }
 
-  const onClickSelect = () => {}
+  const onCurrencySelect = (currency: Currency) => {
+    setCurrency(currency)
+    hideModal()
+  }
 
   return (
     <>
@@ -209,10 +209,10 @@ export default function Swap() {
             selectedCurrency={currency}
             options={CurrencyList}
             onMax={onMax}
-            onClickSelect={onClickSelect}
+            onCurrencySelect={onCurrencySelect}
             disabled={!userLogined}
           />
-          {userLogined && (
+          {userLogined && currency && (
             <>
               <ChainSelectPanel
                 from={from}
@@ -234,7 +234,7 @@ export default function Swap() {
           )}
         </Box>
 
-        {userLogined && (
+        {userLogined && currency && (
           <>
             <Box display="grid" gridGap="16px" padding="28px 32px 0 32px">
               <Box display="flex" justifyContent="space-between">
@@ -271,12 +271,18 @@ export default function Swap() {
                 <Stepper activeStep={step} />
               </Box>
             </Box>
-            <Divider orientation={'horizontal'} margin={'24px 0 22px 0'} />
+            {/* <Divider orientation={'horizontal'} margin={'24px 0 22px 0'} /> */}
             {/* <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
               <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />
               <QuotaBar percentage={percentage} />
             </Box> */}
           </>
+        )}
+
+        {userLogined && !currency && (
+          <Box padding="32px 32px 36px 32px">
+            <Button disabled>Please select token for more options</Button>
+          </Box>
         )}
 
         {!userLogined && (

@@ -1,7 +1,7 @@
-import React, { CSSProperties, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { FixedSizeList } from 'react-window'
 import CurrencyLogo from '../../assets/images/dummy_logo.png'
-import { styled } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Currency from '../../models/currency'
 import { Text } from 'rebass'
@@ -14,71 +14,51 @@ function currencyKey(currency: Currency): string {
 interface Props {
   currencies: Currency[]
   selectedCurrency?: Currency | null
-  // onCurrencySelect: (currency: Currency) => void
-  // otherCurrency?: Currency | null
-  // fixedListRef?: MutableRefObject<FixedSizeList | undefined>
-  // showETH: boolean
   showImportView: () => void
   setImportToken: (token: Currency) => void
-  // breakIndex: number | undefined
+  showImportBtn: boolean
+  onCurrencySelect: (currency: Currency) => void
 }
 
-const CurrencyRow = ({
-  style,
-  currency,
-  onSelect,
-  showImportView,
-  setImportToken,
-}: {
-  style: CSSProperties
-  currency: any
-  onSelect: () => void
-  showImportView: () => void
-  setImportToken: (token: Currency) => void
-}) => {
-  const showImport = true
-
-  return (
-    <Box padding={'0 32px'} height={48} display={'flex'} justifyContent={'space-between'}>
-      <Box display="flex">
-        <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
-        <Box display="flex" flexDirection="column" marginLeft="16px">
-          <Text fontSize={16}>{currency.symbol}</Text>
-          <Text fontSize={12} opacity={0.6}>
-            {currency.name}
-          </Text>
-        </Box>
-      </Box>
-      {showImport ? (
-        <OutlineButton fontSize={'14px'} width={'84px'} height={'36px'} primary onClick={showImportView}>
-          Import
-        </OutlineButton>
-      ) : (
-        <Text fontSize={16}>{currency.balance}</Text>
-      )}
-    </Box>
-  )
-}
+const useStyles = makeStyles({
+  currencyRow: {
+    cursor: 'pointer',
+    padding: '0 32px',
+    height: 48,
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+})
 
 export default function CurrencyList(props: Props) {
-  const { currencies, selectedCurrency, showImportView, setImportToken } = props
+  const classes = useStyles(props)
+  const { currencies, selectedCurrency, showImportBtn, showImportView, setImportToken, onCurrencySelect } = props
 
   const Row = useCallback(
     ({ data, index, style }: any) => {
       const currency: Currency = data[index]
 
-      const onSelect = () => {
-        alert('onCurrencySelect')
-      }
+      const onClickCurrency = () => onCurrencySelect(currency)
 
       return (
-        <CurrencyRow
-          style={style}
-          currency={currency}
-          onSelect={onSelect}
-          showImportView={showImportView}
-          setImportToken={setImportToken}
-        />
+        <div className={classes.currencyRow} onClick={onClickCurrency}>
+          <Box display="flex">
+            <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
+            <Box display="flex" flexDirection="column" marginLeft="16px">
+              <Text fontSize={16}>{currency.symbol}</Text>
+              <Text fontSize={12} opacity={0.6}>
+                {currency.name}
+              </Text>
+            </Box>
+          </Box>
+          {showImportBtn ? (
+            <OutlineButton fontSize={'14px'} width={'84px'} height={'36px'} primary onClick={showImportView}>
+              Import
+            </OutlineButton>
+          ) : (
+            <Text fontSize={16}>{currency.balance}</Text>
+          )}
+        </div>
       )
     },
     [selectedCurrency]

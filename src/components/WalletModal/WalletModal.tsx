@@ -56,7 +56,6 @@ export default function WalletModal() {
         <AccountDetails
           openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}
           ENSName={'0xe60b...e6d3'}
-          onClose={hideModal}
           pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
           confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}
         />

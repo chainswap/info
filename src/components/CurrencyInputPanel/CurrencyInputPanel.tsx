@@ -1,17 +1,12 @@
-import React, { useState, useCallback, ChangeEvent } from 'react'
+import React, { useState, useCallback, ChangeEvent, useContext } from 'react'
 import { styled } from '@material-ui/styles'
-import { Box, MenuItem } from '@material-ui/core'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
 import Currency from '../../models/currency'
-import LogoText from '../LogoText/LogoText'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import InputLabel from '../InputLabel/InputLabel'
-import Select from '../Select/Select'
-import { Text } from 'rebass'
-import { currencyEquals } from '@uniswap/sdk'
 import SelectButton from '../Button/SelectButton'
+import { ModalContext } from '../../context/ModalContext'
 
 interface Props {
   value: string
@@ -19,8 +14,8 @@ interface Props {
   selectedCurrency: Currency | null
   options: Currency[]
   onMax: () => void
-  onClickSelect: () => void
   disabled: boolean
+  onCurrencySelect: (currency: Currency) => void
 }
 
 const LabelRow = styled('div')({
@@ -55,31 +50,19 @@ const ButtonWrapper = styled('div')({
   alignItems: 'center',
 })
 
-const SelectWrapper = styled('div')({
-  position: 'absolute',
-  right: '18px',
-  height: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-})
-
-const CurrencySelect = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  fontSize: '20px',
-  fontWeight: 500,
-  cursor: 'pointer',
-  justifyContent: 'space-between',
-})
-
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency, options, onMax, value, onClickSelect, disabled } = props
-  const [modalOpen, setModalOpen] = useState(false)
+  const { selectedCurrency, options, onMax, value, disabled, onCurrencySelect } = props
+  const { showModal } = useContext(ModalContext)
 
-  const handleDismissSearch = useCallback(() => {
-    setModalOpen(false)
-  }, [setModalOpen])
+  const showCurrencySearch = () => {
+    showModal({
+      component: CurrencySearchModal,
+      modalProps: {
+        currencies: options,
+        onCurrencySelect: onCurrencySelect,
+      },
+    })
+  }
 
   return (
     <div>
@@ -106,28 +89,10 @@ export default function CurrencyInputPanel(props: Props) {
             </OutlineButton>
           </ButtonWrapper>
         )}
-
-        {/* <SelectWrapper> */}
-        <SelectButton width={'160px'} onClick={onClickSelect} disabled={disabled}>
+        <SelectButton width={'160px'} onClick={showCurrencySearch} disabled={disabled}>
           Select Token
         </SelectButton>
-        {/* <CurrencySelect
-            onClick={() => {
-              setModalOpen(true)
-            }}
-          >
-            {selectedCurrency ? (
-              <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
-            ) : (
-              <Text fontSize={16} opacity={0.6}>
-                Select token
-              </Text>
-            )}
-            <ExpandMoreIcon />
-          </CurrencySelect> */}
-        {/* </SelectWrapper> */}
       </InputRow>
-      <CurrencySearchModal isOpen={modalOpen} onDismiss={handleDismissSearch} currencies={options} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import { Text } from '../../components/Text/Text'
+import { Text } from 'rebass'
 
 interface Props {
   percentage: number

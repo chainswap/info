@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Chain from '../../models/chain'
-import { Text } from '../../components/Text/Text'
+import { Text } from 'rebass'
 import LogoText from '../../components/LogoText/LogoText'
 
 interface Props {

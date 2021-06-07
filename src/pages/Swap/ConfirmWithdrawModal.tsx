@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
-import { Text } from '../../components/Text/Text'
+import { Text } from 'rebass'
 import Modal from '../../components/Modal/Modal'
 import Button from '../../components/Button/Button'
 import Currency from '../../models/currency'

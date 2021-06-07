@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '../../components/Text/Text'
+import { Text } from 'rebass'
 import { Box } from '@material-ui/core'
 import Image from '../../components/Image/Image'
 

@@ -6,8 +6,8 @@ interface Props {
   onClick?: () => void
   primary?: boolean
   children: React.ReactNode
-  width?: string
-  height?: string
+  width?: string | number
+  height?: string | number
   fontSize?: string
   disabled?: boolean
 }

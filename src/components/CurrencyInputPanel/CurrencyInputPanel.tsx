@@ -57,13 +57,7 @@ export default function CurrencyInputPanel(props: Props) {
   const { showModal } = useContext(ModalContext)
 
   const showCurrencySearch = () => {
-    showModal({
-      component: CurrencySearchModal,
-      modalProps: {
-        currencies: options,
-        onCurrencySelect: onCurrencySelect,
-      },
-    })
+    showModal(<CurrencySearchModal currencies={options} onCurrencySelect={onCurrencySelect} />)
   }
 
   return (

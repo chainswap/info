@@ -1,51 +1,40 @@
-import React, { useState, FC } from 'react'
-
-interface ShowModalType {
-  component: React.ElementType
-  modalProps: Object
-}
+import React, { useState } from 'react'
 
 interface ModalContextType {
-  component: React.ElementType | null
-  modalProps: Object
+  component: React.ReactNode | null
   isOpen: boolean
-  showModal: ({ component, modalProps }: ShowModalType) => void
+  showModal: (component: React.ReactNode) => void
   hideModal: () => void
 }
 
 interface ModalState {
-  component: React.ElementType | null
-  modalProps: Object
+  component: React.ReactNode | null
   isOpen: boolean
 }
 
 export const ModalContext = React.createContext<ModalContextType>({
   component: null,
   isOpen: false,
-  modalProps: {},
-  showModal: ({}) => {},
+  showModal: () => {},
   hideModal: () => {},
 })
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [modalState, setModalState] = useState<ModalState>({
     component: null,
-    modalProps: {},
     isOpen: false,
   })
 
   const hideModal = () => {
     setModalState({
       component: null,
-      modalProps: {},
       isOpen: false,
     })
   }
 
-  const showModal = ({ component, modalProps }: ShowModalType) => {
+  const showModal = (component: React.ReactNode) => {
     setModalState({
       component,
-      modalProps,
       isOpen: true,
     })
   }

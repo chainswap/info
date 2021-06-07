@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function CurrencySearchModal(props: Props) {
-  const { isOpen, hideModal, modalProps } = useContext(ModalContext)
+  const { isOpen, hideModal } = useContext(ModalContext)
 
   const { currencies, onCurrencySelect } = props
 

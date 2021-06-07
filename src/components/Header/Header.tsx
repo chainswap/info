@@ -155,24 +155,6 @@ export default function Header() {
     setChain(chain)
   }
 
-  function showClaimModal() {
-    showModal({
-      component: ClaimModal,
-      modalProps: {
-        onDismiss: hideModal,
-      },
-    })
-  }
-
-  function showWalletModal() {
-    showModal({
-      component: WalletModal,
-      modalProps: {
-        onDismiss: hideModal,
-      },
-    })
-  }
-
   return (
     <>
       <AppBar className={classes.root}>
@@ -192,7 +174,7 @@ export default function Header() {
         {mode === Mode.USER ? (
           <Box display="flex">
             <Box mr={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'} onClick={showClaimModal}>
+              <OutlineButton width={'100px'} height={'32px'} onClick={() => showModal(<ClaimModal />)}>
                 Claim List
               </OutlineButton>
             </Box>
@@ -213,7 +195,7 @@ export default function Header() {
             <WalletInfo amount={amount} currency={currency} address={address} />
           </Box>
         ) : (
-          <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={showWalletModal}>
+          <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={() => showModal(<WalletModal />)}>
             Connect Wallet
           </Button>
         )}

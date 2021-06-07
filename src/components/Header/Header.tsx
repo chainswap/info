@@ -21,6 +21,8 @@ import routes from '../../constants/routes'
 import SelectedIcon from '../../assets/images/selected_icon.svg'
 import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
+import TextButton from '../Button/TextButton'
+import AccountModal from '../../components/AccountModal/AccountModal'
 
 enum Mode {
   VISITOR,
@@ -105,6 +107,17 @@ const LinksWrapper = styled('div')({
 })
 
 const WalletInfo = ({ amount, currency, address }: { amount: number; currency: string; address: string }) => {
+  const { showModal } = useContext(ModalContext)
+  const showAccountModal = () => {
+    showModal(
+      <AccountModal
+        ENSName={'0xe60b...e6d3'}
+        pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
+        confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}
+      />
+    )
+  }
+
   return (
     <Box
       width={'250px'}
@@ -121,9 +134,9 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
       <Box paddingRight={'10.26px'} display={'flex'} alignItems={'center'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: '12px', height: '12px' }} />
         <Box margin={'0 6px'}>
-          <Text fontSize={12} fontWeight={400} opacity={0.6}>
+          <TextButton onClick={showAccountModal} fontSize={12} opacity={0.6}>
             {shortenAddress(address)}
-          </Text>
+          </TextButton>
         </Box>
         <Copy toCopy={address} />
       </Box>
@@ -155,24 +168,6 @@ export default function Header() {
     setChain(chain)
   }
 
-  function showClaimModal() {
-    showModal({
-      component: ClaimModal,
-      modalProps: {
-        onDismiss: hideModal,
-      },
-    })
-  }
-
-  function showWalletModal() {
-    showModal({
-      component: WalletModal,
-      modalProps: {
-        onDismiss: hideModal,
-      },
-    })
-  }
-
   return (
     <>
       <AppBar className={classes.root}>
@@ -192,7 +187,7 @@ export default function Header() {
         {mode === Mode.USER ? (
           <Box display="flex">
             <Box mr={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'} onClick={showClaimModal}>
+              <OutlineButton width={'100px'} height={'32px'} onClick={() => showModal(<ClaimModal />)}>
                 Claim List
               </OutlineButton>
             </Box>
@@ -213,7 +208,7 @@ export default function Header() {
             <WalletInfo amount={amount} currency={currency} address={address} />
           </Box>
         ) : (
-          <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={showWalletModal}>
+          <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={() => showModal(<WalletModal />)}>
             Connect Wallet
           </Button>
         )}

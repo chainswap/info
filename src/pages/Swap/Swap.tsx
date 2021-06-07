@@ -121,6 +121,7 @@ export default function Swap() {
   }
 
   const onConfirmDeposit = useCallback(() => {
+    if (!currency) return
     hideModal()
     setDepositEnabled(false)
     setSwapState({
@@ -131,13 +132,7 @@ export default function Swap() {
     })
 
     setTimeout(function () {
-      showModal({
-        component: TxnSubmittedMessageBox,
-        modalProps: {
-          currency: currency,
-          wallet: wallet,
-        },
-      })
+      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} />)
       setSwapState({
         attemptingDeposit: false,
         attemptingWithdraw: false,
@@ -149,21 +144,24 @@ export default function Swap() {
   }, [currency])
 
   const showConfirmDepositModal = () => {
-    showModal({
-      component: ConfirmDepositModal,
-      modalProps: {
-        onConfirm: onConfirmDeposit,
-        from: from,
-        to: to,
-        walletLogo: MetaMask,
-        address: address,
-        value: amount,
-        selectedCurrency: currency,
-      },
-    })
+    if (!currency) return
+
+    showModal(
+      <ConfirmDepositModal
+        onConfirm={onConfirmDeposit}
+        from={from}
+        to={to}
+        walletLogo={MetaMask}
+        address={address}
+        value={amount}
+        selectedCurrency={currency}
+      />
+    )
   }
 
   const onConfirmWithdraw = useCallback(() => {
+    if (!currency) return
+
     hideModal()
     setWithdrawEnabled(false)
     setSwapState({
@@ -174,13 +172,7 @@ export default function Swap() {
     })
 
     setTimeout(function () {
-      showModal({
-        component: TxnSubmittedMessageBox,
-        modalProps: {
-          currency: currency,
-          wallet: wallet,
-        },
-      })
+      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} />)
       setSwapState({
         attemptingDeposit: false,
         attemptingWithdraw: false,
@@ -193,27 +185,19 @@ export default function Swap() {
   }, [currency])
 
   const showConfirmWithdrawModal = () => {
-    showModal({
-      component: ConfirmWithdrawModal,
-      modalProps: {
-        onConfirm: onConfirmWithdraw,
-        from: from,
-        to: to,
-        walletLogo: MetaMask,
-        address: address,
-        value: amount,
-        selectedCurrency: currency,
-      },
-    })
-  }
+    if (!currency) return
 
-  const showWalletModal = () => {
-    showModal({
-      component: WalletModal,
-      modalProps: {
-        onConfirm: onConfirmWithdraw,
-      },
-    })
+    showModal(
+      <ConfirmWithdrawModal
+        onConfirm={onConfirmWithdraw}
+        from={from}
+        to={to}
+        walletLogo={MetaMask}
+        address={address}
+        value={amount}
+        selectedCurrency={currency}
+      />
+    )
   }
 
   const onCurrencySelect = (currency: Currency) => {
@@ -223,15 +207,6 @@ export default function Swap() {
 
   const authorize = () => {
     setAutorized(true)
-  }
-
-  const showClaimModal = () => {
-    showModal({
-      component: ClaimModal,
-      modalProps: {
-        onDismiss: hideModal,
-      },
-    })
   }
 
   return (
@@ -319,7 +294,7 @@ export default function Swap() {
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />
             <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
-              <TextButton onClick={showClaimModal} primary>
+              <TextButton onClick={() => showModal(<ClaimModal />)} primary>
                 Claim List
               </TextButton>
             </Box>
@@ -344,7 +319,7 @@ export default function Swap() {
 
         {!userLogined && (
           <Box padding="27px 32px 31px">
-            <Button onClick={showWalletModal}>Connect Wallet</Button>
+            <Button onClick={() => showModal(<WalletModal />)}>Connect Wallet</Button>
           </Box>
         )}
       </AppBody>

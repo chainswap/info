@@ -8,6 +8,7 @@ interface Props {
   fontWeight?: number
   primary?: boolean
   underline?: boolean
+  opacity?: number
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,6 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
       color: (props: Props) => (props.primary ? theme.palette.primary.main : theme.palette.primary.contrastText),
       fontSize: (props: Props) => props.fontSize || 16,
       fontWeight: (props: Props) => props.fontWeight || 500,
+      opacity: (props: Props) => props.opacity || 1,
+      '&:hover': {
+        opacity: 1,
+      },
     },
   })
 )

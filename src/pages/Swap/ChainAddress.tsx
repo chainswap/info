@@ -2,7 +2,6 @@ import React from 'react'
 import { Text } from 'rebass'
 import { Box } from '@material-ui/core'
 import Image from '../../components/Image/Image'
-import { shortenAddress } from '../../utils/utils'
 
 interface Props {
   walletLogo: string

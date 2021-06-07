@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
-import AccountDetails from '../AccountModal/AccountModal'
+import AccountModal from '../AccountModal/AccountModal'
 import { ModalContext } from '../../context/ModalContext'
 
 import { useSetUser, useUserLogined } from '../../state/user/hooks'
@@ -33,7 +33,7 @@ export default function WalletModal() {
       return (
         <Option
           id={`connect-${key}`}
-          onClick={showAccountModal}
+          onClick={onClickOption}
           key={key}
           color={option.color}
           link={option.href}
@@ -45,10 +45,10 @@ export default function WalletModal() {
     })
   }
 
-  const showAccountModal = () => {
+  const onClickOption = () => {
+    setUser({ address: 'address' })
     showModal(
-      <AccountDetails
-        openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}
+      <AccountModal
         ENSName={'0xe60b...e6d3'}
         pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
         confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}

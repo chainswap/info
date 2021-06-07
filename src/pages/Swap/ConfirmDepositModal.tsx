@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button'
 import Currency from '../../models/currency'
 import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
-import { Text } from 'rebass'
+import { Text } from '../../components/Text/Text'
 import ChainAddress from './ChainAddress'
 import { ModalContext } from '../../context/ModalContext'
 

@@ -11,12 +11,12 @@ import Button from '../Button/Button'
 import Transaction from './Transaction'
 import { ModalContext } from '../../context/ModalContext'
 import Modal from '../Modal/Modal'
+import WalletModal from '../WalletModal/WalletModal'
 
 interface Props {
   pendingTransactions: string[]
   confirmedTransactions: string[]
   ENSName?: string
-  openOptions: () => void
 }
 
 const Header = styled(Box)({
@@ -45,11 +45,11 @@ const TransactionListItemsWrapper = styled(Box)({
   gridGap: '8px',
 })
 
-export default function AccountDetails(props: Props) {
-  const { openOptions, pendingTransactions, confirmedTransactions } = props
+export default function AccountMoal(props: Props) {
+  const { pendingTransactions, confirmedTransactions } = props
   const name = 'MetaMask'
   const account = '0x72ef586A2c515B605A873ad9a8FBdFD43Df77123'
-  const { isOpen, hideModal } = useContext(ModalContext)
+  const { isOpen, hideModal, showModal } = useContext(ModalContext)
 
   function renderTransactions(transactions: string[]) {
     return (
@@ -81,7 +81,7 @@ export default function AccountDetails(props: Props) {
         <OutlineButton width={'180px'} onClick={hideModal} primary>
           Close
         </OutlineButton>
-        <Button width={'180px'} onClick={openOptions}>
+        <Button width={'180px'} onClick={() => showModal(<WalletModal />)}>
           Change
         </Button>
       </Box>

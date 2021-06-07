@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/styles'
 import { Select, Box } from '@material-ui/core'
 import { Text } from 'rebass'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import Image from '../Image/Image'
 interface Props {
   children: React.ReactNode
   defaultValue: any

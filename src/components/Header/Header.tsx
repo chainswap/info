@@ -22,6 +22,7 @@ import SelectedIcon from '../../assets/images/selected_icon.svg'
 import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
 import TextButton from '../Button/TextButton'
+import AccountModal from '../../components/AccountModal/AccountModal'
 
 enum Mode {
   VISITOR,
@@ -106,6 +107,17 @@ const LinksWrapper = styled('div')({
 })
 
 const WalletInfo = ({ amount, currency, address }: { amount: number; currency: string; address: string }) => {
+  const { showModal } = useContext(ModalContext)
+  const showAccountModal = () => {
+    showModal(
+      <AccountModal
+        ENSName={'0xe60b...e6d3'}
+        pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
+        confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}
+      />
+    )
+  }
+
   return (
     <Box
       width={'250px'}
@@ -122,7 +134,7 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
       <Box paddingRight={'10.26px'} display={'flex'} alignItems={'center'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: '12px', height: '12px' }} />
         <Box margin={'0 6px'}>
-          <TextButton fontSize={12} opacity={0.6}>
+          <TextButton onClick={showAccountModal} fontSize={12} opacity={0.6}>
             {shortenAddress(address)}
           </TextButton>
         </Box>

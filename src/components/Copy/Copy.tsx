@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import Image from '../Image/Image'
 import { ReactComponent as CopyIcon } from '../../assets/images/copy_icon.svg'
 import CheckIcon from '@material-ui/icons/Check'
 import useCopyClipboard from '../../hooks/useCopyClipboard'

@@ -10,6 +10,7 @@ import OutlineButton from '../Button/OutlineButton'
 import Button from '../Button/Button'
 import Transaction from './Transaction'
 import { ModalContext } from '../../context/ModalContext'
+import Modal from '../Modal/Modal'
 
 interface Props {
   pendingTransactions: string[]
@@ -48,11 +49,7 @@ export default function AccountDetails(props: Props) {
   const { openOptions, pendingTransactions, confirmedTransactions } = props
   const name = 'MetaMask'
   const account = '0x72ef586A2c515B605A873ad9a8FBdFD43Df77123'
-  const { hideModal } = useContext(ModalContext)
-
-  function getStatusIcon() {
-    return <Image src={StatusIcon} alt={'status icon'} style={{ width: 28, height: 28 }} />
-  }
+  const { isOpen, hideModal } = useContext(ModalContext)
 
   function renderTransactions(transactions: string[]) {
     return (
@@ -65,10 +62,10 @@ export default function AccountDetails(props: Props) {
   }
 
   return (
-    <>
+    <Modal isOpen={isOpen} onDismiss={hideModal} showIcon={false}>
       <Header>Connected with {name}</Header>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mx={'141px'}>
-        {getStatusIcon()}
+        <Image src={StatusIcon} alt={'status icon'} style={{ width: 28, height: 28 }} />
         <Text fontSize={24} fontWeight={400}>
           {account && shortenAddress(account)}
         </Text>
@@ -95,6 +92,6 @@ export default function AccountDetails(props: Props) {
           {renderTransactions(confirmedTransactions)}
         </TransactionListItemsWrapper>
       </TransactionListWrapper>
-    </>
+    </Modal>
   )
 }

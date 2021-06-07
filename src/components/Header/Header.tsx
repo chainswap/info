@@ -21,6 +21,7 @@ import routes from '../../constants/routes'
 import SelectedIcon from '../../assets/images/selected_icon.svg'
 import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
+import TextButton from '../Button/TextButton'
 
 enum Mode {
   VISITOR,
@@ -121,9 +122,9 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
       <Box paddingRight={'10.26px'} display={'flex'} alignItems={'center'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: '12px', height: '12px' }} />
         <Box margin={'0 6px'}>
-          <Text fontSize={12} fontWeight={400} opacity={0.6}>
+          <TextButton fontSize={12} opacity={0.6}>
             {shortenAddress(address)}
-          </Text>
+          </TextButton>
         </Box>
         <Copy toCopy={address} />
       </Box>

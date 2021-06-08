@@ -61,7 +61,7 @@ export default function AccountMoal(props: Props) {
       <>
         {transactions.map((transaction, i) => {
           return (
-            <Box display={'flex'} justifyContent={'space-between'}>
+            <Box key={i} display={'flex'} justifyContent={'space-between'}>
               <Text fontSize={'14px'}>{transaction.summary}</Text>
               {getStatusIcon(transaction)}
             </Box>

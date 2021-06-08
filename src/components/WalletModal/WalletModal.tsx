@@ -6,7 +6,7 @@ import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
 import AccountModal from '../AccountModal/AccountModal'
 import { ModalContext } from '../../context/ModalContext'
-import { confirmedTransactions, pendingTransactions } from '../../data/dummyData'
+import { ConfirmedTransactionList, PendingTransactionList } from '../../data/dummyData'
 import { useSetUser, useUserLogined } from '../../state/user/hooks'
 
 const WALLET_VIEWS = {
@@ -50,8 +50,8 @@ export default function WalletModal() {
     showModal(
       <AccountModal
         ENSName={'0xe60b...e6d3'}
-        pendingTransactions={confirmedTransactions}
-        confirmedTransactions={confirmedTransactions}
+        pendingTransactions={PendingTransactionList}
+        confirmedTransactions={ConfirmedTransactionList}
       />
     )
   }

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AppBar, Box, Menu, MenuItem } from '@material-ui/core'
+import { AppBar, Box, MenuItem } from '@material-ui/core'
 import { styled, makeStyles } from '@material-ui/styles'
 import { Text } from 'rebass'
 import StatusIcon from '../../assets/images/status_icon.svg'
@@ -23,7 +23,7 @@ import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
 import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
-import { confirmedTransactions, pendingTransactions } from '../../data/dummyData'
+import { ConfirmedTransactionList, PendingTransactionList, NotificationList } from '../../data/dummyData'
 
 enum Mode {
   VISITOR,
@@ -113,8 +113,8 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
     showModal(
       <AccountModal
         ENSName={'0xe60b...e6d3'}
-        pendingTransactions={pendingTransactions}
-        confirmedTransactions={confirmedTransactions}
+        pendingTransactions={PendingTransactionList}
+        confirmedTransactions={ConfirmedTransactionList}
       />
     )
   }
@@ -149,14 +149,14 @@ export default function Header() {
   const classes = useStyles()
 
   const [mode, setMode] = useState(Mode.VISITOR)
-  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  const [address] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
   // const address = null
   const [chain, setChain] = useState(ChainList[0])
-  const [amount, setAmount] = useState(1.24)
-  const [currency, setCurrency] = useState('MATTER')
+  const [amount] = useState(1.24)
+  const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
 
-  const { showModal, hideModal } = useContext(ModalContext)
+  const { showModal } = useContext(ModalContext)
 
   useEffect(() => {
     if (userLogined) {
@@ -217,7 +217,7 @@ export default function Header() {
 
       {mode === Mode.USER && (
         <Box position={'absolute'} right={'60px'} top={'72px'}>
-          <NotifyBox />
+          <NotifyBox notifications={NotificationList} />
         </Box>
       )}
     </>

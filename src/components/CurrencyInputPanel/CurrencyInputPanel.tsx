@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent, useContext } from 'react'
 import { styled } from '@material-ui/styles'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input from '../Input/Input'

@@ -1,5 +1,6 @@
 import DummyLogo from '../assets/images/bsc.svg'
 import Transaction from '../models/transaction'
+import Notification from '../models/notification'
 
 export const ETH = {
   logo: DummyLogo,
@@ -91,7 +92,7 @@ export const ChainList = [
   },
 ]
 
-export const confirmedTransactions: Transaction[] = [
+export const ConfirmedTransactionList: Transaction[] = [
   {
     summary: 'Swap 1.0ETH for 0.000000001 BSC',
     status: 'success',
@@ -102,7 +103,7 @@ export const confirmedTransactions: Transaction[] = [
   },
 ]
 
-export const pendingTransactions: Transaction[] = [
+export const PendingTransactionList: Transaction[] = [
   {
     summary: 'Swap 1.0ETH for 0.000000001 BSC',
     status: 'pending',
@@ -110,5 +111,16 @@ export const pendingTransactions: Transaction[] = [
   {
     summary: 'Swap 1.0ETH for 0.000000001 BSC',
     status: 'pending',
+  },
+]
+
+export const NotificationList: Notification[] = [
+  {
+    summary: 'Deposit 1.0ETH for 0.000000001 BSC',
+    status: 'success',
+  },
+  {
+    summary: 'Withdraw 1.0ETH for 0.000000001 BSC',
+    status: 'success',
   },
 ]

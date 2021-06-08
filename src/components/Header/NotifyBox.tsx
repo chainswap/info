@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import { makeStyles, styled } from '@material-ui/styles'
-import TxnSuccessIcon from '../../assets/images/txn_success_icon.svg'
+import { ReactComponent as TxnSuccessIcon } from '../../assets/images/txn_success_icon.svg'
 import TextButton from '../Button/TextButton'
-import Image from '../Image/Image'
+import Notification from '../../models/notification'
 
 interface Props {
-  notifications: string[]
+  notifications: Notification[]
 }
 
 const useStyles = makeStyles({
@@ -51,19 +51,21 @@ const LoadingBar = ({ percentage }: { percentage: number }) => {
   )
 }
 
-export default function NotifyBox() {
+export default function NotifyBox(props: Props) {
   const classes = useStyles()
+  const { notifications } = props
+
   return (
     <Box className={classes.root}>
       <Box padding={'17px 20px 9px'}>
-        <div className={classes.listItem}>
-          <Image src={TxnSuccessIcon} alt={'transaction success icon'} />
-          <p>Deposit 1.0 ETH for 0.00000001 BSC</p>
-        </div>
-        <div className={classes.listItem}>
-          <Image src={TxnSuccessIcon} alt={'transaction success icon'} />
-          <p>Deposit 1.0 ETH for 0.00000001 BSC</p>
-        </div>
+        {notifications.map((notification, key) => (
+          <div className={classes.listItem}>
+            <Box marginRight={'12px'}>
+              <TxnSuccessIcon key={key} />
+            </Box>
+            <p>{notification.summary}</p>
+          </div>
+        ))}
       </Box>
       <Box marginLeft={'48px'}>
         <TextButton fontWeight={400} underline>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-
 import Modal from '../Modal/Modal'
 import SuccessIcon from '../../assets/images/success_icon.svg'
 import FailureIcon from '../../assets/images/failure_icon.svg'

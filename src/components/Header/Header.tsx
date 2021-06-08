@@ -155,8 +155,8 @@ export default function Header() {
   const [amount] = useState(1.24)
   const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
-
   const { showModal } = useModal()
+  const [showClaimModal, setShowClaimModal] = useState(false)
 
   useEffect(() => {
     if (userLogined) {
@@ -188,7 +188,7 @@ export default function Header() {
         {mode === Mode.USER ? (
           <Box display="flex">
             <Box mr={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'} onClick={() => showModal(<ClaimModal />)}>
+              <OutlineButton width={'100px'} height={'32px'} onClick={() => setShowClaimModal(true)}>
                 Claim List
               </OutlineButton>
             </Box>
@@ -220,6 +220,8 @@ export default function Header() {
           <NotifyBox notifications={NotificationList} />
         </Box>
       )}
+
+      {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
     </>
   )
 }

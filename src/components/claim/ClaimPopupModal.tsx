@@ -60,7 +60,9 @@ export default function ClaimPopupModal(props: Props) {
           </Button>
         </Box>
       </Modal>
-      <MessageBox isOpen={showMessageBox} onDismiss={onDismissMessageBox} type={messageType} message={message} />
+      {showMessageBox && (
+        <MessageBox isOpen={showMessageBox} onDismiss={onDismissMessageBox} type={messageType} message={message} />
+      )}
     </>
   )
 }

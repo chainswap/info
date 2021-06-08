@@ -61,6 +61,7 @@ export default function Swap() {
   const [step, setStep] = useState(0)
   const [authorized, setAutorized] = useState(false)
   const [wallet] = useState({ logo: MetaMask, name: 'MetaMask' })
+  const [showClaimModal, setShowClaimModal] = useState(false)
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapState] = useState<{
@@ -294,7 +295,7 @@ export default function Swap() {
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />
             <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
-              <TextButton onClick={() => showModal(<ClaimModal />)} primary>
+              <TextButton onClick={() => setShowClaimModal(true)} primary>
                 Claim List
               </TextButton>
             </Box>
@@ -323,6 +324,7 @@ export default function Swap() {
           </Box>
         )}
       </AppBody>
+      {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
     </>
   )
 }

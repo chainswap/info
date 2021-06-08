@@ -8,7 +8,6 @@ import Header from '../components/Header/Header'
 import theme from '../theme/index'
 import routes from '../constants/routes'
 import { ModalProvider } from '../context/ModalContext'
-import ModalRoot from '../components/ModalRoot/ModalRoot'
 
 const BodyWrapper = styled('div')({
   display: 'flex',
@@ -24,7 +23,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ModalProvider>
-          <ModalRoot />
+          {/* <ModalRoot /> */}
           <Header />
           <BodyWrapper>
             <Switch>

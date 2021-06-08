@@ -39,5 +39,10 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     })
   }
 
-  return <ModalContext.Provider value={{ ...modalState, hideModal, showModal }}>{children}</ModalContext.Provider>
+  return (
+    <ModalContext.Provider value={{ ...modalState, hideModal, showModal }}>
+      {children}
+      {modalState.component}
+    </ModalContext.Provider>
+  )
 }

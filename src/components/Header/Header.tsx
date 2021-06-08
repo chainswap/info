@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AppBar, Box, MenuItem } from '@material-ui/core'
 import { styled, makeStyles } from '@material-ui/styles'
@@ -19,7 +19,7 @@ import NotifyBox from './NotifyBox'
 import ChainSwap from '../../assets/images/chain_swap.svg'
 import routes from '../../constants/routes'
 import SelectedIcon from '../../assets/images/selected_icon.svg'
-import { ModalContext } from '../../context/ModalContext'
+import useModal from '../../hooks/useModal'
 import { useUserLogined } from '../../state/user/hooks'
 import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
@@ -108,7 +108,7 @@ const LinksWrapper = styled('div')({
 })
 
 const WalletInfo = ({ amount, currency, address }: { amount: number; currency: string; address: string }) => {
-  const { showModal } = useContext(ModalContext)
+  const { showModal } = useModal()
   const showAccountModal = () => {
     showModal(
       <AccountModal
@@ -156,7 +156,7 @@ export default function Header() {
   const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
 
-  const { showModal } = useContext(ModalContext)
+  const { showModal } = useModal()
 
   useEffect(() => {
     if (userLogined) {

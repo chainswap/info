@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Box } from '@material-ui/core'
 import Image from '../../components/Image/Image'
 import TextButton from '../../components/Button/TextButton'
 import Currency from '../../models/currency'
 import MessageBox from '../../components/MessageBox/MessageBox'
-import { ModalContext } from '../../context/ModalContext'
+import useModal from '../../hooks/useModal'
 
 interface Props {
   currency: Currency
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function TxnSubmittedMessageBox(props: Props) {
-  const { isOpen, hideModal } = useContext(ModalContext)
+  const { isOpen, hideModal } = useModal()
   const { currency, wallet } = props
   const message = 'Transaction Submitted'
 

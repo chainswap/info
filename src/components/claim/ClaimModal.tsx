@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Box, MenuItem, Dialog } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
@@ -13,7 +13,7 @@ import Pager from '../Pager/Pager'
 import Divider from '../Divider/Divider'
 import Chain from '../../models/chain'
 import Currency from '../../models/currency'
-import { ModalContext } from '../../context/ModalContext'
+import useModal from '../../hooks/useModal'
 
 const useStyles = makeStyles({
   paper: {
@@ -106,7 +106,7 @@ export default function ClaimModal() {
   const dataReady = data.filter((item) => item.status === 'ready')
   const dataCompleted = data.filter((item) => item.status !== 'ready')
 
-  const { isOpen, hideModal } = useContext(ModalContext)
+  const { isOpen, hideModal } = useModal()
 
   return (
     <>

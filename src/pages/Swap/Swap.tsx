@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useCallback, useContext, useEffect } from 'react'
+import React, { useState, ChangeEvent, useCallback, useEffect } from 'react'
 import { styled } from '@material-ui/styles'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
@@ -16,7 +16,7 @@ import ConfirmWithdrawModal from './ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
-import { ModalContext } from '../../context/ModalContext'
+import useModal from '../../hooks/useModal'
 import { useUserLogined } from '../../state/user/hooks'
 import Loader from '../../assets/images/loader.svg'
 import Image from '../../components/Image/Image'
@@ -56,7 +56,7 @@ export default function Swap() {
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota] = useState(800)
   const [currency, setCurrency] = useState<Currency | null>(null)
-  const { showModal, hideModal } = useContext(ModalContext)
+  const { showModal, hideModal } = useModal()
   // const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAutorized] = useState(false)

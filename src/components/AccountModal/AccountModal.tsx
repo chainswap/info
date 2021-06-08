@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Image from '../Image/Image'
@@ -8,12 +8,12 @@ import { shortenAddress } from '../../utils/utils'
 import Copy from '../Copy/Copy'
 import OutlineButton from '../Button/OutlineButton'
 import Button from '../Button/Button'
-import { ModalContext } from '../../context/ModalContext'
 import Modal from '../Modal/Modal'
 import WalletModal from '../WalletModal/WalletModal'
 import Transaction from '../../models/transaction'
 import { ReactComponent as PendingIcon } from '../../assets/images/pending_icon.svg'
 import { ReactComponent as TxnSuccessIcon } from '../../assets/images/txn_success_icon.svg'
+import useModal from '../../hooks/useModal'
 
 interface Props {
   pendingTransactions: Transaction[]
@@ -51,7 +51,7 @@ export default function AccountMoal(props: Props) {
   const { pendingTransactions, confirmedTransactions } = props
   const name = 'MetaMask'
   const account = '0x72ef586A2c515B605A873ad9a8FBdFD43Df77123'
-  const { isOpen, hideModal, showModal } = useContext(ModalContext)
+  const { isOpen, hideModal, showModal } = useModal()
 
   function renderTransactions(transactions: Transaction[]) {
     function getStatusIcon(transaction: Transaction) {

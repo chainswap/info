@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import Input from '../Input/Input'
@@ -6,7 +6,7 @@ import OutlineButton from '../Button/OutlineButton'
 import Currency from '../../models/currency'
 import InputLabel from '../InputLabel/InputLabel'
 import SelectButton from '../Button/SelectButton'
-import { ModalContext } from '../../context/ModalContext'
+import useModal from '../../hooks/useModal'
 import LogoText from '../LogoText/LogoText'
 
 interface Props {
@@ -54,7 +54,7 @@ const ButtonWrapper = styled('div')({
 
 export default function CurrencyInputPanel(props: Props) {
   const { selectedCurrency, options, onMax, value, disabled, onCurrencySelect } = props
-  const { showModal } = useContext(ModalContext)
+  const { showModal } = useModal()
 
   const showCurrencySearch = () => {
     showModal(<CurrencySearchModal currencies={options} onCurrencySelect={onCurrencySelect} />)

@@ -23,6 +23,7 @@ import { ModalContext } from '../../context/ModalContext'
 import { useUserLogined } from '../../state/user/hooks'
 import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
+import { confirmedTransactions, pendingTransactions } from '../../data/dummyData'
 
 enum Mode {
   VISITOR,
@@ -112,8 +113,8 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
     showModal(
       <AccountModal
         ENSName={'0xe60b...e6d3'}
-        pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
-        confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}
+        pendingTransactions={pendingTransactions}
+        confirmedTransactions={confirmedTransactions}
       />
     )
   }
@@ -177,7 +178,7 @@ export default function Header() {
           </NavLink>
           <LinksWrapper>
             {NavLinks.map((nav) => (
-              <NavLink id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
+              <NavLink key={nav.name} id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
                 {nav.name}
               </NavLink>
             ))}

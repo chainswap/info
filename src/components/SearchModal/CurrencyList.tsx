@@ -32,37 +32,34 @@ const useStyles = makeStyles({
 
 export default function CurrencyList(props: Props) {
   const classes = useStyles(props)
-  const { currencies, selectedCurrency, showImportBtn, showImportView, setImportToken, onCurrencySelect } = props
+  const { currencies, showImportBtn, showImportView, onCurrencySelect } = props
 
-  const Row = useCallback(
-    ({ data, index, style }: any) => {
-      const currency: Currency = data[index]
+  const Row = ({ data, index, style }: any) => {
+    const currency: Currency = data[index]
 
-      const onClickCurrency = () => onCurrencySelect(currency)
+    const onClickCurrency = () => onCurrencySelect(currency)
 
-      return (
-        <div className={classes.currencyRow} onClick={onClickCurrency}>
-          <Box display="flex">
-            <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
-            <Box display="flex" flexDirection="column" marginLeft="16px">
-              <Text fontSize={16}>{currency.symbol}</Text>
-              <Text fontSize={12} opacity={0.6}>
-                {currency.name}
-              </Text>
-            </Box>
+    return (
+      <div className={classes.currencyRow} onClick={onClickCurrency}>
+        <Box display="flex">
+          <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
+          <Box display="flex" flexDirection="column" marginLeft="16px">
+            <Text fontSize={16}>{currency.symbol}</Text>
+            <Text fontSize={12} opacity={0.6}>
+              {currency.name}
+            </Text>
           </Box>
-          {showImportBtn ? (
-            <OutlineButton fontSize={'14px'} width={'84px'} height={'36px'} primary onClick={showImportView}>
-              Import
-            </OutlineButton>
-          ) : (
-            <Text fontSize={16}>{currency.balance}</Text>
-          )}
-        </div>
-      )
-    },
-    [selectedCurrency]
-  )
+        </Box>
+        {showImportBtn ? (
+          <OutlineButton fontSize={'14px'} width={'84px'} height={'36px'} primary onClick={showImportView}>
+            Import
+          </OutlineButton>
+        ) : (
+          <Text fontSize={16}>{currency.balance}</Text>
+        )}
+      </div>
+    )
+  }
 
   const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), [])
 

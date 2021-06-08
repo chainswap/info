@@ -33,7 +33,7 @@ export default function ClaimPopupModal(props: Props) {
   }
 
   function onImport() {
-    const type = setMessageState({
+    setMessageState({
       showMessageBox: true,
       messageType: hash ? 'success' : 'failure',
       message: hash ? 'Your claim is added to claim list' : 'Your transaction hash is not detected Please Enter again',

@@ -58,10 +58,10 @@ export default function NotifyBox(props: Props) {
   return (
     <Box className={classes.root}>
       <Box padding={'17px 20px 9px'}>
-        {notifications.map((notification, key) => (
-          <div className={classes.listItem}>
+        {notifications.map((notification, i) => (
+          <div key={i} className={classes.listItem}>
             <Box marginRight={'12px'}>
-              <TxnSuccessIcon key={key} />
+              <TxnSuccessIcon />
             </Box>
             <p>{notification.summary}</p>
           </div>

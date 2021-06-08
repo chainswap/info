@@ -81,10 +81,10 @@ const ClaimFooter = () => {
   return (
     <Box className={classes.footer} display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
       <Text fontSize={'14px'} fontWeight={400} color={'#FFFFFF'}>
-        Don't see your claim request?{' '}
-        <a href="#" style={{ color: '#FFFFFF' }}>
+        Don't see your claim request?
+        <TextButton fontSize={14} underline>
           Import now
-        </a>
+        </TextButton>
       </Text>
       <Pager />
     </Box>

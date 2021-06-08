@@ -7,7 +7,7 @@ import Option from './Option'
 import AccountModal from '../AccountModal/AccountModal'
 import { ModalContext } from '../../context/ModalContext'
 import { ConfirmedTransactionList, PendingTransactionList } from '../../data/dummyData'
-import { useSetUser, useUserLogined } from '../../state/user/hooks'
+import { useSetUser } from '../../state/user/hooks'
 
 const WALLET_VIEWS = {
   OPTIONS: 'options',
@@ -21,9 +21,8 @@ const Header = styled(Box)({
 })
 
 export default function WalletModal() {
-  const [walletView, setWalletView] = useState(WALLET_VIEWS.OPTIONS)
+  const [walletView] = useState(WALLET_VIEWS.OPTIONS)
   const { isOpen, showModal, hideModal } = useContext(ModalContext)
-  const userLogined = useUserLogined()
   const setUser = useSetUser()
 
   const getOptions = () => {

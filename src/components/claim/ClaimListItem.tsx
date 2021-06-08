@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import Chain from '../../models/chain'

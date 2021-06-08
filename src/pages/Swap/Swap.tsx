@@ -54,13 +54,13 @@ export default function Swap() {
   const [to, setTo] = useState(ChainList[1])
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
-  const [quota, setQuota] = useState(800)
+  const [quota] = useState(800)
   const [currency, setCurrency] = useState<Currency | null>(null)
   const { showModal, hideModal } = useContext(ModalContext)
   // const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAutorized] = useState(false)
-  const [wallet, setWallet] = useState({ logo: MetaMask, name: 'MetaMask' })
+  const [wallet] = useState({ logo: MetaMask, name: 'MetaMask' })
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapState] = useState<{
@@ -141,7 +141,7 @@ export default function Swap() {
       })
       setWithdrawEnabled(true)
     }, 1500)
-  }, [currency])
+  }, [showModal, hideModal, currency, wallet])
 
   const showConfirmDepositModal = () => {
     if (!currency) return
@@ -182,7 +182,7 @@ export default function Swap() {
       setDepositEnabled(false)
       setWithdrawEnabled(false)
     }, 1500)
-  }, [currency])
+  }, [showModal, hideModal, wallet, currency])
 
   const showConfirmWithdrawModal = () => {
     if (!currency) return

@@ -41,7 +41,12 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react/jsx-pascal-case": [
+        0
+      ]
+    }
   },
   "browserslist": {
     "production": [

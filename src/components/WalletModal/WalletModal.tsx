@@ -22,7 +22,7 @@ const Header = styled(Box)({
 
 export default function WalletModal() {
   const [walletView] = useState(WALLET_VIEWS.OPTIONS)
-  const { isOpen, showModal, hideModal } = useModal()
+  const { showModal } = useModal()
   const setUser = useSetUser()
 
   const getOptions = () => {
@@ -56,7 +56,7 @@ export default function WalletModal() {
   }
 
   return (
-    <Modal isOpen={isOpen} onDismiss={hideModal} showIcon={walletView === WALLET_VIEWS.OPTIONS}>
+    <Modal showIcon={walletView === WALLET_VIEWS.OPTIONS}>
       <Box width={480} padding="32px" display="flex" flexDirection="column" alignItems="center">
         <Header>Connect to a wallet</Header>
 

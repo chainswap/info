@@ -51,7 +51,7 @@ export default function AccountMoal(props: Props) {
   const { pendingTransactions, confirmedTransactions } = props
   const name = 'MetaMask'
   const account = '0x72ef586A2c515B605A873ad9a8FBdFD43Df77123'
-  const { isOpen, hideModal, showModal } = useModal()
+  const { hideModal, showModal } = useModal()
 
   function renderTransactions(transactions: Transaction[]) {
     function getStatusIcon(transaction: Transaction) {
@@ -72,7 +72,7 @@ export default function AccountMoal(props: Props) {
   }
 
   return (
-    <Modal isOpen={isOpen} onDismiss={hideModal} showIcon={false}>
+    <Modal showIcon={false}>
       <Header>Connected with {name}</Header>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mx={'141px'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: 28, height: 28 }} />

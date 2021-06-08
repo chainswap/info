@@ -4,7 +4,6 @@ import Image from '../../components/Image/Image'
 import TextButton from '../../components/Button/TextButton'
 import Currency from '../../models/currency'
 import MessageBox from '../../components/MessageBox/MessageBox'
-import useModal from '../../hooks/useModal'
 
 interface Props {
   currency: Currency
@@ -15,12 +14,11 @@ interface Props {
 }
 
 export default function TxnSubmittedMessageBox(props: Props) {
-  const { isOpen, hideModal } = useModal()
   const { currency, wallet } = props
   const message = 'Transaction Submitted'
 
   return (
-    <MessageBox isOpen={isOpen} onDismiss={hideModal} type={'success'} message={message}>
+    <MessageBox type={'success'} message={message}>
       <Box marginBottom="12px">
         <TextButton fontSize={13} fontWeight={400} primary>
           View on Etherscan

@@ -65,7 +65,7 @@ export default function Manage() {
       },
     ]
 
-    return lists.map((list) => <ManageList {...list} onChangeSwitchToggle={onChangeSwitchToggle} />)
+    return lists.map((list, i) => <ManageList key={i} {...list} onChangeSwitchToggle={onChangeSwitchToggle} />)
   }
 
   return (

@@ -7,7 +7,6 @@ import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import { Text } from 'rebass'
 import ChainAddress from './ChainAddress'
-import useModal from '../../hooks/useModal'
 
 interface Props {
   children?: React.ReactNode
@@ -22,12 +21,11 @@ interface Props {
 }
 
 export default function ConfirmDepositModal(props: Props) {
-  const { isOpen, hideModal } = useModal()
   const { value, selectedCurrency, from, to, walletLogo, address, onConfirm } = props
 
   return (
     <>
-      <Modal isOpen={isOpen} onDismiss={hideModal} label={'Confirm Deposit'} showIcon>
+      <Modal label={'Confirm Deposit'} showIcon>
         <Box paddingTop={'20px'}>
           <Text fontWeight={'500'} fontSize={'28px'} textAlign={'center'}>
             {value} {selectedCurrency.symbol}

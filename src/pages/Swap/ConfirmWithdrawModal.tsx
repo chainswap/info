@@ -9,7 +9,6 @@ import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import ChainAddress from './ChainAddress'
 import Divider from '../../components/Divider/Divider'
-import useModal from '../../hooks/useModal'
 
 export enum Mode {
   INSTRUCTION,
@@ -44,7 +43,6 @@ const Instruction = ({ to }: { to: Chain }) => {
 }
 
 export default function ConfirmWithdrawModal(props: Props) {
-  const { isOpen, hideModal } = useModal()
   const { from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
 
   const [mode, setMode] = useState(Mode.INSTRUCTION)
@@ -55,7 +53,7 @@ export default function ConfirmWithdrawModal(props: Props) {
 
   return (
     <div onClick={onClick}>
-      <Modal isOpen={isOpen} onDismiss={hideModal} showIcon>
+      <Modal showIcon>
         {mode === Mode.INSTRUCTION ? (
           <>
             <Instruction to={to} />

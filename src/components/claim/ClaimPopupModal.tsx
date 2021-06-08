@@ -5,13 +5,7 @@ import Button from '../Button/Button'
 import { Box } from '@material-ui/core'
 import MessageBox from '../MessageBox/MessageBox'
 
-interface Props {
-  isOpen: boolean
-  onDismiss: () => void
-}
-
-export default function ClaimPopupModal(props: Props) {
-  const { isOpen, onDismiss } = props
+export default function ClaimPopupModal() {
   const [hash, setHash] = useState('')
   const label = 'Please Enter the transaction hash'
   const placeHolder = 'Enter the transaction hash'
@@ -40,17 +34,9 @@ export default function ClaimPopupModal(props: Props) {
     })
   }
 
-  function onDismissMessageBox() {
-    setMessageState({
-      showMessageBox: false,
-      messageType: 'success',
-      message: '',
-    })
-  }
-
   return (
     <>
-      <Modal isOpen={isOpen} onDismiss={onDismiss} label={label} showIcon>
+      <Modal label={label} showIcon>
         <Box margin={'32px 52px 18px'}>
           <Input placeholder={placeHolder} value={hash} onChange={onChangeHash} />
         </Box>
@@ -60,9 +46,7 @@ export default function ClaimPopupModal(props: Props) {
           </Button>
         </Box>
       </Modal>
-      {showMessageBox && (
-        <MessageBox isOpen={showMessageBox} onDismiss={onDismissMessageBox} type={messageType} message={message} />
-      )}
+      {showMessageBox && <MessageBox type={messageType} message={message} />}
     </>
   )
 }

@@ -71,7 +71,7 @@ const useStyles = makeStyles({
 
 export default function _Select(props: Props) {
   const classes = useStyles(props)
-  const { defaultValue, disabled, onChange, children } = props
+  const { value, defaultValue, disabled, onChange, children } = props
 
   return (
     <>
@@ -79,7 +79,8 @@ export default function _Select(props: Props) {
         displayEmpty
         disableUnderline
         classes={{ root: classes.root, icon: classes.icon }}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue ? defaultValue : ''}
+        value={value ? value : ''}
         disabled={disabled}
         MenuProps={{
           classes: { paper: classes.paper },

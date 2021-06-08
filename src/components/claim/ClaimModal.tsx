@@ -56,7 +56,7 @@ const ClaimHeader = ({ hideModal }: { hideModal: () => void }) => {
       </Text>
       <Box marginRight={'70px'}>
         <OutlineSelect
-          defaultValue={'Token: All'}
+          defaultValue={''}
           onChange={() => {
             alert('setToken')
           }}

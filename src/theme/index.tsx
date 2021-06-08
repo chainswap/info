@@ -1,4 +1,4 @@
-import { createMuiTheme, Theme, useTheme } from '@material-ui/core'
+import { unstable_createMuiStrictModeTheme as createMuiTheme, Theme, useTheme } from '@material-ui/core'
 import { Text, TextProps } from 'rebass'
 
 interface TextColor {

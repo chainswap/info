@@ -6,11 +6,6 @@ interface ModalContextType {
   hideModal: () => void
 }
 
-interface ModalState {
-  component: React.ReactNode | null
-  isOpen: boolean
-}
-
 export const ModalContext = React.createContext<ModalContextType>({
   isOpen: false,
   showModal: () => {},

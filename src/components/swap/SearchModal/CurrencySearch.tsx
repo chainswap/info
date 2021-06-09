@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from 'react'
 import { Box } from '@material-ui/core'
 import CurrencyList from './CurrencyList'
-import TextButton from '../Button/TextButton'
-import Currency from '../../models/currency'
-import Divider from '../../components/Divider/Divider'
-import Input from '../../components/Input/Input'
+import TextButton from '../../Button/TextButton'
+import Currency from '../../../models/currency'
+import Divider from '../../Divider/Divider'
+import Input from '../../Input/Input'
 
 interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void

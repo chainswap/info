@@ -4,21 +4,13 @@ import { makeStyles } from '@material-ui/styles'
 
 import Image from '../Image/Image'
 
-import CheckboxIcon from '../../assets/images/checkbox.svg'
-import CheckboxCheckedIcon from '../../assets/images/checkbox_checked.svg'
+import { ReactComponent as CheckboxIcon } from '../../assets/images/checkbox.svg'
+import { ReactComponent as CheckboxCheckedIcon } from '../../assets/images/checkbox_checked.svg'
 
 interface Props {
   checked: boolean
   onChange: () => void
-  label: string
-}
-
-const Icon = () => {
-  return <Image src={CheckboxIcon} alt={'checkbox icon'} />
-}
-
-const CheckedIcon = () => {
-  return <Image src={CheckboxCheckedIcon} alt={'checkbox checked icon'} />
+  label?: string
 }
 
 const useStyles = makeStyles({
@@ -42,7 +34,7 @@ export default function _Checkbox(props: Props) {
     <FormControlLabel
       classes={{ root: classes.root, label: classes.label }}
       value={checked}
-      control={<Checkbox className={classes.checkbox} icon={<Icon />} checkedIcon={<CheckedIcon />} />}
+      control={<Checkbox className={classes.checkbox} icon={<CheckboxIcon />} checkedIcon={<CheckboxCheckedIcon />} />}
       label={label}
       labelPlacement="end"
       onChange={onChange}

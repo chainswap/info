@@ -1,6 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/styles'
-import Stepper from '../../components/Stepper/Stepper'
+import Stepper from '../Stepper/Stepper'
 import MuiStepConnector from '@material-ui/core/StepConnector'
 import { ReactComponent as StepCompletedIcon } from '../../assets/images/check_icon.svg'
 

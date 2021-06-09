@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react'
-import Modal from '../Modal/Modal'
+import Modal from '../../Modal/Modal'
 import CurrencySearch from './CurrencySearch'
-import Currency from '../../models/currency'
+import Currency from '../../../models/currency'
 import Manage from './Manage'
 import Import from './Import'
 

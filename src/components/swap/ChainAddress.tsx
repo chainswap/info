@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text } from 'rebass'
 import { Box } from '@material-ui/core'
-import Image from '../../components/Image/Image'
+import Image from '../Image/Image'
 
 interface Props {
   walletLogo: string

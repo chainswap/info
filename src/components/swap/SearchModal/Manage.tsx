@@ -1,9 +1,9 @@
 import React, { useState, ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
-import TabToggle from '../TabToggle/TabToggle'
-import Input from '../Input/Input'
-import Divider from '../Divider/Divider'
-import DummyLogo from '../../assets/images/dummy_logo.png'
+import TabToggle from '../../TabToggle/TabToggle'
+import Input from '../../Input/Input'
+import Divider from '../../Divider/Divider'
+import DummyLogo from '../../../assets/images/dummy_logo.png'
 import ManageList from './ManageList'
 
 const UpperSection = styled('div')({

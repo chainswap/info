@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AppBar, Box, Menu, MenuItem } from '@material-ui/core'
+import { AppBar, Box, MenuItem } from '@material-ui/core'
 import { styled, makeStyles } from '@material-ui/styles'
 import { Text } from 'rebass'
 import StatusIcon from '../../assets/images/status_icon.svg'
@@ -19,10 +19,11 @@ import NotifyBox from './NotifyBox'
 import ChainSwap from '../../assets/images/chain_swap.svg'
 import routes from '../../constants/routes'
 import SelectedIcon from '../../assets/images/selected_icon.svg'
-import { ModalContext } from '../../context/ModalContext'
+import useModal from '../../hooks/useModal'
 import { useUserLogined } from '../../state/user/hooks'
 import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
+import { ConfirmedTransactionList, PendingTransactionList, NotificationList } from '../../data/dummyData'
 
 enum Mode {
   VISITOR,
@@ -107,13 +108,13 @@ const LinksWrapper = styled('div')({
 })
 
 const WalletInfo = ({ amount, currency, address }: { amount: number; currency: string; address: string }) => {
-  const { showModal } = useContext(ModalContext)
+  const { showModal } = useModal()
   const showAccountModal = () => {
     showModal(
       <AccountModal
         ENSName={'0xe60b...e6d3'}
-        pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
-        confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}
+        pendingTransactions={PendingTransactionList}
+        confirmedTransactions={ConfirmedTransactionList}
       />
     )
   }
@@ -148,14 +149,14 @@ export default function Header() {
   const classes = useStyles()
 
   const [mode, setMode] = useState(Mode.VISITOR)
-  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  const [address] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
   // const address = null
   const [chain, setChain] = useState(ChainList[0])
-  const [amount, setAmount] = useState(1.24)
-  const [currency, setCurrency] = useState('MATTER')
+  const [amount] = useState(1.24)
+  const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
-
-  const { showModal, hideModal } = useContext(ModalContext)
+  const { showModal } = useModal()
+  const [showClaimModal, setShowClaimModal] = useState(false)
 
   useEffect(() => {
     if (userLogined) {
@@ -177,7 +178,7 @@ export default function Header() {
           </NavLink>
           <LinksWrapper>
             {NavLinks.map((nav) => (
-              <NavLink id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
+              <NavLink key={nav.name} id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
                 {nav.name}
               </NavLink>
             ))}
@@ -187,7 +188,7 @@ export default function Header() {
         {mode === Mode.USER ? (
           <Box display="flex">
             <Box mr={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'} onClick={() => showModal(<ClaimModal />)}>
+              <OutlineButton width={'100px'} height={'32px'} onClick={() => setShowClaimModal(true)}>
                 Claim List
               </OutlineButton>
             </Box>
@@ -216,9 +217,11 @@ export default function Header() {
 
       {mode === Mode.USER && (
         <Box position={'absolute'} right={'60px'} top={'72px'}>
-          <NotifyBox />
+          <NotifyBox notifications={NotificationList} />
         </Box>
       )}
+
+      {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
     </>
   )
 }

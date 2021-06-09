@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Image from '../Image/Image'
@@ -8,14 +8,16 @@ import { shortenAddress } from '../../utils/utils'
 import Copy from '../Copy/Copy'
 import OutlineButton from '../Button/OutlineButton'
 import Button from '../Button/Button'
-import Transaction from './Transaction'
-import { ModalContext } from '../../context/ModalContext'
 import Modal from '../Modal/Modal'
 import WalletModal from '../WalletModal/WalletModal'
+import Transaction from '../../models/transaction'
+import { ReactComponent as PendingIcon } from '../../assets/images/pending_icon.svg'
+import { ReactComponent as TxnSuccessIcon } from '../../assets/images/txn_success_icon.svg'
+import useModal from '../../hooks/useModal'
 
 interface Props {
-  pendingTransactions: string[]
-  confirmedTransactions: string[]
+  pendingTransactions: Transaction[]
+  confirmedTransactions: Transaction[]
   ENSName?: string
 }
 
@@ -49,20 +51,28 @@ export default function AccountMoal(props: Props) {
   const { pendingTransactions, confirmedTransactions } = props
   const name = 'MetaMask'
   const account = '0x72ef586A2c515B605A873ad9a8FBdFD43Df77123'
-  const { isOpen, hideModal, showModal } = useContext(ModalContext)
+  const { hideModal, showModal } = useModal()
 
-  function renderTransactions(transactions: string[]) {
+  function renderTransactions(transactions: Transaction[]) {
+    function getStatusIcon(transaction: Transaction) {
+      return <>{transaction.status === 'success' ? <TxnSuccessIcon /> : <PendingIcon />}</>
+    }
     return (
       <>
         {transactions.map((transaction, i) => {
-          return <Transaction key={i} transaction={transaction} />
+          return (
+            <Box key={i} display={'flex'} justifyContent={'space-between'}>
+              <Text fontSize={'14px'}>{transaction.summary}</Text>
+              {getStatusIcon(transaction)}
+            </Box>
+          )
         })}
       </>
     )
   }
 
   return (
-    <Modal isOpen={isOpen} onDismiss={hideModal} showIcon={false}>
+    <Modal showIcon={false}>
       <Header>Connected with {name}</Header>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mx={'141px'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: 28, height: 28 }} />

@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react'
-import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import CurrencyList from './CurrencyList'
 import TextButton from '../Button/TextButton'

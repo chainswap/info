@@ -25,24 +25,26 @@ export default function Table({ header, rows }: { header: string[]; rows: (strin
   const classes = useStyles()
   return (
     <TableContainer className={classes.root}>
-      <TableHead className={classes.tableHeader}>
-        <TableRow>
-          {header.map((string) => (
-            <TableCell>
-              <TYPE.smallGray>{string}</TYPE.smallGray>
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map((row, idx) => (
-          <TableRow key={row[0].toString() + idx}>
-            {row.map((data) => (
-              <TableCell>{data}</TableCell>
+      <table>
+        <TableHead className={classes.tableHeader}>
+          <TableRow>
+            {header.map((string, idx) => (
+              <TableCell key={idx}>
+                <TYPE.smallGray>{string}</TYPE.smallGray>
+              </TableCell>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
+        </TableHead>
+        <TableBody>
+          {rows.map((row, idx) => (
+            <TableRow key={row[0].toString() + idx}>
+              {row.map((data, idx) => (
+                <TableCell key={idx}>{data}</TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </table>
     </TableContainer>
   )
 }

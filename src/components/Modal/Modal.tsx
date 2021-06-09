@@ -4,10 +4,9 @@ import { styled } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
 import { Box } from '@material-ui/core'
 import { Text } from 'rebass'
+import useModal from '../../hooks/useModal'
 
 interface Props {
-  isOpen: boolean
-  onDismiss: () => void
   children?: React.ReactNode
   label?: string
   showIcon?: boolean
@@ -42,8 +41,9 @@ const CloseBtn = styled('div')({
 })
 
 export default function Modal(props: Props) {
-  const { isOpen, children, label, onDismiss, showIcon } = props
+  const { children, label, showIcon } = props
   const classes = useStyles(props)
+  const { isOpen, hideModal } = useModal()
 
   return (
     <>
@@ -61,7 +61,7 @@ export default function Modal(props: Props) {
           </Box>
         )}
         {showIcon && (
-          <CloseBtn onClick={onDismiss}>
+          <CloseBtn onClick={hideModal}>
             <CloseIcon />
           </CloseBtn>
         )}

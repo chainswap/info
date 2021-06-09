@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { MenuItem, Box, makeStyles } from '@material-ui/core'
+import React from 'react'
+import { MenuItem, makeStyles } from '@material-ui/core'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Chain from '../../models/chain'

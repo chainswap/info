@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-
 import Modal from '../Modal/Modal'
 import SuccessIcon from '../../assets/images/success_icon.svg'
 import FailureIcon from '../../assets/images/failure_icon.svg'
@@ -10,17 +9,17 @@ import Image from '../Image/Image'
 import OutlineButton from '../../components/Button/OutlineButton'
 import Button from '../../components/Button/Button'
 import { Text } from 'rebass'
+import useModal from '../../hooks/useModal'
 
 interface Props {
   type: 'success' | 'failure' | 'support' | 'network'
-  isOpen: boolean
-  onDismiss: () => void
   message: string
   children?: React.ReactNode
 }
 
 export default function MessageBox(props: Props) {
-  const { type, isOpen, onDismiss, message, children } = props
+  const { type, message, children } = props
+  const { hideModal } = useModal()
 
   const icon =
     type === 'success'
@@ -32,7 +31,7 @@ export default function MessageBox(props: Props) {
       : NetworkErrorIcon
 
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss}>
+    <Modal>
       <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
         <Box padding="32px 0 16px">
           <Image src={icon} alt={`${type} icon`} style={{ height: 32, width: 32 }} />
@@ -43,9 +42,8 @@ export default function MessageBox(props: Props) {
           </Text>
         </Box>
         {children}
-
         <Box margin="0 auto 28px" display={'flex'} justifyContent={'center'}>
-          <OutlineButton width="180px" primary onClick={onDismiss}>
+          <OutlineButton width="180px" primary onClick={hideModal}>
             Close
           </OutlineButton>
           {type === 'failure' && (

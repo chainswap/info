@@ -53,8 +53,8 @@ export default function TabToggle(props: Props) {
 
   return (
     <Tabs className={classes.root} value={value} onChange={onChange}>
-      {labelOptions.map((label) => (
-        <StyledTab label={label} disableRipple />
+      {labelOptions.map((label, i) => (
+        <StyledTab key={i} label={label} disableRipple />
       ))}
     </Tabs>
   )

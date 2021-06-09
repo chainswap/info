@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
@@ -9,7 +9,6 @@ import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import ChainAddress from './ChainAddress'
 import Divider from '../../components/Divider/Divider'
-import { ModalContext } from '../../context/ModalContext'
 
 export enum Mode {
   INSTRUCTION,
@@ -44,7 +43,6 @@ const Instruction = ({ to }: { to: Chain }) => {
 }
 
 export default function ConfirmWithdrawModal(props: Props) {
-  const { isOpen, hideModal } = useContext(ModalContext)
   const { from, to, walletLogo, address, value, selectedCurrency, onConfirm } = props
 
   const [mode, setMode] = useState(Mode.INSTRUCTION)
@@ -55,7 +53,7 @@ export default function ConfirmWithdrawModal(props: Props) {
 
   return (
     <div onClick={onClick}>
-      <Modal isOpen={isOpen} onDismiss={hideModal} showIcon>
+      <Modal showIcon>
         {mode === Mode.INSTRUCTION ? (
           <>
             <Instruction to={to} />

@@ -1,8 +1,7 @@
-import React, { ChangeEvent } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Select, InputLabel } from '@material-ui/core'
+import { Select } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-// import ExpandMoreIcon from '../../assets/images/expand_more_icon.svg'
 
 interface Props {
   children: React.ReactNode
@@ -16,10 +15,10 @@ interface Props {
 
 const useStyles = makeStyles({
   root: {
-    width: (props: Props) => (props.size == 'small' ? 'fit-content' : 176),
-    height: (props: Props) => (props.size == 'small' ? 32 : 46),
-    borderRadius: (props: Props) => (props.size == 'small' ? 4 : 14),
-    paddingLeft: (props: Props) => (props.size == 'small' ? 8 : 24),
+    width: (props: Props) => (props.size === 'small' ? 'fit-content' : 176),
+    height: (props: Props) => (props.size === 'small' ? 32 : 46),
+    borderRadius: (props: Props) => (props.size === 'small' ? 4 : 14),
+    paddingLeft: (props: Props) => (props.size === 'small' ? 8 : 24),
     cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
     boxSizing: 'border-box',
     backgroundColor: '#1f1f1f',
@@ -28,19 +27,19 @@ const useStyles = makeStyles({
     alignItems: 'center',
     '&:focus': {
       backgroundColor: '#1f1f1f',
-      borderRadius: (props: Props) => (props.size == 'small' ? 4 : 14),
+      borderRadius: (props: Props) => (props.size === 'small' ? 4 : 14),
     },
   },
   icon: {
-    right: (props: Props) => (props.size == 'small' ? 6.51 : 15),
+    right: (props: Props) => (props.size === 'small' ? 6.51 : 15),
     color: '#FFFFFF',
     display: (props: Props) => (props.disabled ? 'none' : 'block'),
-    opacity: (props: Props) => (props.size == 'small' ? 0.5 : 1),
-    fontSize: (props: Props) => (props.size == 'small' ? '12px' : '24px'),
-    top: (props: Props) => (props.size == 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)'),
+    opacity: (props: Props) => (props.size === 'small' ? 0.5 : 1),
+    fontSize: (props: Props) => (props.size === 'small' ? '12px' : '24px'),
+    top: (props: Props) => (props.size === 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)'),
   },
   paper: {
-    width: (props: Props) => (props.size == 'small' ? 172 : 176),
+    width: (props: Props) => (props.size === 'small' ? 172 : 176),
     borderRadius: 14,
     marginTop: 8,
     overflow: 'hide',
@@ -72,7 +71,7 @@ const useStyles = makeStyles({
 
 export default function _Select(props: Props) {
   const classes = useStyles(props)
-  const { defaultValue, disabled, onChange, children } = props
+  const { value, defaultValue, disabled, onChange, children } = props
 
   return (
     <>
@@ -80,7 +79,8 @@ export default function _Select(props: Props) {
         displayEmpty
         disableUnderline
         classes={{ root: classes.root, icon: classes.icon }}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue ? defaultValue : ''}
+        value={value ? value : ''}
         disabled={disabled}
         MenuProps={{
           classes: { paper: classes.paper },

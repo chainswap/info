@@ -21,7 +21,7 @@ const ListWrapper = styled('div')({
 export default function Manage() {
   const [tab, setTab] = useState(0)
   const [value, setValue] = useState('')
-  const [toggled, setToggled] = useState(false)
+  const [, setToggled] = useState(false)
   const placeholder = 'https:// or ipfs or ENS name'
 
   function onChangeTabToggle(e: ChangeEvent<{}>, newValue: number) {
@@ -65,7 +65,7 @@ export default function Manage() {
       },
     ]
 
-    return lists.map((list) => <ManageList {...list} onChangeSwitchToggle={onChangeSwitchToggle} />)
+    return lists.map((list, i) => <ManageList key={i} {...list} onChangeSwitchToggle={onChangeSwitchToggle} />)
   }
 
   return (

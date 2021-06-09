@@ -8,7 +8,7 @@ enum Mode {
 }
 
 export default function Deploy() {
-  const [mode, setMode] = useState(Mode.LANDING)
+  const [mode] = useState(Mode.LANDING)
 
   return <AppBody width={552}>{mode === Mode.LANDING ? <Landing /> : null}</AppBody>
 }

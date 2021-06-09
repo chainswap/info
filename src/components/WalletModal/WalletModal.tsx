@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Modal from '../Modal/Modal'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
 import AccountModal from '../AccountModal/AccountModal'
-import { ModalContext } from '../../context/ModalContext'
-
-import { useSetUser, useUserLogined } from '../../state/user/hooks'
+import { ConfirmedTransactionList, PendingTransactionList } from '../../data/dummyData'
+import { useSetUser } from '../../state/user/hooks'
+import useModal from '../../hooks/useModal'
 
 const WALLET_VIEWS = {
   OPTIONS: 'options',
@@ -21,9 +21,8 @@ const Header = styled(Box)({
 })
 
 export default function WalletModal() {
-  const [walletView, setWalletView] = useState(WALLET_VIEWS.OPTIONS)
-  const { isOpen, showModal, hideModal } = useContext(ModalContext)
-  const userLogined = useUserLogined()
+  const [walletView] = useState(WALLET_VIEWS.OPTIONS)
+  const { showModal } = useModal()
   const setUser = useSetUser()
 
   const getOptions = () => {
@@ -50,14 +49,14 @@ export default function WalletModal() {
     showModal(
       <AccountModal
         ENSName={'0xe60b...e6d3'}
-        pendingTransactions={['Swap 1.0ETH for 0.000000001 BSC']}
-        confirmedTransactions={['Swap 1.0ETH for 0.000000001 BSC', 'Swap 1.0ETH for 0.000000001 BSC']}
+        pendingTransactions={PendingTransactionList}
+        confirmedTransactions={ConfirmedTransactionList}
       />
     )
   }
 
   return (
-    <Modal isOpen={isOpen} onDismiss={hideModal} showIcon={walletView === WALLET_VIEWS.OPTIONS}>
+    <Modal showIcon={walletView === WALLET_VIEWS.OPTIONS}>
       <Box width={480} padding="32px" display="flex" flexDirection="column" alignItems="center">
         <Header>Connect to a wallet</Header>
 

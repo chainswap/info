@@ -38,8 +38,9 @@ export default function Liquidity() {
             </TYPE.gray>
             <TYPE.gray fontWeight={500}>Chain</TYPE.gray>
           </Box>
-          {dummyData.map(({ asset, chain, data }) => (
+          {dummyData.map(({ asset, chain, data }, i) => (
             <LiquidityAccordion
+              key={i}
               asset={asset}
               chain={chain}
               data={data}

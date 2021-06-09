@@ -1,6 +1,5 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
-import classes from '*.module.css'
 
 interface Props {
   children: React.ReactNode

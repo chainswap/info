@@ -1,4 +1,4 @@
-export default {
+const Routes = {
   home: '/swap',
   swap: '/swap',
   deploy: '/deploy',
@@ -6,3 +6,5 @@ export default {
   farm: '/farm',
   info: '/info',
 }
+
+export default Routes

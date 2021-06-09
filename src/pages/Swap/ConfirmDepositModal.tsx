@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Box } from '@material-ui/core'
 import Modal from '../../components/Modal/Modal'
 import Button from '../../components/Button/Button'
@@ -7,7 +7,6 @@ import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import { Text } from 'rebass'
 import ChainAddress from './ChainAddress'
-import { ModalContext } from '../../context/ModalContext'
 
 interface Props {
   children?: React.ReactNode
@@ -22,12 +21,11 @@ interface Props {
 }
 
 export default function ConfirmDepositModal(props: Props) {
-  const { isOpen, hideModal } = useContext(ModalContext)
   const { value, selectedCurrency, from, to, walletLogo, address, onConfirm } = props
 
   return (
     <>
-      <Modal isOpen={isOpen} onDismiss={hideModal} label={'Confirm Deposit'} showIcon>
+      <Modal label={'Confirm Deposit'} showIcon>
         <Box paddingTop={'20px'}>
           <Text fontWeight={'500'} fontSize={'28px'} textAlign={'center'}>
             {value} {selectedCurrency.symbol}

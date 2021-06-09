@@ -16,18 +16,7 @@ interface Props {
 }
 
 export default function Option(props: Props) {
-  const {
-    link = null,
-    clickable = true,
-    size,
-    onClick,
-    color,
-    header,
-    subheader = null,
-    icon,
-    active = false,
-    id,
-  } = props
+  const { onClick, header, icon } = props
   return (
     <OutlineButton width="280px" onClick={onClick}>
       <Image src={icon} alt={`wallet icon-${header}`} />

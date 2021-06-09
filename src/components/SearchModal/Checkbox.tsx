@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core'
+import { Checkbox, FormControlLabel } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
 import Image from '../Image/Image'

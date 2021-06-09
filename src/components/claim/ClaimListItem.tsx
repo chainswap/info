@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import Chain from '../../models/chain'
@@ -10,6 +10,7 @@ import { Text } from 'rebass'
 import SuccessIcon from '../../assets/images/claim_list_success.svg'
 import FailureIcon from '../../assets/images/claim_list_failure.svg'
 import ClaimPopupModal from './ClaimPopupModal'
+import useModal from '../../hooks/useModal'
 
 enum Status {
   READY = 'ready',
@@ -67,12 +68,7 @@ const KV = ({
 export default function ClaimListItem({ from, to, currency, address, amount, status }: Props) {
   const amountText = `${amount} ${currency.symbol}`
   const amountTextAbbreviated = amountText.substr(0, 9) + '...'
-
-  const [showClaimPopupModal, setShowClaimPopupModal] = useState(false)
-
-  function onDisMissClaimPopupModal() {
-    setShowClaimPopupModal(false)
-  }
+  const { showModal } = useModal()
 
   return (
     <>
@@ -96,7 +92,7 @@ export default function ClaimListItem({ from, to, currency, address, amount, sta
         </Box>
         <Box>
           {status === Status.READY ? (
-            <OutlineButton width={'62px'} height={'36px'} onClick={() => setShowClaimPopupModal(true)} primary>
+            <OutlineButton width={'62px'} height={'36px'} onClick={() => showModal(<ClaimPopupModal />)} primary>
               Claim
             </OutlineButton>
           ) : status === Status.SUCCESS ? (
@@ -106,9 +102,6 @@ export default function ClaimListItem({ from, to, currency, address, amount, sta
           )}
         </Box>
       </Box>
-      {showClaimPopupModal ? (
-        <ClaimPopupModal isOpen={showClaimPopupModal} onDismiss={onDisMissClaimPopupModal} />
-      ) : null}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useCallback, useContext, useEffect } from 'react'
+import React, { useState, ChangeEvent, useCallback, useEffect } from 'react'
 import { styled } from '@material-ui/styles'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
@@ -16,7 +16,7 @@ import ConfirmWithdrawModal from './ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
-import { ModalContext } from '../../context/ModalContext'
+import useModal from '../../hooks/useModal'
 import { useUserLogined } from '../../state/user/hooks'
 import Loader from '../../assets/images/loader.svg'
 import Image from '../../components/Image/Image'
@@ -54,13 +54,14 @@ export default function Swap() {
   const [to, setTo] = useState(ChainList[1])
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
-  const [quota, setQuota] = useState(800)
+  const [quota] = useState(800)
   const [currency, setCurrency] = useState<Currency | null>(null)
-  const { showModal, hideModal } = useContext(ModalContext)
+  const { showModal, hideModal } = useModal()
   // const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAutorized] = useState(false)
-  const [wallet, setWallet] = useState({ logo: MetaMask, name: 'MetaMask' })
+  const [wallet] = useState({ logo: MetaMask, name: 'MetaMask' })
+  const [showClaimModal, setShowClaimModal] = useState(false)
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapState] = useState<{
@@ -141,7 +142,7 @@ export default function Swap() {
       })
       setWithdrawEnabled(true)
     }, 1500)
-  }, [currency])
+  }, [showModal, hideModal, currency, wallet])
 
   const showConfirmDepositModal = () => {
     if (!currency) return
@@ -182,7 +183,7 @@ export default function Swap() {
       setDepositEnabled(false)
       setWithdrawEnabled(false)
     }, 1500)
-  }, [currency])
+  }, [showModal, hideModal, wallet, currency])
 
   const showConfirmWithdrawModal = () => {
     if (!currency) return
@@ -294,7 +295,7 @@ export default function Swap() {
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />
             <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
-              <TextButton onClick={() => showModal(<ClaimModal />)} primary>
+              <TextButton onClick={() => setShowClaimModal(true)} primary>
                 Claim List
               </TextButton>
             </Box>
@@ -323,6 +324,7 @@ export default function Swap() {
           </Box>
         )}
       </AppBody>
+      {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
     </>
   )
 }

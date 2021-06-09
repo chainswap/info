@@ -1,6 +1,6 @@
 import DummyLogo from '../assets/images/bsc.svg'
-import MetaMaskIcon from '../assets/images/meta_mask.svg'
-import WalletConnect from '../assets/images/wallet_connect.svg'
+import Transaction from '../models/transaction'
+import Notification from '../models/notification'
 
 export const ETH = {
   logo: DummyLogo,
@@ -89,5 +89,38 @@ export const ChainList = [
   {
     logo: DummyLogo,
     symbol: 'Polygon',
+  },
+]
+
+export const ConfirmedTransactionList: Transaction[] = [
+  {
+    summary: 'Swap 1.0ETH for 0.000000001 BSC',
+    status: 'success',
+  },
+  {
+    summary: 'Swap 1.0ETH for 0.000000001 BSC',
+    status: 'success',
+  },
+]
+
+export const PendingTransactionList: Transaction[] = [
+  {
+    summary: 'Swap 1.0ETH for 0.000000001 BSC',
+    status: 'pending',
+  },
+  {
+    summary: 'Swap 1.0ETH for 0.000000001 BSC',
+    status: 'pending',
+  },
+]
+
+export const NotificationList: Notification[] = [
+  {
+    summary: 'Deposit 1.0ETH for 0.000000001 BSC',
+    status: 'success',
+  },
+  {
+    summary: 'Withdraw 1.0ETH for 0.000000001 BSC',
+    status: 'success',
   },
 ]

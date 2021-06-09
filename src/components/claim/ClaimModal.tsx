@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Box, MenuItem, Dialog } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
@@ -13,7 +13,11 @@ import Pager from '../Pager/Pager'
 import Divider from '../Divider/Divider'
 import Chain from '../../models/chain'
 import Currency from '../../models/currency'
-import { ModalContext } from '../../context/ModalContext'
+
+interface Props {
+  isOpen: boolean
+  onDismiss: () => void
+}
 
 const useStyles = makeStyles({
   paper: {
@@ -48,7 +52,7 @@ const CloseBox = styled('div')({
   },
 })
 
-const ClaimHeader = ({ hideModal }: { hideModal: () => void }) => {
+const ClaimHeader = ({ onDismiss }: { onDismiss: () => void }) => {
   return (
     <Box display={'flex'} justifyContent={'space-between'} height={'62px'} alignItems={'center'}>
       <Text fontFamily={'Futura PT'} fontSize={20} fontWeight={500} marginLeft={'32px'}>
@@ -56,7 +60,7 @@ const ClaimHeader = ({ hideModal }: { hideModal: () => void }) => {
       </Text>
       <Box marginRight={'70px'}>
         <OutlineSelect
-          defaultValue={'Token: All'}
+          defaultValue={''}
           onChange={() => {
             alert('setToken')
           }}
@@ -69,7 +73,7 @@ const ClaimHeader = ({ hideModal }: { hideModal: () => void }) => {
           </MenuItem>
         </OutlineSelect>
       </Box>
-      <CloseBox onClick={hideModal}>
+      <CloseBox onClick={onDismiss}>
         <Image src={CloseIcon} alt={'close icon'} />
       </CloseBox>
     </Box>
@@ -81,17 +85,17 @@ const ClaimFooter = () => {
   return (
     <Box className={classes.footer} display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
       <Text fontSize={'14px'} fontWeight={400} color={'#FFFFFF'}>
-        Don't see your claim request?{' '}
-        <a href="#" style={{ color: '#FFFFFF' }}>
+        Don't see your claim request?
+        <TextButton fontSize={14} underline>
           Import now
-        </a>
+        </TextButton>
       </Text>
       <Pager />
     </Box>
   )
 }
 
-interface DataItem {
+type DataItem = {
   from: Chain
   to: Chain
   currency: Currency
@@ -100,23 +104,22 @@ interface DataItem {
   status: string
 }
 
-export default function ClaimModal() {
+export default function ClaimModal(props: Props) {
   const classes = useStyles()
   const data: DataItem[] = claimModalData
   const dataReady = data.filter((item) => item.status === 'ready')
   const dataCompleted = data.filter((item) => item.status !== 'ready')
-
-  const { isOpen, hideModal } = useContext(ModalContext)
+  const { isOpen, onDismiss } = props
 
   return (
     <>
       <Dialog
         open={isOpen}
-        onClose={hideModal}
+        onClose={onDismiss}
         PaperProps={{ className: classes.paper }}
         BackdropProps={{ className: classes.backdrop }}
       >
-        <ClaimHeader hideModal={hideModal} />
+        <ClaimHeader onDismiss={onDismiss} />
 
         {dataReady.length > 0 && (
           <Box padding={'0 32px'}>

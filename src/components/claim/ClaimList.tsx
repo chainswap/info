@@ -8,8 +8,8 @@ interface ClaimListProps {
 export default function ClaimList(props: ClaimListProps) {
   return (
     <>
-      {props.dataItems.map((item) => (
-        <ClaimListItem {...item} />
+      {props.dataItems.map((item, i) => (
+        <ClaimListItem key={i} {...item} />
       ))}
     </>
   )

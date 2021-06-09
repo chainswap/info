@@ -9,9 +9,6 @@ interface Props {
 }
 
 const Connector = withStyles({
-  alternativeLabel: {
-    top: 22,
-  },
   active: {
     '& $line': {
       backgroundImage: 'linear-gradient(90deg, #24FF00 0%, #FFFFFF 100%)',

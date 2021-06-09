@@ -1,55 +1,23 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import MuiStepper from '@material-ui/core/Stepper'
 import MuiStep from '@material-ui/core/Step'
-import MuiStepConnector from '@material-ui/core/StepConnector'
-import { makeStyles, withStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import { StepIconProps } from '@material-ui/core/StepIcon'
 import clsx from 'clsx'
-import CheckIcon from '../../assets/images/check_icon.svg'
-import Image from '../Image/Image'
 
 interface Props {
   activeStep: number
+  steps: number[]
+  completedIcon: React.ReactNode
+  connector: ReactElement
 }
 
-const Stepper = withStyles({
+const useStyles = makeStyles({
   root: {
     background: 'transparent',
-  },
-  horizontal: {
     padding: 0,
   },
-})(MuiStepper)
-
-const Step = withStyles({
-  root: {},
-  horizontal: {
-    padding: 0,
-  },
-})(MuiStep)
-
-const Connector = withStyles({
-  alternativeLabel: {
-    top: 22,
-  },
-  active: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(90deg, #24FF00 0%, #FFFFFF 100%)',
-    },
-  },
-  completed: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(90deg, #24FF00 0%, #FFFFFF 100%)',
-    },
-  },
-  line: {
-    background: 'linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0.4) 100%)',
-    height: 1,
-    width: 184,
-    border: 0,
-    borderRadius: 1,
-  },
-})(MuiStepConnector)
+})
 
 const useStepIconStyles = makeStyles({
   root: {
@@ -83,9 +51,9 @@ const useStepIconStyles = makeStyles({
   },
 })
 
-function StepIcon(props: StepIconProps) {
+function StepIcon(props: StepIconProps & { completedIcon: React.ReactNode }) {
   const classes = useStepIconStyles()
-  const { completed, active, icon } = props
+  const { completed, active, icon, completedIcon } = props
 
   return (
     <div
@@ -93,28 +61,24 @@ function StepIcon(props: StepIconProps) {
         [classes.active]: active,
       })}
     >
-      {completed ? <Image src={CheckIcon} alt={'check icon'} /> : <div className={classes.circle}>{icon}</div>}
+      {completed ? completedIcon : <div className={classes.circle}>{icon}</div>}
     </div>
   )
 }
 
-function getSteps() {
-  return [1, 2]
-}
-
-export default function _Stepper(props: Props) {
-  const { activeStep } = props
-  const steps = getSteps()
+export default function Stepper(props: Props) {
+  const { activeStep, steps, completedIcon, connector } = props
+  const classes = useStyles(props)
 
   return (
-    <Stepper activeStep={activeStep} connector={<Connector />}>
+    <MuiStepper className={classes.root} activeStep={activeStep} connector={connector}>
       {steps.map((step) => {
         return (
-          <Step key={step}>
-            <StepIcon icon={step} />
-          </Step>
+          <MuiStep key={step}>
+            <StepIcon icon={step} completedIcon={completedIcon} />
+          </MuiStep>
         )
       })}
-    </Stepper>
+    </MuiStepper>
   )
 }

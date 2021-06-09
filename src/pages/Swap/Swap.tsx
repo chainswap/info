@@ -9,7 +9,7 @@ import Input from '../../components/Input/Input'
 // import QuotaInfo from './QuotaInfo'
 // import QuotaBar from './QuotaBar'
 import ConfirmDepositModal from './ConfirmDepositModal'
-import Stepper from '../../components/Stepper/Stepper'
+import SwapStepper from './SwapStepper'
 import TxnSubmittedMessageBox from './TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from './ConfirmWithdrawModal'
@@ -290,7 +290,7 @@ export default function Swap() {
                 </Button>
               </Box>
               <Box display="flex" justifyContent="center">
-                <Stepper activeStep={step} />
+                <SwapStepper activeStep={step} />
               </Box>
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />

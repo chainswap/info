@@ -1,19 +1,35 @@
-import { createMuiTheme, Theme, styled, useTheme } from '@material-ui/core'
+import { createMuiTheme, Theme, useTheme } from '@material-ui/core'
 import { Text, TextProps } from 'rebass'
 
 interface TextColor {
-  '1': string
-  '2': string
-  '3': string
-  '4': string
-  '5': string
+  text1: string
+  text2: string
+  text3: string
+  text4: string
+  text5: string
+}
+
+interface BgColor {
+  bg1: string
+  bg2: string
+  bg3: string
+  bg4: string
+  bg5: string
+}
+
+interface Gradient {
+  gradient1: string
 }
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface ThemeOptions {
-    textColor?: TextColor
+    textColor: TextColor
+    bgColor: BgColor
+    gradient: Gradient
   }
   interface Theme {
-    textColor?: TextColor
+    textColor: TextColor
+    bgColor: BgColor
+    gradient: Gradient
   }
 }
 
@@ -35,11 +51,21 @@ const theme: Theme = createMuiTheme({
     },
   },
   textColor: {
-    '1': '#FFFFFF',
-    '2': '#CCCCCC',
-    '3': '#999999',
-    '4': '#727272',
-    '5': '#333333',
+    text1: '#FFFFFF',
+    text2: '#CCCCCC',
+    text3: '#999999',
+    text4: '#727272',
+    text5: '#333333',
+  },
+  bgColor: {
+    bg1: '#000000',
+    bg2: '#191919',
+    bg3: '#252525',
+    bg4: '#303030',
+    bg5: '#A1A1A1',
+  },
+  gradient: {
+    gradient1: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #000000',
   },
 })
 
@@ -47,12 +73,15 @@ export default theme
 
 const TextWrapper = ({ textColor, ...props }: TextProps & { textColor?: keyof TextColor }) => {
   const theme = useTheme()
-  return <Text {...props} color={textColor ? theme?.textColor?.[textColor] : undefined} />
+  return <Text {...props} color={textColor ? theme.textColor[textColor as keyof TextColor] : undefined} />
 }
 
 export const TYPE = {
   body(props: TextProps) {
-    return <TextWrapper fontWeight={400} fontSize={16} textColor={'1'} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={16} textColor="text1" {...props} />
+  },
+  bold(props: TextProps) {
+    return <TextWrapper fontWeight={500} fontSize={16} textColor="text1" {...props} />
   },
   largeHeader(props: TextProps) {
     return <TextWrapper fontWeight={600} fontSize={24} {...props} fontFamily="Futura PT" />
@@ -70,6 +99,9 @@ export const TYPE = {
     return <TextWrapper fontWeight={400} fontSize={14} {...props} />
   },
   smallGray(props: TextProps) {
-    return <TextWrapper fontWeight={400} fontSize={12} textColor={'3'} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={12} textColor="text3" {...props} />
+  },
+  gray(props: TextProps) {
+    return <TextWrapper fontWeight={400} fontSize={16} textColor="text3" {...props} />
   },
 }

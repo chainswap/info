@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, makeStyles } from '@material-ui/core'
+import { Divider as MuiDivider, makeStyles } from '@material-ui/core'
 
 interface Props {
   margin: string
@@ -16,9 +16,23 @@ const useStyles = makeStyles({
     margin: (props: Props) => props.margin,
   },
 })
+const useDefaultStyles = makeStyles((theme) => ({
+  root: {
+    border: 'none',
+    height: '1px',
+    backgroundColor: theme.bgColor.bg4,
+    margin: (props: { margin?: string }) => props.margin,
+  },
+}))
 
 export default function _Divider(props: Props) {
   const classes = useStyles(props)
 
-  return <Divider className={classes.root} orientation={props.orientation} />
+  return <MuiDivider className={classes.root} orientation={props.orientation} />
+}
+
+export function Divider(props: { margin?: string }) {
+  const classes = useDefaultStyles(props)
+
+  return <MuiDivider className={classes.root} />
 }

@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import AppBody from '../AppBody'
-import Landing from './Landing'
+import SelectOptions from './SelectOptions'
 import ExistingToken from './ExistingToken'
 
 enum Mode {
-  LANDING,
+  SELECT_OPTIONS,
   EXISTING_TOKEN,
 }
 
 export default function Deploy() {
-  const [mode, setMode] = useState(Mode.LANDING)
+  const [mode, setMode] = useState(Mode.SELECT_OPTIONS)
 
   return (
     <AppBody width={552}>
-      {mode === Mode.LANDING ? (
-        <Landing onClickExistingToken={() => setMode(Mode.EXISTING_TOKEN)} onClickNewToken={() => {}} />
+      {mode === Mode.SELECT_OPTIONS ? (
+        <SelectOptions onClickExistingToken={() => setMode(Mode.EXISTING_TOKEN)} onClickNewToken={() => {}} />
       ) : mode === Mode.EXISTING_TOKEN ? (
         <ExistingToken />
       ) : null}

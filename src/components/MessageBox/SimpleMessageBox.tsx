@@ -1,4 +1,4 @@
-import Reeact from 'react'
+import React from 'react'
 import MessageBox from './MessageBox'
 import { Box } from '@material-ui/core'
 import { TYPE } from '../../theme/index'

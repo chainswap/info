@@ -28,7 +28,7 @@ export default function Deploy() {
   const [state, setState] = useState(DEPLOY_STATE.SELECT_OPTIONS)
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
-  const [{ confirmed, deploying, deployed }, setDeployState] = useState<{
+  const [{ confirmed, deploying }, setDeployState] = useState<{
     confirmed: boolean
     deploying: boolean
     deployed: boolean

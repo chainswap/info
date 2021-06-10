@@ -3,7 +3,6 @@ import DetailedMessagebox from '../MessageBox/DetailedMessageBox'
 import { Box } from '@material-ui/core'
 import theme, { TYPE } from '../../theme/index'
 import TextButton from '../Button/TextButton'
-import Button from '../Button/Button'
 import Copy from '../Copy/Copy'
 
 interface Props {

@@ -1,4 +1,4 @@
-import Reeact from 'react'
+import React from 'react'
 import MessageBox from './MessageBox'
 import { Box } from '@material-ui/core'
 import { TYPE } from '../../theme/index'
@@ -18,11 +18,11 @@ export default function DetailedMessagebox(props: Props) {
   return (
     <MessageBox type={type} header={header} width={'552px'}>
       <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
-        <TYPE.large>{header}</TYPE.large>
+        <TYPE.extraLarge marginBottom={'4px'}>{header}</TYPE.extraLarge>
         <TYPE.gray>{message}</TYPE.gray>
       </Box>
       {children}
-      <Box width={'100%'} padding={'0 32px 32px 32px'}>
+      <Box width={'100%'} padding={'0 32px 0 32px'}>
         <Button>{action}</Button>
       </Box>
     </MessageBox>

@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function MessageBox(props: Props) {
-  const { type, children, width, header, action } = props
+  const { type, children, width } = props
 
   const icon =
     type === 'success' ? (

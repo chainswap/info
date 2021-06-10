@@ -3,16 +3,12 @@ import Modal from '../Modal/Modal'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
 import { Box } from '@material-ui/core'
-import MessageBox from '../MessageBox/MessageBox'
-import OutlineButton from '../Button/OutlineButton'
-import useModal from '../../hooks/useModal'
-import { TYPE } from '../../theme/index'
+import SimpleMessageBox from '../MessageBox/SimpleMessageBox'
 
 export default function ClaimPopupModal() {
   const [hash, setHash] = useState('')
   const label = 'Please Enter the transaction hash'
   const placeHolder = 'Enter the transaction hash'
-  const { hideModal } = useModal()
 
   const [{ showMessageBox, messageType, message }, setMessageState] = useState<{
     showMessageBox: boolean
@@ -50,21 +46,7 @@ export default function ClaimPopupModal() {
           </Button>
         </Box>
       </Modal>
-      {showMessageBox && (
-        <MessageBox type={messageType}>
-          <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
-            <TYPE.large>{message}</TYPE.large>
-          </Box>
-          {messageType === 'failure' && (
-            <Box margin="0 auto 28px" display={'flex'} justifyContent={'space-between'} width={376}>
-              <OutlineButton width="180px" primary onClick={hideModal}>
-                Close
-              </OutlineButton>
-              <Button width="180px">Enter Again</Button>
-            </Box>
-          )}
-        </MessageBox>
-      )}
+      {showMessageBox && <SimpleMessageBox type={messageType} header={message} action={'Enter Again'} />}
     </>
   )
 }

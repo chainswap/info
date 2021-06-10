@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent } from 'react'
 import AppBody from '../AppBody'
 import SelectOptions from './SelectOptions'
 import ExistingToken from './ExistingToken'
+import useModal from '../../hooks/useModal'
+import DeployMessageBox from '../../components/deploy/DeployMessageBox'
 
 enum DEPLOY_STATE {
   SELECT_OPTIONS,
@@ -19,6 +21,7 @@ export default function Deploy() {
     deploying: false,
     deployed: false,
   })
+  const { showModal } = useModal()
 
   function onChangeAddress(e: ChangeEvent<HTMLInputElement>) {
     setAddress(e.target.value)
@@ -38,6 +41,7 @@ export default function Deploy() {
         deploying: false,
         deployed: true,
       })
+      showModal(<DeployMessageBox type={'success'} message={'Success!'} />)
     }, 1500)
   }
 

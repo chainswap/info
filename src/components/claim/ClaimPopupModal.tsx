@@ -6,6 +6,7 @@ import { Box } from '@material-ui/core'
 import MessageBox from '../MessageBox/MessageBox'
 import OutlineButton from '../Button/OutlineButton'
 import useModal from '../../hooks/useModal'
+import { TYPE } from '../../theme/index'
 
 export default function ClaimPopupModal() {
   const [hash, setHash] = useState('')
@@ -50,7 +51,10 @@ export default function ClaimPopupModal() {
         </Box>
       </Modal>
       {showMessageBox && (
-        <MessageBox type={messageType} message={message}>
+        <MessageBox type={messageType}>
+          <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
+            <TYPE.large>{message}</TYPE.large>
+          </Box>
           {messageType === 'failure' && (
             <Box margin="0 auto 28px" display={'flex'} justifyContent={'space-between'} width={376}>
               <OutlineButton width="180px" primary onClick={hideModal}>

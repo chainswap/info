@@ -91,7 +91,7 @@ export default function ExistingToken(props: Props) {
       )}
 
       <Box padding={'0 32px 32px 32px'}>
-        <Button disabled={chainId === ''} onClick={onDeploy}>
+        <Button disabled={chainId === '' || deploying} onClick={onDeploy}>
           {deploying ? (
             <>
               <Loader />

@@ -6,6 +6,7 @@ import Currency from '../../models/currency'
 import MessageBox from '../MessageBox/MessageBox'
 import useModal from '../../hooks/useModal'
 import OutlineButton from '../Button/OutlineButton'
+import { TYPE } from '../../theme/index'
 
 interface Props {
   currency: Currency
@@ -21,7 +22,10 @@ export default function TxnSubmittedMessageBox(props: Props) {
   const { hideModal } = useModal()
 
   return (
-    <MessageBox type={'success'} message={message}>
+    <MessageBox type={'success'}>
+      <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
+        <TYPE.large>{message}</TYPE.large>
+      </Box>
       <Box marginBottom="12px">
         <TextButton fontSize={13} fontWeight={400} primary>
           View on Etherscan

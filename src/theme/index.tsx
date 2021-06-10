@@ -98,6 +98,9 @@ export const TYPE = {
   medium(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={14} {...props} />
   },
+  large(props: TextProps) {
+    return <TextWrapper fontWeight={400} fontSize={18} {...props} />
+  },
   smallGray(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={12} textColor="text3" {...props} />
   },

@@ -12,6 +12,11 @@ const dummyData = {
     'Token decimals': 'XXXXX',
     'Total supply': 'XXXXX',
   },
+  mainchainInfo: {
+    'Token contract address': 'XXXXXXXXXXXXXXX',
+    'Mappable contract address': 'XXXXXXXXXXXXXXX',
+    'Mainchain ID': 'XXX',
+  },
 }
 
 enum DEPLOY_STATE {
@@ -62,7 +67,7 @@ export default function Deploy() {
         confirmed: true,
         deployed: true,
       })
-      showModal(<DeployMessageBox />)
+      showModal(<DeployMessageBox data={dummyData.mainchainInfo} />)
     }, 1500)
   }
 

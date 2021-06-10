@@ -8,10 +8,11 @@ import { ReactComponent as NetworkErrorIcon } from '../../assets/images/network_
 interface Props {
   type: 'success' | 'failure' | 'support' | 'network'
   children?: React.ReactNode
+  width?: string
 }
 
 export default function MessageBox(props: Props) {
-  const { type, children } = props
+  const { type, children, width } = props
 
   const icon =
     type === 'success' ? (
@@ -25,7 +26,7 @@ export default function MessageBox(props: Props) {
     )
 
   return (
-    <Modal>
+    <Modal width={width}>
       <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
         <Box padding="32px 0 16px">{icon}</Box>
         {children}

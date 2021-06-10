@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: 'none',
       padding: '14px',
     },
+    '& table': {
+      width: '100%',
+    },
   },
   tableHeader: {
     '& .MuiTableCell-root': {

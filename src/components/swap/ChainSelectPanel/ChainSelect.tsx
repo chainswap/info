@@ -11,7 +11,7 @@ interface Props {
   disabled?: boolean
   chainList: Chain[]
   selectedChain: Chain
-  onChange: (e: any) => void
+  onChange?: (e: any) => void
 }
 
 const useStyles = makeStyles({

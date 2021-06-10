@@ -14,9 +14,10 @@ interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   selectedCurrency: Currency | null
   options: Currency[]
-  onMax: () => void
+  onMax?: () => void
   disabled: boolean
   onCurrencySelect: (currency: Currency) => void
+  placeholder?: string
 }
 
 const LabelRow = styled('div')({
@@ -53,7 +54,7 @@ const ButtonWrapper = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency, options, onMax, value, disabled, onCurrencySelect } = props
+  const { selectedCurrency, options, onMax, value, disabled, onCurrencySelect, placeholder } = props
   const { showModal } = useModal()
 
   const showCurrencySearch = () => {
@@ -72,13 +73,13 @@ export default function CurrencyInputPanel(props: Props) {
       </LabelRow>
       <InputRow>
         <StyledInput
-          placeholder={'Enter amount to swap'}
+          placeholder={placeholder ?? 'Enter amount to swap'}
           value={value.toString()}
           onChange={props.onChange}
           type={'number'}
           disabled={disabled}
         />
-        {selectedCurrency && (
+        {selectedCurrency && onMax && (
           <ButtonWrapper>
             <OutlineButton width="64px" height="28px" onClick={onMax}>
               Max

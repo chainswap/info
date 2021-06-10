@@ -3,19 +3,19 @@ import AppBody from '../AppBody'
 import SelectOptions from './SelectOptions'
 import ExistingToken from './ExistingToken'
 
-enum Mode {
+enum DEPLOY_STATE {
   SELECT_OPTIONS,
   EXISTING_TOKEN,
 }
 
 export default function Deploy() {
-  const [mode, setMode] = useState(Mode.SELECT_OPTIONS)
+  const [state, setState] = useState(DEPLOY_STATE.SELECT_OPTIONS)
 
   return (
     <AppBody width={552}>
-      {mode === Mode.SELECT_OPTIONS ? (
-        <SelectOptions onClickExistingToken={() => setMode(Mode.EXISTING_TOKEN)} onClickNewToken={() => {}} />
-      ) : mode === Mode.EXISTING_TOKEN ? (
+      {state === DEPLOY_STATE.SELECT_OPTIONS ? (
+        <SelectOptions onClickExistingToken={() => setState(DEPLOY_STATE.EXISTING_TOKEN)} onClickNewToken={() => {}} />
+      ) : state === DEPLOY_STATE.EXISTING_TOKEN ? (
         <ExistingToken />
       ) : null}
     </AppBody>

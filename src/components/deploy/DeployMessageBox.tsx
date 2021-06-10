@@ -23,7 +23,9 @@ export default function DeploySuccessModal(props: Props) {
           View on Etherscan
         </TextButton>
       </Box>
-      <Button>Go to Next Step</Button>
+      <Box width={'100%'} padding={'0 32px 32px 32px'}>
+        <Button>Go to Next Step</Button>
+      </Box>
     </Messagebox>
   )
 }

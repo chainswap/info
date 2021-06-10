@@ -42,17 +42,6 @@ export default function MessageBox(props: Props) {
           </Text>
         </Box>
         {children}
-        <Box margin="0 auto 28px" display={'flex'} justifyContent={'center'}>
-          <OutlineButton width="180px" primary onClick={hideModal}>
-            Close
-          </OutlineButton>
-          {type === 'failure' && (
-            <>
-              <Box width={'16px'} />
-              <Button width="180px">Enter Again</Button>
-            </>
-          )}
-        </Box>
       </Box>
     </Modal>
   )

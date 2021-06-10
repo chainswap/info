@@ -4,6 +4,8 @@ import Image from '../Image/Image'
 import TextButton from '../Button/TextButton'
 import Currency from '../../models/currency'
 import MessageBox from '../MessageBox/MessageBox'
+import useModal from '../../hooks/useModal'
+import OutlineButton from '../Button/OutlineButton'
 
 interface Props {
   currency: Currency
@@ -16,6 +18,7 @@ interface Props {
 export default function TxnSubmittedMessageBox(props: Props) {
   const { currency, wallet } = props
   const message = 'Transaction Submitted'
+  const { hideModal } = useModal()
 
   return (
     <MessageBox type={'success'} message={message}>
@@ -40,6 +43,11 @@ export default function TxnSubmittedMessageBox(props: Props) {
           </Box>
           <Image src={wallet.logo} alt={`wallet logo-${wallet.name}`} style={{ width: '16px', height: '14.3px' }} />
         </Box>
+      </Box>
+      <Box margin="0 auto 28px" display={'flex'} justifyContent={'center'}>
+        <OutlineButton width="180px" primary onClick={hideModal}>
+          Close
+        </OutlineButton>
       </Box>
     </MessageBox>
   )

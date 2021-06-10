@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import theme, { TYPE } from '../../theme/index'
 import DeployStepper from '../../components/deploy/DeployStepper'
 import { Box } from '@material-ui/core'
@@ -7,6 +7,17 @@ import Button from '../../components/Button/Button'
 import { ReactComponent as InfoIcon } from '../../assets/images/info_icon.svg'
 import { Divider } from '../../components/Divider/Divider'
 import Checkbox from '../../components/Checkbox/Checkbox'
+import { ReactComponent as Loader } from '../../assets/images/loader.svg'
+import { Text } from 'rebass'
+
+interface Props {
+  address: string
+  chainId: string
+  onChangeAddress: (e: ChangeEvent<HTMLInputElement>) => void
+  onChangeChainId: (e: ChangeEvent<HTMLInputElement>) => void
+  onDeploy: () => void
+  deploying: boolean
+}
 
 const dummyData = {
   tokenInfo: {
@@ -48,7 +59,9 @@ const TokenInfo = ({
   )
 }
 
-export default function ExistingToken() {
+export default function ExistingToken(props: Props) {
+  const { address, chainId, onChangeAddress, onChangeChainId, onDeploy, deploying } = props
+
   return (
     <>
       <Box display={'flex'} justifyContent={'space-between'} padding={'24px 32px'}>
@@ -57,7 +70,7 @@ export default function ExistingToken() {
       </Box>
       <Box padding={'0 32px 20px 32px'}>
         <TYPE.smallGray>Token Contract Address</TYPE.smallGray>
-        <Input value={''} onChange={() => {}} placeholder={'Enter the token contract address'} />
+        <Input value={address} onChange={onChangeAddress} placeholder={'Enter the token contract address'} />
       </Box>
       <Box padding={'0 32px 32px 32px'}>
         <Box display={'flex'}>
@@ -66,14 +79,28 @@ export default function ExistingToken() {
           </Box>
           <InfoIcon />
         </Box>
-        <Input value={''} onChange={() => {}} placeholder={'Enter the chain ID of your existing token'} />
+        <Input value={chainId} onChange={onChangeChainId} placeholder={'Enter the chain ID of your existing token'} />
       </Box>
-      <TokenInfo data={dummyData.tokenInfo} />
-      <Box margin={'20px 32px 20px 32px'}>
-        <TYPE.mediumGray>Please confirm the token information before deploying</TYPE.mediumGray>
-      </Box>
+      {chainId && (
+        <>
+          <TokenInfo data={dummyData.tokenInfo} />
+          <Box margin={'20px 32px 20px 32px'}>
+            <TYPE.mediumGray>Please confirm the token information before deploying</TYPE.mediumGray>
+          </Box>
+        </>
+      )}
+
       <Box padding={'0 32px 32px 32px'}>
-        <Button disabled>Deploy</Button>
+        <Button disabled={chainId === ''} onClick={onDeploy}>
+          {deploying ? (
+            <>
+              <Loader />
+              <Text marginLeft={32}>Deploying</Text>
+            </>
+          ) : (
+            'Deploy'
+          )}
+        </Button>
       </Box>
     </>
   )

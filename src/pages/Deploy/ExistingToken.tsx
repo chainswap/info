@@ -16,28 +16,20 @@ interface Props {
   onChangeAddress: (e: ChangeEvent<HTMLInputElement>) => void
   onChangeChainId: (e: ChangeEvent<HTMLInputElement>) => void
   onDeploy: () => void
+  toggleConfirm: () => void
   deploying: boolean
-}
-
-const dummyData = {
-  tokenInfo: {
-    'Token name': 'ETH',
-    'Token symby': 'XXXXX',
-    'Token decimals': 'XXXXX',
-    'Total supply': 'XXXXX',
-  },
-}
-
-const TokenInfo = ({
-  data,
-}: {
+  confirmed: boolean
   data: {
     'Token name': string
     'Token symby': string
     'Token decimals': string
     'Total supply': string
   }
-}) => {
+}
+
+const TokenInfo = (props: Props) => {
+  const { data, confirmed, toggleConfirm } = props
+
   return (
     <Box border={'1px solid' + theme.bgColor.bg4} borderRadius={22} margin={'0 32px'}>
       <Box display={'grid'} gridGap={'16px'} width={'100%'} padding={'16px 24px'}>
@@ -52,7 +44,7 @@ const TokenInfo = ({
       </Box>
       <Divider />
       <Box display="flex" padding={'13px 24px 16px 24px'}>
-        <Checkbox checked={false} onChange={() => {}} />
+        <Checkbox checked={confirmed} onChange={toggleConfirm} />
         <TYPE.mediumGray>I confirm the token information before deploying</TYPE.mediumGray>
       </Box>
     </Box>
@@ -60,7 +52,7 @@ const TokenInfo = ({
 }
 
 export default function ExistingToken(props: Props) {
-  const { address, chainId, onChangeAddress, onChangeChainId, onDeploy, deploying } = props
+  const { address, chainId, onChangeAddress, onChangeChainId, onDeploy, deploying, confirmed } = props
 
   return (
     <>
@@ -83,7 +75,7 @@ export default function ExistingToken(props: Props) {
       </Box>
       {chainId && (
         <>
-          <TokenInfo data={dummyData.tokenInfo} />
+          <TokenInfo {...props} />
           <Box margin={'20px 32px 20px 32px'}>
             <TYPE.mediumGray>Please confirm the token information before deploying</TYPE.mediumGray>
           </Box>
@@ -91,7 +83,7 @@ export default function ExistingToken(props: Props) {
       )}
 
       <Box padding={'0 32px 32px 32px'}>
-        <Button disabled={chainId === '' || deploying} onClick={onDeploy}>
+        <Button disabled={!confirmed} onClick={onDeploy}>
           {deploying ? (
             <>
               <Loader />

@@ -5,11 +5,6 @@ import { ReactComponent as SuccessIcon } from '../../assets/images/success_icon.
 import { ReactComponent as FailureIcon } from '../../assets/images/failure_icon.svg'
 import { ReactComponent as SupportIcon } from '../../assets/images/support_icon.svg'
 import { ReactComponent as NetworkErrorIcon } from '../../assets/images/network_error_icon.svg'
-import OutlineButton from '../../components/Button/OutlineButton'
-import Button from '../../components/Button/Button'
-import { Text } from 'rebass'
-import useModal from '../../hooks/useModal'
-
 interface Props {
   type: 'success' | 'failure' | 'support' | 'network'
   children?: React.ReactNode

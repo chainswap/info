@@ -5,6 +5,15 @@ import ExistingToken from './ExistingToken'
 import useModal from '../../hooks/useModal'
 import DeployMessageBox from '../../components/deploy/DeployMessageBox'
 
+const dummyData = {
+  tokenInfo: {
+    'Token name': 'ETH',
+    'Token symby': 'XXXXX',
+    'Token decimals': 'XXXXX',
+    'Total supply': 'XXXXX',
+  },
+}
+
 enum DEPLOY_STATE {
   SELECT_OPTIONS,
   EXISTING_TOKEN,
@@ -14,10 +23,12 @@ export default function Deploy() {
   const [state, setState] = useState(DEPLOY_STATE.SELECT_OPTIONS)
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
-  const [{ deploying, deployed }, setDeployState] = useState<{
+  const [{ confirmed, deploying, deployed }, setDeployState] = useState<{
+    confirmed: boolean
     deploying: boolean
     deployed: boolean
   }>({
+    confirmed: false,
     deploying: false,
     deployed: false,
   })
@@ -31,17 +42,27 @@ export default function Deploy() {
     setChainId(e.target.value)
   }
 
+  function toggleConfirm() {
+    setDeployState({
+      confirmed: !confirmed,
+      deploying: false,
+      deployed: false,
+    })
+  }
+
   function onDeploy() {
     setDeployState({
+      confirmed: true,
       deploying: true,
       deployed: false,
     })
     setTimeout(() => {
       setDeployState({
         deploying: false,
+        confirmed: true,
         deployed: true,
       })
-      showModal(<DeployMessageBox type={'success'} message={'Success!'} />)
+      showModal(<DeployMessageBox />)
     }, 1500)
   }
 
@@ -55,8 +76,11 @@ export default function Deploy() {
           onChangeAddress={onChangeAddress}
           chainId={chainId}
           onChangeChainId={onChangeChainId}
+          confirmed={confirmed}
+          toggleConfirm={toggleConfirm}
           onDeploy={onDeploy}
           deploying={deploying}
+          data={dummyData.tokenInfo}
         />
       ) : null}
     </AppBody>

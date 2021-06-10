@@ -1,10 +1,10 @@
 import React from 'react'
 import { MenuItem, makeStyles } from '@material-ui/core'
-import Select from '../Select/Select'
-import LogoText from '../LogoText/LogoText'
-import Chain from '../../models/chain'
-import InputLabel from '../InputLabel/InputLabel'
-import SelectedIcon from '../../assets/images/selected_icon.svg'
+import Select from '../../Select/Select'
+import LogoText from '../../LogoText/LogoText'
+import Chain from '../../../models/chain'
+import InputLabel from '../../InputLabel/InputLabel'
+import SelectedIcon from '../../../assets/images/selected_icon.svg'
 
 interface Props {
   label: string

@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Chain from '../../models/chain'
 import { Text } from 'rebass'
-import LogoText from '../../components/LogoText/LogoText'
+import LogoText from '../LogoText/LogoText'
 
 interface Props {
   from: Chain

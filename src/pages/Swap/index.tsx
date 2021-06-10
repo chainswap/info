@@ -2,17 +2,17 @@ import React, { useState, ChangeEvent, useCallback, useEffect } from 'react'
 import { styled } from '@material-ui/styles'
 import Button from '../../components/Button/Button'
 import AppBody from '../AppBody'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
-import ChainSelectPanel from '../../components/ChainSelectPanel/ChainSelectPanel'
+import CurrencyInputPanel from '../../components/swap/CurrencyInputPanel/CurrencyInputPanel'
+import ChainSelectPanel from '../../components/swap/ChainSelectPanel/ChainSelectPanel'
 import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
 // import QuotaInfo from './QuotaInfo'
 // import QuotaBar from './QuotaBar'
-import ConfirmDepositModal from './ConfirmDepositModal'
-import Stepper from '../../components/Stepper/Stepper'
-import TxnSubmittedMessageBox from './TxnSubmittedMessageBox'
+import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
+import SwapStepper from '../../components/swap/SwapStepper'
+import TxnSubmittedMessageBox from '../../components/swap/TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
-import ConfirmWithdrawModal from './ConfirmWithdrawModal'
+import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
@@ -290,7 +290,7 @@ export default function Swap() {
                 </Button>
               </Box>
               <Box display="flex" justifyContent="center">
-                <Stepper activeStep={step} />
+                <SwapStepper activeStep={step} />
               </Box>
             </Box>
             <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />

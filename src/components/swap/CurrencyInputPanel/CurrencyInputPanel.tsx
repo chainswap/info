@@ -1,13 +1,13 @@
 import React, { ChangeEvent } from 'react'
 import { styled } from '@material-ui/styles'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
-import Input from '../Input/Input'
-import OutlineButton from '../Button/OutlineButton'
-import Currency from '../../models/currency'
-import InputLabel from '../InputLabel/InputLabel'
-import SelectButton from '../Button/SelectButton'
-import useModal from '../../hooks/useModal'
-import LogoText from '../LogoText/LogoText'
+import Input from '../../Input/Input'
+import OutlineButton from '../../Button/OutlineButton'
+import Currency from '../../../models/currency'
+import InputLabel from '../../InputLabel/InputLabel'
+import SelectButton from '../../Button/SelectButton'
+import useModal from '../../../hooks/useModal'
+import LogoText from '../../LogoText/LogoText'
 
 interface Props {
   value: string

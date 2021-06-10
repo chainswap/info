@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { FixedSizeList } from 'react-window'
-import CurrencyLogo from '../../assets/images/dummy_logo.png'
+import CurrencyLogo from '../../../assets/images/dummy_logo.png'
 import { makeStyles } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
-import Currency from '../../models/currency'
+import Currency from '../../../models/currency'
 import { Text } from 'rebass'
-import OutlineButton from '../Button/OutlineButton'
+import OutlineButton from '../../Button/OutlineButton'
 
 function currencyKey(currency: Currency): string {
   return currency ? currency.symbol : ''
@@ -40,8 +40,8 @@ export default function CurrencyList(props: Props) {
     const onClickCurrency = () => onCurrencySelect(currency)
 
     return (
-      <div className={classes.currencyRow} onClick={onClickCurrency}>
-        <Box display="flex">
+      <div className={classes.currencyRow}>
+        <Box display="flex" onClick={onClickCurrency}>
           <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
           <Box display="flex" flexDirection="column" marginLeft="16px">
             <Text fontSize={16}>{currency.symbol}</Text>

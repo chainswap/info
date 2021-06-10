@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
-import Modal from '../../components/Modal/Modal'
-import Button from '../../components/Button/Button'
+import Modal from '../Modal/Modal'
+import Button from '../Button/Button'
 import Currency from '../../models/currency'
 import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import ChainAddress from './ChainAddress'
-import Divider from '../../components/Divider/Divider'
+import Divider from '../Divider/Divider'
 
 export enum Mode {
   INSTRUCTION,

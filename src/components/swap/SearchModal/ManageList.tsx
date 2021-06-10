@@ -2,9 +2,9 @@ import React, { ChangeEvent } from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
-import Image from '../Image/Image'
-import SwitchToggle from '../SwitchToggle/SwitchToggle'
-import GearIcon from '../../assets/images/gear_icon.svg'
+import Image from '../../Image/Image'
+import SwitchToggle from '../../SwitchToggle/SwitchToggle'
+import GearIcon from '../../../assets/images/gear_icon.svg'
 
 export interface Props {
   logo: string

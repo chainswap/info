@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: '.3s',
       padding: '0 15.67px 0 20px',
       '&:hover': {
-        background: theme.palette.primary.dark,
+        background: (props: Props) => (props.primary ? theme.palette.primary.dark : theme.palette.primary.main),
       },
       display: 'flex',
       justifyContent: 'space-between',

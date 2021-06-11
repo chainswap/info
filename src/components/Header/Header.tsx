@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AppBar, Box, MenuItem } from '@material-ui/core'
-import { styled, makeStyles } from '@material-ui/styles'
+import { AppBar, Box, MenuItem, makeStyles } from '@material-ui/core'
+import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
 import StatusIcon from '../../assets/images/status_icon.svg'
 import { ChainList } from '../../data/dummyData'
@@ -53,9 +53,10 @@ const NavLinks = [
   },
 ]
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    height: 88,
+    position: 'relative',
+    height: theme.height.header,
     backgroundColor: '#131315',
     flexDirection: 'row',
     alignItems: 'center',
@@ -101,7 +102,7 @@ const useStyles = makeStyles({
       justifyContent: 'center',
     },
   },
-})
+}))
 
 const LinksWrapper = styled('div')({
   marginLeft: 60.2,

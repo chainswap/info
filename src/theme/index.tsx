@@ -20,16 +20,22 @@ interface BgColor {
 interface Gradient {
   gradient1: string
 }
+
+interface Height {
+  header: string
+}
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface ThemeOptions {
     textColor: TextColor
     bgColor: BgColor
     gradient: Gradient
+    height: Height
   }
   interface Theme {
     textColor: TextColor
     bgColor: BgColor
     gradient: Gradient
+    height: Height
   }
 }
 
@@ -66,6 +72,9 @@ const theme: Theme = createMuiTheme({
   },
   gradient: {
     gradient1: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #000000',
+  },
+  height: {
+    header: '88px',
   },
 })
 

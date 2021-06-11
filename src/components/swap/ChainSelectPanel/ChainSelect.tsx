@@ -1,4 +1,3 @@
-import React from 'react'
 import { MenuItem, makeStyles } from '@material-ui/core'
 import Select from '../../Select/Select'
 import LogoText from '../../LogoText/LogoText'
@@ -10,8 +9,10 @@ interface Props {
   label: string
   disabled?: boolean
   chainList: Chain[]
-  selectedChain: Chain
+  selectedChain: Chain | null
   onChange?: (e: any) => void
+  placeholder?: string
+  width?: string
 }
 
 const useStyles = makeStyles({
@@ -33,20 +34,27 @@ const useStyles = makeStyles({
   },
 })
 
-export default function ChainSelectPanel(props: Props) {
+export default function ChainSelect(props: Props) {
   const classes = useStyles(props)
-  const { label, disabled, chainList, onChange, selectedChain } = props
+  const { label, disabled, chainList, onChange, selectedChain, placeholder, width } = props
 
   return (
     <div>
       <InputLabel>{label}</InputLabel>
-      <Select defaultValue={selectedChain.symbol} value={selectedChain.symbol} disabled={disabled} onChange={onChange}>
+      <Select
+        defaultValue={selectedChain?.symbol}
+        value={selectedChain?.symbol ?? ''}
+        disabled={disabled}
+        onChange={onChange}
+        placeholder={placeholder}
+        width={width}
+      >
         {chainList.map((option) => (
           <MenuItem
             className={classes.menuItem}
             value={option.symbol}
             key={option.symbol}
-            selected={selectedChain.symbol === option.symbol}
+            selected={selectedChain?.symbol === option.symbol}
           >
             <LogoText logo={option.logo} text={option.symbol} />
           </MenuItem>

@@ -1,21 +1,23 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
-import { Select } from '@material-ui/core'
+import { Select as MuiSelect, makeStyles } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+// import { TYPE } from 'theme'
 
 interface Props {
   children: React.ReactNode
   onChange?: (e: any) => void
   defaultValue?: any
-  value: string
+  value?: string
   disabled?: boolean
   size?: 'large' | 'small'
   selected?: boolean
+  placeholder?: string
+  width?: string
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: (props: Props) => (props.size === 'small' ? 'fit-content' : 176),
+    width: (props: Props) => props.width ?? (props.size === 'small' ? 'fit-content' : 176),
     height: (props: Props) => (props.size === 'small' ? 32 : 46),
     borderRadius: (props: Props) => (props.size === 'small' ? 4 : 14),
     paddingLeft: (props: Props) => (props.size === 'small' ? 8 : 24),
@@ -28,6 +30,21 @@ const useStyles = makeStyles({
     '&:focus': {
       backgroundColor: '#1f1f1f',
       borderRadius: (props: Props) => (props.size === 'small' ? 4 : 14),
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      '&:before': {
+        color: theme.textColor.text1,
+      },
+    },
+    '&::before': {
+      content: ({ value, defaultValue, placeholder }: Props) =>
+        !value && !defaultValue && placeholder ? '"' + placeholder + '"' : '""',
+      position: 'absolute',
+      left: 24,
+      top: 14,
+      zIndex: 2,
+      color: theme.textColor.text3,
     },
   },
   icon: {
@@ -67,38 +84,40 @@ const useStyles = makeStyles({
       borderBottom: 'none',
     },
   },
-})
+  base: {
+    width: (props: Props) => props.width ?? 'inherit',
+  },
+}))
 
-export default function _Select(props: Props) {
+export default function Select(props: Props) {
   const classes = useStyles(props)
-  const { value, defaultValue, disabled, onChange, children } = props
+  const { value, defaultValue, disabled, onChange, children, placeholder = '' } = props
 
   return (
-    <>
-      <Select
-        displayEmpty
-        disableUnderline
-        classes={{ root: classes.root, icon: classes.icon }}
-        defaultValue={defaultValue ? defaultValue : ''}
-        value={value ? value : ''}
-        disabled={disabled}
-        MenuProps={{
-          classes: { paper: classes.paper },
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          transformOrigin: {
-            vertical: 'top',
-            horizontal: 'left',
-          },
-          getContentAnchorEl: null,
-        }}
-        IconComponent={ExpandMoreIcon}
-        onChange={onChange}
-      >
-        {children}
-      </Select>
-    </>
+    <MuiSelect
+      className={classes.base}
+      displayEmpty
+      disableUnderline
+      classes={{ root: classes.root, icon: classes.icon }}
+      defaultValue={defaultValue ? defaultValue : placeholder}
+      value={value ? value : ''}
+      disabled={disabled}
+      MenuProps={{
+        classes: { paper: classes.paper },
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        transformOrigin: {
+          vertical: 'top',
+          horizontal: 'left',
+        },
+        getContentAnchorEl: null,
+      }}
+      IconComponent={ExpandMoreIcon}
+      onChange={onChange}
+    >
+      {children}
+    </MuiSelect>
   )
 }

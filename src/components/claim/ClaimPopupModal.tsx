@@ -3,7 +3,7 @@ import Modal from '../Modal/Modal'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
 import { Box } from '@material-ui/core'
-import MessageBox from '../MessageBox/MessageBox'
+import SimpleMessageBox from '../MessageBox/SimpleMessageBox'
 
 export default function ClaimPopupModal() {
   const [hash, setHash] = useState('')
@@ -46,7 +46,7 @@ export default function ClaimPopupModal() {
           </Button>
         </Box>
       </Modal>
-      {showMessageBox && <MessageBox type={messageType} message={message} />}
+      {showMessageBox && <SimpleMessageBox type={messageType} header={message} action={'Enter Again'} />}
     </>
   )
 }

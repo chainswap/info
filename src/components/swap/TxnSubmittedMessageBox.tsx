@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 import Image from '../Image/Image'
 import TextButton from '../Button/TextButton'
 import Currency from '../../models/currency'
-import MessageBox from '../MessageBox/MessageBox'
+import SimpleMessageBox from '../MessageBox/SimpleMessageBox'
 
 interface Props {
   currency: Currency
@@ -15,11 +15,10 @@ interface Props {
 
 export default function TxnSubmittedMessageBox(props: Props) {
   const { currency, wallet } = props
-  const message = 'Transaction Submitted'
 
   return (
-    <MessageBox type={'success'} message={message}>
-      <Box marginBottom="12px">
+    <SimpleMessageBox type={'success'} header={'Transaction Submitted'}>
+      <Box marginBottom="16px">
         <TextButton fontSize={13} fontWeight={400} primary>
           View on Etherscan
         </TextButton>
@@ -41,6 +40,6 @@ export default function TxnSubmittedMessageBox(props: Props) {
           <Image src={wallet.logo} alt={`wallet logo-${wallet.name}`} style={{ width: '16px', height: '14.3px' }} />
         </Box>
       </Box>
-    </MessageBox>
+    </SimpleMessageBox>
   )
 }

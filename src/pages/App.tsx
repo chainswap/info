@@ -10,13 +10,24 @@ import theme from '../theme/index'
 import routes from '../constants/routes'
 import { ModalProvider } from '../context/ModalContext'
 
-const BodyWrapper = styled('div')({
+const BodyWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  height: 'calc(100vh - 88px)',
-})
+  height: `calc(100vh - ${theme.height.header} - 50px)`,
+  width: '100%',
+  overflowX: 'hidden',
+  overflowY: 'auto',
+  [theme.breakpoints.down('md')]: {
+    justifyContent: 'flex-start',
+    padding: 50,
+  },
+  '@media (max-height:800px)': {
+    justifyContent: 'flex-start',
+    padding: 50,
+  },
+}))
 
 export default function App() {
   return (
@@ -26,7 +37,7 @@ export default function App() {
         <ModalProvider>
           {/* <ModalRoot /> */}
           <Header />
-          <BodyWrapper>
+          <BodyWrapper id="body">
             <Switch>
               <Route strict path={routes.swap} exact component={Swap} />
               <Route strict path={routes.deploy} exact component={Deploy} />

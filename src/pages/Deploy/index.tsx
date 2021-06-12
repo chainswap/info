@@ -61,7 +61,12 @@ export default function Deploy() {
       deploying: false,
       deployed: false,
     })
-  }, [])
+  }, [deployStatus])
+
+  const toMapping = useCallback(() => {
+    setState(DEPLOY_STATE.MAPPING)
+    hideModal()
+  }, [setState, hideModal])
 
   const onDeploy = useCallback(() => {
     setDeployStatus({
@@ -77,28 +82,20 @@ export default function Deploy() {
       })
       showModal(<DeployMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
     }, 500)
-  }, [])
+  }, [setDeployStatus, showModal, toMapping])
 
-  const toMapping = useCallback(() => {
-    setState(DEPLOY_STATE.MAPPING)
-    hideModal()
-  }, [])
+  const onChainSelect = useCallback((e: ChangeEvent<{ value: string[] }>) => {
+    const symbols: string[] = e.target.value
+    const selectedItems = []
 
-  const onChainSelect = useCallback(
-    (e: ChangeEvent<{ value: string[] }>) => {
-      const symbols: string[] = e.target.value
-      const selectedItems = []
-
-      for (let i = 0; i < symbols.length; i += 1) {
-        const chain = ChainList.find((chain) => chain.symbol === symbols[i])
-        if (chain) {
-          selectedItems.push(chain)
-        }
+    for (let i = 0; i < symbols.length; i += 1) {
+      const chain = ChainList.find((chain) => chain.symbol === symbols[i])
+      if (chain) {
+        selectedItems.push(chain)
       }
-      setSelectedChains(selectedItems)
-    },
-    [selectedChains]
-  )
+    }
+    setSelectedChains(selectedItems)
+  }, [])
 
   return (
     <AppBody width={552}>

@@ -1,12 +1,10 @@
 import React, { ChangeEvent, useCallback } from 'react'
-import { MenuItem, makeStyles, Box } from '@material-ui/core'
+import { MenuItem, makeStyles } from '@material-ui/core'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Chain from '../../models/chain'
 import InputLabel from '../InputLabel/InputLabel'
-import SelectedIcon from '../../assets/images/selected_icon.svg'
 import Checkbox from '../../components/Checkbox/Checkbox'
-import { ConfirmedTransactionList } from 'data/dummyData'
 
 interface Props {
   label: string

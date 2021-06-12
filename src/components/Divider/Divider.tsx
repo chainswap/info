@@ -3,14 +3,13 @@ import { Divider as MuiDivider, makeStyles, Theme } from '@material-ui/core'
 
 interface Props {
   orientation?: 'horizontal' | 'vertical'
-  solid?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     border: 'none',
     height: (props: Props) => (props.orientation === 'vertical' ? '100%' : '1px'),
-    backgroundColor: (props: Props) => (props.solid ? theme.textColor.text1 : theme.bgColor.bg4),
+    backgroundColor: (props: Props) => (props.orientation === 'vertical' ? theme.textColor.text1 : theme.bgColor.bg4),
   },
 }))
 

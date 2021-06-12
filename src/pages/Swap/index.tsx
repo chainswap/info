@@ -133,7 +133,7 @@ export default function Swap() {
     })
 
     setTimeout(function () {
-      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} />)
+      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} action={() => {}} />)
       setSwapState({
         attemptingDeposit: false,
         attemptingWithdraw: false,
@@ -173,7 +173,7 @@ export default function Swap() {
     })
 
     setTimeout(function () {
-      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} />)
+      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} action={() => {}} />)
       setSwapState({
         attemptingDeposit: false,
         attemptingWithdraw: false,

@@ -10,15 +10,16 @@ interface Props {
   children?: React.ReactNode
   type: 'success' | 'failure' | 'support' | 'network'
   header: string
-  action?: string
+  action: () => void
+  actionText?: string
   message?: string
 }
 export default function SimpleMessageBox(props: Props) {
-  const { header, action, type, children } = props
+  const { header, action, actionText, type, children } = props
   const { hideModal } = useModal()
 
   return (
-    <MessageBox type={'success'} header={header}>
+    <MessageBox type={'success'}>
       <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
         <TYPE.large>{header}</TYPE.large>
       </Box>
@@ -27,7 +28,11 @@ export default function SimpleMessageBox(props: Props) {
         <OutlineButton width="180px" primary onClick={hideModal}>
           Close
         </OutlineButton>
-        {type === 'failure' && action && <Button width="180px">{action}</Button>}
+        {type === 'failure' && actionText && (
+          <Button width="180px" onClick={action}>
+            {actionText}
+          </Button>
+        )}
       </Box>
     </MessageBox>
   )

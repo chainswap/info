@@ -7,11 +7,8 @@ import { ReactComponent as SupportIcon } from '../../assets/images/support_icon.
 import { ReactComponent as NetworkErrorIcon } from '../../assets/images/network_error_icon.svg'
 interface Props {
   type: 'success' | 'failure' | 'support' | 'network'
-  header: string
-  message?: string
   children?: React.ReactNode
   width?: string
-  action?: string
 }
 
 export default function MessageBox(props: Props) {

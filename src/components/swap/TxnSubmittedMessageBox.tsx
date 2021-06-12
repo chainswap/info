@@ -11,13 +11,14 @@ interface Props {
     logo: string
     name: string
   }
+  action: () => void
 }
 
 export default function TxnSubmittedMessageBox(props: Props) {
-  const { currency, wallet } = props
+  const { currency, wallet, action } = props
 
   return (
-    <SimpleMessageBox type={'success'} header={'Transaction Submitted'}>
+    <SimpleMessageBox type={'success'} header={'Transaction Submitted'} action={action}>
       <Box marginBottom="16px">
         <TextButton fontSize={13} fontWeight={400} primary>
           View on Etherscan

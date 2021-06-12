@@ -8,22 +8,23 @@ interface Props {
   type: 'success' | 'failure'
   children: React.ReactNode
   header: string
-  action: string
+  actionText: string
+  action: () => void
   message: string
 }
 
 export default function DetailedMessagebox(props: Props) {
-  const { children, type, header, action, message } = props
+  const { children, type, header, action, actionText, message } = props
 
   return (
-    <MessageBox type={type} header={header} width={'552px'}>
+    <MessageBox type={type} width={'552px'}>
       <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
         <TYPE.extraLarge marginBottom={'4px'}>{header}</TYPE.extraLarge>
         <TYPE.gray>{message}</TYPE.gray>
       </Box>
       {children}
       <Box width={'100%'} padding={'0 32px 0 32px'}>
-        <Button>{action}</Button>
+        <Button onClick={action}>{actionText}</Button>
       </Box>
     </MessageBox>
   )

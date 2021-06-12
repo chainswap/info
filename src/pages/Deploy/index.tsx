@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent } from 'react'
 import AppBody from '../AppBody'
-import SelectOptions from './SelectOptions'
-import ExistingToken from './ExistingToken'
+import Entry from './Entry'
+import AddToken from './AddToken'
+import Mapping from './Mapping'
 import useModal from '../../hooks/useModal'
 import DeployMessageBox from '../../components/deploy/DeployMessageBox'
 
@@ -20,24 +21,27 @@ const dummyData = {
 }
 
 enum DEPLOY_STATE {
-  SELECT_OPTIONS,
-  EXISTING_TOKEN,
+  ENTRY = 'entry',
+  ADD = 'add',
+  MAPPING = 'mapping',
+}
+
+export type DeployStatusType = {
+  confirmed: boolean
+  deploying: boolean
+  deployed: boolean
 }
 
 export default function Deploy() {
-  const [state, setState] = useState(DEPLOY_STATE.SELECT_OPTIONS)
+  const [state, setState] = useState(DEPLOY_STATE.ENTRY)
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
-  const [{ confirmed, deploying }, setDeployState] = useState<{
-    confirmed: boolean
-    deploying: boolean
-    deployed: boolean
-  }>({
+  const [deployStatus, setDeployStatus] = useState<DeployStatusType>({
     confirmed: false,
     deploying: false,
     deployed: false,
   })
-  const { showModal } = useModal()
+  const { showModal, hideModal } = useModal()
 
   function onChangeAddress(e: ChangeEvent<HTMLInputElement>) {
     setAddress(e.target.value)
@@ -48,45 +52,51 @@ export default function Deploy() {
   }
 
   function toggleConfirm() {
-    setDeployState({
-      confirmed: !confirmed,
+    setDeployStatus({
+      confirmed: !deployStatus.confirmed,
       deploying: false,
       deployed: false,
     })
   }
 
   function onDeploy() {
-    setDeployState({
+    setDeployStatus({
       confirmed: true,
       deploying: true,
       deployed: false,
     })
     setTimeout(() => {
-      setDeployState({
+      setDeployStatus({
         deploying: false,
         confirmed: true,
         deployed: true,
       })
-      showModal(<DeployMessageBox data={dummyData.mainchainInfo} />)
+      showModal(<DeployMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
     }, 1500)
+  }
+
+  function toMapping() {
+    setState(DEPLOY_STATE.MAPPING)
+    hideModal()
   }
 
   return (
     <AppBody width={552}>
-      {state === DEPLOY_STATE.SELECT_OPTIONS ? (
-        <SelectOptions onClickExistingToken={() => setState(DEPLOY_STATE.EXISTING_TOKEN)} onClickNewToken={() => {}} />
-      ) : state === DEPLOY_STATE.EXISTING_TOKEN ? (
-        <ExistingToken
+      {state === DEPLOY_STATE.ENTRY ? (
+        <Entry onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
+      ) : state === DEPLOY_STATE.ADD ? (
+        <AddToken
           address={address}
           onChangeAddress={onChangeAddress}
           chainId={chainId}
           onChangeChainId={onChangeChainId}
-          confirmed={confirmed}
           toggleConfirm={toggleConfirm}
           onDeploy={onDeploy}
-          deploying={deploying}
+          status={deployStatus}
           data={dummyData.tokenInfo}
         />
+      ) : state === DEPLOY_STATE.MAPPING ? (
+        <Mapping />
       ) : null}
     </AppBody>
   )

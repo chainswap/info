@@ -11,10 +11,11 @@ interface Props {
     'Mappable contract address': string
     'Mainchain ID': string
   }
+  action: () => void
 }
 
 export default function DeploySuccessModal(props: Props) {
-  const { data } = props
+  const { data, action } = props
 
   return (
     <DetailedMessagebox
@@ -23,7 +24,8 @@ export default function DeploySuccessModal(props: Props) {
       message={
         'You have successfully deployed your mappable contract on mainchain. Please save the following information and continue to next step:'
       }
-      action={'Go to Next Step'}
+      actionText={'Go to Next Step'}
+      action={action}
     >
       <Box padding={'0 32px'} display={'grid'} gridGap={12}>
         {Object.keys(data).map((key) => {

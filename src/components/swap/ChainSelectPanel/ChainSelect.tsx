@@ -1,4 +1,4 @@
-import { MenuItem, makeStyles } from '@material-ui/core'
+import { MenuItem, makeStyles, Box } from '@material-ui/core'
 import Select from '../../Select/Select'
 import LogoText from '../../LogoText/LogoText'
 import Chain from '../../../models/chain'

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Select as MuiSelect, makeStyles } from '@material-ui/core'
+import { Select as MuiSelect, Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-// import { TYPE } from 'theme'
 
 interface Props {
   children?: React.ReactNode
@@ -15,10 +15,9 @@ interface Props {
   width?: string
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: (props: Props) => (props.width ? props.width : '100%'),
-    height: (props: Props) => (props.size === 'small' ? 32 : 48),
+    height: (props: Props) => (props.size === 'small' ? 32 : 46),
     borderRadius: (props: Props) => (props.size === 'small' ? 4 : 14),
     paddingLeft: (props: Props) => (props.size === 'small' ? 8 : 24),
     cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
@@ -73,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
       borderBottomColor: 'hsla(0,0%,100%,.12)',
       display: 'flex',
       alignItems: 'center',
+      // padding: 14,
       padding: '12px 0',
       boxSizing: 'border-box',
     },
@@ -88,35 +88,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function Select(props: Props) {
+export default function MultipleSelect(props: Props) {
   const classes = useStyles(props)
-  const { value, defaultValue, disabled, onChange, children, placeholder = '' } = props
+  const { onChange, children } = props
 
   return (
-    <MuiSelect
-      className={classes.base}
-      displayEmpty
-      disableUnderline
-      classes={{ root: classes.root, icon: classes.icon }}
-      defaultValue={defaultValue ? defaultValue : placeholder}
-      value={value ? value : ''}
-      disabled={disabled}
-      MenuProps={{
-        classes: { paper: classes.paper },
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'left',
-        },
-        transformOrigin: {
-          vertical: 'top',
-          horizontal: 'left',
-        },
-        getContentAnchorEl: null,
-      }}
-      IconComponent={ExpandMoreIcon}
-      onChange={onChange}
-    >
-      {children}
-    </MuiSelect>
+    <>
+      <MuiSelect
+        className={classes.base}
+        displayEmpty
+        disableUnderline
+        classes={{ root: classes.root, icon: classes.icon }}
+        // defaultValue={defaultValue ? defaultValue : placeholder}
+        // value={value ? value : ''}
+        // disabled={disabled}
+        MenuProps={{
+          classes: { paper: classes.paper },
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left',
+          },
+          getContentAnchorEl: null,
+        }}
+        IconComponent={ExpandMoreIcon}
+        onChange={onChange}
+        multiple
+      >
+        {children}
+      </MuiSelect>
+    </>
   )
 }

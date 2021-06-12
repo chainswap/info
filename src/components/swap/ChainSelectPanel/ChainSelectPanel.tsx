@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import ChainSelect from './ChainSelect'
+import ChainSelect from '../../ChainSelect/ChainSelect'
 import Chain from '../../../models/chain'
 import SwitchArrow from '../../../assets/images/switch_arrow.svg'
 import Image from '../../Image/Image'

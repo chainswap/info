@@ -1,7 +1,7 @@
 import React from 'react'
 import DeployBody from './DeployBody'
 import InfoCard from '../../components/deploy/InfoCard'
-import ChainSelect from '../../components/swap/ChainSelectPanel/ChainSelect'
+import ChainSelect from '../../components/ChainSelect/ChainSelect'
 import { TYPE } from '../../theme/index'
 import { Box } from '@material-ui/core'
 import { ChainList } from 'data/dummyData'

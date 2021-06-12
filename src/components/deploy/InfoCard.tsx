@@ -14,6 +14,7 @@ interface Props {
 
 export default function InfoCard(props: Props) {
   const { data, status, toggleConfirm, confirmText } = props
+
   return (
     <>
       <Box border={'1px solid' + theme.bgColor.bg4} borderRadius={22} margin={'0 32px'}>

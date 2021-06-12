@@ -16,7 +16,7 @@ export default function Mapping(props: Props) {
   return (
     <DeployBody
       header={'Mapping token contract deployment'}
-      activeStep={0}
+      activeStep={1}
       loading={false}
       onClick={() => {}}
       btnText={'Next Step'}

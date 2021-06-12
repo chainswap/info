@@ -1,38 +1,21 @@
 import React from 'react'
-import { Divider as MuiDivider, makeStyles } from '@material-ui/core'
+import { Divider as MuiDivider, makeStyles, Theme } from '@material-ui/core'
 
 interface Props {
-  margin: string
-  orientation: 'horizontal' | 'vertical'
-  opacity?: number
+  orientation?: 'horizontal' | 'vertical'
+  solid?: boolean
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     border: 'none',
-    height: (props: Props) => (props.orientation === 'horizontal' ? '1px' : '100%'),
-    backgroundColor: '#FFFFFF',
-    opacity: (props: Props) => props.opacity || 0.2,
-    margin: (props: Props) => props.margin,
-  },
-})
-const useDefaultStyles = makeStyles((theme) => ({
-  root: {
-    border: 'none',
-    height: '1px',
-    backgroundColor: theme.bgColor.bg4,
-    margin: (props: { margin?: string }) => props.margin,
+    height: (props: Props) => (props.orientation === 'vertical' ? '100%' : '1px'),
+    backgroundColor: (props: Props) => (props.solid ? theme.textColor.text1 : theme.bgColor.bg4),
   },
 }))
 
-export default function _Divider(props: Props) {
+export default function Divider(props: Props) {
   const classes = useStyles(props)
 
-  return <MuiDivider className={classes.root} orientation={props.orientation} />
-}
-
-export function Divider(props: { margin?: string }) {
-  const classes = useDefaultStyles(props)
-
-  return <MuiDivider className={classes.root} />
+  return <MuiDivider className={classes.root} {...props} />
 }

@@ -96,7 +96,7 @@ export default function Deploy() {
           data={dummyData.tokenInfo}
         />
       ) : state === DEPLOY_STATE.MAPPING ? (
-        <Mapping />
+        <Mapping data={dummyData.mainchainInfo} />
       ) : null}
     </AppBody>
   )

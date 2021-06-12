@@ -258,7 +258,7 @@ export default function Swap() {
               <Text>Now you can swap Matter</Text>
               <Image src={CheckIcon} alt={'check icon'} />
             </Notification>
-            <Box display="grid" gridGap="16px" padding="28px 32px 0 32px">
+            <Box display="grid" gridGap="16px" padding="28px 32px 0 32px" marginBottom={'24px'}>
               <Box display="flex" justifyContent="space-between">
                 <Button width={'216px'} disabled={!depositEnabled} onClick={showConfirmDepositModal}>
                   {attemptingDeposit ? (
@@ -293,7 +293,7 @@ export default function Swap() {
                 <SwapStepper activeStep={step} />
               </Box>
             </Box>
-            <Divider orientation={'horizontal'} margin={'24px 0 0 0'} />
+            <Divider />
             <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
               <TextButton onClick={() => setShowClaimModal(true)} primary>
                 Claim List

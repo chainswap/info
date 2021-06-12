@@ -8,6 +8,7 @@ export default function Mapping() {
       activeStep={0}
       loading={false}
       onClick={() => {}}
+      btnText={'Next Step'}
       loadingText={''}
       btnDisabled={false}
     >

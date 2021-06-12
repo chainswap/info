@@ -11,13 +11,14 @@ interface Props {
   activeStep: number
   children: React.ReactNode
   onClick: () => void
+  btnText: string
   loading: boolean
   loadingText: string
   btnDisabled: boolean
 }
 
 export default function DeployBody(props: Props) {
-  const { activeStep, header, children, loading, loadingText, onClick, btnDisabled } = props
+  const { activeStep, header, children, btnText, loading, loadingText, onClick, btnDisabled } = props
 
   return (
     <>
@@ -34,7 +35,7 @@ export default function DeployBody(props: Props) {
               <Text marginLeft={32}>{loadingText}</Text>
             </>
           ) : (
-            'Deploy'
+            btnText
           )}
         </Button>
       </Box>

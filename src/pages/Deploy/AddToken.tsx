@@ -59,6 +59,7 @@ export default function AddToken(props: Props) {
         activeStep={0}
         loading={deploying}
         onClick={onDeploy}
+        btnText={'Deploy'}
         loadingText={'Deploying'}
         btnDisabled={!confirmed || deploying}
       >

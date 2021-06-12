@@ -7,12 +7,14 @@ interface Props {
   children?: React.ReactNode
   onChange?: (e: any) => void
   defaultValue?: any
-  value?: string
+  value?: string | string[]
   disabled?: boolean
   size?: 'large' | 'small'
   selected?: boolean
   placeholder?: string
   width?: string
+  multiple?: boolean
+  renderValue?: any
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -90,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Select(props: Props) {
   const classes = useStyles(props)
-  const { value, defaultValue, disabled, onChange, children, placeholder = '' } = props
+  const { value, defaultValue, disabled, onChange, children, placeholder = '', multiple, renderValue } = props
 
   return (
     <MuiSelect
@@ -115,6 +117,8 @@ export default function Select(props: Props) {
       }}
       IconComponent={ExpandMoreIcon}
       onChange={onChange}
+      multiple={multiple}
+      renderValue={renderValue}
     >
       {children}
     </MuiSelect>

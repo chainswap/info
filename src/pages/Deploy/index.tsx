@@ -1,10 +1,12 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useCallback } from 'react'
 import AppBody from '../AppBody'
 import Entry from './Entry'
 import AddToken from './AddToken'
 import Mapping from './Mapping'
 import useModal from '../../hooks/useModal'
 import DeployMessageBox from '../../components/deploy/DeployMessageBox'
+import Chain from '../../models/chain'
+import { ChainList } from 'data/dummyData'
 
 const dummyData = {
   tokenInfo: {
@@ -41,25 +43,27 @@ export default function Deploy() {
     deploying: false,
     deployed: false,
   })
+  const [selectedChains, setSelectedChains] = useState<Chain[]>([])
+
   const { showModal, hideModal } = useModal()
 
-  function onChangeAddress(e: ChangeEvent<HTMLInputElement>) {
+  const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value)
-  }
+  }, [])
 
-  function onChangeChainId(e: ChangeEvent<HTMLInputElement>) {
+  const onChangeChainId = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setChainId(e.target.value)
-  }
+  }, [])
 
-  function toggleConfirm() {
+  const toggleConfirm = useCallback(() => {
     setDeployStatus({
       confirmed: !deployStatus.confirmed,
       deploying: false,
       deployed: false,
     })
-  }
+  }, [])
 
-  function onDeploy() {
+  const onDeploy = useCallback(() => {
     setDeployStatus({
       confirmed: true,
       deploying: true,
@@ -72,13 +76,29 @@ export default function Deploy() {
         deployed: true,
       })
       showModal(<DeployMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
-    }, 1500)
-  }
+    }, 500)
+  }, [])
 
-  function toMapping() {
+  const toMapping = useCallback(() => {
     setState(DEPLOY_STATE.MAPPING)
     hideModal()
-  }
+  }, [])
+
+  const onChainSelect = useCallback(
+    (e: ChangeEvent<{ value: string[] }>) => {
+      const symbols: string[] = e.target.value
+      const selectedItems = []
+
+      for (let i = 0; i < symbols.length; i += 1) {
+        const chain = ChainList.find((chain) => chain.symbol === symbols[i])
+        if (chain) {
+          selectedItems.push(chain)
+        }
+      }
+      setSelectedChains(selectedItems)
+    },
+    [selectedChains]
+  )
 
   return (
     <AppBody width={552}>
@@ -96,7 +116,12 @@ export default function Deploy() {
           data={dummyData.tokenInfo}
         />
       ) : state === DEPLOY_STATE.MAPPING ? (
-        <Mapping data={dummyData.mainchainInfo} />
+        <Mapping
+          data={dummyData.mainchainInfo}
+          chainList={ChainList}
+          onChainSelect={onChainSelect}
+          selectedChains={selectedChains}
+        />
       ) : null}
     </AppBody>
   )

@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import DeployBody from './DeployBody'
 import InfoCard from '../../components/deploy/InfoCard'
-import ChainSelect from '../../components/ChainSelect/ChainSelect'
-import { TYPE } from '../../theme/index'
+import ChainMultiSelect from '../../components/ChainSelect/ChainMultiSelect'
 import { Box } from '@material-ui/core'
-import { ChainList } from 'data/dummyData'
+import Chain from '../../models/chain'
 
 interface Props {
+  chainList: Chain[]
+  selectedChains: Chain[]
+  onChainSelect: (e: ChangeEvent<{ value: string[] }>) => void
   data: {
     'Token contract address': string
     'Mappable contract address': string
@@ -15,7 +17,7 @@ interface Props {
 }
 
 export default function Mapping(props: Props) {
-  const { data } = props
+  const { data, onChainSelect, chainList, selectedChains } = props
 
   return (
     <DeployBody
@@ -29,12 +31,12 @@ export default function Mapping(props: Props) {
     >
       <InfoCard data={data} />
       <Box padding={'24px 32px'} width={'100%'}>
-        <ChainSelect
+        <ChainMultiSelect
           label="Select Chain"
-          selectedChain={null}
-          placeholder="Select the chain to enable crosschain functionality"
-          chainList={ChainList}
+          selectedChains={selectedChains}
+          chainList={chainList}
           width="100%"
+          onChainSelect={onChainSelect}
         />
       </Box>
     </DeployBody>

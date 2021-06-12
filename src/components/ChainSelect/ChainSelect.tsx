@@ -3,7 +3,7 @@ import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Chain from '../../models/chain'
 import InputLabel from '../InputLabel/InputLabel'
-import SelectedIcon from '../../../assets/images/selected_icon.svg'
+import SelectedIcon from '../../assets/images/selected_icon.svg'
 
 interface Props {
   label: string

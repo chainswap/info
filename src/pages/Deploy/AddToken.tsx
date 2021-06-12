@@ -55,7 +55,12 @@ export default function AddToken(props: Props) {
         </Box>
         {chainId && (
           <>
-            <InfoCard data={data} status={status} toggleConfirm={toggleConfirm} />
+            <InfoCard
+              data={data}
+              status={status}
+              toggleConfirm={toggleConfirm}
+              confirmText={'I confirm the token information before deploying'}
+            />
             <Box margin={'20px 32px 20px 32px'}>
               <TYPE.mediumGray>Please confirm the token information before deploying</TYPE.mediumGray>
             </Box>

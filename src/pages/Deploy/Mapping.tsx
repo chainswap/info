@@ -1,5 +1,6 @@
 import React from 'react'
 import DeployBody from './DeployBody'
+import InfoCard from '../../components/deploy/InfoCard'
 
 interface Props {
   data: {
@@ -22,7 +23,7 @@ export default function Mapping(props: Props) {
       loadingText={''}
       btnDisabled={false}
     >
-      {Object.keys(data).map((key, i) => key)}
+      <InfoCard data={data} />
     </DeployBody>
   )
 }

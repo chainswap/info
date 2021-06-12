@@ -6,18 +6,14 @@ import Divider from '../Divider/Divider'
 import Checkbox from '../Checkbox/Checkbox'
 
 interface Props {
-  toggleConfirm: () => void
-  status: DeployStatusType
-  data: {
-    'Token name': string
-    'Token symby': string
-    'Token decimals': string
-    'Total supply': string
-  }
+  toggleConfirm?: () => void
+  confirmText?: string
+  status?: DeployStatusType
+  data: Object
 }
 
 export default function InfoCard(props: Props) {
-  const { data, status, toggleConfirm } = props
+  const { data, status, toggleConfirm, confirmText } = props
   return (
     <>
       <Box border={'1px solid' + theme.bgColor.bg4} borderRadius={22} margin={'0 32px'}>
@@ -31,11 +27,16 @@ export default function InfoCard(props: Props) {
             ))}
           </Box>
         </Box>
-        <Divider />
-        <Box display="flex" padding={'13px 24px 16px 24px'}>
-          <Checkbox checked={status.confirmed} onChange={toggleConfirm} />
-          <TYPE.mediumGray>I confirm the token information before deploying</TYPE.mediumGray>
-        </Box>
+
+        {status && confirmText && toggleConfirm && (
+          <>
+            <Divider />
+            <Box display="flex" padding={'13px 24px 16px 24px'}>
+              <Checkbox checked={status.confirmed} onChange={toggleConfirm} />
+              <TYPE.mediumGray>{confirmText}</TYPE.mediumGray>
+            </Box>
+          </>
+        )}
       </Box>
     </>
   )

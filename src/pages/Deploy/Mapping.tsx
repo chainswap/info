@@ -41,9 +41,17 @@ export default function Mapping(props: Props) {
           onChainSelect={onChainSelect}
         />
         {selectedChains.map((chain, i) => (
-          <Box display="flex" alignItems="center">
-            <ChainSelect label={`Chain ${i + 1}`} chainList={chainList} selectedChain={chain} disabled />
-            <OutlineButton primary>Deploy on {chain.symbol}</OutlineButton>
+          <Box display="flex" alignItems="flex-end" justifyContent="space-between" marginTop="24px">
+            <ChainSelect
+              label={`Chain ${i + 1}`}
+              chainList={chainList}
+              selectedChain={chain}
+              disabled
+              width={'292px'}
+            />
+            <OutlineButton width={'180px'} primary>
+              Deploy on {chain.symbol}
+            </OutlineButton>
           </Box>
         ))}
       </Box>

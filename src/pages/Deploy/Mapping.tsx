@@ -4,6 +4,8 @@ import InfoCard from '../../components/deploy/InfoCard'
 import ChainMultiSelect from '../../components/ChainSelect/ChainMultiSelect'
 import { Box } from '@material-ui/core'
 import Chain from '../../models/chain'
+import ChainSelect from 'components/ChainSelect/ChainSelect'
+import OutlineButton from 'components/Button/OutlineButton'
 
 interface Props {
   chainList: Chain[]
@@ -38,6 +40,12 @@ export default function Mapping(props: Props) {
           width="100%"
           onChainSelect={onChainSelect}
         />
+        {selectedChains.map((chain, i) => (
+          <Box display="flex" alignItems="center">
+            <ChainSelect label={`Chain ${i + 1}`} chainList={chainList} selectedChain={chain} disabled />
+            <OutlineButton primary>Deploy on {chain.symbol}</OutlineButton>
+          </Box>
+        ))}
       </Box>
     </DeployBody>
   )

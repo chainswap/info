@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useCallback } from 'react'
+import React, { useState, ChangeEvent, useCallback, useEffect } from 'react'
 import AppBody from '../AppBody'
 import Entry from './Entry'
 import AddToken from './AddToken'
@@ -34,6 +34,13 @@ export type DeployStatusType = {
   deployed: boolean
 }
 
+type DeployStatus = {
+  deploying?: boolean
+  deployed?: boolean
+}
+
+export type ChainState = Chain & DeployStatus
+
 export default function Deploy() {
   const [state, setState] = useState(DEPLOY_STATE.ENTRY)
   const [address, setAddress] = useState('')
@@ -43,7 +50,7 @@ export default function Deploy() {
     deploying: false,
     deployed: false,
   })
-  const [selectedChains, setSelectedChains] = useState<Chain[]>([])
+  const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
 
   const { showModal, hideModal } = useModal()
 
@@ -118,6 +125,7 @@ export default function Deploy() {
           chainList={ChainList}
           onChainSelect={onChainSelect}
           selectedChains={selectedChains}
+          // onChainDeploy={onChainDeploy}
         />
       ) : null}
     </AppBody>

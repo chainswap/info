@@ -33,6 +33,7 @@ export default function MappingMessageBox(props: Props) {
         {chains.map((chain) => (
           <InfoCard
             header={chain.symbol}
+            logo={chain.logo}
             data={{
               'Token contract address': 'XXXXXXXXXXXXXXXXXXXXXX',
               'Chain ID': 'XXX',

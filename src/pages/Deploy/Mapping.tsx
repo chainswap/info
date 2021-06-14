@@ -20,7 +20,6 @@ interface Props {
     'Mappable contract address': string
     'Mainchain ID': string
   }
-  // onChainDeploy: (chain: Chain) => void
 }
 
 export default function Mapping(props: Props) {
@@ -87,7 +86,9 @@ export default function Mapping(props: Props) {
       loadingText=""
       btnDisabled={btnDisabled}
     >
-      <InfoCard data={data} />
+      <Box padding={'0 32px'}>
+        <InfoCard data={data} />
+      </Box>
       <Box padding={'24px 32px'} width={'100%'}>
         <ChainMultiSelect
           label="Select Chain"
@@ -97,21 +98,37 @@ export default function Mapping(props: Props) {
           onChainSelect={onChainSelect}
         />
         {chains.map((chain, i) => (
-          <Box key={chain.symbol} display="flex" alignItems="flex-end" justifyContent="space-between" marginTop="24px">
-            <ChainSelect
-              label={`Chain ${i + 1}`}
-              chainList={chainList}
-              selectedChain={chain}
-              disabled
-              width={'292px'}
-            />
-            <OutlineButton
-              width={'180px'}
-              onClick={() => onClickDeployBtn(chain)}
-              color={chain.deployed ? theme.textColor.text4 : theme.palette.primary.main}
+          <Box marginTop={'24px'}>
+            <Box
+              key={chain.symbol}
+              display="flex"
+              alignItems="flex-end"
+              justifyContent="space-between"
+              marginBottom={'16px'}
             >
-              {deployBtnText(chain)}
-            </OutlineButton>
+              <ChainSelect
+                label={`Chain ${i + 1}`}
+                chainList={chainList}
+                selectedChain={chain}
+                disabled
+                width={'292px'}
+              />
+              <OutlineButton
+                width={'180px'}
+                onClick={() => onClickDeployBtn(chain)}
+                color={chain.deployed ? theme.textColor.text4 : theme.palette.primary.main}
+              >
+                {deployBtnText(chain)}
+              </OutlineButton>
+            </Box>
+            {chain.deployed && (
+              <InfoCard
+                data={{
+                  'Token contract address': 'XXXXXXXXXXXXXXXXXXXXXX',
+                  'Chain ID': 'XXX',
+                }}
+              />
+            )}
           </Box>
         ))}
       </Box>

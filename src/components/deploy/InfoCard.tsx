@@ -17,7 +17,7 @@ export default function InfoCard(props: Props) {
 
   return (
     <>
-      <Box border={'1px solid' + theme.bgColor.bg4} borderRadius={22} margin={'0 32px'}>
+      <Box border={'1px solid' + theme.bgColor.bg4} borderRadius={22}>
         <Box display={'grid'} gridGap={'16px'} width={'100%'} padding={'16px 24px'}>
           <Box display={'grid'} gridGap={'8px'}>
             {Object.keys(data).map((key, i) => (

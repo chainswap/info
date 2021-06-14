@@ -22,11 +22,12 @@ interface Props {
     'Mappable contract address': string
     'Mainchain ID': string
   }
+  onNext: () => void
 }
 
 export default function Mapping(props: Props) {
   const theme = useTheme()
-  const { data, onChainSelect, chainList, selectedChains } = props
+  const { data, onChainSelect, chainList, selectedChains, onNext } = props
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [chains, setChains] = useState(selectedChains)
   const { showModal } = useModal()
@@ -84,7 +85,7 @@ export default function Mapping(props: Props) {
       header={'Mapping token contract deployment'}
       activeStep={1}
       loading={false}
-      onClick={() => showModal(<MappingMessageBox chains={chains} data={data} action={() => {}} />)}
+      onClick={() => showModal(<MappingMessageBox chains={chains} data={data} action={onNext} />)}
       btnText="Next Step"
       loadingText=""
       btnDisabled={btnDisabled}

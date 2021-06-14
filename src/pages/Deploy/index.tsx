@@ -3,6 +3,7 @@ import AppBody from '../AppBody'
 import Entry from './Entry'
 import AddToken from './AddToken'
 import Mapping from './Mapping'
+import Bridge from './Bridge'
 import useModal from '../../hooks/useModal'
 import AddTokenMessageBox from './AddTokenMessageBox'
 import Chain from '../../models/chain'
@@ -26,6 +27,7 @@ enum DEPLOY_STATE {
   ENTRY = 'entry',
   ADD = 'add',
   MAPPING = 'mapping',
+  BRIDGE = 'bridge',
 }
 
 export type DeployStatusType = {
@@ -104,6 +106,11 @@ export default function Deploy() {
     setSelectedChains(selectedItems)
   }, [])
 
+  const toBridge = useCallback(() => {
+    hideModal()
+    setState(DEPLOY_STATE.BRIDGE)
+  }, [])
+
   return (
     <AppBody width={552}>
       {state === DEPLOY_STATE.ENTRY ? (
@@ -125,8 +132,10 @@ export default function Deploy() {
           chainList={ChainList}
           onChainSelect={onChainSelect}
           selectedChains={selectedChains}
-          // onChainDeploy={onChainDeploy}
+          onNext={toBridge}
         />
+      ) : state === DEPLOY_STATE.BRIDGE ? (
+        <Bridge />
       ) : null}
     </AppBody>
   )

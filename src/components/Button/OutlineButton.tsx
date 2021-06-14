@@ -10,16 +10,18 @@ interface Props {
   height?: string | number
   fontSize?: string
   disabled?: boolean
+  color?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: (props: Props) => props.width || '100%',
-      border: (props: Props) => `solid 1px ${props.primary ? theme.palette.primary.main : '#FFFFFF'}`,
+      border: (props: Props) =>
+        `solid 1px ${props.color ? props.color : props.primary ? theme.palette.primary.main : '#FFFFFF'}`,
       fontSize: (props: Props) => props.fontSize || 16,
       height: (props: Props) => props.height || 48,
-      color: (props: Props) => (props.primary ? theme.palette.primary.main : '#FFFFFF'),
+      color: (props: Props) => (props.color ? props.color : props.primary ? theme.palette.primary.main : '#FFFFFF'),
       borderRadius: 49,
       '&:hover': {
         color: theme.palette.primary.dark,

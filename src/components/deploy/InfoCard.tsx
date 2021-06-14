@@ -35,14 +35,12 @@ export default function InfoCard(props: Props) {
         )}
 
         <Box display="grid" gridGap="16px" width="100%" padding="16px 24px">
-          <Box display="grid" gridGap="8px">
-            {Object.keys(data).map((key, i) => (
-              <Box key={i} display="flex" justifyContent="space-between">
-                <TYPE.smallGray>{key}:</TYPE.smallGray>
-                <TYPE.small>{data[key as keyof typeof data]}</TYPE.small>
-              </Box>
-            ))}
-          </Box>
+          {Object.keys(data).map((key, i) => (
+            <Box key={i} display="flex" justifyContent="space-between">
+              <TYPE.smallGray>{key}:</TYPE.smallGray>
+              <TYPE.small>{data[key as keyof typeof data]}</TYPE.small>
+            </Box>
+          ))}
         </Box>
 
         {status && confirmText && toggleConfirm && (

@@ -18,14 +18,12 @@ export default function DetailedMessagebox(props: Props) {
 
   return (
     <MessageBox type={type} width={'552px'}>
-      <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
+      <Box marginBottom={'28px'} textAlign={'center'} width={'416px'}>
         <TYPE.extraLarge marginBottom={'4px'}>{header}</TYPE.extraLarge>
         <TYPE.gray>{message}</TYPE.gray>
       </Box>
       {children}
-      <Box width={'100%'} padding={'0 32px 0 32px'}>
-        <Button onClick={action}>{actionText}</Button>
-      </Box>
+      <Button onClick={action}>{actionText}</Button>
     </MessageBox>
   )
 }

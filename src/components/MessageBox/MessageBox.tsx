@@ -27,7 +27,7 @@ export default function MessageBox(props: Props) {
 
   return (
     <Modal width={width}>
-      <Box display={'flex'} flexDirection={'column'} alignItems={'center'} padding={'32px 0'}>
+      <Box display={'flex'} flexDirection={'column'} alignItems={'center'} padding={'32px'}>
         <Box marginBottom="16px">{icon}</Box>
         {children}
       </Box>

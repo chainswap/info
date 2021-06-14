@@ -1,9 +1,9 @@
 import React from 'react'
-import DetailedMessagebox from '../MessageBox/DetailedMessageBox'
+import DetailedMessagebox from '../../components/MessageBox/DetailedMessageBox'
 import { Box } from '@material-ui/core'
 import theme, { TYPE } from '../../theme/index'
-import TextButton from '../Button/TextButton'
-import Copy from '../Copy/Copy'
+import TextButton from '../../components/Button/TextButton'
+import Copy from '../../components/Copy/Copy'
 
 interface Props {
   data: {
@@ -14,7 +14,7 @@ interface Props {
   action: () => void
 }
 
-export default function DeploySuccessModal(props: Props) {
+export default function AddTokenMessageBox(props: Props) {
   const { data, action } = props
 
   return (

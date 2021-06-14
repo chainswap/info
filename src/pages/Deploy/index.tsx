@@ -4,7 +4,7 @@ import Entry from './Entry'
 import AddToken from './AddToken'
 import Mapping from './Mapping'
 import useModal from '../../hooks/useModal'
-import DeployMessageBox from '../../components/deploy/DeployMessageBox'
+import AddTokenMessageBox from './AddTokenMessageBox'
 import Chain from '../../models/chain'
 import { ChainList } from 'data/dummyData'
 
@@ -87,7 +87,7 @@ export default function Deploy() {
         confirmed: true,
         deployed: true,
       })
-      showModal(<DeployMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
+      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
     }, 500)
   }, [setDeployStatus, showModal, toMapping])
 

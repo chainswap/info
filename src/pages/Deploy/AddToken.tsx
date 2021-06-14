@@ -38,11 +38,11 @@ export default function AddToken(props: Props) {
         loadingText={'Deploying'}
         btnDisabled={!confirmed || deploying}
       >
-        <Box padding={'0 32px 20px 32px'}>
+        <Box mb="20px">
           <TYPE.smallGray>Token Contract Address</TYPE.smallGray>
           <Input value={address} onChange={onChangeAddress} placeholder={'Enter the token contract address'} />
         </Box>
-        <Box padding={'0 32px 32px 32px'}>
+        <Box mb="20px">
           <Box display={'flex'}>
             <Box mr={'4px'}>
               <TYPE.smallGray>Mainchain ID</TYPE.smallGray>
@@ -59,7 +59,7 @@ export default function AddToken(props: Props) {
               toggleConfirm={toggleConfirm}
               confirmText={'I confirm the token information before deploying'}
             />
-            <Box margin={'20px 32px 20px 32px'}>
+            <Box margin={'20px 0'}>
               <TYPE.mediumGray>Please confirm the token information before deploying</TYPE.mediumGray>
             </Box>
           </>

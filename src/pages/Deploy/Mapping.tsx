@@ -10,6 +10,8 @@ import { ChainState } from './index'
 import { ReactComponent as LoaderIcon } from '../../assets/images/loader.svg'
 import { ReactComponent as SuccessIcon } from '../../assets/images/deploy_success.svg'
 import { Text } from 'rebass'
+import useModal from '../../hooks/useModal'
+import MappingMessageBox from './MappingMessageBox'
 
 interface Props {
   chainList: Chain[]
@@ -27,6 +29,7 @@ export default function Mapping(props: Props) {
   const { data, onChainSelect, chainList, selectedChains } = props
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [chains, setChains] = useState(selectedChains)
+  const { showModal } = useModal()
 
   const deployBtnText = useCallback(
     (chain: ChainState) => {
@@ -81,15 +84,13 @@ export default function Mapping(props: Props) {
       header={'Mapping token contract deployment'}
       activeStep={1}
       loading={false}
-      onClick={() => {}}
+      onClick={() => showModal(<MappingMessageBox chains={chains} data={data} action={() => {}} />)}
       btnText="Next Step"
       loadingText=""
       btnDisabled={btnDisabled}
     >
-      <Box padding={'0 32px'}>
-        <InfoCard data={data} header="Mainchain Info" editable />
-      </Box>
-      <Box padding={'24px 32px'} width={'100%'}>
+      <InfoCard data={data} header="Mainchain Info" editable />
+      <Box padding={'24px 0'}>
         <ChainMultiSelect
           label="Select Chain"
           selectedChains={selectedChains}

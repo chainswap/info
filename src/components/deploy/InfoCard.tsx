@@ -6,7 +6,6 @@ import Divider from '../Divider/Divider'
 import Checkbox from '../Checkbox/Checkbox'
 import { Text } from 'rebass'
 import TextButton from '../Button/TextButton'
-import Image from '../Image/Image'
 import LogoText from '../LogoText/LogoText'
 
 interface Props {

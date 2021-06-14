@@ -32,29 +32,26 @@ export default function Mapping(props: Props) {
   const [chains, setChains] = useState(selectedChains)
   const { showModal } = useModal()
 
-  const deployBtnText = useCallback(
-    (chain: ChainState) => {
-      if (chain.deploying) {
-        return (
-          <>
-            <LoaderIcon />
-            <Text marginLeft={12.5}>Deploying</Text>
-          </>
-        )
-      }
-      if (chain.deployed) {
-        return (
-          <>
-            <SuccessIcon />
-            <Text marginLeft={12.5}>Success</Text>
-          </>
-        )
-      }
+  const deployBtnText = useCallback((chain: ChainState) => {
+    if (chain.deploying) {
+      return (
+        <>
+          <LoaderIcon />
+          <Text marginLeft={12.5}>Deploying</Text>
+        </>
+      )
+    }
+    if (chain.deployed) {
+      return (
+        <>
+          <SuccessIcon />
+          <Text marginLeft={12.5}>Success</Text>
+        </>
+      )
+    }
 
-      return `Deploy on ${chain.symbol}`
-    },
-    [chains]
-  )
+    return `Deploy on ${chain.symbol}`
+  }, [])
 
   const onClickDeployBtn = useCallback(
     (targetChain: ChainState) => {
@@ -100,14 +97,8 @@ export default function Mapping(props: Props) {
           onChainSelect={onChainSelect}
         />
         {chains.map((chain, i) => (
-          <Box marginTop={'24px'}>
-            <Box
-              key={chain.symbol}
-              display="flex"
-              alignItems="flex-end"
-              justifyContent="space-between"
-              marginBottom={'16px'}
-            >
+          <Box marginTop={'24px'} key={chain.symbol}>
+            <Box display="flex" alignItems="flex-end" justifyContent="space-between" marginBottom={'16px'}>
               <ChainSelect
                 label={`Chain ${i + 1}`}
                 chainList={chainList}

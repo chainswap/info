@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useCallback, useEffect } from 'react'
+import React, { useState, ChangeEvent, useCallback } from 'react'
 import AppBody from '../AppBody'
 import Entry from './Entry'
 import AddToken from './AddToken'
@@ -109,7 +109,7 @@ export default function Deploy() {
   const toBridge = useCallback(() => {
     hideModal()
     setState(DEPLOY_STATE.BRIDGE)
-  }, [])
+  }, [hideModal])
 
   return (
     <AppBody width={552}>

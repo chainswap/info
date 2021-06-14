@@ -32,6 +32,7 @@ export default function MappingMessageBox(props: Props) {
         <InfoCard data={data} header="Mainchain Info" />
         {chains.map((chain) => (
           <InfoCard
+            key={chain.symbol}
             header={chain.symbol}
             logo={chain.logo}
             data={{

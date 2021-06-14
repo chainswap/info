@@ -4,24 +4,40 @@ import { Box } from '@material-ui/core'
 import theme, { TYPE } from '../../theme/index'
 import Divider from '../Divider/Divider'
 import Checkbox from '../Checkbox/Checkbox'
+import { Text } from 'rebass'
+import TextButton from '../Button/TextButton'
 
 interface Props {
   toggleConfirm?: () => void
   confirmText?: string
   status?: DeployStatusType
   data: Object
+  header?: string
+  editable?: boolean
+  onEdit?: () => void
 }
 
 export default function InfoCard(props: Props) {
-  const { data, status, toggleConfirm, confirmText } = props
+  const { data, status, toggleConfirm, confirmText, header, editable } = props
 
   return (
     <>
       <Box border={'1px solid' + theme.bgColor.bg4} borderRadius={22}>
-        <Box display={'grid'} gridGap={'16px'} width={'100%'} padding={'16px 24px'}>
-          <Box display={'grid'} gridGap={'8px'}>
+        {(header || editable) && (
+          <Box display="flex" justifyContent="space-between" alignItems="center" padding="12px 24px 0 24px">
+            {header && <Text fontSize="14px">{header}</Text>}
+            {editable && (
+              <TextButton fontSize="14px" primary>
+                Edit
+              </TextButton>
+            )}
+          </Box>
+        )}
+
+        <Box display="grid" gridGap="16px" width="100%" padding="16px 24px">
+          <Box display="grid" gridGap="8px">
             {Object.keys(data).map((key, i) => (
-              <Box key={i} display={'flex'} justifyContent={'space-between'}>
+              <Box key={i} display="flex" justifyContent="space-between">
                 <TYPE.smallGray>{key}:</TYPE.smallGray>
                 <TYPE.small>{data[key as keyof typeof data]}</TYPE.small>
               </Box>
@@ -32,7 +48,7 @@ export default function InfoCard(props: Props) {
         {status && confirmText && toggleConfirm && (
           <>
             <Divider />
-            <Box display="flex" padding={'13px 24px 16px 24px'}>
+            <Box display="flex" padding="13px 24px 16px 24px">
               <Checkbox checked={status.confirmed} onChange={toggleConfirm} />
               <TYPE.mediumGray>{confirmText}</TYPE.mediumGray>
             </Box>

@@ -4,7 +4,7 @@ import { ButtonBase, Theme } from '@material-ui/core'
 interface Props {
   onClick?: () => void
   children: React.ReactNode
-  fontSize?: number
+  fontSize?: number | string
   fontWeight?: number
   primary?: boolean
   underline?: boolean

@@ -87,7 +87,7 @@ export default function Mapping(props: Props) {
       btnDisabled={btnDisabled}
     >
       <Box padding={'0 32px'}>
-        <InfoCard data={data} />
+        <InfoCard data={data} header="Mainchain Info" editable />
       </Box>
       <Box padding={'24px 32px'} width={'100%'}>
         <ChainMultiSelect

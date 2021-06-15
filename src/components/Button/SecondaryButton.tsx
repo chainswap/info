@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.main,
       border: `1px solid ${theme.palette.secondary.main}`,
       backgroundColor: theme.palette.secondary.main,
-      borderRadius: 10,
+      borderRadius: theme.shape.borderRadius,
       '&:hover': {
         backgroundColor: theme.palette.secondary.dark,
         borderColor: theme.palette.secondary.dark,

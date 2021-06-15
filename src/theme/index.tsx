@@ -83,6 +83,9 @@ const theme: Theme = createMuiTheme({
   height: {
     header: '88px',
   },
+  shape: {
+    borderRadius: 10,
+  },
 })
 
 export default theme

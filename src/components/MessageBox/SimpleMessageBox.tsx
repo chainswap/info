@@ -21,13 +21,9 @@ export default function SimpleMessageBox(props: Props) {
     <MessageBox type="success" width="440px">
       <TYPE.mediumHeader textAlign={'center'}>{header}</TYPE.mediumHeader>
       {children}
-      <Box display={'flex'} justifyContent={'space-around'} width="100%">
+      <Box display="flex" justifyContent="space-around" width="100%">
         <Button onClick={hideModal}>Close</Button>
-        {type === 'failure' && actionText && (
-          <Button width="180px" onClick={action}>
-            {actionText}
-          </Button>
-        )}
+        {type === 'failure' && actionText && <Button onClick={action}>{actionText}</Button>}
       </Box>
     </MessageBox>
   )

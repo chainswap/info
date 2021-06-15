@@ -5,7 +5,6 @@ import CloseIcon from '@material-ui/icons/Close'
 import { Box } from '@material-ui/core'
 import { Text } from 'rebass'
 import useModal from '../../hooks/useModal'
-import theme from 'theme'
 
 interface Props {
   children?: React.ReactNode

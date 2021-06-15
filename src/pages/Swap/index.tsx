@@ -7,8 +7,8 @@ import CurrencyInputPanel from '../../components/swap/CurrencyInputPanel/Currenc
 import ChainSelectPanel from '../../components/swap/ChainSelectPanel/ChainSelectPanel'
 import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
-// import QuotaInfo from './QuotaInfo'
-// import QuotaBar from './QuotaBar'
+// import QuotaInfo from '../../components/swap/QuotaInfo'
+// import QuotaBar from '../../components/swap/QuotaBar'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 import SwapStepper from '../../components/swap/SwapStepper'
 import TxnSubmittedMessageBox from '../../components/swap/TxnSubmittedMessageBox'
@@ -23,7 +23,7 @@ import Loader from '../../assets/images/loader.svg'
 import Image from '../../components/Image/Image'
 import { Text } from 'rebass'
 import Currency from '../../models/currency'
-import CheckIcon from '../../assets/images/check_icon.svg'
+import { ReactComponent as CheckIcon } from '../../assets/images/check_icon.svg'
 import TextButton from '../../components/Button/TextButton'
 import ClaimModal from '../../components/claim/ClaimModal'
 import OutlineButton from '../../components/Button/OutlineButton'
@@ -31,14 +31,14 @@ import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
 
 const Notification = styled('div')({
-  width: 448,
+  width: '100%',
   height: 48,
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '0 30px',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  borderRadius: 32,
+  padding: '0 16px 0 20px',
+  border: '1px solid rgba(255, 255, 255, 0.4)',
+  borderRadius: 10,
   margin: '20px auto 0',
 })
 
@@ -129,7 +129,7 @@ export default function Swap() {
     })
 
     setTimeout(function () {
-      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} action={() => {}} />)
+      showModal(<TxnSubmittedMessageBox action={() => {}} />)
       setSwapState({
         attemptingDeposit: false,
         attemptingWithdraw: false,
@@ -169,7 +169,7 @@ export default function Swap() {
     })
 
     setTimeout(function () {
-      showModal(<TxnSubmittedMessageBox currency={currency} wallet={wallet} action={() => {}} />)
+      showModal(<TxnSubmittedMessageBox action={() => {}} />)
       setSwapState({
         attemptingDeposit: false,
         attemptingWithdraw: false,
@@ -209,7 +209,7 @@ export default function Swap() {
   return (
     <>
       <AppBody>
-        <Box padding={'20px 40px 37px 40px'}>
+        <Box padding={'20px 40px 0 40px'}>
           <TYPE.largeHeader marginBottom="20px">Cross Chain Bridge</TYPE.largeHeader>
           <Box display="grid" gridGap="20px">
             <CurrencyInputPanel
@@ -240,9 +240,7 @@ export default function Swap() {
                     placeholder={'Enter address to swap'}
                     onChange={onChangeAddress}
                   />
-                  <Text fontSize={12} opacity={0.5} marginTop={'6px'}>
-                    This is destination address of the To network
-                  </Text>
+                  <TYPE.mediumGray marginTop={'12px'}>This is destination address of the To network</TYPE.mediumGray>
                 </Box>
               </>
             )}
@@ -253,12 +251,14 @@ export default function Swap() {
           {userLogined && currency && authorized && from && to && (
             <>
               <Notification>
-                <Text>Now you can swap Matter</Text>
-                <Image src={CheckIcon} alt={'check icon'} />
+                <Text fontSize="16px" fontWeight={400}>
+                  Now you can swap Matter
+                </Text>
+                <CheckIcon />
               </Notification>
-              <Box display="grid" gridGap="16px" padding="28px 32px 0 32px" marginBottom={'24px'}>
+              <Box display="grid" gridGap="16px" marginTop="28px" marginBottom={'24px'}>
                 <Box display="flex" justifyContent="space-between">
-                  <Button width={'216px'} disabled={!depositEnabled} onClick={showConfirmDepositModal}>
+                  <Button width={'232px'} disabled={!depositEnabled} onClick={showConfirmDepositModal}>
                     {attemptingDeposit ? (
                       <>
                         <Image src={Loader} alt={'loader icon'} />
@@ -272,7 +272,7 @@ export default function Swap() {
                       </Text>
                     )}
                   </Button>
-                  <Button width={'216px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
+                  <Button width={'232px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
                     {attemptingWithdraw ? (
                       <>
                         <Image src={Loader} alt={'loader icon'} />
@@ -292,18 +292,20 @@ export default function Swap() {
                 </Box>
               </Box>
               <Divider orientation={'horizontal'} />
-              <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
+              {/* <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
                 <TextButton onClick={() => setShowClaimModal(true)} primary>
                   Claim List
                 </TextButton>
-              </Box>
+              </Box> */}
               {/* <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
-              <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />
-              <QuotaBar percentage={percentage} />
-            </Box> */}
+                <QuotaInfo quota={quota} currency={currency.symbol} percentage={70} />
+                <QuotaBar percentage={70} />
+              </Box> */}
             </>
           )}
+        </Box>
 
+        <Box padding={'0 40px 40px 40px'}>
           {userLogined && currency && !authorized && (
             <Box marginTop="32px">
               <Button onClick={authorize}>Allow the Chainswap protocol to use your Matter</Button>

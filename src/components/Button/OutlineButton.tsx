@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
       foneWeight: (props: Props) => (props.primary ? 500 : 400),
       height: (props: Props) => props.height || 60,
       color: (props: Props) => (props.primary ? theme.palette.primary.main : theme.palette.primary.contrastText),
-      backgroundColor: theme.bgColor.bg1,
       borderRadius: theme.shape.borderRadius,
       '&:hover': {
         color: theme.palette.primary.contrastText,

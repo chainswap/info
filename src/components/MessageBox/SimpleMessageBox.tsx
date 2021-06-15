@@ -3,7 +3,6 @@ import MessageBox from './MessageBox'
 import { Box } from '@material-ui/core'
 import { TYPE } from '../../theme/index'
 import Button from '../Button/Button'
-import OutlineButton from '../Button/OutlineButton'
 import useModal from '../../hooks/useModal'
 
 interface Props {
@@ -19,15 +18,11 @@ export default function SimpleMessageBox(props: Props) {
   const { hideModal } = useModal()
 
   return (
-    <MessageBox type={'success'}>
-      <Box marginBottom={'28px'} textAlign={'center'} padding={'0 32px'} width={'420px'}>
-        <TYPE.large>{header}</TYPE.large>
-      </Box>
+    <MessageBox type="success" width="440px">
+      <TYPE.mediumHeader textAlign={'center'}>{header}</TYPE.mediumHeader>
       {children}
-      <Box padding="0 auto 28px" display={'flex'} justifyContent={'space-around'} width={384}>
-        <OutlineButton width="180px" primary onClick={hideModal}>
-          Close
-        </OutlineButton>
+      <Box display={'flex'} justifyContent={'space-around'} width="100%">
+        <Button onClick={hideModal}>Close</Button>
         {type === 'failure' && actionText && (
           <Button width="180px" onClick={action}>
             {actionText}

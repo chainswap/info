@@ -1,10 +1,8 @@
 import React from 'react'
-import { Box, styled } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import ChainSelect from '../../ChainSelect/ChainSelect'
 import Chain from '../../../models/chain'
 import { ReactComponent as SwitchArrowIcon } from '../../../assets/images/switch_arrow.svg'
-import Image from '../../Image/Image'
-import zIndex from '@material-ui/core/styles/zIndex'
 
 interface Props {
   chainList: Chain[]

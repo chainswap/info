@@ -8,6 +8,7 @@ import InputLabel from '../../InputLabel/InputLabel'
 import SelectButton from '../../Button/SelectButton'
 import useModal from '../../../hooks/useModal'
 import LogoText from '../../LogoText/LogoText'
+import theme from 'theme'
 
 interface Props {
   value: string
@@ -47,7 +48,7 @@ const StyledInput = styled(Input)({
 
 const ButtonWrapper = styled('div')({
   position: 'absolute',
-  right: '180px',
+  right: 196,
   height: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -81,7 +82,7 @@ export default function CurrencyInputPanel(props: Props) {
         />
         {selectedCurrency && onMax && (
           <ButtonWrapper>
-            <OutlineButton width="64px" height="28px" onClick={onMax}>
+            <OutlineButton width="64px" height="28px" onClick={onMax} color={theme.textColor.text1}>
               Max
             </OutlineButton>
           </ButtonWrapper>

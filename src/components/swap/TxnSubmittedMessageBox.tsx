@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import TextButton from '../Button/TextButton'
-import Currency from '../../models/currency'
 import SimpleMessageBox from '../MessageBox/SimpleMessageBox'
 
 interface Props {

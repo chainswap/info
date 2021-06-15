@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Modal from '../Modal/Modal'
 import { Box } from '@material-ui/core'
-import { styled } from '@material-ui/styles'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
 import AccountModal from '../AccountModal/AccountModal'

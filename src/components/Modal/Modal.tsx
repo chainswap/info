@@ -2,8 +2,6 @@ import React from 'react'
 import { Dialog, makeStyles, Theme } from '@material-ui/core'
 import { styled, createStyles } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
-import { Box } from '@material-ui/core'
-import { Text } from 'rebass'
 import useModal from '../../hooks/useModal'
 import { TYPE } from '../../theme/index'
 

@@ -24,7 +24,6 @@ import Image from '../../components/Image/Image'
 import { Text } from 'rebass'
 import Currency from '../../models/currency'
 import { ReactComponent as CheckIcon } from '../../assets/images/check_icon.svg'
-import TextButton from '../../components/Button/TextButton'
 import ClaimModal from '../../components/claim/ClaimModal'
 import OutlineButton from '../../components/Button/OutlineButton'
 import Chain from '../../models/chain'
@@ -56,7 +55,7 @@ export default function Swap() {
   // const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAutorized] = useState(false)
-  const [wallet] = useState({ logo: MetaMask, name: 'MetaMask' })
+  // const [wallet] = useState({ logo: MetaMask, name: 'MetaMask' })
   const [showClaimModal, setShowClaimModal] = useState(false)
 
   // swap state
@@ -138,7 +137,7 @@ export default function Swap() {
       })
       setWithdrawEnabled(true)
     }, 1500)
-  }, [showModal, hideModal, currency, wallet])
+  }, [showModal, hideModal, currency])
 
   const showConfirmDepositModal = () => {
     if (!currency || !from || !to) return
@@ -179,7 +178,7 @@ export default function Swap() {
       setDepositEnabled(false)
       setWithdrawEnabled(false)
     }, 1500)
-  }, [showModal, hideModal, wallet, currency])
+  }, [showModal, hideModal, currency])
 
   const showConfirmWithdrawModal = () => {
     if (!currency || !from || !to) return

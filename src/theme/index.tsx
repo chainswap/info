@@ -42,9 +42,16 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 const theme: Theme = createMuiTheme({
   palette: {
     primary: {
+      light: '#2E2247',
       main: '#9867FF',
       dark: '#7433FF',
       contrastText: '#FFFFFF',
+    },
+    secondary: {
+      light: '#1D152D',
+      main: '#211735',
+      dark: '#3E276B',
+      contrastText: '#9867FF',
     },
     background: {
       default: '#131315',
@@ -53,7 +60,7 @@ const theme: Theme = createMuiTheme({
       primary: '#FFFFFF',
     },
     action: {
-      disabledOpacity: 0.6,
+      disabledOpacity: 0.8,
     },
   },
   textColor: {

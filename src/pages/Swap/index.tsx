@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, useCallback, useEffect } from 'react'
 import { styled } from '@material-ui/styles'
 import Button from '../../components/Button/Button'
+import SecondaryButton from '../../components/Button/SecondaryButton'
 import AppBody from '../AppBody'
 import CurrencyInputPanel from '../../components/swap/CurrencyInputPanel/CurrencyInputPanel'
 import ChainSelectPanel from '../../components/swap/ChainSelectPanel/ChainSelectPanel'
@@ -293,7 +294,7 @@ export default function Swap() {
                 <SwapStepper activeStep={step} />
               </Box>
             </Box>
-            <Divider />
+            <Divider orientation={'horizontal'} />
             <Box display={'flex'} alignItems={'center'} justifyContent={'center'} height={60}>
               <TextButton onClick={() => setShowClaimModal(true)} primary>
                 Claim List
@@ -320,7 +321,7 @@ export default function Swap() {
 
         {!userLogined && (
           <Box padding="27px 32px 31px">
-            <Button onClick={() => showModal(<WalletModal />)}>Connect Wallet</Button>
+            <SecondaryButton onClick={() => showModal(<WalletModal />)}>Connect Wallet</SecondaryButton>
           </Box>
         )}
       </AppBody>

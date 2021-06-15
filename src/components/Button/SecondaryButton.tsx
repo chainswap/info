@@ -17,18 +17,20 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: (props: Props) => props.width || '100%',
       fontSize: (props: Props) => props.fontSize || 16,
-      height: (props: Props) => props.height || 48,
+      height: (props: Props) => props.height || 60,
       color: theme.palette.primary.main,
-      border: '1px solid #211735',
-      backgroundColor: '#211735',
-      borderRadius: 49,
+      border: `1px solid ${theme.palette.secondary.main}`,
+      backgroundColor: theme.palette.secondary.main,
+      borderRadius: 10,
       '&:hover': {
-        backgroundColor: '#2c1f47',
-        borderColor: '#2c1f47',
+        backgroundColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.secondary.dark,
       },
     },
     disabled: {
       opacity: theme.palette.action.disabledOpacity,
+      backgroundColor: theme.palette.secondary.light,
+      borderColor: theme.palette.secondary.light,
     },
   })
 )

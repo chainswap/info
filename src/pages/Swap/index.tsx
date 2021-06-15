@@ -26,6 +26,7 @@ import Currency from '../../models/currency'
 import CheckIcon from '../../assets/images/check_icon.svg'
 import TextButton from '../../components/Button/TextButton'
 import ClaimModal from '../../components/claim/ClaimModal'
+import OutlineButton from '../../components/Button/OutlineButton'
 
 const AppHeader = styled('div')({
   fontWeight: 500,
@@ -315,7 +316,7 @@ export default function Swap() {
 
         {userLogined && !currency && (
           <Box padding="32px 32px 36px 32px">
-            <Button disabled>Please select token for more options</Button>
+            <OutlineButton primary>Select Token</OutlineButton>
           </Box>
         )}
 

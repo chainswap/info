@@ -5,6 +5,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import { Box } from '@material-ui/core'
 import { Text } from 'rebass'
 import useModal from '../../hooks/useModal'
+import { TYPE } from '../../theme/index'
 
 interface Props {
   children?: React.ReactNode
@@ -56,11 +57,9 @@ export default function Modal(props: Props) {
         BackdropProps={{ className: classes.backdrop }}
       >
         {label && (
-          <Box marginTop="24px">
-            <Text fontWeight={400} fontSize={18} textAlign={'center'}>
-              {label}
-            </Text>
-          </Box>
+          <TYPE.mediumHeader textAlign="center" marginTop="24px">
+            {label}
+          </TYPE.mediumHeader>
         )}
         {showIcon && (
           <CloseBtn onClick={hideModal}>

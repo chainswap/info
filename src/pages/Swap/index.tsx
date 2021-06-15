@@ -305,19 +305,19 @@ export default function Swap() {
           )}
 
           {userLogined && currency && !authorized && (
-            <Box padding="32px 0 36px">
+            <Box marginTop="32px">
               <Button onClick={authorize}>Allow the Chainswap protocol to use your Matter</Button>
             </Box>
           )}
 
           {userLogined && !currency && (
-            <Box padding="32px 0 36px">
+            <Box marginTop="32px">
               <OutlineButton primary>Select Token</OutlineButton>
             </Box>
           )}
 
           {!userLogined && (
-            <Box padding="27px 0 0">
+            <Box marginTop="32px">
               <SecondaryButton onClick={() => showModal(<WalletModal />)}>Connect Wallet</SecondaryButton>
             </Box>
           )}

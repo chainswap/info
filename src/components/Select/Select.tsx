@@ -47,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
       top: 14,
       zIndex: 2,
       color: theme.textColor.text3,
+      fontSize: 16,
+      fontWeight: 400,
     },
   },
   icon: {

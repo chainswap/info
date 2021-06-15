@@ -9,8 +9,8 @@ interface Props {
 const useStyles = makeStyles({
   root: {
     position: 'relative',
-    width: (props: Props) => props.width || 512,
-    borderRadius: 32,
+    width: (props: Props) => props.width || 560,
+    borderRadius: 20,
     background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #000000',
     justifyContent: 'center',
     border: '1px solid rgba(255, 255, 255, 0.2)',

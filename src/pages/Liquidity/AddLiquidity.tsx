@@ -58,7 +58,6 @@ export default function AddLiquidity({ onBackClick }: { onBackClick: () => void 
           label="chain"
           chainList={ChainList}
           selectedChain={chain}
-          placeholder={'Select Chain'}
           onChange={(e) => {
             setChain(ChainList.find((chain) => chain.symbol === e.target.value) ?? null)
           }}

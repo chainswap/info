@@ -86,7 +86,7 @@ export default function CurrencyInputPanel(props: Props) {
             </OutlineButton>
           </ButtonWrapper>
         )}
-        <SelectButton width={'160px'} onClick={showCurrencySearch} disabled={disabled}>
+        <SelectButton width={'180px'} onClick={showCurrencySearch} disabled={disabled}>
           {selectedCurrency ? (
             <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
           ) : (

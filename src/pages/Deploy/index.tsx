@@ -1,9 +1,13 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useCallback } from 'react'
 import AppBody from '../AppBody'
-import SelectOptions from './SelectOptions'
-import ExistingToken from './ExistingToken'
+import Entry from './Entry'
+import AddToken from './AddToken'
+import Mapping from './Mapping'
+import Bridge from './Bridge'
 import useModal from '../../hooks/useModal'
-import DeployMessageBox from '../../components/deploy/DeployMessageBox'
+import AddTokenMessageBox from './AddTokenMessageBox'
+import Chain from '../../models/chain'
+import { ChainList } from 'data/dummyData'
 
 const dummyData = {
   tokenInfo: {
@@ -20,73 +24,118 @@ const dummyData = {
 }
 
 enum DEPLOY_STATE {
-  SELECT_OPTIONS,
-  EXISTING_TOKEN,
+  ENTRY = 'entry',
+  ADD = 'add',
+  MAPPING = 'mapping',
+  BRIDGE = 'bridge',
 }
 
+export type DeployStatusType = {
+  confirmed: boolean
+  deploying: boolean
+  deployed: boolean
+}
+
+type DeployStatus = {
+  deploying?: boolean
+  deployed?: boolean
+}
+
+export type ChainState = Chain & DeployStatus
+
 export default function Deploy() {
-  const [state, setState] = useState(DEPLOY_STATE.SELECT_OPTIONS)
+  const [state, setState] = useState(DEPLOY_STATE.ENTRY)
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
-  const [{ confirmed, deploying }, setDeployState] = useState<{
-    confirmed: boolean
-    deploying: boolean
-    deployed: boolean
-  }>({
+  const [deployStatus, setDeployStatus] = useState<DeployStatusType>({
     confirmed: false,
     deploying: false,
     deployed: false,
   })
-  const { showModal } = useModal()
+  const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
 
-  function onChangeAddress(e: ChangeEvent<HTMLInputElement>) {
+  const { showModal, hideModal } = useModal()
+
+  const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value)
-  }
+  }, [])
 
-  function onChangeChainId(e: ChangeEvent<HTMLInputElement>) {
+  const onChangeChainId = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setChainId(e.target.value)
-  }
+  }, [])
 
-  function toggleConfirm() {
-    setDeployState({
-      confirmed: !confirmed,
+  const toggleConfirm = useCallback(() => {
+    setDeployStatus({
+      confirmed: !deployStatus.confirmed,
       deploying: false,
       deployed: false,
     })
-  }
+  }, [deployStatus])
 
-  function onDeploy() {
-    setDeployState({
+  const toMapping = useCallback(() => {
+    setState(DEPLOY_STATE.MAPPING)
+    hideModal()
+  }, [setState, hideModal])
+
+  const onDeploy = useCallback(() => {
+    setDeployStatus({
       confirmed: true,
       deploying: true,
       deployed: false,
     })
     setTimeout(() => {
-      setDeployState({
+      setDeployStatus({
         deploying: false,
         confirmed: true,
         deployed: true,
       })
-      showModal(<DeployMessageBox data={dummyData.mainchainInfo} />)
-    }, 1500)
-  }
+      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
+    }, 500)
+  }, [setDeployStatus, showModal, toMapping])
+
+  const onChainSelect = useCallback((e: ChangeEvent<{ value: string[] }>) => {
+    const symbols: string[] = e.target.value
+    const selectedItems = []
+
+    for (let i = 0; i < symbols.length; i += 1) {
+      const chain = ChainList.find((chain) => chain.symbol === symbols[i])
+      if (chain) {
+        selectedItems.push(chain)
+      }
+    }
+    setSelectedChains(selectedItems)
+  }, [])
+
+  const toBridge = useCallback(() => {
+    hideModal()
+    setState(DEPLOY_STATE.BRIDGE)
+  }, [hideModal])
 
   return (
     <AppBody width={552}>
-      {state === DEPLOY_STATE.SELECT_OPTIONS ? (
-        <SelectOptions onClickExistingToken={() => setState(DEPLOY_STATE.EXISTING_TOKEN)} onClickNewToken={() => {}} />
-      ) : state === DEPLOY_STATE.EXISTING_TOKEN ? (
-        <ExistingToken
+      {state === DEPLOY_STATE.ENTRY ? (
+        <Entry onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
+      ) : state === DEPLOY_STATE.ADD ? (
+        <AddToken
           address={address}
           onChangeAddress={onChangeAddress}
           chainId={chainId}
           onChangeChainId={onChangeChainId}
-          confirmed={confirmed}
           toggleConfirm={toggleConfirm}
           onDeploy={onDeploy}
-          deploying={deploying}
+          status={deployStatus}
           data={dummyData.tokenInfo}
         />
+      ) : state === DEPLOY_STATE.MAPPING ? (
+        <Mapping
+          data={dummyData.mainchainInfo}
+          chainList={ChainList}
+          onChainSelect={onChainSelect}
+          selectedChains={selectedChains}
+          onNext={toBridge}
+        />
+      ) : state === DEPLOY_STATE.BRIDGE ? (
+        <Bridge />
       ) : null}
     </AppBody>
   )

@@ -1,5 +1,5 @@
 import { Paper, styled } from '@material-ui/core'
-import { Divider } from '../../components/Divider/Divider'
+import Divider from '../../components/Divider/Divider'
 
 const Container = styled(Paper)(({ theme }) => ({
   borderColor: theme.bgColor.bg4,

@@ -25,19 +25,21 @@ export default function CurrencySearch(props: Props) {
 
   return (
     <>
-      <Box padding="20px 32px 0 32px">
+      <Box padding="20px 32px 23px 32px">
         <Input value={value} onChange={onChange} placeholder={placeholder} />
       </Box>
-      <Divider orientation={'horizontal'} margin={'20px 0 20px 0'} opacity={0.12} />
-      <CurrencyList
-        currencies={currencies}
-        showImportBtn={true}
-        showImportView={showImportView}
-        setImportToken={setImportToken}
-        onCurrencySelect={onCurrencySelect}
-      />
-      <Divider orientation={'horizontal'} margin={'20px 0 20px 0'} opacity={0.12} />
-      <Box width="100%" borderRadius="0 0 20px 20px" padding="0 0 13px 0" justifyContent="center" display="flex">
+      <Divider />
+      <Box paddingTop={'24px'}>
+        <CurrencyList
+          currencies={currencies}
+          showImportBtn={true}
+          showImportView={showImportView}
+          setImportToken={setImportToken}
+          onCurrencySelect={onCurrencySelect}
+        />
+      </Box>
+      <Divider />
+      <Box width="100%" borderRadius="0 0 20px 20px" padding="16px 0" justifyContent="center" display="flex">
         <TextButton onClick={onManage} primary>
           Manage
         </TextButton>

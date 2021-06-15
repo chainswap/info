@@ -13,7 +13,6 @@ const Connector = withStyles({
     background: 'rgba(255,255,255,0.2)',
     height: 1,
     width: 16,
-    marginLeft: 8,
     border: 0,
     borderRadius: 1,
   },

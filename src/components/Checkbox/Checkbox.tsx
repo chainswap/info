@@ -6,8 +6,9 @@ import { ReactComponent as CheckboxCheckedIcon } from '../../assets/images/check
 
 interface Props {
   checked: boolean
-  onChange: () => void
+  onChange?: () => void
   label?: string
+  disabled?: boolean
 }
 
 const useStyles = makeStyles({
@@ -26,15 +27,16 @@ const useStyles = makeStyles({
 
 export default function _Checkbox(props: Props) {
   const classes = useStyles(props)
-  const { checked, onChange, label } = props
+  const { checked, onChange, label, disabled } = props
   return (
     <FormControlLabel
       classes={{ root: classes.root, label: classes.label }}
-      value={checked}
       control={<Checkbox className={classes.checkbox} icon={<CheckboxIcon />} checkedIcon={<CheckboxCheckedIcon />} />}
       label={label}
       labelPlacement="end"
       onChange={onChange}
+      checked={checked}
+      disabled={disabled}
     />
   )
 }

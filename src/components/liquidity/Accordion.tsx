@@ -2,7 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, makeStyles, Box } from '
 import { ChevronDown } from 'react-feather'
 import { TYPE } from '../../theme'
 import SecondaryButton from '../Button/SecondaryButton'
-import { Divider } from '../Divider/Divider'
+import Divider from '../Divider/Divider'
 import { ExternalLink } from '../Link'
 
 const useStyles = makeStyles((theme) => ({

@@ -129,11 +129,11 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
       borderRadius={'4px'}
       alignItems={'center'}
     >
-      <Box marginLeft={'12px'}>
+      <Box padding={'0 10px 0 12px'}>
         <Text fontSize={13} fontWeight={400}>{`${amount} ${currency}`}</Text>
       </Box>
-      <Divider orientation={'vertical'} opacity={1} margin={'0 8px 0 10px'} />
-      <Box paddingRight={'10.26px'} display={'flex'} alignItems={'center'}>
+      <Divider orientation={'vertical'} />
+      <Box padding={'0 10.26px 0 8px'} display={'flex'} alignItems={'center'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: '12px', height: '12px' }} />
         <Box margin={'0 6px'}>
           <TextButton onClick={showAccountModal} fontSize={12} opacity={0.6}>

@@ -129,7 +129,7 @@ export default function ClaimModal(props: Props) {
 
         {dataCompleted.length > 0 && (
           <>
-            <Divider orientation={'horizontal'} margin={'8px 0 20px 0'} />
+            <Divider orientation={'horizontal'} />
             <Box padding={'0 32px'}>
               <ClaimList dataItems={dataCompleted} />
             </Box>

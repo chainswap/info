@@ -74,7 +74,7 @@ export default function Manage() {
         <TabToggle labelOptions={['Lists', 'Tokens']} value={tab} onChange={onChangeTabToggle} />
         <Input value={value} onChange={onChangeInput} placeholder={placeholder} />
       </UpperSection>
-      <Divider margin={'20px 0'} orientation={'horizontal'} />
+      <Divider orientation={'horizontal'} />
       <ListWrapper>{getLists()}</ListWrapper>
     </>
   )

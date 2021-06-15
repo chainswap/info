@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import ChainSelect from './ChainSelect'
+import ChainSelect from '../../ChainSelect/ChainSelect'
 import Chain from '../../../models/chain'
 import SwitchArrow from '../../../assets/images/switch_arrow.svg'
 import Image from '../../Image/Image'
@@ -18,9 +18,16 @@ export default function ChainSelectPanel(props: Props) {
 
   return (
     <Box display="flex" justifyContent="space-between">
-      <ChainSelect label={'From'} disabled selectedChain={from} chainList={chainList} onChange={onChangeFrom} />
+      <ChainSelect
+        label={'From'}
+        disabled
+        selectedChain={from}
+        chainList={chainList}
+        onChange={onChangeFrom}
+        width={'176px'}
+      />
       <Image src={SwitchArrow} alt={'switch_arrow_icon'} style={{ marginTop: 12 }} />
-      <ChainSelect label={'To'} selectedChain={to} chainList={chainList} onChange={onChangeTo} />
+      <ChainSelect label={'To'} selectedChain={to} chainList={chainList} onChange={onChangeTo} width={'176px'} />
     </Box>
   )
 }

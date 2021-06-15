@@ -27,7 +27,7 @@ interface Props {
   onConfirm: () => void
 }
 
-const FadedBox = styled(Box)({
+const Faded = styled('div')({
   opacity: 0.2,
 })
 
@@ -56,11 +56,13 @@ export default function ConfirmWithdrawModal(props: Props) {
       <Modal showIcon>
         {mode === Mode.INSTRUCTION ? (
           <>
-            <Instruction to={to} />
-            <SwapChain from={from} to={to} />
-            <ChainAddress walletLogo={walletLogo} address={address} />
-            <Divider orientation={'horizontal'} margin={'20px 0 24px 0'} />
-            <FadedBox>
+            <Box paddingBottom={'24px'}>
+              <Instruction to={to} />
+              <SwapChain from={from} to={to} />
+              <ChainAddress walletLogo={walletLogo} address={address} />
+            </Box>
+            <Divider />
+            <Faded>
               <Box marginBottom="12px">
                 <Text fontWeight={500} fontSize={18} textAlign={'center'}>
                   3. Confirm Withdraw
@@ -71,15 +73,17 @@ export default function ConfirmWithdrawModal(props: Props) {
                   {value} {selectedCurrency.symbol}
                 </Text>
               </Box>
-            </FadedBox>
+            </Faded>
           </>
         ) : (
           <>
-            <FadedBox>
-              <Instruction to={to} />
-            </FadedBox>
-            <Divider orientation={'horizontal'} margin={'20px 0 24px 0'} />
-            <Box marginBottom="12px">
+            <Faded>
+              <Box paddingBottom={'24px'}>
+                <Instruction to={to} />
+              </Box>
+            </Faded>
+            <Divider orientation={'horizontal'} />
+            <Box padding={'24px 12px'}>
               <Text fontWeight={400} fontSize={18} textAlign={'center'}>
                 3. Confirm Withdraw
               </Text>

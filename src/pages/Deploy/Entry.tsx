@@ -9,7 +9,7 @@ interface Props {
   onClickNewToken: () => void
 }
 
-export default function Landing(props: Props) {
+export default function Entry(props: Props) {
   const { onClickExistingToken, onClickNewToken } = props
 
   return (

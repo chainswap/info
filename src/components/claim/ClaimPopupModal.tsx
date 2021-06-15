@@ -46,7 +46,9 @@ export default function ClaimPopupModal() {
           </Button>
         </Box>
       </Modal>
-      {showMessageBox && <SimpleMessageBox type={messageType} header={message} action={'Enter Again'} />}
+      {showMessageBox && (
+        <SimpleMessageBox type={messageType} header={message} action={() => {}} actionText={'Enter Again'} />
+      )}
     </>
   )
 }

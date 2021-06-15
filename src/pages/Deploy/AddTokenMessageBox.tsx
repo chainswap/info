@@ -1,9 +1,9 @@
 import React from 'react'
-import DetailedMessagebox from '../MessageBox/DetailedMessageBox'
+import DetailedMessagebox from '../../components/MessageBox/DetailedMessageBox'
 import { Box } from '@material-ui/core'
 import theme, { TYPE } from '../../theme/index'
-import TextButton from '../Button/TextButton'
-import Copy from '../Copy/Copy'
+import TextButton from '../../components/Button/TextButton'
+import Copy from '../../components/Copy/Copy'
 
 interface Props {
   data: {
@@ -11,10 +11,11 @@ interface Props {
     'Mappable contract address': string
     'Mainchain ID': string
   }
+  action: () => void
 }
 
-export default function DeploySuccessModal(props: Props) {
-  const { data } = props
+export default function AddTokenMessageBox(props: Props) {
+  const { data, action } = props
 
   return (
     <DetailedMessagebox
@@ -23,9 +24,10 @@ export default function DeploySuccessModal(props: Props) {
       message={
         'You have successfully deployed your mappable contract on mainchain. Please save the following information and continue to next step:'
       }
-      action={'Go to Next Step'}
+      actionText={'Go to Next Step'}
+      action={action}
     >
-      <Box padding={'0 32px'} display={'grid'} gridGap={12}>
+      <Box display={'grid'} gridGap={12} width="100%">
         {Object.keys(data).map((key) => {
           return (
             <Box
@@ -34,7 +36,6 @@ export default function DeploySuccessModal(props: Props) {
               alignItems={'center'}
               borderRadius={14}
               justifyContent={'space-between'}
-              width={'488px'}
               bgcolor={theme.bgColor.bg3}
               height={'48px'}
               padding={'0 20px'}

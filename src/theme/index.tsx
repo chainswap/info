@@ -101,6 +101,9 @@ export const TYPE = {
   smallHeader(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={16} {...props} fontFamily="Futura PT" />
   },
+  header(props: TextProps) {
+    return <TextWrapper fontWeight={500} {...props} fontFamily="Futura PT" />
+  },
   small(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={12} {...props} />
   },

@@ -60,6 +60,18 @@ const theme: Theme = createMuiTheme({
       dark: '#3E276B',
       contrastText: '#9867FF',
     },
+    error: {
+      main: '#F53030',
+    },
+    warning: {
+      main: '#9867FF',
+    },
+    info: {
+      main: '#9867FF',
+    },
+    success: {
+      main: '#2DAB50',
+    },
     background: {
       default: '#131315',
     },
@@ -145,5 +157,8 @@ export const TYPE = {
   },
   gray(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={16} textColor="text3" {...props} />
+  },
+  notification(props: TextProps) {
+    return <TextWrapper fontWeight={400} fontSize={13} textColor="text1" {...props} />
   },
 }

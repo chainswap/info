@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       '&:focus': {
         backgroundColor: '#1f1f1f',
+        borderRadius: theme.shape.borderRadius,
       },
       '&:hover': {
         backgroundColor: theme.palette.primary.main,

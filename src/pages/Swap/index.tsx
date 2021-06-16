@@ -219,34 +219,35 @@ export default function Swap() {
     return (
       <Box display="grid" gridGap="16px" marginTop="28px" marginBottom={'24px'}>
         <Box display="flex" justifyContent="space-between">
-          <Button width={'232px'} disabled={!depositEnabled} onClick={showConfirmDepositModal}>
-            {attemptingDeposit ? (
-              <>
-                <Image src={Loader} alt={'loader icon'} />
-                <Text marginLeft={12} fontSize={16}>
-                  Depositing
-                </Text>
-              </>
-            ) : (
+          {attemptingDeposit ? (
+            <OutlineButton width="232px" primary>
+              <Image src={Loader} alt={'loader icon'} />
+              <Text marginLeft={12} fontSize={16}>
+                Depositing
+              </Text>
+            </OutlineButton>
+          ) : (
+            <Button width="232px" disabled={!depositEnabled} onClick={showConfirmDepositModal}>
               <Text marginLeft={12} fontSize={16}>
                 Deposit in {from.symbol} Chain
               </Text>
-            )}
-          </Button>
-          <Button width={'232px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
-            {attemptingWithdraw ? (
-              <>
-                <LoaderIcon />
-                <Text marginLeft={12} fontSize={16}>
-                  Withdrawing
-                </Text>
-              </>
-            ) : (
+            </Button>
+          )}
+
+          {attemptingWithdraw ? (
+            <OutlineButton width="232px" primary>
+              <LoaderIcon />
+              <Text marginLeft={12} fontSize={16}>
+                Withdrawing
+              </Text>
+            </OutlineButton>
+          ) : (
+            <Button width={'232px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
               <Text marginLeft={12} fontSize={16}>
                 Withdraw from {to.symbol} Chain
               </Text>
-            )}
-          </Button>
+            </Button>
+          )}
         </Box>
         <Box display="flex" justifyContent="center">
           <SwapStepper activeStep={step} />

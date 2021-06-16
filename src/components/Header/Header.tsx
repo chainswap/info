@@ -156,7 +156,7 @@ export default function Header() {
   const [amount] = useState(1.24)
   const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
-  const { showModal } = useModal()
+  const { showModal ,hideModal} = useModal()
   const [showClaimModal, setShowClaimModal] = useState(false)
 
   useEffect(() => {
@@ -210,7 +210,7 @@ export default function Header() {
             <WalletInfo amount={amount} currency={currency} address={address} />
           </Box>
         ) : (
-          <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={() => showModal(<WalletModal />)}>
+            <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={() => showModal(<WalletModal onDismiss={hideModal}/>)}>
             Connect Wallet
           </Button>
         )}

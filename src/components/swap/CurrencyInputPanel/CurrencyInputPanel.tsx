@@ -56,10 +56,10 @@ const ButtonWrapper = styled('div')({
 
 export default function CurrencyInputPanel(props: Props) {
   const { selectedCurrency, options, onMax, value, disabled, onCurrencySelect, placeholder } = props
-  const { showModal } = useModal()
+  const { showModal, hideModal } = useModal()
 
   const showCurrencySearch = () => {
-    showModal(<CurrencySearchModal currencies={options} onCurrencySelect={onCurrencySelect} />)
+    showModal(<CurrencySearchModal currencies={options} onCurrencySelect={onCurrencySelect} onDismiss={hideModal} />)
   }
 
   return (
@@ -68,7 +68,7 @@ export default function CurrencyInputPanel(props: Props) {
         <InputLabel>Amount</InputLabel>
         {selectedCurrency && (
           <Hint>
-            your balance: ${selectedCurrency.balance} ${selectedCurrency.symbol}
+            Balance: {selectedCurrency.balance} ${selectedCurrency.symbol}
           </Hint>
         )}
       </LabelRow>
@@ -82,7 +82,7 @@ export default function CurrencyInputPanel(props: Props) {
         />
         {selectedCurrency && onMax && (
           <ButtonWrapper>
-            <OutlineButton width="64px" height="28px" onClick={onMax} color={theme.textColor.text1}>
+            <OutlineButton width="64px" height="28px" onClick={onMax} color={theme.textColor.text1} borderRadius="20px">
               Max
             </OutlineButton>
           </ButtonWrapper>

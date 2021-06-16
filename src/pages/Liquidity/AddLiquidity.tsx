@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
-import { Box, Paper } from '@material-ui/core'
+import { Box, Paper, useTheme } from '@material-ui/core'
 import TextButton from 'components/Button/TextButton'
 import CurrencyInputPanel from 'components/swap/CurrencyInputPanel/CurrencyInputPanel'
 import AppBody from 'pages/AppBody'
@@ -17,6 +17,9 @@ export default function AddLiquidity({ onBackClick }: { onBackClick: () => void 
   const [amount, setAmount] = useState('')
   const [currency, setCurrency] = useState<Currency | null>(null)
   const [chain, setChain] = useState<Chain | null>(null)
+  const [pending, setPending] = useState(true)
+  const theme = useTheme()
+
   const error = useMemo(() => {
     if (!currency) {
       return 'Select Token'
@@ -33,6 +36,12 @@ export default function AddLiquidity({ onBackClick }: { onBackClick: () => void 
 
   const handleChangeAmount = useCallback((e) => setAmount(e.target.value), [])
   const handleCurrencySelect = useCallback((currency) => setCurrency(currency), [])
+  const handleProvide = useCallback(() => {
+    setPending(true)
+    setTimeout(() => {
+      setPending(false)
+    }, 3000)
+  }, [])
   return (
     <AppBody>
       <Box padding="20px 40px 40px" display="grid" gridGap="24px">
@@ -63,25 +72,30 @@ export default function AddLiquidity({ onBackClick }: { onBackClick: () => void 
           }}
           width="100%"
         />
-        {/* {!error && ( */}
-        <Paper variant="outlined" style={{ backgroundColor: 'transparent' }}>
-          <Box display="grid" gridGap="16px" padding="16px 20px">
-            <TYPE.medium>Pool Information</TYPE.medium>
-            <Box display="flex" justifyContent="space-between">
-              <TYPE.smallGray>Share of pool</TYPE.smallGray>
-              <TYPE.smallGray>0.003%</TYPE.smallGray>
+        {!error && (
+          <Paper
+            variant="outlined"
+            style={{ backgroundColor: 'transparent', border: '1px solid ' + theme.bgColor.bg4 }}
+          >
+            <Box display="grid" gridGap="16px" padding="16px 20px">
+              <TYPE.medium>Pool Information</TYPE.medium>
+              <Box display="flex" justifyContent="space-between">
+                <TYPE.smallGray>Share of pool</TYPE.smallGray>
+                <TYPE.small>0.003%</TYPE.small>
+              </Box>
             </Box>
-          </Box>
-        </Paper>
+          </Paper>
+        )}
 
         <Box style={{ marginTop: 10 }}>
-          {error ? (
+          {error || pending ? (
             <OutlineButton primary disabled>
-              {error}
+              {pending ? <>Waiting Confirmation</> : error}
             </OutlineButton>
           ) : (
-            <Button>Provide Liquidity</Button>
+            <Button onClick={handleProvide}>Provide Liquidity</Button>
           )}
+          <TYPE.gray style={{ marginTop: 13, textAlign: 'center' }}>Confirm this transaction in your wallet</TYPE.gray>
         </Box>
       </Box>
     </AppBody>

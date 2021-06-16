@@ -319,7 +319,7 @@ export default function Swap() {
 
           {!userLogined && (
             <Box marginTop="32px">
-              <SecondaryButton onClick={() => showModal(<WalletModal />)}>Connect Wallet</SecondaryButton>
+              <SecondaryButton onClick={() => showModal(<WalletModal onDismiss={hideModal}/>)}>Connect Wallet</SecondaryButton>
             </Box>
           )}
         </Box>

@@ -12,8 +12,8 @@ export default function useModal() {
 }
 
 export function useWalletModal() {
-  const { showModal } = useModal()
-  const showWalletModal = useCallback(() => showModal(<WalletModal />), [showModal])
+  const { showModal,hideModal } = useModal()
+  const showWalletModal = useCallback(() => showModal(<WalletModal onDismiss={hideModal}/>), [showModal,hideModal])
 
   return {
     showWalletModal,

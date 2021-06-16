@@ -13,14 +13,14 @@ export default function ChainAddress(props: Props) {
 
   return (
     <Box color="#FFFFFF" display="flex" justifyContent="space-between" margin="16px 32px 0 32px">
-      <Text opacity={0.6} marginRight={10}>
+      <Text opacity={0.4} marginRight={10}>
         Destination:
       </Text>
       <Box display="flex" alignItems={'center'}>
         <Image src={walletLogo} alt={'wallet logo'} style={{ width: 16, height: 14.3 }} />
-        <Box marginLeft="8px" fontSize="13px">
+        <Text opacity={0.6} marginLeft="8px">
           {address}
-        </Box>
+        </Text>
       </Box>
     </Box>
   )

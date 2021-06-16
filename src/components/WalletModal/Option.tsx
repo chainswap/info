@@ -19,7 +19,7 @@ export default function Option(props: Props) {
   const { onClick, header, icon } = props
   return (
     <OutlineButton width="280px" onClick={onClick}>
-      <Image src={icon} alt={`wallet icon-${header}`} />
+      <Image src={icon} alt={`wallet icon-${header}`} style={{ marginRight: 16 }} />
       {header}
     </OutlineButton>
   )

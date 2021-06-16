@@ -18,14 +18,15 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: (props: Props) => props.width || '100%',
       border: (props: Props) =>
-        `solid 1px ${props.color ? props.color : props.primary ? theme.palette.primary.main : '#FFFFFF'}`,
+        `solid 1px ${props.color ? props.color : props.primary ? theme.palette.primary.main : theme.gray.main}`,
       fontSize: (props: Props) => props.fontSize || 16,
-      height: (props: Props) => props.height || 48,
-      color: (props: Props) => (props.color ? props.color : props.primary ? theme.palette.primary.main : '#FFFFFF'),
-      borderRadius: 49,
+      foneWeight: (props: Props) => (props.primary ? 500 : 400),
+      height: (props: Props) => props.height || 60,
+      color: (props: Props) => (props.primary ? theme.palette.primary.main : theme.palette.primary.contrastText),
+      borderRadius: theme.shape.borderRadius,
       '&:hover': {
-        color: theme.palette.primary.dark,
-        borderColor: theme.palette.primary.dark,
+        color: theme.palette.primary.contrastText,
+        borderColor: (props: Props) => (props.primary ? theme.palette.primary.dark : theme.palette.primary.main),
       },
     },
     disabled: {

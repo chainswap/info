@@ -17,21 +17,22 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: (props: Props) => props.width || 160,
       height: (props: Props) => props.height || 48,
-      backgroundColor: (props: Props) => (props.primary ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.08)'),
-      color: theme.palette.primary.contrastText,
+      backgroundColor: (props: Props) => (props.primary ? theme.palette.primary.main : theme.gray.main),
+      color: theme.textColor.text1,
+      borderRadius: theme.shape.borderRadius,
       fontSize: 16,
-      fontWeight: 500,
-      borderRadius: 14,
+      fontWeight: 400,
       transition: '.3s',
       padding: '0 15.67px 0 20px',
       '&:hover': {
-        background: (props: Props) => (props.primary ? theme.palette.primary.dark : theme.palette.primary.main),
+        background: theme.palette.primary.main,
       },
       display: 'flex',
       justifyContent: 'space-between',
     },
     disabled: {
       opacity: theme.palette.action.disabledOpacity,
+      backgroundColor: theme.gray.main,
     },
   })
 )

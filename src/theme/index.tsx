@@ -24,27 +24,41 @@ interface Gradient {
 interface Height {
   header: string
 }
+
+interface Gray {
+  main: string
+  dark: string
+}
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface ThemeOptions {
     textColor: TextColor
     bgColor: BgColor
     gradient: Gradient
     height: Height
+    gray: Gray
   }
   interface Theme {
     textColor: TextColor
     bgColor: BgColor
     gradient: Gradient
     height: Height
+    gray: Gray
   }
 }
 
 const theme: Theme = createMuiTheme({
   palette: {
     primary: {
+      light: '#2E2247',
       main: '#9867FF',
       dark: '#7433FF',
       contrastText: '#FFFFFF',
+    },
+    secondary: {
+      light: '#1D152D',
+      main: '#211735',
+      dark: '#3E276B',
+      contrastText: '#9867FF',
     },
     background: {
       default: '#131315',
@@ -53,7 +67,7 @@ const theme: Theme = createMuiTheme({
       primary: '#FFFFFF',
     },
     action: {
-      disabledOpacity: 0.6,
+      disabledOpacity: 0.8,
     },
   },
   textColor: {
@@ -76,6 +90,13 @@ const theme: Theme = createMuiTheme({
   height: {
     header: '88px',
   },
+  shape: {
+    borderRadius: 10,
+  },
+  gray: {
+    main: '#333333',
+    dark: '#262626',
+  },
 })
 
 export default theme
@@ -93,7 +114,7 @@ export const TYPE = {
     return <TextWrapper fontWeight={500} fontSize={16} textColor="text1" {...props} />
   },
   largeHeader(props: TextProps) {
-    return <TextWrapper fontWeight={600} fontSize={24} {...props} fontFamily="Futura PT" />
+    return <TextWrapper fontWeight={500} fontSize={28} {...props} fontFamily="Futura PT" />
   },
   mediumHeader(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={22} {...props} fontFamily="Futura PT" />

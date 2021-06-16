@@ -7,7 +7,7 @@ import { ReactComponent as ErrorIcon } from '../../assets/images/notification_er
 import { ReactComponent as WarningIcon } from '../../assets/images/notification_warning.svg'
 import { TYPE } from '../../theme/index'
 
-enum Type {
+export enum NotificationType {
   INFO = 'info',
   SUCCESS = 'success',
   ERROR = 'error',
@@ -15,7 +15,7 @@ enum Type {
 }
 
 interface Props {
-  type: Type
+  type: NotificationType
   message: string
 }
 
@@ -25,14 +25,17 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 8,
       border: (props: Props) =>
         `1px solid ${
-          props.type === Type.INFO
-            ? theme.palette.info
-            : props.type === Type.SUCCESS
-            ? theme.palette.success
-            : props.type === Type.ERROR
-            ? theme.palette.error
-            : theme.palette.warning
+          props.type === NotificationType.INFO
+            ? theme.palette.info.main
+            : props.type === NotificationType.SUCCESS
+            ? theme.palette.success.main
+            : props.type === NotificationType.ERROR
+            ? theme.palette.error.main
+            : theme.palette.warning.main
         }`,
+      padding: '12px 17px',
+      display: 'flex',
+      alignItems: 'flex-start',
     },
   })
 )
@@ -45,16 +48,16 @@ export default function Notification(props: Props) {
 
   return (
     <div className={classes.notification}>
-      {type === Type.INFO ? (
+      {type === NotificationType.INFO ? (
         <InfoIcon />
-      ) : props.type === Type.SUCCESS ? (
+      ) : props.type === NotificationType.SUCCESS ? (
         <SuccessIcon />
-      ) : props.type === Type.ERROR ? (
+      ) : props.type === NotificationType.ERROR ? (
         <ErrorIcon />
       ) : (
         <WarningIcon />
       )}
-      <TYPE.notification>{message}</TYPE.notification>
+      <TYPE.notification marginLeft={9}>{message}</TYPE.notification>
     </div>
   )
 }

@@ -26,7 +26,7 @@ import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
 import { ReactComponent as LoaderIcon } from '../../assets/images/loader.svg'
 import Form from './Form'
-import Notification from '../../components/Notification/Notification'
+import Notification, { NotificationType } from '../../components/Notification/Notification'
 
 export default function Swap() {
   const userLogined = useUserLogined()
@@ -298,6 +298,14 @@ export default function Swap() {
           </Box>
           {authorized && (
             <>
+              <Box marginTop="16px">
+                <Notification
+                  type={NotificationType.SUCCESS}
+                  message={
+                    'You swap address will be your receiving address. Please switch the network to check your balance after completition.'
+                  }
+                />
+              </Box>
               <Box
                 width="100%"
                 height="48px"

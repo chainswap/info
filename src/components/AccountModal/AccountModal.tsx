@@ -91,7 +91,7 @@ export default function AccountMoal(props: Props) {
         <OutlineButton width={'180px'} onClick={hideModal} primary>
           Close
         </OutlineButton>
-        <Button width={'180px'} onClick={() => showModal(<WalletModal />)}>
+        <Button width={'180px'} onClick={() => showModal(<WalletModal onDismiss={hideModal}/>)}>
           Change
         </Button>
       </Box>

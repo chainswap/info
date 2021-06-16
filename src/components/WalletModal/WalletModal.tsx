@@ -1,21 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Modal from '../Modal/Modal'
 import { Box } from '@material-ui/core'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
-import AccountModal from '../AccountModal/AccountModal'
-import { ConfirmedTransactionList, PendingTransactionList } from '../../data/dummyData'
 import { useSetUser } from '../../state/user/hooks'
-import useModal from '../../hooks/useModal'
 
 const WALLET_VIEWS = {
   OPTIONS: 'options',
   ACCOUNT: 'account',
 }
 
-export default function WalletModal() {
+export default function WalletModal({onDismiss}:{onDismiss:()=>void}) {
   const [walletView] = useState(WALLET_VIEWS.OPTIONS)
-  const { showModal } = useModal()
   const setUser = useSetUser()
 
   const getOptions = () => {
@@ -39,13 +35,7 @@ export default function WalletModal() {
 
   const onClickOption = () => {
     setUser({ address: 'address' })
-    showModal(
-      <AccountModal
-        ENSName={'0xe60b...e6d3'}
-        pendingTransactions={PendingTransactionList}
-        confirmedTransactions={ConfirmedTransactionList}
-      />
-    )
+    onDismiss&&onDismiss()
   }
 
   return (

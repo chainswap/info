@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 48,
       paddingLeft: 20,
       borderRadius: 14,
+      border: '1px solid transparent',
     },
     focused: {
       border: '1px solid',

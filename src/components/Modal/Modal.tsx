@@ -4,6 +4,8 @@ import { styled, createStyles } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
 import useModal from '../../hooks/useModal'
 import { TYPE } from '../../theme/index'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import { useRef } from 'react'
 
 interface Props {
   children?: React.ReactNode
@@ -45,13 +47,14 @@ export default function Modal(props: Props) {
   const { children, label, showIcon } = props
   const classes = useStyles(props)
   const { isOpen, hideModal } = useModal()
-
+  const node = useRef<any>()
+  useOnClickOutside(node, hideModal)
   return (
     <>
       <Dialog
         open={isOpen}
         className={classes.root}
-        PaperProps={{ className: classes.paper }}
+        PaperProps={{ className: classes.paper,ref:node }}
         BackdropProps={{ className: classes.backdrop }}
       >
         {label && (

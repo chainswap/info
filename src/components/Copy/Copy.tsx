@@ -14,6 +14,10 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     cursor: 'pointer',
+    height: 17,
+    '& svg': {
+      width:14
+    },
   },
   icon: {
     opacity: 0.6,
@@ -28,8 +32,8 @@ export default function Copy(props: Props) {
 
   return (
     <Box className={classes.root} onClick={() => setCopied(toCopy)}>
-      {isCopied ? <CheckIcon className={classes.icon} /> : <CopyIcon />}
-      {isCopied ? '' : children}
+      {isCopied ? <CheckIcon className={classes.icon}/> : <CopyIcon/>}
+      {children}
     </Box>
   )
 }

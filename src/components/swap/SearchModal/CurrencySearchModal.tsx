@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useCallback } from 'react'
 import Modal from '../../Modal/Modal'
 import CurrencySearch from './CurrencySearch'
 import Currency from '../../../models/currency'
@@ -14,10 +14,11 @@ const VIEWS = {
 interface Props {
   currencies: Currency[]
   onCurrencySelect: (currency: Currency) => void
+  onDismiss: () => void
 }
 
 export default function CurrencySearchModal(props: Props) {
-  const { currencies, onCurrencySelect } = props
+  const { currencies, onCurrencySelect, onDismiss } = props
   const [view, setView] = useState(VIEWS.SEARCH)
   const [currency, setCurrency] = useState('')
 
@@ -37,6 +38,14 @@ export default function CurrencySearchModal(props: Props) {
     alert('set Import Token')
   }
 
+  const onSelect = useCallback(
+    (currency) => {
+      onCurrencySelect(currency)
+      onDismiss()
+    },
+    [onCurrencySelect, onDismiss]
+  )
+
   return (
     <>
       <Modal label={'Select a token'} showIcon>
@@ -48,7 +57,7 @@ export default function CurrencySearchModal(props: Props) {
             value={currency}
             showImportView={showImportView}
             setImportToken={setImportToken}
-            onCurrencySelect={onCurrencySelect}
+            onCurrencySelect={onSelect}
           />
         ) : view === VIEWS.MANAGE ? (
           <Manage />

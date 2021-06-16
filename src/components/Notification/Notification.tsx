@@ -44,19 +44,21 @@ export default function Notification(props: Props) {
   const classes = useStyles(props)
   const { type, message } = props
 
-  const getIcon = useCallback(() => {}, [])
+  const getIcon = useCallback((type: NotificationType) => {
+    return type === NotificationType.INFO ? (
+      <InfoIcon />
+    ) : type === NotificationType.SUCCESS ? (
+      <SuccessIcon />
+    ) : type === NotificationType.ERROR ? (
+      <ErrorIcon />
+    ) : (
+      <WarningIcon />
+    )
+  }, [])
 
   return (
     <div className={classes.notification}>
-      {type === NotificationType.INFO ? (
-        <InfoIcon />
-      ) : props.type === NotificationType.SUCCESS ? (
-        <SuccessIcon />
-      ) : props.type === NotificationType.ERROR ? (
-        <ErrorIcon />
-      ) : (
-        <WarningIcon />
-      )}
+      {getIcon(type)}
       <TYPE.notification marginLeft={9}>{message}</TYPE.notification>
     </div>
   )

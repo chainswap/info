@@ -25,6 +25,7 @@ interface Props {
   address: string
   onChangeAddress: (e: ChangeEvent<HTMLInputElement>) => void
   chainList: Chain[]
+  hintable: boolean
 }
 
 enum Hintable {
@@ -52,13 +53,14 @@ export default function Form(props: Props) {
     address,
     onChangeAddress,
     chainList,
+    hintable,
   } = props
   const [onHint, setOnHint] = useState<Hintable | null>(null)
 
   // onHint
   useEffect(() => {
-    if (!userLogined) {
-      return
+    if (!userLogined || !hintable) {
+      return setOnHint(null)
     }
     if (!currency) {
       return setOnHint(Hintable.CURRENCY_SELECT)
@@ -72,7 +74,7 @@ export default function Form(props: Props) {
     if (!amount) {
       return setOnHint(Hintable.CURRENCY_INPUT)
     }
-  }, [userLogined, currency, from, to, amount])
+  }, [userLogined, currency, from, to, amount, hintable])
 
   return (
     <>
@@ -85,7 +87,7 @@ export default function Form(props: Props) {
         onCurrencySelect={onCurrencySelect}
         disabled={!userLogined}
         selectActive={onHint === Hintable.CURRENCY_SELECT}
-        inputActive={!amount && onHint === Hintable.CURRENCY_INPUT}
+        inputFocused={!amount && onHint === Hintable.CURRENCY_INPUT}
       />
       {showChainSelect && (
         <Box display="flex" justifyContent="space-between" alignItems={'flex-end'} position={'relative'}>

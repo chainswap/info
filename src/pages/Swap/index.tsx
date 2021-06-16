@@ -39,7 +39,7 @@ export default function Swap() {
   const [quota] = useState(800)
   const [currency, setCurrency] = useState<Currency | null>(null)
   const { showModal, hideModal } = useModal()
-  // const [percentage, setPercentage] = useState(0)
+  const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAuthorized] = useState(false)
   // const [wallet] = useState({ logo: MetaMask, name: 'MetaMask' })
@@ -59,17 +59,17 @@ export default function Swap() {
   })
 
   useEffect(() => {
-    if (amount && address) {
+    if (amount && address && !depositCompleted) {
       setDepositEnabled(true)
       return
     }
     setDepositEnabled(false)
-  }, [amount, address])
+  }, [amount, address, depositCompleted])
 
-  // useEffect(() => {
-  //   const percentage = ((quota - parseFloat(amount)) / quota) * 100
-  //   setPercentage(percentage)
-  // }, [quota, amount])
+  useEffect(() => {
+    const percentage = ((quota - parseFloat(amount)) / quota) * 100
+    setPercentage(percentage)
+  }, [quota, amount])
 
   useEffect(() => {
     if (depositCompleted && withdrawCompleted) {
@@ -106,6 +106,7 @@ export default function Swap() {
   const onConfirmDeposit = useCallback(() => {
     if (!currency) return
     hideModal()
+    setAmount('')
     setDepositEnabled(false)
     setSwapStatus({
       attemptingDeposit: true,
@@ -146,6 +147,7 @@ export default function Swap() {
     if (!currency) return
 
     hideModal()
+    setAmount('')
     setWithdrawEnabled(false)
     setSwapStatus({
       attemptingDeposit: false,
@@ -195,7 +197,60 @@ export default function Swap() {
     setAuthorized(true)
   }, [])
 
-  const getAction = useCallback(() => {
+  const getDepositBtn = useCallback(() => {
+    if (!from) {
+      return
+    }
+    if (attemptingDeposit) {
+      return (
+        <OutlineButton width="232px" primary>
+          <Image src={Loader} alt={'loader icon'} />
+          <Text marginLeft={12} fontSize={16}>
+            Depositing
+          </Text>
+        </OutlineButton>
+      )
+    }
+    return (
+      <Button width="232px" disabled={!depositEnabled} onClick={showConfirmDepositModal}>
+        <Text marginLeft={12} fontSize={16}>
+          Deposit in {from.symbol} Chain
+        </Text>
+      </Button>
+    )
+  }, [from, attemptingDeposit, depositEnabled, showConfirmDepositModal])
+
+  const getWithdrawBtn = useCallback(() => {
+    if (!to) {
+      return
+    }
+    if (attemptingWithdraw) {
+      return (
+        <OutlineButton width="232px" primary>
+          <LoaderIcon />
+          <Text marginLeft={12} fontSize={16}>
+            Withdrawing
+          </Text>
+        </OutlineButton>
+      )
+    }
+    if (depositCompleted && !withdrawCompleted && !amount) {
+      return (
+        <OutlineButton width="232px" primary>
+          Enter Amount
+        </OutlineButton>
+      )
+    }
+    return (
+      <Button width={'232px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
+        <Text marginLeft={12} fontSize={16}>
+          Withdraw from {to.symbol} Chain
+        </Text>
+      </Button>
+    )
+  }, [to, amount, attemptingWithdraw, withdrawEnabled, showConfirmWithdrawModal, depositCompleted, withdrawCompleted])
+
+  const getBtns = useCallback(() => {
     if (!userLogined) {
       return (
         <SecondaryButton onClick={() => showModal(<WalletModal onDismiss={hideModal} />)}>
@@ -209,7 +264,7 @@ export default function Swap() {
     if (!from || !to) {
       return <OutlineButton primary>Select Chain</OutlineButton>
     }
-    if (!amount) {
+    if (!authorized && !amount) {
       return <OutlineButton primary>Enter Amount</OutlineButton>
     }
     if (!authorized) {
@@ -219,35 +274,8 @@ export default function Swap() {
     return (
       <Box display="grid" gridGap="16px" marginTop="28px" marginBottom={'24px'}>
         <Box display="flex" justifyContent="space-between">
-          {attemptingDeposit ? (
-            <OutlineButton width="232px" primary>
-              <Image src={Loader} alt={'loader icon'} />
-              <Text marginLeft={12} fontSize={16}>
-                Depositing
-              </Text>
-            </OutlineButton>
-          ) : (
-            <Button width="232px" disabled={!depositEnabled} onClick={showConfirmDepositModal}>
-              <Text marginLeft={12} fontSize={16}>
-                Deposit in {from.symbol} Chain
-              </Text>
-            </Button>
-          )}
-
-          {attemptingWithdraw ? (
-            <OutlineButton width="232px" primary>
-              <LoaderIcon />
-              <Text marginLeft={12} fontSize={16}>
-                Withdrawing
-              </Text>
-            </OutlineButton>
-          ) : (
-            <Button width={'232px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
-              <Text marginLeft={12} fontSize={16}>
-                Withdraw from {to.symbol} Chain
-              </Text>
-            </Button>
-          )}
+          {getDepositBtn()}
+          {getWithdrawBtn()}
         </Box>
         <Box display="flex" justifyContent="center">
           <SwapStepper activeStep={step} />
@@ -262,14 +290,11 @@ export default function Swap() {
     authorize,
     showModal,
     hideModal,
-    attemptingDeposit,
-    attemptingWithdraw,
-    depositEnabled,
-    showConfirmDepositModal,
-    showConfirmWithdrawModal,
     step,
-    withdrawEnabled,
     authorized,
+    amount,
+    getDepositBtn,
+    getWithdrawBtn,
   ])
 
   return (
@@ -280,7 +305,7 @@ export default function Swap() {
           <Box display="grid" gridGap="20px">
             <Form
               showChainSelect={userLogined}
-              showDestination={!!(amount && currency && from && to)}
+              showDestination={!!(amount && currency && from && to && !authorized)}
               onChangeAmount={onChangeAmount}
               amount={amount}
               currency={currency}
@@ -295,6 +320,7 @@ export default function Swap() {
               address={address}
               onChangeAddress={onChangeAddress}
               chainList={ChainList}
+              hintable={!withdrawCompleted}
             />
           </Box>
           {authorized && (
@@ -328,13 +354,13 @@ export default function Swap() {
         </Box>
 
         <Box padding={'0 40px 40px 40px'} marginTop="32px">
-          {getAction()}
+          {getBtns()}
         </Box>
         <Divider orientation={'horizontal'} />
         {authorized && currency && (
           <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
             <QuotaInfo quota={quota} currency={currency.symbol} percentage={70} />
-            <QuotaBar percentage={70} />
+            <QuotaBar percentage={percentage} />
           </Box>
         )}
       </AppBody>

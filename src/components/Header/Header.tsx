@@ -5,7 +5,7 @@ import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
 import StatusIcon from '../../assets/images/status_icon.svg'
 import { ChainList } from '../../data/dummyData'
-import OutlineButton from '../Button/OutlineButton'
+import GradientButton from '../Button/GradientButton'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Image from '../Image/Image'
@@ -156,7 +156,7 @@ export default function Header() {
   const [amount] = useState(1.24)
   const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
-  const { showModal ,hideModal} = useModal()
+  const { showModal, hideModal } = useModal()
   const [showClaimModal, setShowClaimModal] = useState(false)
 
   useEffect(() => {
@@ -189,9 +189,7 @@ export default function Header() {
         {mode === Mode.USER ? (
           <Box display="flex">
             <Box mr={'16px'}>
-              <OutlineButton width={'100px'} height={'32px'} onClick={() => setShowClaimModal(true)}>
-                Claim List
-              </OutlineButton>
+              <GradientButton onClick={() => setShowClaimModal(true)}>Claim list</GradientButton>
             </Box>
             <Box mr={'8px'}>
               <Select defaultValue={chain.symbol} value={chain.symbol} size={'small'} onChange={onChangeChain}>
@@ -210,7 +208,12 @@ export default function Header() {
             <WalletInfo amount={amount} currency={currency} address={address} />
           </Box>
         ) : (
-            <Button fontSize={'14px'} width={'140px'} height={'32px'} onClick={() => showModal(<WalletModal onDismiss={hideModal}/>)}>
+          <Button
+            fontSize={'14px'}
+            width={'140px'}
+            height={'32px'}
+            onClick={() => showModal(<WalletModal onDismiss={hideModal} />)}
+          >
             Connect Wallet
           </Button>
         )}

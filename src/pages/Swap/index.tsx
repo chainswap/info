@@ -15,8 +15,6 @@ import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
 import useModal from '../../hooks/useModal'
 import { useUserLogined } from '../../state/user/hooks'
-import Loader from '../../assets/images/loader.svg'
-import Image from '../../components/Image/Image'
 import { Text } from 'rebass'
 import Currency from '../../models/currency'
 import { ReactComponent as CheckIcon } from '../../assets/images/check_icon.svg'
@@ -24,7 +22,6 @@ import ClaimModal from '../../components/claim/ClaimModal'
 import OutlineButton from '../../components/Button/OutlineButton'
 import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
-import { ReactComponent as LoaderIcon } from '../../assets/images/loader.svg'
 import Form from './Form'
 import Notification, { NotificationType } from '../../components/Notification/Notification'
 
@@ -203,8 +200,7 @@ export default function Swap() {
     }
     if (attemptingDeposit) {
       return (
-        <OutlineButton width="232px" primary>
-          <Image src={Loader} alt={'loader icon'} />
+        <OutlineButton width="232px" loading primary>
           <Text marginLeft={12} fontSize={16}>
             Depositing
           </Text>
@@ -226,8 +222,7 @@ export default function Swap() {
     }
     if (attemptingWithdraw) {
       return (
-        <OutlineButton width="232px" primary>
-          <LoaderIcon />
+        <OutlineButton width="232px" loading primary>
           <Text marginLeft={12} fontSize={16}>
             Withdrawing
           </Text>

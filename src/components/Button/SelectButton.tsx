@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
     },
     disabled: {
-      opacity: theme.palette.action.disabledOpacity,
+      // opacity: theme.palette.action.disabledOpacity,
       backgroundColor: theme.gray.main,
+      color: 'rgba(255,255,255,0.24)',
     },
   })
 )

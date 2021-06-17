@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react'
 import { InputBase, Theme } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import InputLabel from '../InputLabel/InputLabel'
+import { SportsRugbySharp } from '@material-ui/icons'
 
 interface Props {
   placeholder?: string
@@ -40,8 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     disabled: {
-      color: theme.palette.primary.contrastText,
+      color: 'rgba(255,255,255,0.24)',
       cursor: 'not-allowed',
+      backgroundColor: theme.gray.dark,
     },
   })
 )

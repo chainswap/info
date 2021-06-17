@@ -1,7 +1,6 @@
 import React from 'react'
 import { Select as MuiSelect, makeStyles, createStyles, Theme } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-// import { TYPE } from 'theme'
 
 interface Props {
   children?: React.ReactNode
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       '&:focus': {
-        backgroundColor: '#1f1f1f',
+        backgroundColor: theme.gray.dark,
         borderRadius: theme.shape.borderRadius,
       },
       '&:hover': {
@@ -63,27 +62,24 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       width: (props: Props) => (props.size === 'small' ? 172 : 176),
-      borderRadius: 14,
+      borderRadius: theme.shape.borderRadius,
       marginTop: 8,
-      overflow: 'hide',
       '& ul': {
         background: '#0F0F10',
-        outline: 'none',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
         padding: 0,
       },
       '& li': {
         fontSize: 16,
         fontWeight: 500,
         color: '#FFFFFF',
-        border: '1px solid transparent',
-        borderBottomColor: 'hsla(0,0%,100%,.12)',
+        borderBottom: '1px solid rgba(255,255,255,0.1)',
         display: 'flex',
         alignItems: 'center',
         padding: '12px 0',
-        boxSizing: 'border-box',
       },
       '& li:hover': {
-        backgroundColor: 'rgba(255,255,255,0.08)',
+        backgroundColor: 'rgba(255,255,255,0.05)',
       },
       '& li:last-child': {
         borderBottom: 'none',
@@ -91,6 +87,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     base: {
       width: (props: Props) => props.width ?? 'inherit',
+      borderRadius: theme.shape.borderRadius,
+      '&.Mui-focused': {
+        border: `1px solid ${theme.palette.primary.main}`,
+      },
     },
   })
 )

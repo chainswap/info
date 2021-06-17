@@ -5,8 +5,8 @@ import ChainSelect from '../../components/ChainSelect/ChainSelect'
 import Currency from '../../models/currency'
 import Chain from '../../models/chain'
 import Input from '../../components/Input/Input'
-import { ReactComponent as SwitchArrowIcon } from '../../assets/images/switch_arrow.svg'
 import { TYPE } from '../../theme/index'
+import Switcher from '../../components/swap/Switcher'
 
 interface Props {
   showChainSelect: boolean
@@ -100,7 +100,7 @@ export default function Form(props: Props) {
             active={onHint === Hintable.CHAIN_SELECT_FROM}
           />
           <Box position={'absolute'} left={'calc(50% - 16px)'} zIndex={99} padding="0px" height="32px" bottom="8px">
-            <SwitchArrowIcon />
+            <Switcher />
           </Box>
           <ChainSelect
             label={'To'}

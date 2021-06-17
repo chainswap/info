@@ -11,6 +11,7 @@ interface Props {
   type?: string
   style?: React.CSSProperties
   disabled?: boolean
+  focused?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,11 +47,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Input(props: Props) {
   const classes = useStyles(props)
+  const { focused, ...restProps } = props
 
   return (
     <>
       {props.label && <InputLabel>{props.label}</InputLabel>}
-      <InputBase fullWidth={true} {...props} classes={{ ...classes }} />
+      <InputBase
+        fullWidth={true}
+        {...restProps}
+        classes={{ ...classes }}
+        inputRef={(input) => input && props.focused && input.focus()}
+      />
     </>
   )
 }

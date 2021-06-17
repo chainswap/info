@@ -19,6 +19,8 @@ interface Props {
   disabled: boolean
   onCurrencySelect: (currency: Currency) => void
   placeholder?: string
+  selectActive?: boolean
+  inputFocused?: boolean
 }
 
 const LabelRow = styled('div')({
@@ -55,7 +57,17 @@ const ButtonWrapper = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency, options, onMax, value, disabled, onCurrencySelect, placeholder } = props
+  const {
+    selectedCurrency,
+    options,
+    onMax,
+    value,
+    disabled,
+    onCurrencySelect,
+    placeholder,
+    selectActive,
+    inputFocused,
+  } = props
   const { showModal, hideModal } = useModal()
 
   const showCurrencySearch = () => {
@@ -79,6 +91,7 @@ export default function CurrencyInputPanel(props: Props) {
           onChange={props.onChange}
           type={'number'}
           disabled={disabled}
+          focused={inputFocused}
         />
         {selectedCurrency && onMax && (
           <ButtonWrapper>
@@ -87,7 +100,7 @@ export default function CurrencyInputPanel(props: Props) {
             </OutlineButton>
           </ButtonWrapper>
         )}
-        <SelectButton width={'180px'} onClick={showCurrencySearch} disabled={disabled}>
+        <SelectButton width={'180px'} onClick={showCurrencySearch} disabled={disabled} primary={selectActive}>
           {selectedCurrency ? (
             <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
           ) : (

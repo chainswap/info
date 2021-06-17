@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import { Box, Paper, useTheme } from '@material-ui/core'
 import TextButton from 'components/Button/TextButton'
-import CurrencyInputPanel from 'components/swap/CurrencyInputPanel/CurrencyInputPanel'
+import CurrencyInputPanel from 'components/CurrencyInputPanel/CurrencyInputPanel'
 import AppBody from 'pages/AppBody'
 import { useUserLogined } from 'state/user/hooks'
 import { TYPE } from 'theme'

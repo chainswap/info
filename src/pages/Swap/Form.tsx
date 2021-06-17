@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react'
 import { Box } from '@material-ui/core'
-import CurrencyInputPanel from '../../components/swap/CurrencyInputPanel/CurrencyInputPanel'
+import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import ChainSelect from '../../components/ChainSelect/ChainSelect'
 import Currency from '../../models/currency'
 import Chain from '../../models/chain'

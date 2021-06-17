@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     disabled: {
       color: theme.palette.primary.contrastText,
+      cursor: 'not-allowed',
     },
   })
 )

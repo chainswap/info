@@ -5,7 +5,7 @@ import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
 import StatusIcon from '../../assets/images/status_icon.svg'
 import { ChainList } from '../../data/dummyData'
-import GradientButton from '../Button/GradientButton'
+import ClaimButton from '../Button/ClaimButton'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Image from '../Image/Image'
@@ -189,7 +189,7 @@ export default function Header() {
         {mode === Mode.USER ? (
           <Box display="flex">
             <Box mr={'16px'}>
-              <GradientButton onClick={() => setShowClaimModal(true)}>Claim list</GradientButton>
+              <ClaimButton onClick={() => setShowClaimModal(true)}>Claim list</ClaimButton>
             </Box>
             <Box mr={'8px'}>
               <Select defaultValue={chain.symbol} value={chain.symbol} size={'small'} onChange={onChangeChain}>

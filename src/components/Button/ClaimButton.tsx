@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export default function GradientButton(props: Props) {
+export default function ClaimButton(props: Props) {
   const { onClick, disabled } = props
   const classes = useStyles(props)
 

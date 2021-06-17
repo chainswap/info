@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Currency from '../../../models/currency'
 import { Text } from 'rebass'
-import OutlineButton from '../../Button/OutlineButton'
+import ImportButton from '../../Button/ImportButton'
 
 function currencyKey(currency: Currency): string {
   return currency ? currency.symbol : ''
@@ -51,9 +51,7 @@ export default function CurrencyList(props: Props) {
           </Box>
         </Box>
         {showImportBtn ? (
-          <OutlineButton fontSize={'14px'} width={'84px'} height={'36px'} primary onClick={showImportView}>
-            Import
-          </OutlineButton>
+          <ImportButton onClick={showImportView}>Import</ImportButton>
         ) : (
           <Text fontSize={16}>{currency.balance}</Text>
         )}

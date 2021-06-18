@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: (props: Props) => props.opacity || 1,
       '&:hover': {
         opacity: 1,
+        color: (props: Props) => (props.primary ? theme.palette.primary.dark : theme.palette.primary.main),
       },
     },
   })

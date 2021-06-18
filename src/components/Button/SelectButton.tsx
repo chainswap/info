@@ -16,10 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       position: 'absolute',
-      right: 1,
-      top: 2,
+      right: 0.6,
+      top: 1,
       width: (props: Props) => props.width || 160,
-      height: (props: Props) => props.height || 45,
+      height: (props: Props) => props.height || 46,
       backgroundColor: (props: Props) => (props.primary ? theme.palette.primary.main : theme.gray.main),
       color: theme.textColor.text1,
       borderRadius: 14,
@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
     },
     disabled: {
-      opacity: theme.palette.action.disabledOpacity,
+      // opacity: theme.palette.action.disabledOpacity,
       backgroundColor: theme.gray.main,
+      color: 'rgba(255,255,255,0.24)',
     },
   })
 )

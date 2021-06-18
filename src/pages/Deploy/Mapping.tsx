@@ -7,7 +7,6 @@ import Chain from '../../models/chain'
 import ChainSelect from 'components/ChainSelect/ChainSelect'
 import OutlineButton from 'components/Button/OutlineButton'
 import { ChainState } from './index'
-import { ReactComponent as LoaderIcon } from '../../assets/images/loader.svg'
 import { ReactComponent as SuccessIcon } from '../../assets/images/deploy_success.svg'
 import { Text } from 'rebass'
 import useModal from '../../hooks/useModal'
@@ -34,12 +33,7 @@ export default function Mapping(props: Props) {
 
   const deployBtnText = useCallback((chain: ChainState) => {
     if (chain.deploying) {
-      return (
-        <>
-          <LoaderIcon />
-          <Text marginLeft={12.5}>Deploying</Text>
-        </>
-      )
+      return <Text marginLeft={12.5}>Deploying</Text>
     }
     if (chain.deployed) {
       return (
@@ -110,6 +104,7 @@ export default function Mapping(props: Props) {
                 width={'180px'}
                 onClick={() => onClickDeployBtn(chain)}
                 color={chain.deployed ? theme.textColor.text4 : theme.palette.primary.main}
+                loading={chain.deploying}
               >
                 {deployBtnText(chain)}
               </OutlineButton>

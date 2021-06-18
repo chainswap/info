@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
       boxSizing: 'border-box',
       borderRadius: 20,
       overflowX: 'hidden',
+      position: 'absolute',
+      top: `calc(${theme.height.header} + 80px)`,
     },
     backdrop: {
       backgroundColor: 'rgba(0,0,0,.8)',
@@ -54,7 +56,7 @@ export default function Modal(props: Props) {
       <Dialog
         open={isOpen}
         className={classes.root}
-        PaperProps={{ className: classes.paper,ref:node }}
+        PaperProps={{ className: classes.paper, ref: node }}
         BackdropProps={{ className: classes.backdrop }}
       >
         {label && (

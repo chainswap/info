@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     disabled: {
-      color: theme.palette.primary.contrastText,
+      color: 'rgba(255,255,255,0.24)',
+      cursor: 'not-allowed',
+      backgroundColor: theme.gray.dark,
     },
   })
 )

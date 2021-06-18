@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dialog, makeStyles, Theme, Box } from '@material-ui/core'
-import { styled, createStyles } from '@material-ui/styles'
+import { createStyles } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
 import useModal from '../../hooks/useModal'
 import { TYPE } from '../../theme/index'
@@ -36,18 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-// const CloseBtn = styled('div')({
-//   position: 'absolute',
-//   right: 30,
-//   top: 24,
-//   color: '#FFFFFF',
-//   opacity: 0.6,
-//   zIndex: 999,
-//   '&:hover': {
-//     cursor: 'pointer',
-//   },
-// })
-
 export default function Modal(props: Props) {
   const { children, title, closeIcon, onReturnClick } = props
   const classes = useStyles(props)
@@ -82,7 +70,6 @@ export default function Modal(props: Props) {
             )}
           </Box>
         )}
-
         {children}
       </Dialog>
     </>

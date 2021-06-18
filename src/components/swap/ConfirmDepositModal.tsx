@@ -25,7 +25,7 @@ export default function ConfirmDepositModal(props: Props) {
 
   return (
     <>
-      <Modal label={'Confirm Deposit'} showIcon>
+      <Modal title="Confirm Deposit" closeIcon>
         <Box paddingTop={'20px'}>
           <Text fontWeight={'500'} fontSize={'28px'} textAlign={'center'}>
             {value} {selectedCurrency.symbol}

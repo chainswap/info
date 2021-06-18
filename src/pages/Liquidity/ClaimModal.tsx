@@ -12,7 +12,7 @@ export default function ClaimLiquidityModal({
   currency: Currency
 }) {
   return (
-    <Modal onReturnClick={onReturnClick} label="Claim Reward" width="440px">
+    <Modal onReturnClick={onReturnClick} title="Claim Reward" width="440px">
       <Box padding="12px 40px 40px">
         <TYPE.bold fontSize={40}>0.000141</TYPE.bold>
         <TYPE.bold>{currency.symbol}</TYPE.bold>

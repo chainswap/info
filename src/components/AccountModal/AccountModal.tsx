@@ -72,7 +72,7 @@ export default function AccountMoal(props: Props) {
   }
 
   return (
-    <Modal showIcon={false}>
+    <Modal closeIcon={false}>
       <Header>Connected with {name}</Header>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mx={'141px'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: 28, height: 28 }} />
@@ -91,7 +91,7 @@ export default function AccountMoal(props: Props) {
         <OutlineButton width={'180px'} onClick={hideModal} primary>
           Close
         </OutlineButton>
-        <Button width={'180px'} onClick={() => showModal(<WalletModal onDismiss={hideModal}/>)}>
+        <Button width={'180px'} onClick={() => showModal(<WalletModal onDismiss={hideModal} />)}>
           Change
         </Button>
       </Box>

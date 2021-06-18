@@ -53,7 +53,7 @@ export default function ConfirmWithdrawModal(props: Props) {
 
   return (
     <div onClick={onClick}>
-      <Modal showIcon>
+      <Modal closeIcon>
         {mode === Mode.INSTRUCTION ? (
           <>
             <Box paddingBottom={'24px'}>

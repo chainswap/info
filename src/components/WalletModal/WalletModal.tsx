@@ -10,7 +10,7 @@ const WALLET_VIEWS = {
   ACCOUNT: 'account',
 }
 
-export default function WalletModal({onDismiss}:{onDismiss:()=>void}) {
+export default function WalletModal({ onDismiss }: { onDismiss: () => void }) {
   const [walletView] = useState(WALLET_VIEWS.OPTIONS)
   const setUser = useSetUser()
 
@@ -35,11 +35,11 @@ export default function WalletModal({onDismiss}:{onDismiss:()=>void}) {
 
   const onClickOption = () => {
     setUser({ address: 'address' })
-    onDismiss&&onDismiss()
+    onDismiss && onDismiss()
   }
 
   return (
-    <Modal showIcon={walletView === WALLET_VIEWS.OPTIONS} label="Connect to a wallet">
+    <Modal closeIcon={walletView === WALLET_VIEWS.OPTIONS} title="Connect to a wallet">
       <Box width={480} padding="32px" display="flex" flexDirection="column" alignItems="center">
         <Box display="grid" gridGap="12px">
           {getOptions()}

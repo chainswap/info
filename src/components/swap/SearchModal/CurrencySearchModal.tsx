@@ -48,7 +48,7 @@ export default function CurrencySearchModal(props: Props) {
 
   return (
     <>
-      <Modal label={'Select a token'} showIcon>
+      <Modal title="Select a token" closeIcon>
         {view === VIEWS.SEARCH ? (
           <CurrencySearch
             currencies={currencies}

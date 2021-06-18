@@ -11,8 +11,8 @@ import { ReactComponent as ArrowLeft } from 'assets/images/arrow_left.svg'
 
 interface Props {
   children?: React.ReactNode
-  label?: string
-  showIcon?: boolean
+  title?: string
+  closeIcon?: boolean
   width?: string
   onReturnClick?: () => void
 }
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 // })
 
 export default function Modal(props: Props) {
-  const { children, label, showIcon, onReturnClick } = props
+  const { children, title, closeIcon, onReturnClick } = props
   const classes = useStyles(props)
   const { isOpen, hideModal } = useModal()
   const node = useRef<any>()
@@ -63,27 +63,25 @@ export default function Modal(props: Props) {
         PaperProps={{ className: classes.paper, ref: node }}
         BackdropProps={{ className: classes.backdrop }}
       >
-        {onReturnClick ||
-          showIcon ||
-          (label && (
-            <Box display="flex" justifyContent="space-between" alignItems="center" padding="20px 40px">
-              {onReturnClick ? (
-                <TextButton onClick={onReturnClick}>
-                  <ArrowLeft />
-                </TextButton>
-              ) : (
-                <Box width="24px" />
-              )}
-              {label && <TYPE.mediumHeader textAlign="center">{label}</TYPE.mediumHeader>}
-              {showIcon ? (
-                <TextButton onClick={hideModal}>
-                  <CloseIcon />
-                </TextButton>
-              ) : (
-                <Box width="24px" />
-              )}
-            </Box>
-          ))}
+        {(onReturnClick || closeIcon || title) && (
+          <Box display="flex" justifyContent="space-between" alignItems="center" padding="20px 40px">
+            {onReturnClick ? (
+              <TextButton onClick={onReturnClick}>
+                <ArrowLeft />
+              </TextButton>
+            ) : (
+              <Box width="24px" />
+            )}
+            {title && <TYPE.mediumHeader textAlign="center">{title}</TYPE.mediumHeader>}
+            {closeIcon ? (
+              <TextButton onClick={hideModal}>
+                <CloseIcon />
+              </TextButton>
+            ) : (
+              <Box width="24px" />
+            )}
+          </Box>
+        )}
 
         {children}
       </Dialog>

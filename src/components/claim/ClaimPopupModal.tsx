@@ -36,7 +36,7 @@ export default function ClaimPopupModal() {
 
   return (
     <>
-      <Modal label={label} showIcon>
+      <Modal title={label} closeIcon>
         <Box margin={'32px 52px 18px'}>
           <Input placeholder={placeHolder} value={hash} onChange={onChangeHash} />
         </Box>

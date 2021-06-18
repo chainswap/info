@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Select as MuiSelect, makeStyles, createStyles, Theme } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { useCallback } from 'react'
-import { useOnClickOutside } from 'hooks/useOnClickOutside'
-import { useRef } from 'react'
 
 interface Props {
   children?: React.ReactNode
@@ -13,9 +10,10 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '50px',
+      width: '55px',
       cursor: 'pointer',
       color: 'rgba(255, 255, 255, 0.5)',
+      paddingRight: '0 !important',
       '&::before': {
         content: ({ placeholder }: Props) => '"' + placeholder + '"',
         position: 'absolute',
@@ -27,12 +25,20 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     icon: {
+      color: 'rgba(255, 255, 255, 0.5)',
+      fontSize: 16,
+      right: 0,
+      top: 8,
+    },
+    iconOpen: {
       color: '#FFFFFF',
     },
     paper: {
       width: 148,
       borderRadius: 14,
       marginTop: 6,
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      backgroundColor: 'transparent',
       '& ul': {
         background: '#0F0F10',
         padding: '10px 20px 18px 20px',
@@ -42,6 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
         fontWeight: 400,
         color: 'rgba(255, 255, 255, 0.4)',
         padding: '8px 0',
+        border: 'none',
+        outline: 'none',
       },
       '& li:hover': {
         color: theme.palette.primary.main,
@@ -74,7 +82,7 @@ export default function Select(props: Props) {
     <MuiSelect
       disableUnderline
       className={classes.base}
-      classes={{ root: classes.root, icon: classes.icon }}
+      classes={{ root: classes.root, icon: classes.icon, iconOpen: classes.iconOpen }}
       onClose={blur}
       MenuProps={{
         classes: { paper: classes.paper },

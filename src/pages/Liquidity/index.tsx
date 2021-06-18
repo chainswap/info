@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core'
 import OutlineButton from 'components/Button/OutlineButton'
-import { ChainList } from 'data/dummyData'
+import { ChainList, ETH } from 'data/dummyData'
 import useModal, { useWalletModal } from 'hooks/useModal'
 import { useCallback, useMemo, useState } from 'react'
 import { useUserLogined } from 'state/user/hooks'
@@ -14,16 +14,20 @@ import AppBody from '../AppBody'
 import AddLiquidity from './AddLiquidity'
 import ArbitrageModal from './ArbitrageModal'
 import DepositLiquidity from './DepositLiquidity'
+import WithdrawLiquidity from './WithdrawLiquidity'
+import Currency from 'models/currency'
+import ClaimLiquidityModal from './ClaimModal'
 
 export enum LiquidityState {
   DEFAULT = 'default',
   ADD = 'add',
   DEPOSIT = 'deposit',
+  WITHDRAW = 'withdraw',
 }
 
 const dummyData = [
   {
-    asset: 'ETH',
+    asset: ETH,
     chain: 1,
     data: {
       'Pooled BSC': '0.003 BSC',
@@ -33,7 +37,7 @@ const dummyData = [
     },
   },
   {
-    asset: 'ETH',
+    asset: ETH,
     chain: 1,
     data: {
       'Pooled BSC': '0.003 BSC',
@@ -63,6 +67,7 @@ const dummyTableData = [
 
 export default function Liquidity() {
   const [state, setState] = useState(LiquidityState.DEFAULT)
+  const [currentAsset, setCurrentAsset] = useState<Currency | null>(null)
   const { showModal, hideModal } = useModal()
   const { showWalletModal } = useWalletModal()
   const userLogined = useUserLogined()
@@ -92,14 +97,36 @@ export default function Liquidity() {
     ])
   }, [hideModal, showModal])
 
+  const handleBack = useCallback(() => {
+    setState(LiquidityState.DEFAULT)
+    setCurrentAsset(null)
+  }, [])
+
+  const handleClaim = useCallback(
+    (currency) => () => showModal(<ClaimLiquidityModal onReturnClick={hideModal} currency={currency} />),
+    [hideModal, showModal]
+  )
   const handleAdd = useCallback(() => setState(LiquidityState.ADD), [])
-  const handleDeposit = useCallback(() => setState(LiquidityState.DEPOSIT), [])
-  const handleBack = useCallback(() => setState(LiquidityState.DEFAULT), [])
+  const handleDeposit = useCallback(
+    (currency) => () => {
+      setState(LiquidityState.DEPOSIT)
+      setCurrentAsset(currency)
+    },
+    []
+  )
+  const handleWithdraw = useCallback(
+    (currency) => () => {
+      setState(LiquidityState.WITHDRAW)
+      setCurrentAsset(currency)
+    },
+    []
+  )
 
   return (
     <>
-      {state === LiquidityState.ADD && <AddLiquidity onBackClick={handleBack} />}
-      {state === LiquidityState.DEPOSIT && <DepositLiquidity onBackClick={handleBack} />}
+      {state === LiquidityState.ADD && <AddLiquidity onReturnClick={handleBack} />}
+      {state === LiquidityState.DEPOSIT && <DepositLiquidity onReturnClick={handleBack} />}
+      {state === LiquidityState.WITHDRAW && <WithdrawLiquidity onReturnClick={handleBack} currency={currentAsset} />}
       {state === LiquidityState.DEFAULT && (
         <AppBody width={560}>
           <Box display="grid" gridGap="20px" padding="20px 40px">
@@ -125,12 +152,12 @@ export default function Liquidity() {
                 {dummyData.map(({ asset, chain, data }, i) => (
                   <LiquidityAccordion
                     key={i}
-                    asset={asset}
+                    asset={asset.symbol}
                     chain={chain}
                     data={data}
-                    onDeposit={handleDeposit}
-                    onWithdraw={() => {}}
-                    onClaim={() => {}}
+                    onDeposit={handleDeposit(asset)}
+                    onWithdraw={handleWithdraw(asset)}
+                    onClaim={handleClaim(asset)}
                   />
                 ))}
               </Box>

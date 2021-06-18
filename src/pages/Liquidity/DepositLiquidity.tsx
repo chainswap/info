@@ -7,7 +7,7 @@ import useModal from 'hooks/useModal'
 import TxnSubmittedMessageBox from 'components/swap/TxnSubmittedMessageBox'
 import { LiquidityState } from '.'
 
-export default function AddLiquidity({ onBackClick }: { onBackClick: () => void }) {
+export default function AddLiquidity({ onReturnClick }: { onReturnClick: () => void }) {
   const [amount, setAmount] = useState('')
   const [currency, setCurrency] = useState<Currency | null>(null)
   const [chain, setChain] = useState<Chain | null>(null)
@@ -43,7 +43,7 @@ export default function AddLiquidity({ onBackClick }: { onBackClick: () => void 
       onChain={handleChainSelect}
       onAction={handleProvide}
       pending={pending}
-      onBackClick={onBackClick}
+      onReturnClick={onReturnClick}
       cardData={{ 'Your pool share': '0.003%' }}
     />
   )

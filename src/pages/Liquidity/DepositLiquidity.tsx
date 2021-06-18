@@ -34,7 +34,7 @@ export default function AddLiquidity({ onReturnClick }: { onReturnClick: () => v
 
   return (
     <LiquidityForm
-      liquidityState={LiquidityState.ADD}
+      liquidityState={LiquidityState.DEPOSIT}
       amount={amount}
       onAmount={handleChangeAmount}
       currency={currency}
@@ -44,7 +44,7 @@ export default function AddLiquidity({ onReturnClick }: { onReturnClick: () => v
       onAction={handleProvide}
       pending={pending}
       onReturnClick={onReturnClick}
-      cardData={{ 'Share of pool': '0.003%' }}
+      cardData={{ 'Your pool share': '0.003%' }}
     />
   )
 }

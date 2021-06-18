@@ -1,7 +1,7 @@
 import React from 'react'
 import { ButtonBase, Theme } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/styles'
-import { ReactComponent as Loader } from '../../assets/images/loader.svg'
+import Spinner from 'components/Spinner'
 
 interface Props {
   onClick?: () => void
@@ -44,7 +44,7 @@ export default function OutlineButton(props: Props) {
 
   return (
     <ButtonBase className={classes.root} onClick={onClick} disabled={disabled}>
-      {loading && <Loader />}
+      {loading && <Spinner marginRight={16} />}
       {props.children}
     </ButtonBase>
   )

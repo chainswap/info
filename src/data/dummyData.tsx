@@ -5,6 +5,8 @@ import Notification from '../models/notification'
 export const ETH = {
   logo: DummyLogo,
   symbol: 'ETH',
+  name: 'ETH',
+  balance: 0,
 }
 
 export const BSC = {

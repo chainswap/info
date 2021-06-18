@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: (props: Props) => props.height || 46,
       backgroundColor: (props: Props) => (props.primary ? theme.palette.primary.main : theme.gray.main),
       color: theme.textColor.text1,
-      borderRadius: 14,
+      borderRadius: 10,
       fontSize: 16,
       fontWeight: 400,
       transition: '.3s',

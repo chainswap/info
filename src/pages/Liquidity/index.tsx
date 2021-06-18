@@ -13,8 +13,9 @@ import { TYPE } from '../../theme'
 import AppBody from '../AppBody'
 import AddLiquidity from './AddLiquidity'
 import ArbitrageModal from './ArbitrageModal'
+import DepositLiquidity from './DepositLiquidity'
 
-enum LiquidityState {
+export enum LiquidityState {
   DEFAULT = 'default',
   ADD = 'add',
   DEPOSIT = 'deposit',
@@ -92,12 +93,13 @@ export default function Liquidity() {
   }, [hideModal, showModal])
 
   const handleAdd = useCallback(() => setState(LiquidityState.ADD), [])
+  const handleDeposit = useCallback(() => setState(LiquidityState.DEPOSIT), [])
   const handleBack = useCallback(() => setState(LiquidityState.DEFAULT), [])
 
   return (
     <>
       {state === LiquidityState.ADD && <AddLiquidity onBackClick={handleBack} />}
-      {state === LiquidityState.DEPOSIT && <AddLiquidity onBackClick={handleBack} />}
+      {state === LiquidityState.DEPOSIT && <DepositLiquidity onBackClick={handleBack} />}
       {state === LiquidityState.DEFAULT && (
         <AppBody width={560}>
           <Box display="grid" gridGap="20px" padding="20px 40px">
@@ -126,7 +128,7 @@ export default function Liquidity() {
                     asset={asset}
                     chain={chain}
                     data={data}
-                    onDeposit={() => {}}
+                    onDeposit={handleDeposit}
                     onWithdraw={() => {}}
                     onClaim={() => {}}
                   />

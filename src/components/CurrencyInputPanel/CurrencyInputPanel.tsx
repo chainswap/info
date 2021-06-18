@@ -23,13 +23,27 @@ interface Props {
   inputFocused?: boolean
 }
 
-const InputRow = styled('div')({
+const InputRow = styled('div')(({ theme }) => ({
   position: 'relative',
   width: '100%',
   height: '48px',
   display: 'flex',
   justifyContent: 'flex-end',
-})
+  '& .Mui-focused': {
+    '&:before': {
+      content: "''",
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: 'calc(100% + 2px)',
+      height: 'calc(100% + 2px)',
+      borderRadius: 14,
+      margin: -1,
+      border: '1px solid ' + theme.palette.primary.main,
+      zIndex: 10000,
+    },
+  },
+}))
 
 const StyledInput = styled(Input)({
   position: 'absolute',

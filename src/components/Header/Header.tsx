@@ -24,6 +24,8 @@ import { useUserLogined } from '../../state/user/hooks'
 import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
 import { ConfirmedTransactionList, PendingTransactionList, NotificationList } from '../../data/dummyData'
+import PlainSelect from '../Select/PlainSelect'
+import { useCallback } from 'react'
 
 enum Mode {
   VISITOR,
@@ -50,6 +52,21 @@ const NavLinks = [
   {
     name: 'Info',
     link: routes.info,
+  },
+]
+
+const AboutNavItems = [
+  {
+    name: 'Apply for listing',
+    link: null,
+  },
+  {
+    name: 'Auditing report',
+    link: null,
+  },
+  {
+    name: 'Support',
+    link: null,
   },
 ]
 
@@ -158,6 +175,7 @@ export default function Header() {
   const userLogined = useUserLogined()
   const { showModal, hideModal } = useModal()
   const [showClaimModal, setShowClaimModal] = useState(false)
+  const [openAboutMenu, setOpenAboutMenu] = useState(false)
 
   useEffect(() => {
     if (userLogined) {
@@ -183,6 +201,11 @@ export default function Header() {
                 {nav.name}
               </NavLink>
             ))}
+            <PlainSelect placeholder="about">
+              {AboutNavItems.map((item) => (
+                <MenuItem>{item.name}</MenuItem>
+              ))}
+            </PlainSelect>
           </LinksWrapper>
         </Box>
 

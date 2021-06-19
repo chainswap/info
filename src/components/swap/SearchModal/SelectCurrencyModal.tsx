@@ -6,17 +6,13 @@ import TextButton from '../../Button/TextButton'
 import Divider from '../../Divider/Divider'
 import Input from '../../Input/Input'
 import { useEffect } from 'react'
-import useCurrency from 'hooks/useCurrency'
 
 export enum Mode {
   SELECT = 'select',
   IMPORT = 'import',
 }
 
-interface Props {}
-
-export default function SelectCurrencyModal(props: Props) {
-  const { onCurrencySelect } = useCurrency()
+export default function SelectCurrencyModal() {
   const [input, setInput] = useState('')
   const [mode, SetMode] = useState(Mode.SELECT)
 

@@ -5,7 +5,7 @@ import Currency from '../../../models/currency'
 import Manage from './Manage'
 import Import from './Import'
 
-const VIEWS = {
+const Mode = {
   SEARCH: 'search',
   MANAGE: 'manage',
   IMPORT: 'import',
@@ -19,11 +19,11 @@ interface Props {
 
 export default function CurrencySearchModal(props: Props) {
   const { currencies, onCurrencySelect, onDismiss } = props
-  const [view, setView] = useState(VIEWS.SEARCH)
+  const [view, setView] = useState(Mode.SEARCH)
   const [currency, setCurrency] = useState('')
 
   function onManage() {
-    setView(VIEWS.MANAGE)
+    setView(Mode.MANAGE)
   }
 
   function onChangeCurrency(e: ChangeEvent<HTMLInputElement>) {
@@ -31,7 +31,7 @@ export default function CurrencySearchModal(props: Props) {
   }
 
   function showImportView() {
-    setView(VIEWS.IMPORT)
+    setView(Mode.IMPORT)
   }
 
   function setImportToken() {
@@ -49,7 +49,7 @@ export default function CurrencySearchModal(props: Props) {
   return (
     <>
       <Modal title="Select a token" closeIcon>
-        {view === VIEWS.SEARCH ? (
+        {view === Mode.SEARCH ? (
           <CurrencySearch
             currencies={currencies}
             onManage={onManage}
@@ -59,7 +59,7 @@ export default function CurrencySearchModal(props: Props) {
             setImportToken={setImportToken}
             onCurrencySelect={onSelect}
           />
-        ) : view === VIEWS.MANAGE ? (
+        ) : view === Mode.MANAGE ? (
           <Manage />
         ) : (
           <Import />

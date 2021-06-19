@@ -73,6 +73,7 @@ export default function Form(props: Props) {
     if (!amount) {
       return setOnHint(Hintable.CURRENCY_INPUT)
     }
+    setOnHint(null)
   }, [currency, userLogined, from, to, amount, hintable])
 
   return (

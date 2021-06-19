@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Box } from '@material-ui/core'
 import { Text } from 'rebass'
 import Button from '../../components/Button/Button'
-import WarningIcon from '../../assets/images/warning_icon.svg'
-import DummyLogo from '../../assets/images/dummy_logo.png'
+import { ReactComponent as WarningIcon } from '../../assets/images/warning_icon.svg'
 import CoinGecko from '../../assets/images/coin_gecko.svg'
 import Image from '../../components/Image/Image'
 import TextButton from '../../components/Button/TextButton'
@@ -13,6 +12,17 @@ import { useCallback } from 'react'
 import useModal from 'hooks/useModal'
 import SelectCurrencyModal from './SelectCurrencyModal'
 import OutlineButton from 'components/Button/OutlineButton'
+import Aave from '../../assets/images/currency/aave.svg'
+import { TYPE } from '../../theme/index'
+
+const dummyData = {
+  logo: Aave,
+  name: 'TOKEN NAME1',
+  symbol: 'TOKEN',
+  contract: '0xKos369cd4se1oos369cd4se1s369cd4se187ujv',
+  src: 'via Coingecko',
+  srcIcon: CoinGecko,
+}
 
 export default function Import() {
   const [checked, setChecked] = useState(false)
@@ -37,22 +47,18 @@ export default function Import() {
           width="416px"
           marginBottom="16px"
         >
-          <Box display={'flex'} marginBottom={'8px'}>
-            <Image src={DummyLogo} alt={'token icon'} />
-            <Text fontSize={16} fontWeight={500} marginLeft={12}>
-              TOKEN NAME1
-            </Text>
-            <Text fontSize={16} fontWeight={400} opacity={0.4} marginLeft={0.8}>
-              TOKEN
-            </Text>
+          <Box display="flex" marginBottom="8px" alignItems="center">
+            <Image src={dummyData.logo} alt={'token icon'} />
+            <TYPE.bold marginLeft={12}>{dummyData.name}</TYPE.bold>
+            <TYPE.gray marginLeft={0.8}>{dummyData.symbol}</TYPE.gray>
           </Box>
           <TextButton fontSize={14} fontWeight={400} primary>
-            0xKos369cd4se1oos369cd4se1s369cd4se187ujv
+            {dummyData.contract}
           </TextButton>
           <Box display={'flex'} marginTop={'6px'}>
-            <Image src={CoinGecko} alt={'src icon'} />
+            <Image src={dummyData.srcIcon} alt={'src icon'} />
             <Text fontSize={12} fontWeight={400} opacity={0.6} marginLeft={'6px'}>
-              via Coingecko
+              via {dummyData.src}
             </Text>
           </Box>
         </Box>
@@ -64,19 +70,18 @@ export default function Import() {
           padding="24px 24px 26px 24px"
           marginBottom="24px"
         >
-          <Image src={WarningIcon} alt={'warning icon'} />
-          <Text fontSize={18} margin={'12px 0 12px 0'}>
+          <WarningIcon />
+          <Text fontSize={18} fontWeight={500} margin={'12px 0 12px 0'}>
             Bridge at your own risk
           </Text>
-          <Text fontSize={16} fontWeight={400} opacity={0.7}>
+          <TYPE.gray>
             Anyone can bridge a token, including creating fake versions of existing tokens that claim to represent
             projects
-          </Text>
-          <Box display={'flex'} alignItems={'center'} marginTop={'12px'}>
-            <Checkbox checked={checked} onChange={onCheck} label={'I understand'} />
+          </TYPE.gray>
+          <Box display="flex" alignItems="center" marginTop="12px">
+            <Checkbox checked={checked} onChange={onCheck} label="I understand" />
           </Box>
         </Box>
-
         {!checked && <OutlineButton primary>Please agree to the risks</OutlineButton>}
         {checked && <Button>Import</Button>}
       </Box>

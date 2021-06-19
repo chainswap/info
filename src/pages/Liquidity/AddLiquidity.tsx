@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react'
 import { ChainList } from 'data/dummyData'
-import Currency from 'models/currency'
 import Chain from 'models/chain'
 import LiquidityForm from './LiquidityForm'
 import useModal from 'hooks/useModal'
@@ -18,10 +17,10 @@ export default function AddLiquidity({ onReturnClick }: { onReturnClick: () => v
 
   useEffect(() => {
     setCurrency(null)
-  }, [])
+  }, [setCurrency])
 
   const handleChangeAmount = useCallback((e) => setAmount(e.target.value), [])
-  const handleCurrencySelect = useCallback((currency) => setCurrency(currency), [])
+  const handleCurrencySelect = useCallback((currency) => setCurrency(currency), [setCurrency])
   const handleChainSelect = useCallback((e) => {
     setChain(ChainList.find((chain) => chain.symbol === e.target.value) ?? null)
   }, [])

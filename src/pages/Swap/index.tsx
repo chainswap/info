@@ -21,9 +21,8 @@ import ClaimModal from '../../components/claim/ClaimModal'
 import OutlineButton from '../../components/Button/OutlineButton'
 import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
-import Form from './Form'
+import SwapForm from './SwapForm'
 import Notification, { NotificationType } from '../../components/Notification/Notification'
-import usePrevious from 'hooks/usePrevious'
 import useCurrency from 'hooks/useCurrency'
 
 export default function Swap() {
@@ -57,7 +56,7 @@ export default function Swap() {
 
   useEffect(() => {
     setCurrency(null)
-  }, [])
+  }, [setCurrency])
 
   useEffect(() => {
     if (amount && address && !depositCompleted) {
@@ -191,7 +190,7 @@ export default function Swap() {
       setCurrency(currency)
       hideModal()
     },
-    [hideModal]
+    [setCurrency, hideModal]
   )
 
   const authorize = useCallback(() => {
@@ -302,7 +301,7 @@ export default function Swap() {
         <Box padding={'20px 40px 0 40px'}>
           <TYPE.largeHeader marginBottom="20px">Cross Chain Bridge</TYPE.largeHeader>
           <Box display="grid" gridGap="20px">
-            <Form
+            <SwapForm
               showChainSelect={userLogined}
               showDestination={!!(amount && currency && from && to && !authorized)}
               onChangeAmount={onChangeAmount}

@@ -43,7 +43,6 @@ export default function Form(props: Props) {
     onChangeAmount,
     amount,
     onMax,
-    setSelectedCurrency,
     userLogined,
     from,
     to,

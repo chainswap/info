@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent } from 'react'
 import { styled, Box } from '@material-ui/core'
 import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'

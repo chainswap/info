@@ -9,13 +9,10 @@ import CoinGecko from '../../../assets/images/coin_gecko.svg'
 import Image from '../../Image/Image'
 import TextButton from '../../Button/TextButton'
 import Checkbox from '../../Checkbox/Checkbox'
-
-const Wrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: '23px 32px 32px 32px',
-})
+import Modal from '../../Modal/Modal'
+import { useCallback } from 'react'
+import useModal from 'hooks/useModal'
+import SelectCurrencyModal from './SelectCurrencyModal'
 
 const TokenInfoCard = styled('div')({
   backgroundColor: 'rgba(0,0,0,0.2)',
@@ -78,16 +75,21 @@ const Warning = ({ checked, onCheck }: { checked: boolean; onCheck: () => void }
 
 export default function Import() {
   const [checked, setChecked] = useState(false)
+  const { showModal } = useModal()
 
   function onCheck() {
     setChecked(!checked)
   }
 
+  const onReturnClick = useCallback(() => {
+    showModal(<SelectCurrencyModal />)
+  }, [])
+
   return (
-    <Wrapper>
+    <Modal onReturnClick={onReturnClick}>
       <TokenInfo />
       <Warning checked={checked} onCheck={onCheck} />
       <Button>Import</Button>
-    </Wrapper>
+    </Modal>
   )
 }

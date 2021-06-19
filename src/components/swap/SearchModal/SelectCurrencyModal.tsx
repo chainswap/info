@@ -3,24 +3,20 @@ import { Box } from '@material-ui/core'
 import Modal from '../../Modal/Modal'
 import CurrencyList from './CurrencyList'
 import TextButton from '../../Button/TextButton'
-import Currency from '../../../models/currency'
 import Divider from '../../Divider/Divider'
 import Input from '../../Input/Input'
 import { useEffect } from 'react'
+import useCurrency from 'hooks/useCurrency'
 
 export enum Mode {
   SELECT = 'select',
   IMPORT = 'import',
 }
 
-interface Props {
-  currencies: Currency[]
-  onCurrencySelect: (currency: Currency) => void
-  onDismiss: () => void
-}
+interface Props {}
 
 export default function SelectCurrencyModal(props: Props) {
-  const { currencies, onCurrencySelect } = props
+  const { onCurrencySelect } = useCurrency()
   const [input, setInput] = useState('')
   const [mode, SetMode] = useState(Mode.SELECT)
 
@@ -46,7 +42,7 @@ export default function SelectCurrencyModal(props: Props) {
         </Box>
         <Divider />
         <Box paddingTop={'24px'}>
-          <CurrencyList currencies={currencies} mode={mode} onCurrencySelect={onCurrencySelect} />
+          <CurrencyList mode={mode} />
         </Box>
         <Divider />
         <Box height="55px" justifyContent="center" display="flex">

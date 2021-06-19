@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { useState, ChangeEvent, useEffect, useRef } from 'react'
 import { Box } from '@material-ui/core'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import ChainSelect from '../../components/ChainSelect/ChainSelect'
@@ -7,6 +7,8 @@ import Chain from '../../models/chain'
 import Input from '../../components/Input/Input'
 import { TYPE } from '../../theme/index'
 import Switcher from '../../components/swap/Switcher'
+import useCurrency from '../../hooks/useCurrency'
+import usePrevious from '../../hooks/usePrevious'
 
 interface Props {
   showChainSelect: boolean
@@ -41,8 +43,6 @@ export default function Form(props: Props) {
     showDestination,
     onChangeAmount,
     amount,
-    currency,
-    currencyOptions,
     onMax,
     onCurrencySelect,
     userLogined,
@@ -56,6 +56,15 @@ export default function Form(props: Props) {
     hintable,
   } = props
   const [onHint, setOnHint] = useState<Hintable | null>(null)
+  const [currency, setCurrency] = useState<Currency | null>(null)
+  const { selectedCurrency } = useCurrency()
+  const prevSelectedCurrency = usePrevious<Currency | null>(selectedCurrency)
+
+  useEffect(() => {
+    if (prevSelectedCurrency !== selectedCurrency) {
+      setCurrency(selectedCurrency)
+    }
+  }, [selectedCurrency])
 
   // onHint
   useEffect(() => {
@@ -74,7 +83,7 @@ export default function Form(props: Props) {
     if (!amount) {
       return setOnHint(Hintable.CURRENCY_INPUT)
     }
-  }, [userLogined, currency, from, to, amount, hintable])
+  }, [currency, userLogined, from, to, amount, hintable])
 
   return (
     <>
@@ -82,7 +91,6 @@ export default function Form(props: Props) {
         onChange={onChangeAmount}
         value={amount}
         selectedCurrency={currency}
-        options={currencyOptions}
         onMax={onMax}
         onCurrencySelect={onCurrencySelect}
         disabled={!userLogined}

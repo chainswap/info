@@ -7,12 +7,13 @@ import { Mode } from './SelectCurrencyModal'
 import Image from '../../Image/Image'
 import { TYPE } from '../../../theme/index'
 import ImportButton from 'components/Button/ImportButton'
+import ImportCurrencyModal from './ImportCurrencyModal'
+import useModal from '../../../hooks/useModal'
+import useCurrency from '../../../hooks/useCurrency'
 
 interface Props {
-  currencies: Currency[]
   selectedCurrency?: Currency | null
   mode?: Mode
-  onCurrencySelect: (currency: Currency) => void
 }
 
 const ListItem = styled('div')({
@@ -24,7 +25,9 @@ const ListItem = styled('div')({
 })
 
 export default function CurrencyList(props: Props) {
-  const { currencies, onCurrencySelect, mode } = props
+  const { mode } = props
+  const { showModal, hideModal } = useModal()
+  const { currencyOptions, onCurrencySelect } = useCurrency()
 
   const currencyKey = useCallback((currency: Currency): string => {
     return currency ? currency.symbol : ''
@@ -36,10 +39,11 @@ export default function CurrencyList(props: Props) {
     const currency: Currency = data[index]
     const onClickCurrency = useCallback(() => {
       onCurrencySelect(currency)
+      hideModal()
     }, [currency])
 
     return (
-      <ListItem onClick={onClickCurrency}>
+      <ListItem onClick={mode === Mode.SELECT ? onClickCurrency : () => {}}>
         <Box display="flex">
           <Image src={currency.logo} alt="currency-logo" style={{ width: '30px', height: '30px' }} />
           <Box display="flex" flexDirection="column" marginLeft="16px">
@@ -48,7 +52,15 @@ export default function CurrencyList(props: Props) {
           </Box>
         </Box>
         {mode === Mode.SELECT && <TYPE.bold>{currency.balance}</TYPE.bold>}
-        {mode === Mode.IMPORT && <ImportButton onClick={() => {}}>Import</ImportButton>}
+        {mode === Mode.IMPORT && (
+          <ImportButton
+            onClick={() => {
+              showModal(<ImportCurrencyModal />)
+            }}
+          >
+            Import
+          </ImportButton>
+        )}
       </ListItem>
     )
   }
@@ -57,9 +69,9 @@ export default function CurrencyList(props: Props) {
     <FixedSizeList
       height={290}
       width="100%"
-      itemCount={currencies.length}
+      itemCount={currencyOptions.length}
       itemSize={56}
-      itemData={currencies}
+      itemData={currencyOptions}
       itemKey={itemKey}
     >
       {Row}

@@ -15,7 +15,6 @@ interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   selectedCurrency: Currency | null
-  options: Currency[]
   onMax?: () => void
   disabled: boolean
   onCurrencySelect: (currency: Currency) => void
@@ -59,22 +58,12 @@ const ButtonWrapper = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const {
-    selectedCurrency,
-    options,
-    onMax,
-    value,
-    disabled,
-    onCurrencySelect,
-    placeholder,
-    selectActive,
-    inputFocused,
-  } = props
+  const { selectedCurrency, onMax, value, disabled, onCurrencySelect, placeholder, selectActive, inputFocused } = props
   const { showModal, hideModal } = useModal()
 
   const showCurrencySearch = useCallback(() => {
-    showModal(<SelectCurrencyModal currencies={options} onCurrencySelect={onCurrencySelect} onDismiss={hideModal} />)
-  }, [options, onCurrencySelect, hideModal, showModal])
+    showModal(<SelectCurrencyModal />)
+  }, [onCurrencySelect, hideModal, showModal])
 
   return (
     <div>

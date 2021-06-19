@@ -3,27 +3,25 @@ import Currency from '../models/currency'
 import { CurrencyList } from '../data/dummyData'
 
 interface CurrencyContextType {
-  selectedCurrency: Currency | null
+  currency: Currency | null
   currencyOptions: Currency[]
-  setSelectedCurrency: (currency: Currency) => void
+  setCurrency: (currency: Currency | null) => void
 }
 
 export const CurrencyContext = React.createContext<CurrencyContextType>({
-  selectedCurrency: null,
+  currency: null,
   currencyOptions: [],
-  setSelectedCurrency: () => {},
+  setCurrency: () => {},
 })
 
 export const CurrencyProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currency, setCurrency] = useState<Currency | null>(null)
+  const [currency, _setCurrency] = useState<Currency | null>(null)
   const currencyOptions = CurrencyList
-  const setSelectedCurrency = useCallback((currency: Currency) => {
-    setCurrency(currency)
+  const setCurrency = useCallback((currency: Currency | null) => {
+    _setCurrency(currency)
   }, [])
 
   return (
-    <CurrencyContext.Provider value={{ selectedCurrency: currency, currencyOptions, setSelectedCurrency }}>
-      {children}
-    </CurrencyContext.Provider>
+    <CurrencyContext.Provider value={{ currency, setCurrency, currencyOptions }}>{children}</CurrencyContext.Provider>
   )
 }

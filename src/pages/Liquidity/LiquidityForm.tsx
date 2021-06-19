@@ -65,8 +65,6 @@ export default function LiquidityForm({
         <CurrencyInputPanel
           onChange={onAmount}
           value={amount}
-          selectedCurrency={currency}
-          setSelectedCurrency={onCurrency}
           disabled={!userLogined}
           placeholder="Enter amount"
           onMax={() => {}}

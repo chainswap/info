@@ -27,7 +27,7 @@ const ListItem = styled('div')({
 export default function CurrencyList(props: Props) {
   const { mode } = props
   const { showModal, hideModal } = useModal()
-  const { currencyOptions, setSelectedCurrency } = useCurrency()
+  const { currencyOptions, setCurrency } = useCurrency()
 
   const currencyKey = useCallback((currency: Currency): string => {
     return currency ? currency.symbol : ''
@@ -38,7 +38,7 @@ export default function CurrencyList(props: Props) {
   const Row = ({ data, index }: any) => {
     const currency: Currency = data[index]
     const onClickCurrency = useCallback(() => {
-      setSelectedCurrency(currency)
+      setCurrency(currency)
       hideModal()
     }, [currency])
 

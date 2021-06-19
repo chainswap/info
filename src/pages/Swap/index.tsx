@@ -35,14 +35,12 @@ export default function Swap() {
   const [depositEnabled, setDepositEnabled] = useState(false)
   const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota] = useState(800)
-  const [currency, setCurrency] = useState<Currency | null>(null)
   const { showModal, hideModal } = useModal()
   const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAuthorized] = useState(false)
   const [showClaimModal, setShowClaimModal] = useState(false)
-  const { selectedCurrency } = useCurrency()
-  const prevSelectedCurrency = usePrevious(selectedCurrency)
+  const { currency, setCurrency } = useCurrency()
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapStatus] = useState<{
@@ -58,10 +56,8 @@ export default function Swap() {
   })
 
   useEffect(() => {
-    if (prevSelectedCurrency !== selectedCurrency) {
-      setCurrency(selectedCurrency)
-    }
-  }, [selectedCurrency])
+    setCurrency(null)
+  }, [])
 
   useEffect(() => {
     if (amount && address && !depositCompleted) {

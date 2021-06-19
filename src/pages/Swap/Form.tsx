@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect, useRef } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 import { Box } from '@material-ui/core'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
 import ChainSelect from '../../components/ChainSelect/ChainSelect'
@@ -8,7 +8,6 @@ import Input from '../../components/Input/Input'
 import { TYPE } from '../../theme/index'
 import Switcher from '../../components/swap/Switcher'
 import useCurrency from '../../hooks/useCurrency'
-import usePrevious from '../../hooks/usePrevious'
 
 interface Props {
   showChainSelect: boolean
@@ -56,15 +55,7 @@ export default function Form(props: Props) {
     hintable,
   } = props
   const [onHint, setOnHint] = useState<Hintable | null>(null)
-  const [currency, setCurrency] = useState<Currency | null>(null)
-  const { selectedCurrency } = useCurrency()
-  const prevSelectedCurrency = usePrevious<Currency | null>(selectedCurrency)
-
-  useEffect(() => {
-    if (prevSelectedCurrency !== selectedCurrency) {
-      setCurrency(selectedCurrency)
-    }
-  }, [selectedCurrency])
+  const { currency } = useCurrency()
 
   // onHint
   useEffect(() => {
@@ -90,9 +81,7 @@ export default function Form(props: Props) {
       <CurrencyInputPanel
         onChange={onChangeAmount}
         value={amount}
-        selectedCurrency={currency}
         onMax={onMax}
-        setSelectedCurrency={setSelectedCurrency}
         disabled={!userLogined}
         selectActive={onHint === Hintable.CURRENCY_SELECT}
         inputFocused={!amount && onHint === Hintable.CURRENCY_INPUT}

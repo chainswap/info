@@ -34,7 +34,7 @@ export default function Import() {
 
   const onReturnClick = useCallback(() => {
     showModal(<SelectCurrencyModal />)
-  }, [])
+  }, [showModal])
 
   return (
     <Modal title="Import Token" onReturnClick={onReturnClick} closeIcon>

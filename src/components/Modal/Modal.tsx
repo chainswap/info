@@ -6,7 +6,6 @@ import useModal from '../../hooks/useModal'
 import { TYPE } from '../../theme/index'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { useRef } from 'react'
-import TextButton from 'components/Button/TextButton'
 import { ReactComponent as ArrowLeft } from 'assets/images/arrow_left.svg'
 
 interface Props {

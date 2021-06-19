@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useCallback } from 'react'
 import AppBody from '../AppBody'
-import Entry from './Entry'
+import DeployOptions from './DeployOptions'
 import AddToken from './AddToken'
 import Mapping from './Mapping'
 import Bridge from './Bridge'
@@ -24,7 +24,7 @@ const dummyData = {
 }
 
 enum DEPLOY_STATE {
-  ENTRY = 'entry',
+  OPTIONS = 'options',
   ADD = 'add',
   MAPPING = 'mapping',
   BRIDGE = 'bridge',
@@ -44,7 +44,7 @@ type DeployStatus = {
 export type ChainState = Chain & DeployStatus
 
 export default function Deploy() {
-  const [state, setState] = useState(DEPLOY_STATE.ENTRY)
+  const [state, setState] = useState(DEPLOY_STATE.OPTIONS)
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
   const [deployStatus, setDeployStatus] = useState<DeployStatusType>({
@@ -112,10 +112,11 @@ export default function Deploy() {
   }, [hideModal])
 
   return (
-    <AppBody width={552}>
-      {state === DEPLOY_STATE.ENTRY ? (
-        <Entry onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
-      ) : state === DEPLOY_STATE.ADD ? (
+    <AppBody>
+      {state === DEPLOY_STATE.OPTIONS && (
+        <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
+      )}
+      {state === DEPLOY_STATE.ADD && (
         <AddToken
           address={address}
           onChangeAddress={onChangeAddress}
@@ -126,7 +127,8 @@ export default function Deploy() {
           status={deployStatus}
           data={dummyData.tokenInfo}
         />
-      ) : state === DEPLOY_STATE.MAPPING ? (
+      )}
+      {state === DEPLOY_STATE.MAPPING && (
         <Mapping
           data={dummyData.mainchainInfo}
           chainList={ChainList}
@@ -134,9 +136,8 @@ export default function Deploy() {
           selectedChains={selectedChains}
           onNext={toBridge}
         />
-      ) : state === DEPLOY_STATE.BRIDGE ? (
-        <Bridge />
-      ) : null}
+      )}
+      {state === DEPLOY_STATE.BRIDGE && <Bridge />}
     </AppBody>
   )
 }

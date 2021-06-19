@@ -7,6 +7,7 @@ interface TextColor {
   text3: string
   text4: string
   text5: string
+  primary: string
 }
 
 interface BgColor {
@@ -88,6 +89,7 @@ const theme: Theme = createMuiTheme({
     text3: '#999999',
     text4: '#727272',
     text5: '#333333',
+    primary: '#9867FF',
   },
   bgColor: {
     bg1: '#000000',
@@ -124,6 +126,9 @@ export const TYPE = {
   },
   bold(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={16} textColor="text1" {...props} />
+  },
+  primary(props: TextProps) {
+    return <TextWrapper fontWeight={500} fontSize={16} textColor="primary" {...props} />
   },
   largeHeader(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={28} {...props} fontFamily="Futura PT" />

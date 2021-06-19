@@ -25,8 +25,8 @@ export default function CurrencySearch(props: Props) {
 
   return (
     <>
-      <Box padding="20px 32px 23px 32px">
-        <Input value={value} onChange={onChange} placeholder={placeholder} />
+      <Box padding="0 32px 23px 32px">
+        <Input value={value} onChange={onChange} placeholder={placeholder} outlined />
       </Box>
       <Divider />
       <Box paddingTop={'24px'}>

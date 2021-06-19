@@ -12,6 +12,7 @@ interface Props {
   style?: React.CSSProperties
   disabled?: boolean
   focused?: boolean
+  outlined?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 48,
       paddingLeft: 20,
       borderRadius: 14,
-      border: '1px solid transparent',
+      border: (props: { outlined?: boolean }) => `1px solid ${props.outlined ? 'rgba(255,255,255,.4)' : 'transparent'}`,
     },
     focused: {
       border: '1px solid',

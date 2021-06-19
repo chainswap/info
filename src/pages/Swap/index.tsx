@@ -4,7 +4,6 @@ import SecondaryButton from '../../components/Button/SecondaryButton'
 import AppBody from '../AppBody'
 import { Box } from '@material-ui/core'
 import QuotaInfo from '../../components/swap/QuotaInfo'
-import QuotaBar from '../../components/swap/QuotaBar'
 import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
 import SwapStepper from '../../components/swap/SwapStepper'
 import TxnSubmittedMessageBox from '../../components/swap/TxnSubmittedMessageBox'
@@ -245,7 +244,7 @@ export default function Swap() {
     )
   }, [to, amount, attemptingWithdraw, withdrawEnabled, showConfirmWithdrawModal, depositCompleted, withdrawCompleted])
 
-  const getBtns = useCallback(() => {
+  const getActions = useCallback(() => {
     if (!userLogined) {
       return (
         <SecondaryButton onClick={() => showModal(<WalletModal onDismiss={hideModal} />)}>
@@ -267,15 +266,15 @@ export default function Swap() {
     }
 
     return (
-      <Box display="grid" gridGap="16px" marginTop="28px" marginBottom={'24px'}>
+      <>
         <Box display="flex" justifyContent="space-between">
           {getDepositBtn()}
           {getWithdrawBtn()}
         </Box>
-        <Box display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center" marginTop="16px">
           <SwapStepper activeStep={step} />
         </Box>
-      </Box>
+      </>
     )
   }, [
     userLogined,
@@ -348,16 +347,11 @@ export default function Swap() {
           )}
         </Box>
 
-        <Box padding={'0 40px 40px 40px'} marginTop="32px">
-          {getBtns()}
+        <Box padding={'0 40px 0 40px'} margin="32px 0 24px 0">
+          {getActions()}
         </Box>
         <Divider orientation={'horizontal'} />
-        {authorized && currency && (
-          <Box display="grid" gridGap="12px" padding="0 32px 28px 32px">
-            <QuotaInfo quota={quota} currency={currency.symbol} percentage={70} />
-            <QuotaBar percentage={percentage} />
-          </Box>
-        )}
+        {authorized && currency && <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />}
       </AppBody>
 
       {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}

@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import { FixedSizeList } from 'react-window'
-import CurrencyLogo from '../../../assets/images/dummy_logo.png'
 import { makeStyles } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Currency from '../../../models/currency'
@@ -42,7 +41,7 @@ export default function CurrencyList(props: Props) {
     return (
       <div className={classes.currencyRow}>
         <Box display="flex" onClick={onClickCurrency}>
-          <img src={CurrencyLogo} alt="currency-logo" width="30px" height="30px" />
+          <img src={currency.logo} alt="currency-logo" width="30px" height="30px" />
           <Box display="flex" flexDirection="column" marginLeft="16px">
             <Text fontSize={16}>{currency.symbol}</Text>
             <Text fontSize={12} opacity={0.6}>

@@ -39,7 +39,7 @@ export default function CurrencySearch(props: Props) {
         />
       </Box>
       <Divider />
-      <Box width="100%" borderRadius="0 0 20px 20px" padding="16px 0" justifyContent="center" display="flex">
+      <Box height="55px" justifyContent="center" display="flex">
         <TextButton onClick={onManage} primary>
           Manage
         </TextButton>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Text } from 'rebass'
 import { Box } from '@material-ui/core'
 import Image from '../Image/Image'
 import { TYPE } from '../../theme/index'
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export default function ChainAddress(props: Props) {
-  const { walletLogo, address, currency } = props
+  const { walletLogo, address } = props
 
   return (
     <Box color="#FFFFFF" display="flex" margin="16px 32px 0 32px">

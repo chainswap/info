@@ -8,11 +8,10 @@ interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   label?: string
-  type?: string
-  style?: React.CSSProperties
   disabled?: boolean
   focused?: boolean
   outlined?: boolean
+  type?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -50,16 +49,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Input(props: Props) {
   const classes = useStyles(props)
-  const { focused, ...restProps } = props
+  const { focused, placeholder, onChange, value, disabled, type } = props
 
   return (
     <>
       {props.label && <InputLabel>{props.label}</InputLabel>}
       <InputBase
         fullWidth={true}
-        {...restProps}
+        placeholder={placeholder}
         classes={{ ...classes }}
-        inputRef={(input) => input && props.focused && input.focus()}
+        inputRef={(input) => input && focused && input.focus()}
+        onChange={onChange}
+        value={value}
+        disabled={disabled}
+        type={type}
       />
     </>
   )

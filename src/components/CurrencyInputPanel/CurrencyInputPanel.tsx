@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from 'react'
 import { styled, Box } from '@material-ui/core'
-import CurrencySearchModal from '../swap/SearchModal/CurrencySearchModal'
 import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
 import Currency from '../../models/currency'
@@ -9,6 +8,8 @@ import SelectButton from '../Button/SelectButton'
 import useModal from '../../hooks/useModal'
 import LogoText from '../LogoText/LogoText'
 import theme, { TYPE } from '../../theme/index'
+import SelectCurrencyModal from 'components/swap/SearchModal/SelectCurrencyModal'
+import { useCallback } from 'react'
 
 interface Props {
   value: string
@@ -71,9 +72,9 @@ export default function CurrencyInputPanel(props: Props) {
   } = props
   const { showModal, hideModal } = useModal()
 
-  const showCurrencySearch = () => {
-    showModal(<CurrencySearchModal currencies={options} onCurrencySelect={onCurrencySelect} onDismiss={hideModal} />)
-  }
+  const showCurrencySearch = useCallback(() => {
+    showModal(<SelectCurrencyModal currencies={options} onCurrencySelect={onCurrencySelect} onDismiss={hideModal} />)
+  }, [options, onCurrencySelect, hideModal, showModal])
 
   return (
     <div>

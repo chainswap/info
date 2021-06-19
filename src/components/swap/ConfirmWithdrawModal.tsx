@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Box } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
-import { Text } from 'rebass'
 import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
 import Currency from '../../models/currency'
@@ -54,7 +53,7 @@ export default function ConfirmWithdrawModal(props: Props) {
 
   const onClick = useCallback(() => {
     setMode(Mode.CONFIRM)
-  }, [mode])
+  }, [])
 
   return (
     <div onClick={onClick}>

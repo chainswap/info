@@ -4,7 +4,10 @@ import { makeStyles } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
 import Currency from '../../../models/currency'
 import { Text } from 'rebass'
-import ImportButton from '../../Button/ImportButton'
+import { Mode } from './SelectCurrencyModal'
+import Image from '../../Image/Image'
+import { TYPE } from '../../../theme/index'
+import ImportButton from 'components/Button/ImportButton'
 
 function currencyKey(currency: Currency): string {
   return currency ? currency.symbol : ''
@@ -13,9 +16,7 @@ function currencyKey(currency: Currency): string {
 interface Props {
   currencies: Currency[]
   selectedCurrency?: Currency | null
-  showImportView: () => void
-  setImportToken: (token: Currency) => void
-  showImportBtn: boolean
+  mode?: Mode
   onCurrencySelect: (currency: Currency) => void
 }
 
@@ -31,17 +32,16 @@ const useStyles = makeStyles({
 
 export default function CurrencyList(props: Props) {
   const classes = useStyles(props)
-  const { currencies, showImportBtn, showImportView, onCurrencySelect } = props
+  const { currencies, onCurrencySelect, mode } = props
 
   const Row = ({ data, index, style }: any) => {
     const currency: Currency = data[index]
-
     const onClickCurrency = () => onCurrencySelect(currency)
 
     return (
       <div className={classes.currencyRow}>
         <Box display="flex" onClick={onClickCurrency}>
-          <img src={currency.logo} alt="currency-logo" width="30px" height="30px" />
+          <Image src={currency.logo} alt="currency-logo" style={{ width: '30px', height: '30px' }} />
           <Box display="flex" flexDirection="column" marginLeft="16px">
             <Text fontSize={16}>{currency.symbol}</Text>
             <Text fontSize={12} opacity={0.6}>
@@ -49,10 +49,10 @@ export default function CurrencyList(props: Props) {
             </Text>
           </Box>
         </Box>
-        {showImportBtn ? (
-          <ImportButton onClick={showImportView}>Import</ImportButton>
+        {mode === Mode.SELECT ? (
+          <TYPE.bold>{currency.balance}</TYPE.bold>
         ) : (
-          <Text fontSize={16}>{currency.balance}</Text>
+          <ImportButton onClick={() => {}}>Import</ImportButton>
         )}
       </div>
     )

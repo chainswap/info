@@ -2,7 +2,6 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Text } from 'rebass'
 import Image from '../Image/Image'
-import { PinDropSharp } from '@material-ui/icons'
 
 interface Props {
   logo: string

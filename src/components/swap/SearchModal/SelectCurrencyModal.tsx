@@ -32,12 +32,11 @@ export default function SelectCurrencyModal(props: Props) {
 
   useEffect(() => {
     if (input !== '') {
-      SetMode(Mode.IMPORT)
+      return SetMode(Mode.IMPORT)
     }
-  }, [input])
 
-  // const showImportView = useCallback(() => {}, [])
-  // const setImportToken = useCallback(() => {}, [])
+    SetMode(Mode.SELECT)
+  }, [input])
 
   return (
     <>

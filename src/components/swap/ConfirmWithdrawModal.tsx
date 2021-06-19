@@ -9,10 +9,13 @@ import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import ChainAddress from './ChainAddress'
 import Divider from '../Divider/Divider'
+import { TYPE } from '../../theme/index'
+import LogoText from 'components/LogoText/LogoText'
+import { useCallback } from 'react'
 
 export enum Mode {
-  INSTRUCTION,
-  CONFIRM,
+  INSTRUCTION = 'instruction',
+  CONFIRM = 'confirm',
 }
 
 interface Props {
@@ -27,17 +30,19 @@ interface Props {
   onConfirm: () => void
 }
 
-const Faded = styled('div')({
-  opacity: 0.2,
+const Fadable = styled('div')({
+  opacity: (props: { faded: boolean }) => (props.faded ? 0.4 : 1),
 })
 
 const Instruction = ({ to }: { to: Chain }) => {
   return (
-    <Box color="#FFFFFF" margin="40px 32px 0" width={416}>
-      <Text fontWeight={500} fontSize={18} textAlign={'center'}>
-        1. Please switch <strong>your wallet network</strong> to {to.symbol} to complete token swap. 2. Also please{' '}
-        <strong>switch to your wallet</strong> with the destination address
-      </Text>
+    <Box margin="0 auto 0" width="320px">
+      <TYPE.bold textAlign={'center'}>
+        1. Please switch <strong>your wallet network</strong> to {to.symbol} to complete token swap.
+      </TYPE.bold>
+      <TYPE.bold textAlign={'center'} marginTop="8px">
+        2. Also please<strong>switch to your wallet</strong> with the destination address
+      </TYPE.bold>
     </Box>
   )
 }
@@ -47,56 +52,38 @@ export default function ConfirmWithdrawModal(props: Props) {
 
   const [mode, setMode] = useState(Mode.INSTRUCTION)
 
-  function onClick() {
+  const onClick = useCallback(() => {
     setMode(Mode.CONFIRM)
-  }
+  }, [mode])
 
   return (
     <div onClick={onClick}>
       <Modal closeIcon>
-        {mode === Mode.INSTRUCTION ? (
-          <>
-            <Box paddingBottom={'24px'}>
+        <>
+          <Fadable faded={mode !== Mode.INSTRUCTION}>
+            <Box marginBottom="24px">
               <Instruction to={to} />
-              <SwapChain from={from} to={to} />
+              {mode === Mode.INSTRUCTION && <SwapChain from={from} to={to} />}
+              {mode === Mode.INSTRUCTION && (
+                <ChainAddress walletLogo={walletLogo} address={address} currency={selectedCurrency} />
+              )}
+            </Box>
+          </Fadable>
+          <Divider />
+          <Fadable faded={mode !== Mode.CONFIRM}>
+            <TYPE.body margin="24px auto 12px" textAlign="center">
+              3. Confirm Withdraw
+            </TYPE.body>
+            <TYPE.extremeLarge textAlign="center">{value}</TYPE.extremeLarge>
+            <Box display="flex" justifyContent="center">
+              <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} fontSize={64} fontWeight={500} />
+            </Box>
+            {mode === Mode.CONFIRM && <SwapChain from={from} to={to} />}
+            {mode === Mode.CONFIRM && (
               <ChainAddress walletLogo={walletLogo} address={address} currency={selectedCurrency} />
-            </Box>
-            <Divider />
-            <Faded>
-              <Box marginBottom="12px">
-                <Text fontWeight={500} fontSize={18} textAlign={'center'}>
-                  3. Confirm Withdraw
-                </Text>
-              </Box>
-              <Box>
-                <Text fontWeight={'500'} fontSize={28} textAlign={'center'}>
-                  {value} {selectedCurrency.symbol}
-                </Text>
-              </Box>
-            </Faded>
-          </>
-        ) : (
-          <>
-            <Faded>
-              <Box paddingBottom={'24px'}>
-                <Instruction to={to} />
-              </Box>
-            </Faded>
-            <Divider orientation={'horizontal'} />
-            <Box padding={'24px 12px'}>
-              <Text fontWeight={400} fontSize={18} textAlign={'center'}>
-                3. Confirm Withdraw
-              </Text>
-            </Box>
-            <Box>
-              <Text fontWeight={'500'} fontSize={28} textAlign={'center'}>
-                {value} {selectedCurrency.symbol}
-              </Text>
-            </Box>
-            <SwapChain from={from} to={to} />
-            <ChainAddress walletLogo={walletLogo} address={address} currency={selectedCurrency} />
-          </>
-        )}
+            )}
+          </Fadable>
+        </>
         <Box margin="28px 32px 29px">
           <Button onClick={onConfirm} disabled={mode === Mode.INSTRUCTION}>
             Confirm

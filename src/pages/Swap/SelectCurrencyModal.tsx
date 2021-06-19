@@ -1,10 +1,10 @@
 import { useState, ChangeEvent, useCallback } from 'react'
 import { Box } from '@material-ui/core'
-import Modal from '../../Modal/Modal'
-import CurrencyList from './CurrencyList'
-import TextButton from '../../Button/TextButton'
-import Divider from '../../Divider/Divider'
-import Input from '../../Input/Input'
+import Modal from '../../components/Modal/Modal'
+import CurrencyList from '../../components/swap/CurrencyList'
+import TextButton from '../../components/Button/TextButton'
+import Divider from '../../components/Divider/Divider'
+import Input from '../../components/Input/Input'
 import { useEffect } from 'react'
 
 export enum Mode {

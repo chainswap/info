@@ -14,7 +14,7 @@ import Image from 'components/Image/Image'
 import { LiquidityError } from './LiquidityForm'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import useModal from 'hooks/useModal'
-import TxnSubmittedMessageBox from 'components/swap/TxnSubmittedMessageBox'
+import TxnSubmittedMessageBox from 'pages/Swap/TxnSubmittedMessageBox'
 
 export default function WithdrawLiquidity({
   onReturnClick,

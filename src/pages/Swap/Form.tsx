@@ -18,7 +18,7 @@ interface Props {
   currency: Currency | null
   currencyOptions: Currency[]
   onMax: () => void
-  onCurrencySelect: (currency: Currency) => void
+  setSelectedCurrency: (currency: Currency) => void
   userLogined: boolean
   from: Chain | null
   to: Chain | null
@@ -44,7 +44,7 @@ export default function Form(props: Props) {
     onChangeAmount,
     amount,
     onMax,
-    onCurrencySelect,
+    setSelectedCurrency,
     userLogined,
     from,
     to,
@@ -92,7 +92,7 @@ export default function Form(props: Props) {
         value={amount}
         selectedCurrency={currency}
         onMax={onMax}
-        onCurrencySelect={onCurrencySelect}
+        setSelectedCurrency={setSelectedCurrency}
         disabled={!userLogined}
         selectActive={onHint === Hintable.CURRENCY_SELECT}
         inputFocused={!amount && onHint === Hintable.CURRENCY_INPUT}

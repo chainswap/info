@@ -8,7 +8,7 @@ import SelectButton from '../Button/SelectButton'
 import useModal from '../../hooks/useModal'
 import LogoText from '../LogoText/LogoText'
 import theme, { TYPE } from '../../theme/index'
-import SelectCurrencyModal from 'components/swap/SearchModal/SelectCurrencyModal'
+import SelectCurrencyModal from 'pages/Swap/SelectCurrencyModal'
 import { useCallback } from 'react'
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
   selectedCurrency: Currency | null
   onMax?: () => void
   disabled: boolean
-  onCurrencySelect: (currency: Currency) => void
+  setSelectedCurrency: (currency: Currency) => void
   placeholder?: string
   selectActive?: boolean
   inputFocused?: boolean
@@ -58,12 +58,13 @@ const ButtonWrapper = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const { selectedCurrency, onMax, value, disabled, onCurrencySelect, placeholder, selectActive, inputFocused } = props
+  const { selectedCurrency, onMax, value, disabled, setSelectedCurrency, placeholder, selectActive, inputFocused } =
+    props
   const { showModal, hideModal } = useModal()
 
   const showCurrencySearch = useCallback(() => {
     showModal(<SelectCurrencyModal />)
-  }, [onCurrencySelect, hideModal, showModal])
+  }, [setSelectedCurrency, hideModal, showModal])
 
   return (
     <div>

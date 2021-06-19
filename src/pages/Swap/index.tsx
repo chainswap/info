@@ -4,11 +4,11 @@ import SecondaryButton from '../../components/Button/SecondaryButton'
 import AppBody from '../AppBody'
 import { Box } from '@material-ui/core'
 import QuotaInfo from '../../components/swap/QuotaInfo'
-import ConfirmDepositModal from '../../components/swap/ConfirmDepositModal'
+import ConfirmDepositModal from './ConfirmDepositModal'
 import SwapStepper from '../../components/swap/SwapStepper'
-import TxnSubmittedMessageBox from '../../components/swap/TxnSubmittedMessageBox'
+import TxnSubmittedMessageBox from './TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
-import ConfirmWithdrawModal from '../../components/swap/ConfirmWithdrawModal'
+import ConfirmWithdrawModal from './ConfirmWithdrawModal'
 import { CurrencyList, ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
@@ -23,6 +23,8 @@ import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
 import Form from './Form'
 import Notification, { NotificationType } from '../../components/Notification/Notification'
+import usePrevious from 'hooks/usePrevious'
+import useCurrency from 'hooks/useCurrency'
 
 export default function Swap() {
   const userLogined = useUserLogined()
@@ -38,8 +40,9 @@ export default function Swap() {
   const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAuthorized] = useState(false)
-  // const [wallet] = useState({ logo: MetaMask, name: 'MetaMask' })
   const [showClaimModal, setShowClaimModal] = useState(false)
+  const { selectedCurrency } = useCurrency()
+  const prevSelectedCurrency = usePrevious(selectedCurrency)
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapStatus] = useState<{
@@ -53,6 +56,12 @@ export default function Swap() {
     depositCompleted: false,
     withdrawCompleted: false,
   })
+
+  useEffect(() => {
+    if (prevSelectedCurrency !== selectedCurrency) {
+      setCurrency(selectedCurrency)
+    }
+  }, [selectedCurrency])
 
   useEffect(() => {
     if (amount && address && !depositCompleted) {
@@ -181,7 +190,7 @@ export default function Swap() {
     )
   }, [currency, from, to, onConfirmWithdraw, address, amount, showModal])
 
-  const onCurrencySelect = useCallback(
+  const setSelectedCurrency = useCallback(
     (currency: Currency) => {
       setCurrency(currency)
       hideModal()
@@ -305,7 +314,7 @@ export default function Swap() {
               currency={currency}
               currencyOptions={CurrencyList}
               onMax={onMax}
-              onCurrencySelect={onCurrencySelect}
+              setSelectedCurrency={setSelectedCurrency}
               userLogined={userLogined}
               from={from}
               to={to}

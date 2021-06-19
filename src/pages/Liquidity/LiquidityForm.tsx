@@ -66,7 +66,7 @@ export default function LiquidityForm({
           onChange={onAmount}
           value={amount}
           selectedCurrency={currency}
-          onCurrencySelect={onCurrency}
+          setSelectedCurrency={onCurrency}
           disabled={!userLogined}
           placeholder="Enter amount"
           onMax={() => {}}

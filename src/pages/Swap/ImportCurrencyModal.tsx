@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { Box } from '@material-ui/core'
-import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
-import Button from '../../Button/Button'
-import WarningIcon from '../../../assets/images/warning_icon.svg'
-import DummyLogo from '../../../assets/images/dummy_logo.png'
-import CoinGecko from '../../../assets/images/coin_gecko.svg'
-import Image from '../../Image/Image'
-import TextButton from '../../Button/TextButton'
-import Checkbox from '../../Checkbox/Checkbox'
-import Modal from '../../Modal/Modal'
+import Button from '../../components/Button/Button'
+import WarningIcon from '../../assets/images/warning_icon.svg'
+import DummyLogo from '../../assets/images/dummy_logo.png'
+import CoinGecko from '../../assets/images/coin_gecko.svg'
+import Image from '../../components/Image/Image'
+import TextButton from '../../components/Button/TextButton'
+import Checkbox from '../../components/Checkbox/Checkbox'
+import Modal from '../../components/Modal/Modal'
 import { useCallback } from 'react'
 import useModal from 'hooks/useModal'
 import SelectCurrencyModal from './SelectCurrencyModal'
+import OutlineButton from 'components/Button/OutlineButton'
 
 export default function Import() {
   const [checked, setChecked] = useState(false)
@@ -30,7 +30,7 @@ export default function Import() {
     <Modal title="Import Token" onReturnClick={onReturnClick} closeIcon>
       <Box padding="0 32px 37px 32px">
         <Box
-          bgcolor="rgba(0,0,0,0.2)"
+          bgcolor="rgba(0,0,0,.2)"
           border="1px solid rgba(255,255,255,0.2)"
           borderRadius="22px"
           padding="24px 24px 25px 24px"
@@ -60,6 +60,7 @@ export default function Import() {
           width="416px"
           bgcolor="rgba(152, 103, 255, 0.08)"
           borderRadius="22px"
+          border="1px solid rgba(152, 103, 255, 0.6)"
           padding="24px 24px 26px 24px"
           marginBottom="24px"
         >
@@ -75,7 +76,9 @@ export default function Import() {
             <Checkbox checked={checked} onChange={onCheck} label={'I understand'} />
           </Box>
         </Box>
-        <Button>Import</Button>
+
+        {!checked && <OutlineButton primary>Please agree to the risks</OutlineButton>}
+        {checked && <Button>Import</Button>}
       </Box>
     </Modal>
   )

@@ -2,14 +2,14 @@ import React, { useCallback } from 'react'
 import { FixedSizeList } from 'react-window'
 import { styled } from '@material-ui/styles'
 import { Box } from '@material-ui/core'
-import Currency from '../../../models/currency'
-import { Mode } from './SelectCurrencyModal'
-import Image from '../../Image/Image'
-import { TYPE } from '../../../theme/index'
+import Currency from '../../models/currency'
+import { Mode } from '../../pages/Swap/SelectCurrencyModal'
+import Image from '../Image/Image'
+import { TYPE } from '../../theme/index'
 import ImportButton from 'components/Button/ImportButton'
-import ImportCurrencyModal from './ImportCurrencyModal'
-import useModal from '../../../hooks/useModal'
-import useCurrency from '../../../hooks/useCurrency'
+import ImportCurrencyModal from '../../pages/Swap/ImportCurrencyModal'
+import useModal from '../../hooks/useModal'
+import useCurrency from '../../hooks/useCurrency'
 
 interface Props {
   selectedCurrency?: Currency | null
@@ -27,7 +27,7 @@ const ListItem = styled('div')({
 export default function CurrencyList(props: Props) {
   const { mode } = props
   const { showModal, hideModal } = useModal()
-  const { currencyOptions, onCurrencySelect } = useCurrency()
+  const { currencyOptions, setSelectedCurrency } = useCurrency()
 
   const currencyKey = useCallback((currency: Currency): string => {
     return currency ? currency.symbol : ''
@@ -38,7 +38,7 @@ export default function CurrencyList(props: Props) {
   const Row = ({ data, index }: any) => {
     const currency: Currency = data[index]
     const onClickCurrency = useCallback(() => {
-      onCurrencySelect(currency)
+      setSelectedCurrency(currency)
       hideModal()
     }, [currency])
 

@@ -4,7 +4,7 @@ import Currency from 'models/currency'
 import Chain from 'models/chain'
 import LiquidityForm from './LiquidityForm'
 import useModal from 'hooks/useModal'
-import TxnSubmittedMessageBox from 'components/swap/TxnSubmittedMessageBox'
+import TxnSubmittedMessageBox from 'pages/Swap/TxnSubmittedMessageBox'
 import { LiquidityState } from '.'
 
 export default function AddLiquidity({ onReturnClick }: { onReturnClick: () => void }) {

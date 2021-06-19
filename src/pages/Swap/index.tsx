@@ -321,7 +321,7 @@ export default function Swap() {
             <>
               <Box marginTop="16px">
                 <Notification
-                  type={NotificationType.SUCCESS}
+                  type={NotificationType.WARNING}
                   message={
                     'You swap address will be your receiving address. Please switch the network to check your balance after completition.'
                   }

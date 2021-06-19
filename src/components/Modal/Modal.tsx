@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, makeStyles, Theme, Box } from '@material-ui/core'
+import { Dialog, makeStyles, Theme, Box, IconButton } from '@material-ui/core'
 import { createStyles } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
 import useModal from '../../hooks/useModal'
@@ -33,6 +33,15 @@ const useStyles = makeStyles((theme: Theme) =>
     backdrop: {
       backgroundColor: 'rgba(0,0,0,.8)',
     },
+    closeIconContainer: {
+      padding: 0,
+      '&:hover $closeIcon': {
+        color: theme.textColor.text1,
+      },
+    },
+    closeIcon: {
+      color: theme.textColor.text3,
+    },
   })
 )
 
@@ -52,19 +61,19 @@ export default function Modal(props: Props) {
         BackdropProps={{ className: classes.backdrop }}
       >
         {(onReturnClick || closeIcon || title) && (
-          <Box display="flex" justifyContent="space-between" alignItems="center" padding="20px 40px">
+          <Box display="flex" justifyContent="space-between" alignItems="center" padding="20px 30px">
             {onReturnClick ? (
-              <TextButton onClick={onReturnClick}>
+              <IconButton onClick={onReturnClick}>
                 <ArrowLeft />
-              </TextButton>
+              </IconButton>
             ) : (
               <Box width="24px" />
             )}
             {title && <TYPE.mediumHeader textAlign="center">{title}</TYPE.mediumHeader>}
             {closeIcon ? (
-              <TextButton onClick={hideModal}>
-                <CloseIcon />
-              </TextButton>
+              <IconButton className={classes.closeIconContainer} onClick={hideModal}>
+                <CloseIcon className={classes.closeIcon} />
+              </IconButton>
             ) : (
               <Box width="24px" />
             )}

@@ -8,6 +8,7 @@ import SwapChain from './SwapChain'
 import { Text } from 'rebass'
 import ChainAddress from './ChainAddress'
 import { TYPE } from '../../theme/index'
+import LogoText from '../LogoText/LogoText'
 
 interface Props {
   children?: React.ReactNode
@@ -30,6 +31,10 @@ export default function ConfirmDepositModal(props: Props) {
         <TYPE.extremeLarge textAlign="center">
           {value} {selectedCurrency.symbol}
         </TYPE.extremeLarge>
+        <Box display="flex" justifyContent="center" marginTop="16px">
+          <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} fontWeight={500} />
+        </Box>
+
         <SwapChain from={from} to={to} />
         <ChainAddress walletLogo={walletLogo} address={address} currency={selectedCurrency} />
         <Box margin="32px 32px 29px">

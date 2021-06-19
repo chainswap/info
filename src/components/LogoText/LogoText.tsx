@@ -2,10 +2,13 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Text } from 'rebass'
 import Image from '../Image/Image'
+import { PinDropSharp } from '@material-ui/icons'
 
 interface Props {
   logo: string
   text: string
+  fontWeight?: number
+  fontSize?: number
   size?: 'small' | 'large'
 }
 
@@ -13,6 +16,8 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     alignItems: 'center',
+    fontWeight: (props: { fontWeight?: number }) => props.fontWeight ?? 400,
+    fontSize: (props: { fontSize?: number }) => props.fontSize ?? 16,
     '& img': {
       marginRight: (props: Props) => (props.size === 'small' ? '4px' : '12px'),
     },

@@ -38,18 +38,21 @@ export default function AddToken(props: Props) {
         loadingText={'Deploying'}
         btnDisabled={!confirmed || deploying}
       >
-        <Box mb="20px">
-          <TYPE.smallGray>Token Contract Address</TYPE.smallGray>
-          <Input value={address} onChange={onChangeAddress} placeholder={'Enter the token contract address'} />
+        <Box mb="24px">
+          <Input
+            label="Token Contract Address"
+            value={address}
+            onChange={onChangeAddress}
+            placeholder={'Enter the token contract address'}
+          />
         </Box>
-        <Box mb="20px">
-          <Box display={'flex'}>
-            <Box mr={'4px'}>
-              <TYPE.smallGray>Mainchain ID</TYPE.smallGray>
-            </Box>
-            <InfoIcon />
-          </Box>
-          <Input value={chainId} onChange={onChangeChainId} placeholder={'Enter the chain ID of your existing token'} />
+        <Box mb="24px">
+          <Input
+            label="Mainchain ID"
+            value={chainId}
+            onChange={onChangeChainId}
+            placeholder={'Enter the chain ID of your existing token'}
+          />
         </Box>
         {chainId && (
           <>

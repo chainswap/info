@@ -9,7 +9,7 @@ import SwapStepper from '../../components/swap/SwapStepper'
 import TxnSubmittedMessageBox from './TxnSubmittedMessageBox'
 import MetaMask from '../../assets/images/meta_mask.svg'
 import ConfirmWithdrawModal from './ConfirmWithdrawModal'
-import { CurrencyList, ChainList } from '../../data/dummyData'
+import { ChainList } from '../../data/dummyData'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
 import useModal from '../../hooks/useModal'
@@ -39,7 +39,7 @@ export default function Swap() {
   const [step, setStep] = useState(0)
   const [authorized, setAuthorized] = useState(false)
   const [showClaimModal, setShowClaimModal] = useState(false)
-  const { currency, setCurrency } = useCurrency()
+  const { currency, setCurrency, currencyOptions } = useCurrency()
 
   // swap state
   const [{ attemptingDeposit, attemptingWithdraw, depositCompleted, withdrawCompleted }, setSwapStatus] = useState<{
@@ -307,7 +307,7 @@ export default function Swap() {
               onChangeAmount={onChangeAmount}
               amount={amount}
               currency={currency}
-              currencyOptions={CurrencyList}
+              currencyOptions={currencyOptions}
               onMax={onMax}
               setSelectedCurrency={setSelectedCurrency}
               userLogined={userLogined}

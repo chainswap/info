@@ -27,7 +27,7 @@ import Notification, { NotificationType } from '../../components/Notification/No
 export default function Swap() {
   const userLogined = useUserLogined()
   const [amount, setAmount] = useState('')
-  const [address, setAddress] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  const [address, setAddress] = useState('0xKos369cd6vwd94wq1gt4hr87ujv')
   const [from, setFrom] = useState<Chain | null>(null)
   const [to, setTo] = useState<Chain | null>(null)
   const [depositEnabled, setDepositEnabled] = useState(false)

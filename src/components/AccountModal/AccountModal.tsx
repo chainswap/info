@@ -50,7 +50,7 @@ const TransactionListItemsWrapper = styled(Box)({
 export default function AccountMoal(props: Props) {
   const { pendingTransactions, confirmedTransactions } = props
   const name = 'MetaMask'
-  const account = '0x72ef586A2c515B605A873ad9a8FBdFD43Df77123'
+  const account = '0xKos369cd6vwd94wq1gt4hr87ujv'
   const { hideModal, showModal } = useModal()
 
   function renderTransactions(transactions: Transaction[]) {

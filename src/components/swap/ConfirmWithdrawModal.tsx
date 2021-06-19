@@ -59,7 +59,7 @@ export default function ConfirmWithdrawModal(props: Props) {
             <Box paddingBottom={'24px'}>
               <Instruction to={to} />
               <SwapChain from={from} to={to} />
-              <ChainAddress walletLogo={walletLogo} address={address} />
+              <ChainAddress walletLogo={walletLogo} address={address} currency={selectedCurrency} />
             </Box>
             <Divider />
             <Faded>
@@ -94,7 +94,7 @@ export default function ConfirmWithdrawModal(props: Props) {
               </Text>
             </Box>
             <SwapChain from={from} to={to} />
-            <ChainAddress walletLogo={walletLogo} address={address} />
+            <ChainAddress walletLogo={walletLogo} address={address} currency={selectedCurrency} />
           </>
         )}
         <Box margin="28px 32px 29px">

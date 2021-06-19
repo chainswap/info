@@ -166,7 +166,7 @@ export default function Header() {
   const classes = useStyles()
 
   const [mode, setMode] = useState(Mode.VISITOR)
-  const [address] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  const [address] = useState('0xKos369cd6vwd94wq1gt4hr87ujv')
   // const address = null
   const [chain, setChain] = useState(ChainList[0])
   const [amount] = useState(1.24)

@@ -7,6 +7,7 @@ import Chain from '../../models/chain'
 import SwapChain from './SwapChain'
 import { Text } from 'rebass'
 import ChainAddress from './ChainAddress'
+import { TYPE } from '../../theme/index'
 
 interface Props {
   children?: React.ReactNode
@@ -26,15 +27,14 @@ export default function ConfirmDepositModal(props: Props) {
   return (
     <>
       <Modal title="Confirm Deposit" closeIcon>
-        <Box paddingTop={'20px'}>
-          <Text fontWeight={'500'} fontSize={'28px'} textAlign={'center'}>
-            {value} {selectedCurrency.symbol}
-          </Text>
-        </Box>
+        <TYPE.extremeLarge textAlign="center">
+          {value} {selectedCurrency.symbol}
+        </TYPE.extremeLarge>
         <SwapChain from={from} to={to} />
-        <ChainAddress walletLogo={walletLogo} address={address} />
-        <Box margin="32px 32px 28px">
+        <ChainAddress walletLogo={walletLogo} address={address} currency={selectedCurrency} />
+        <Box margin="32px 32px 29px">
           <Button onClick={onConfirm}>Confirm</Button>
+          <TYPE.mediumLightGray marginTop="12px">Chainswap charges a transaction fee 1 ETH</TYPE.mediumLightGray>
         </Box>
       </Modal>
     </>

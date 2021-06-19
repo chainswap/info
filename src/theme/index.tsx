@@ -149,11 +149,17 @@ export const TYPE = {
   extraLarge(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={24} {...props} />
   },
+  extremeLarge(props: TextProps) {
+    return <TextWrapper fontWeight={500} fontSize={40} {...props} />
+  },
   smallGray(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={12} textColor="text3" {...props} />
   },
   mediumGray(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={14} textColor="text3" {...props} />
+  },
+  mediumLightGray(props: TextProps) {
+    return <TextWrapper fontWeight={400} fontSize={14} textColor="text4" {...props} />
   },
   gray(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={16} textColor="text3" {...props} />

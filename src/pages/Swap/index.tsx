@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, useCallback, useEffect } from 'react'
-import Button from '../../components/Button/Button'
 import SecondaryButton from '../../components/Button/SecondaryButton'
 import AppBody from '../AppBody'
 import { Box } from '@material-ui/core'
@@ -18,12 +17,19 @@ import { Text } from 'rebass'
 import Currency from '../../models/currency'
 import { ReactComponent as CheckIcon } from '../../assets/images/check_icon.svg'
 import ClaimModal from '../../components/claim/ClaimModal'
-import OutlineButton from '../../components/Button/OutlineButton'
 import Chain from '../../models/chain'
 import { TYPE } from '../../theme/index'
 import SwapForm from './SwapForm'
 import Notification, { NotificationType } from '../../components/Notification/Notification'
 import useCurrency from 'hooks/useCurrency'
+import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
+import { useMemo } from 'react'
+
+enum SWAP_INSTRUCTION {
+  SELECT_TOKEN = 'Select Token',
+  SELECT_CHAIN = 'Select Chain',
+  ENTER_AMOUNT = 'Enter Amount',
+}
 
 export default function Swap() {
   const userLogined = useUserLogined()
@@ -31,8 +37,6 @@ export default function Swap() {
   const [address, setAddress] = useState('0xKos369cd6vwd94wq1gt4hr87ujv')
   const [from, setFrom] = useState<Chain | null>(null)
   const [to, setTo] = useState<Chain | null>(null)
-  const [depositEnabled, setDepositEnabled] = useState(false)
-  const [withdrawEnabled, setWithdrawEnabled] = useState(false)
   const [quota] = useState(800)
   const { showModal, hideModal } = useModal()
   const [percentage, setPercentage] = useState(0)
@@ -57,14 +61,6 @@ export default function Swap() {
   useEffect(() => {
     setCurrency(null)
   }, [setCurrency])
-
-  useEffect(() => {
-    if (amount && address && !depositCompleted) {
-      setDepositEnabled(true)
-      return
-    }
-    setDepositEnabled(false)
-  }, [amount, address, depositCompleted])
 
   useEffect(() => {
     const percentage = ((quota - parseFloat(amount)) / quota) * 100
@@ -107,7 +103,6 @@ export default function Swap() {
     if (!currency) return
     hideModal()
     setAmount('')
-    setDepositEnabled(false)
     setSwapStatus({
       attemptingDeposit: true,
       attemptingWithdraw: false,
@@ -123,7 +118,6 @@ export default function Swap() {
         depositCompleted: true,
         withdrawCompleted: false,
       })
-      setWithdrawEnabled(true)
     }, 1500)
   }, [showModal, hideModal, currency])
 
@@ -148,7 +142,6 @@ export default function Swap() {
 
     hideModal()
     setAmount('')
-    setWithdrawEnabled(false)
     setSwapStatus({
       attemptingDeposit: false,
       attemptingWithdraw: true,
@@ -164,8 +157,6 @@ export default function Swap() {
         depositCompleted: true,
         withdrawCompleted: true,
       })
-      setDepositEnabled(false)
-      setWithdrawEnabled(false)
     }, 1500)
   }, [showModal, hideModal, currency])
 
@@ -197,56 +188,17 @@ export default function Swap() {
     setAuthorized(true)
   }, [])
 
-  const getDepositBtn = useCallback(() => {
-    if (!from) {
-      return
+  const getInstruction = useMemo(() => {
+    if (!currency) {
+      return SWAP_INSTRUCTION.SELECT_TOKEN
     }
-    if (attemptingDeposit) {
-      return (
-        <OutlineButton width="232px" loading primary>
-          <Text marginLeft={12} fontSize={16}>
-            Depositing
-          </Text>
-        </OutlineButton>
-      )
+    if (!from || !to) {
+      return SWAP_INSTRUCTION.SELECT_CHAIN
     }
-    return (
-      <Button width="232px" disabled={!depositEnabled} onClick={showConfirmDepositModal}>
-        <Text marginLeft={12} fontSize={16}>
-          Deposit in {from.symbol} Chain
-        </Text>
-      </Button>
-    )
-  }, [from, attemptingDeposit, depositEnabled, showConfirmDepositModal])
-
-  const getWithdrawBtn = useCallback(() => {
-    if (!to) {
-      return
+    if (!amount) {
+      return SWAP_INSTRUCTION.ENTER_AMOUNT
     }
-    if (attemptingWithdraw) {
-      return (
-        <OutlineButton width="232px" loading primary>
-          <Text marginLeft={12} fontSize={16}>
-            Withdrawing
-          </Text>
-        </OutlineButton>
-      )
-    }
-    if (depositCompleted && !withdrawCompleted && !amount) {
-      return (
-        <OutlineButton width="232px" primary>
-          Enter Amount
-        </OutlineButton>
-      )
-    }
-    return (
-      <Button width={'232px'} disabled={!withdrawEnabled} onClick={showConfirmWithdrawModal}>
-        <Text marginLeft={12} fontSize={16}>
-          Withdraw from {to.symbol} Chain
-        </Text>
-      </Button>
-    )
-  }, [to, amount, attemptingWithdraw, withdrawEnabled, showConfirmWithdrawModal, depositCompleted, withdrawCompleted])
+  }, [currency, from, to, amount])
 
   const getActions = useCallback(() => {
     if (!userLogined) {
@@ -256,24 +208,42 @@ export default function Swap() {
         </SecondaryButton>
       )
     }
-    if (!currency) {
-      return <OutlineButton primary>Select Token</OutlineButton>
-    }
-    if (!from || !to) {
-      return <OutlineButton primary>Select Chain</OutlineButton>
-    }
-    if (!authorized && !amount) {
-      return <OutlineButton primary>Enter Amount</OutlineButton>
-    }
+
     if (!authorized) {
-      return <Button onClick={authorize}>Allow the Chainswap protocol to use your Matter</Button>
+      return (
+        <ErrorAndActionButton
+          onAction={authorize}
+          actionText={`Allow the Chainswap protocol to use your ${currency?.symbol}`}
+          pending={attemptingDeposit}
+          pendingText={'Depositing'}
+          disableAction={depositCompleted}
+          instruction={!currency || !from || !to || !amount}
+          instructionText={getInstruction}
+        />
+      )
     }
 
     return (
       <>
         <Box display="flex" justifyContent="space-between">
-          {getDepositBtn()}
-          {getWithdrawBtn()}
+          <ErrorAndActionButton
+            onAction={showConfirmDepositModal}
+            actionText={`Withdrawl from ${from?.symbol} Chain`}
+            pending={attemptingDeposit}
+            pendingText={'Depositing'}
+            disableAction={depositCompleted}
+            width="232px"
+          />
+          <ErrorAndActionButton
+            onAction={showConfirmWithdrawModal}
+            actionText={`Deposit in ${to?.symbol} Chain`}
+            pending={attemptingWithdraw}
+            pendingText={'Withdrawing'}
+            instruction={depositCompleted && !withdrawCompleted && !amount}
+            instructionText={SWAP_INSTRUCTION.ENTER_AMOUNT}
+            disableAction={withdrawCompleted || !depositCompleted}
+            width="232px"
+          />
         </Box>
         <Box display="flex" justifyContent="center" marginTop="16px">
           <SwapStepper activeStep={step} />
@@ -291,8 +261,13 @@ export default function Swap() {
     step,
     authorized,
     amount,
-    getDepositBtn,
-    getWithdrawBtn,
+    attemptingDeposit,
+    attemptingWithdraw,
+    depositCompleted,
+    getInstruction,
+    showConfirmDepositModal,
+    showConfirmWithdrawModal,
+    withdrawCompleted,
   ])
 
   return (

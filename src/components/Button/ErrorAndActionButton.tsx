@@ -14,6 +14,7 @@ export default function ErrorAndActionButton({
   instructionText,
   height,
   width,
+  disableAction,
 }: {
   error?: string | undefined
   pending?: boolean
@@ -25,6 +26,7 @@ export default function ErrorAndActionButton({
   instructionText?: string
   height?: string
   width?: string
+  disableAction?: boolean
 }) {
   return (
     <>
@@ -42,7 +44,7 @@ export default function ErrorAndActionButton({
           {instructionText}
         </OutlineButton>
       ) : (
-        <Button height={height} width={width} onClick={onAction}>
+        <Button height={height} width={width} onClick={onAction} disabled={disableAction}>
           {actionText}
         </Button>
       )}

@@ -5,8 +5,6 @@ import Input from 'components/Input/Input'
 import DeployBody from './DeployBody'
 import InfoCard from 'components/deploy/InfoCard'
 import InputLabel from 'components/InputLabel/InputLabel'
-import useModal from 'hooks/useModal'
-import AddTokenMessageBox from './AddTokenMessageBox'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { useMemo } from 'react'
 
@@ -46,7 +44,6 @@ export default function AddToken(props: Props) {
     deploying: false,
     deployed: false,
   })
-  const { showModal } = useModal()
 
   const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value)
@@ -63,22 +60,6 @@ export default function AddToken(props: Props) {
       deployed: false,
     })
   }, [confirmed])
-
-  const onDeploy = useCallback(() => {
-    setDeployStatus({
-      confirmed: true,
-      deploying: true,
-      deployed: false,
-    })
-    setTimeout(() => {
-      setDeployStatus({
-        deploying: false,
-        confirmed: true,
-        deployed: true,
-      })
-      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={onNext} />)
-    }, 500)
-  }, [setDeployStatus, showModal])
 
   const getInstruction = useMemo(() => {
     if (!address) {

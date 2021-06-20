@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 20,
       overflowX: 'hidden',
       position: 'absolute',
-      top: `calc(${theme.height.header} + 80px)`,
     },
     backdrop: {
       backgroundColor: 'rgba(0,0,0,.8)',

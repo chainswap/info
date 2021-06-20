@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import DeployBody from './DeployBody'
 import InfoCard from '../../components/deploy/InfoCard'
 import ChainMultiSelect from '../../components/ChainSelect/ChainMultiSelect'
-import { Box, useTheme } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import Chain from '../../models/chain'
 import ChainSelect from 'components/ChainSelect/ChainSelect'
 import { ChainState } from './index'
@@ -33,21 +33,13 @@ interface Props {
 }
 
 export default function MappingContract(props: Props) {
-  const theme = useTheme()
   const { onChainSelect, chainList, selectedChains, onNext } = props
-  const [btnDisabled, setBtnDisabled] = useState(true)
   const [chains, setChains] = useState(selectedChains)
   const { showModal } = useModal()
 
   useEffect(() => {
     setChains(selectedChains)
   }, [selectedChains])
-
-  useEffect(() => {
-    if (chains.length === 2 && chains[0]?.deployed && chains[1]?.deployed) {
-      setBtnDisabled(false)
-    }
-  }, [chains])
 
   const onClickDeployBtn = useCallback(
     (targetChain: ChainState) => {
@@ -81,15 +73,7 @@ export default function MappingContract(props: Props) {
   }, [chains])
 
   return (
-    <DeployBody
-      header={'Mapping token contract deployment'}
-      activeStep={1}
-      loading={false}
-      onClick={() => showModal(<MappingMessageBox chains={chains} data={dummyData.mainchainInfo} action={onNext} />)}
-      btnText="Next Step"
-      loadingText=""
-      btnDisabled={btnDisabled}
-    >
+    <DeployBody header={'Mapping token contract deployment'} activeStep={1}>
       <InfoCard data={dummyData.mainchainInfo} header="Mainchain Info" editable />
       <Box padding={'24px 0'}>
         <ChainMultiSelect
@@ -132,7 +116,7 @@ export default function MappingContract(props: Props) {
       </Box>
       <ErrorAndActionButton
         instruction={!allDeployed}
-        onAction={onNext}
+        onAction={() => showModal(<MappingMessageBox chains={chains} data={dummyData.mainchainInfo} action={onNext} />)}
         actionText={'Next Step'}
         instructionText={getInstruction}
       />

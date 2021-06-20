@@ -2,10 +2,10 @@ import React, { ChangeEvent } from 'react'
 import { TYPE } from '../../theme/index'
 import { Box } from '@material-ui/core'
 import Input from '../../components/Input/Input'
-import { ReactComponent as InfoIcon } from '../../assets/images/info_icon.svg'
 import DeployBody from './DeployBody'
 import { DeployStatusType } from './index'
 import InfoCard from '../../components/deploy/InfoCard'
+import InputLabel from 'components/InputLabel/InputLabel'
 
 interface Props {
   address: string
@@ -47,12 +47,11 @@ export default function AddToken(props: Props) {
           />
         </Box>
         <Box mb="24px">
-          <Input
-            label="Mainchain ID"
-            value={chainId}
-            onChange={onChangeChainId}
-            placeholder={'Enter the chain ID of your existing token'}
-          />
+          <Box display="flex" alignItems="center">
+            <InputLabel infoIcon>Mainchain ID</InputLabel>
+          </Box>
+
+          <Input value={chainId} onChange={onChangeChainId} placeholder={'Enter the chain ID of your existing token'} />
         </Box>
         {chainId && (
           <>

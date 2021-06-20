@@ -13,7 +13,6 @@ interface Props {
   disabled?: boolean
   color?: string
   borderRadius?: string
-  loading?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,12 +38,11 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function OutlineButton(props: Props) {
-  const { onClick, disabled, loading } = props
+  const { onClick, disabled } = props
   const classes = useStyles(props)
 
   return (
     <ButtonBase className={classes.root} onClick={onClick} disabled={disabled}>
-      {loading && <Spinner marginRight={16} />}
       {props.children}
     </ButtonBase>
   )

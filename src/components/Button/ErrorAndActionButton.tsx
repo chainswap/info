@@ -1,6 +1,7 @@
 import Button from './Button'
 import OutlineButton from './OutlineButton'
 import { ReactComponent as SuccessIcon } from '../../assets/images/deploy_success.svg'
+import Spinner from 'components/Spinner'
 import { Text } from 'rebass'
 
 export default function ErrorAndActionButton({
@@ -31,8 +32,15 @@ export default function ErrorAndActionButton({
   return (
     <>
       {error || pending ? (
-        <OutlineButton primary disabled loading={pending} height={height} width={width}>
-          {pending ? pendingText || 'Waiting Confirmation' : error}
+        <OutlineButton primary disabled height={height} width={width}>
+          {pending ? (
+            <>
+              <Spinner marginRight={16} />
+              {pendingText || 'Waiting Confirmation'}
+            </>
+          ) : (
+            error
+          )}
         </OutlineButton>
       ) : success ? (
         <OutlineButton disabled height={height} width={width}>

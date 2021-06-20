@@ -6,6 +6,7 @@ import Checkbox from '../Checkbox/Checkbox'
 import { Text } from 'rebass'
 import TextButton from '../Button/TextButton'
 import LogoText from '../LogoText/LogoText'
+import Copy from 'components/Copy/Copy'
 
 interface Props {
   toggleConfirm?: () => void
@@ -16,10 +17,11 @@ interface Props {
   logo?: string
   editable?: boolean
   onEdit?: () => void
+  copyable?: boolean
 }
 
 export default function InfoCard(props: Props) {
-  const { data, confirmed, toggleConfirm, confirmText, header, editable, logo } = props
+  const { data, confirmed, toggleConfirm, confirmText, header, editable, logo, copyable } = props
 
   const getHeader = useCallback(() => {
     if (logo && header) {
@@ -49,7 +51,10 @@ export default function InfoCard(props: Props) {
           {Object.keys(data).map((key, i) => (
             <Box key={i} display="flex" justifyContent="space-between">
               <TYPE.smallGray>{key}:</TYPE.smallGray>
-              <TYPE.small>{data[key as keyof typeof data]}</TYPE.small>
+              <Box display="flex">
+                <TYPE.small marginRight={copyable ? '8px' : '0px'}>{data[key as keyof typeof data]}</TYPE.small>
+                {copyable && <Copy toCopy={`${data[key as keyof typeof data]}`} />}
+              </Box>
             </Box>
           ))}
         </Box>

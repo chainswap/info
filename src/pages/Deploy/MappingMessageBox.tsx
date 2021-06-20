@@ -39,6 +39,7 @@ export default function MappingMessageBox(props: Props) {
               'Token contract address': 'XXXXXXXXXXXXXXXXXXXXXX',
               'Chain ID': 'XXX',
             }}
+            copyable
           />
         ))}
       </Box>

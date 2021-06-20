@@ -19,8 +19,8 @@ export default function DetailedMessagebox(props: Props) {
   return (
     <MessageBox type={type} width={'552px'}>
       <Box marginBottom={'28px'} textAlign={'center'} width={'416px'}>
-        <TYPE.extraLarge marginBottom={'4px'}>{header}</TYPE.extraLarge>
-        <TYPE.gray>{message}</TYPE.gray>
+        <TYPE.mediumHeader marginBottom={'4px'}>{header}</TYPE.mediumHeader>
+        <TYPE.body>{message}</TYPE.body>
       </Box>
       {children}
       <Button onClick={action}>{actionText}</Button>

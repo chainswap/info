@@ -19,12 +19,12 @@ export default function AddTokenMessageBox(props: Props) {
 
   return (
     <DetailedMessagebox
-      type={'success'}
-      header={'Success!'}
+      type="success"
+      header="Success!"
       message={
         'You have successfully deployed your mappable contract on mainchain. Please save the following information and continue to next step:'
       }
-      actionText={'Go to Next Step'}
+      actionText="Go to Next Step"
       action={action}
     >
       <Box display={'grid'} gridGap={12} width="100%">
@@ -32,16 +32,16 @@ export default function AddTokenMessageBox(props: Props) {
           return (
             <Box
               key={key}
-              display={'flex'}
-              alignItems={'center'}
+              display="flex"
+              alignItems="center"
               borderRadius={14}
-              justifyContent={'space-between'}
+              justifyContent="space-between"
               bgcolor={theme.bgColor.bg3}
-              height={'48px'}
-              padding={'0 20px'}
+              height="48px"
+              padding="0 20px"
             >
-              <Box display={'flex'}>
-                <Box marginRight={'8px'}>
+              <Box display="flex">
+                <Box marginRight="8px">
                   <TYPE.gray>{key}:</TYPE.gray>
                 </Box>
                 <TYPE.smallHeader>{data[key as keyof typeof data]}</TYPE.smallHeader>
@@ -52,7 +52,7 @@ export default function AddTokenMessageBox(props: Props) {
         })}
       </Box>
       <Box margin="16px 0">
-        <TextButton fontSize={13} fontWeight={400} primary>
+        <TextButton fontSize={16} fontWeight={400} primary>
           View on Etherscan
         </TextButton>
       </Box>

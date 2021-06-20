@@ -1,9 +1,9 @@
 import React from 'react'
-import DetailedMessagebox from '../../components/MessageBox/DetailedMessageBox'
+import DetailedMessagebox from 'components/MessageBox/DetailedMessageBox'
 import { Box } from '@material-ui/core'
-import theme, { TYPE } from '../../theme/index'
-import TextButton from '../../components/Button/TextButton'
-import Copy from '../../components/Copy/Copy'
+import theme, { TYPE } from 'theme/index'
+import TextButton from 'components/Button/TextButton'
+import Copy from 'components/Copy/Copy'
 
 interface Props {
   data: {

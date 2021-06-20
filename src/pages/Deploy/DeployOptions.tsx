@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, styled } from '@material-ui/core'
-import { TYPE } from '../../theme/index'
+import { TYPE } from 'theme/index'
 
 interface Props {
   onClickExistingToken: () => void

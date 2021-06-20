@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import { TYPE } from '../../theme/index'
-import DeployStepper from '../../components/deploy/DeployStepper'
+import { TYPE } from 'theme/index'
+import DeployStepper from 'components/deploy/DeployStepper'
 
 interface Props {
   header: string

@@ -3,9 +3,9 @@ import AppBody from '../AppBody'
 import DeployOptions from './DeployOptions'
 import AddToken from './AddToken'
 import MappingContract from './MappingContract'
-import Bridge from './Bridge'
-import useModal from '../../hooks/useModal'
-import Chain from '../../models/chain'
+import BridgeContract from './BridgeContract'
+import useModal from 'hooks/useModal'
+import Chain from 'models/chain'
 import { ChainList } from 'data/dummyData'
 
 enum DEPLOY_STATE {
@@ -70,7 +70,7 @@ export default function Deploy() {
           onNext={toBridge}
         />
       )}
-      {state === DEPLOY_STATE.BRIDGE && <Bridge />}
+      {state === DEPLOY_STATE.BRIDGE && <BridgeContract />}
     </AppBody>
   )
 }

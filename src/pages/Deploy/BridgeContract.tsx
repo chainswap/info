@@ -34,7 +34,7 @@ export default function Bridge(props: Props) {
         </Box>
       </SimpleMessageBox>
     )
-  }, [])
+  }, [showModal])
 
   return (
     <DeployBody header="Bridge Factory Contract" activeStep={2}>

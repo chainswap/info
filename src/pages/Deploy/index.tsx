@@ -18,7 +18,8 @@ const dummyData = {
 
 enum DEPLOY_STATE {
   OPTIONS = 'options',
-  ADD = 'add',
+  ADD_EXISTING = 'add existing',
+  DD_NEW = 'add new',
   MAPPING = 'mapping',
   BRIDGE = 'bridge',
 }
@@ -67,9 +68,9 @@ export default function Deploy() {
   return (
     <AppBody>
       {state === DEPLOY_STATE.OPTIONS && (
-        <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
+        <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD_EXISTING)} onClickNewToken={() => {}} />
       )}
-      {state === DEPLOY_STATE.ADD && <AddExistingToken onNext={toMapping} />}
+      {state === DEPLOY_STATE.ADD_EXISTING && <AddExistingToken onNext={toMapping} />}
       {state === DEPLOY_STATE.MAPPING && (
         <MappingContract
           chainList={ChainList}

@@ -20,7 +20,7 @@ export default function DeployBody(props: Props) {
   return (
     <Box padding={'24px 32px 32px 32px'}>
       <Box display={'flex'} justifyContent={'space-between'} marginBottom="24px">
-        <TYPE.header fontSize={20}>{header}</TYPE.header>
+        <TYPE.mediumHeader>{header}</TYPE.mediumHeader>
         <DeployStepper activeStep={activeStep} />
       </Box>
       {children}

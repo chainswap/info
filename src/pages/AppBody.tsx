@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     border: '1px solid rgba(255, 255, 255, 0.2)',
     boxSizing: 'border-box',
-    overflow: 'hidden',
+    overflow: 'scroll',
   },
 })
 

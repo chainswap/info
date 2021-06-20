@@ -2,19 +2,11 @@ import React, { useState, ChangeEvent, useCallback } from 'react'
 import AppBody from '../AppBody'
 import DeployOptions from './DeployOptions'
 import AddToken from './AddToken'
-import Mapping from './Mapping'
+import MappingContract from './MappingContract'
 import Bridge from './Bridge'
 import useModal from '../../hooks/useModal'
 import Chain from '../../models/chain'
 import { ChainList } from 'data/dummyData'
-
-const dummyData = {
-  mainchainInfo: {
-    'Token contract address': 'XXXXXXXXXXXXXXX',
-    'Mappable contract address': 'XXXXXXXXXXXXXXX',
-    'Mainchain ID': 'XXX',
-  },
-}
 
 enum DEPLOY_STATE {
   OPTIONS = 'options',
@@ -69,10 +61,9 @@ export default function Deploy() {
       {state === DEPLOY_STATE.OPTIONS && (
         <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
       )}
-      {state === DEPLOY_STATE.ADD && <AddToken toMapping={toMapping} />}
+      {state === DEPLOY_STATE.ADD && <AddToken onNext={toMapping} />}
       {state === DEPLOY_STATE.MAPPING && (
-        <Mapping
-          data={dummyData.mainchainInfo}
+        <MappingContract
           chainList={ChainList}
           onChainSelect={onChainSelect}
           selectedChains={selectedChains}

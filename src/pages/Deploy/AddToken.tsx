@@ -1,14 +1,14 @@
-import React, { ChangeEvent, useState, useEffect, useCallback } from 'react'
+import React, { ChangeEvent, useState, useCallback } from 'react'
 import { TYPE } from 'theme/index'
 import { Box } from '@material-ui/core'
 import Input from 'components/Input/Input'
 import DeployBody from './DeployBody'
 import InfoCard from 'components/deploy/InfoCard'
 import InputLabel from 'components/InputLabel/InputLabel'
-import OutlineButton from 'components/Button/OutlineButton'
-import Button from 'components/Button/Button'
 import useModal from 'hooks/useModal'
 import AddTokenMessageBox from './AddTokenMessageBox'
+import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
+import { useMemo } from 'react'
 
 const dummyData = {
   tokenInfo: {
@@ -24,12 +24,17 @@ const dummyData = {
   },
 }
 
+enum AddTokenInstruction {
+  ENTER_ADDRESS = 'Enter Token Contract Address',
+  ENTER_CHAIN_ID = 'Enter the Chain ID',
+}
+
 interface Props {
-  toMapping: () => void
+  onNext: () => void
 }
 
 export default function AddToken(props: Props) {
-  const { toMapping } = props
+  const { onNext } = props
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
   const [{ confirmed, deploying }, setDeployStatus] = useState<{
@@ -71,26 +76,18 @@ export default function AddToken(props: Props) {
         confirmed: true,
         deployed: true,
       })
-      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
+      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={onNext} />)
     }, 500)
   }, [setDeployStatus, showModal])
 
-  const getActions = useCallback(() => {
+  const getInstruction = useMemo(() => {
     if (!address) {
-      return <OutlineButton primary>Enter Token Contract Address</OutlineButton>
+      return AddTokenInstruction.ENTER_ADDRESS
     }
     if (!chainId) {
-      return <OutlineButton primary>Enter the Chain ID</OutlineButton>
+      return AddTokenInstruction.ENTER_CHAIN_ID
     }
-    if (deploying) {
-      return (
-        <OutlineButton loading primary>
-          Loading
-        </OutlineButton>
-      )
-    }
-    return <Button onClick={onDeploy}>Deploy</Button>
-  }, [address, chainId, deploying, onDeploy])
+  }, [address, chainId])
 
   return (
     <>
@@ -124,7 +121,14 @@ export default function AddToken(props: Props) {
           </>
         )}
 
-        {getActions()}
+        <ErrorAndActionButton
+          instruction={!address || !chainId}
+          onAction={onNext}
+          pending={deploying}
+          pendingText={'Loading'}
+          actionText={'Next Step'}
+          instructionText={getInstruction}
+        />
       </DeployBody>
     </>
   )

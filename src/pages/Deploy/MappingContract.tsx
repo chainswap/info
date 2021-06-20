@@ -5,47 +5,49 @@ import ChainMultiSelect from '../../components/ChainSelect/ChainMultiSelect'
 import { Box, useTheme } from '@material-ui/core'
 import Chain from '../../models/chain'
 import ChainSelect from 'components/ChainSelect/ChainSelect'
-import OutlineButton from 'components/Button/OutlineButton'
 import { ChainState } from './index'
-import { ReactComponent as SuccessIcon } from '../../assets/images/deploy_success.svg'
-import { Text } from 'rebass'
 import useModal from '../../hooks/useModal'
 import MappingMessageBox from './MappingMessageBox'
+
+import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
+import { useMemo } from 'react'
+
+const dummyData = {
+  mainchainInfo: {
+    'Token contract address': 'XXXXXXXXXXXXXXX',
+    'Mappable contract address': 'XXXXXXXXXXXXXXX',
+    'Mainchain ID': 'XXX',
+  },
+}
+
+enum MappingInstruction {
+  Select = 'Select Chain',
+  Deploy = 'Deploy on Chain',
+}
 
 interface Props {
   chainList: Chain[]
   selectedChains: ChainState[]
   onChainSelect: (e: ChangeEvent<{ value: string[] }>) => void
-  data: {
-    'Token contract address': string
-    'Mappable contract address': string
-    'Mainchain ID': string
-  }
   onNext: () => void
 }
 
-export default function Mapping(props: Props) {
+export default function MappingContract(props: Props) {
   const theme = useTheme()
-  const { data, onChainSelect, chainList, selectedChains, onNext } = props
+  const { onChainSelect, chainList, selectedChains, onNext } = props
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [chains, setChains] = useState(selectedChains)
   const { showModal } = useModal()
 
-  const deployBtnText = useCallback((chain: ChainState) => {
-    if (chain.deploying) {
-      return <Text marginLeft={12.5}>Deploying</Text>
-    }
-    if (chain.deployed) {
-      return (
-        <>
-          <SuccessIcon />
-          <Text marginLeft={12.5}>Success</Text>
-        </>
-      )
-    }
+  useEffect(() => {
+    setChains(selectedChains)
+  }, [selectedChains])
 
-    return `Deploy on ${chain.symbol}`
-  }, [])
+  useEffect(() => {
+    if (chains.length === 2 && chains[0]?.deployed && chains[1]?.deployed) {
+      setBtnDisabled(false)
+    }
+  }, [chains])
 
   const onClickDeployBtn = useCallback(
     (targetChain: ChainState) => {
@@ -61,14 +63,21 @@ export default function Mapping(props: Props) {
     [chains]
   )
 
-  useEffect(() => {
-    setChains(selectedChains)
-  }, [selectedChains])
-
-  useEffect(() => {
-    if (chains.length === 2 && chains[0]?.deployed && chains[1]?.deployed) {
-      setBtnDisabled(false)
+  const getInstruction = useMemo(() => {
+    if (chains.length < 2) {
+      return MappingInstruction.Select
     }
+    if (!(chains[0].deployed && chains[1].deployed)) {
+      return MappingInstruction.Deploy
+    }
+  }, [chains])
+
+  const allDeployed = useMemo(() => {
+    if (chains[0]?.deployed && chains[1]?.deployed) {
+      return true
+    }
+
+    return false
   }, [chains])
 
   return (
@@ -76,12 +85,12 @@ export default function Mapping(props: Props) {
       header={'Mapping token contract deployment'}
       activeStep={1}
       loading={false}
-      onClick={() => showModal(<MappingMessageBox chains={chains} data={data} action={onNext} />)}
+      onClick={() => showModal(<MappingMessageBox chains={chains} data={dummyData.mainchainInfo} action={onNext} />)}
       btnText="Next Step"
       loadingText=""
       btnDisabled={btnDisabled}
     >
-      <InfoCard data={data} header="Mainchain Info" editable />
+      <InfoCard data={dummyData.mainchainInfo} header="Mainchain Info" editable />
       <Box padding={'24px 0'}>
         <ChainMultiSelect
           label="Select Chain"
@@ -100,14 +109,15 @@ export default function Mapping(props: Props) {
                 disabled
                 width={'292px'}
               />
-              <OutlineButton
-                width={'180px'}
-                onClick={() => onClickDeployBtn(chain)}
-                color={chain.deployed ? theme.textColor.text4 : theme.palette.primary.main}
-                loading={chain.deploying}
-              >
-                {deployBtnText(chain)}
-              </OutlineButton>
+              <ErrorAndActionButton
+                height="48px"
+                width="176px"
+                pending={chain.deploying}
+                pendingText="Loading"
+                success={chain.deployed}
+                onAction={() => onClickDeployBtn(chain)}
+                actionText={`Deploy on ${chain.symbol}`}
+              />
             </Box>
             {chain.deployed && (
               <InfoCard
@@ -120,6 +130,12 @@ export default function Mapping(props: Props) {
           </Box>
         ))}
       </Box>
+      <ErrorAndActionButton
+        instruction={!allDeployed}
+        onAction={onNext}
+        actionText={'Next Step'}
+        instructionText={getInstruction}
+      />
     </DeployBody>
   )
 }

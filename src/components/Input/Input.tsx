@@ -62,7 +62,6 @@ export default function Input(props: Props) {
         value={value}
         disabled={disabled}
         type={type}
-        autoFocus
       />
     </>
   )

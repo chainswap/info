@@ -25,31 +25,14 @@ const dummyData = {
 }
 
 interface Props {
-  // address: string
-  // chainId: string
-  // onChangeAddress: (e: ChangeEvent<HTMLInputElement>) => void
-  // onChangeChainId: (e: ChangeEvent<HTMLInputElement>) => void
-  // onDeploy: () => void
-  // toggleConfirm: () => void
-  // status: DeployStatusType
-  // data: {
-  //   'Token name': string
-  //   'Token symby': string
-  //   'Token decimals': string
-  //   'Total supply': string
-  // }
-}
-
-enum Hintable {
-  ADDRESS,
-  CHAIN_ID,
+  toMapping: () => void
 }
 
 export default function AddToken(props: Props) {
-  const [onHint, setOnHint] = useState<Hintable | null>(null)
+  const { toMapping } = props
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
-  const [{ confirmed, deploying, deployed }, setDeployStatus] = useState<{
+  const [{ confirmed, deploying }, setDeployStatus] = useState<{
     confirmed: boolean
     deploying: boolean
     deployed: boolean
@@ -58,18 +41,7 @@ export default function AddToken(props: Props) {
     deploying: false,
     deployed: false,
   })
-  const { showModal, hideModal } = useModal()
-
-  // onHint
-  useEffect(() => {
-    if (!address || address === '') {
-      return setOnHint(Hintable.ADDRESS)
-    }
-    if (!chainId) {
-      return setOnHint(Hintable.CHAIN_ID)
-    }
-    setOnHint(null)
-  }, [address, chainId])
+  const { showModal } = useModal()
 
   const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value)
@@ -87,11 +59,6 @@ export default function AddToken(props: Props) {
     })
   }, [confirmed])
 
-  // const toMapping = useCallback(() => {
-  //   setState(DEPLOY_STATE.MAPPING)
-  //   hideModal()
-  // }, [setState, hideModal])
-
   const onDeploy = useCallback(() => {
     setDeployStatus({
       confirmed: true,
@@ -104,8 +71,8 @@ export default function AddToken(props: Props) {
         confirmed: true,
         deployed: true,
       })
-      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={() => {}} />)
-    }, 3000)
+      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
+    }, 500)
   }, [setDeployStatus, showModal])
 
   const getActions = useCallback(() => {
@@ -123,7 +90,7 @@ export default function AddToken(props: Props) {
       )
     }
     return <Button onClick={onDeploy}>Deploy</Button>
-  }, [address, chainId, deploying])
+  }, [address, chainId, deploying, onDeploy])
 
   return (
     <>
@@ -134,7 +101,6 @@ export default function AddToken(props: Props) {
             value={address}
             onChange={onChangeAddress}
             placeholder={'Enter the token contract address'}
-            focused={onHint === Hintable.ADDRESS}
           />
         </Box>
         <Box mb="24px">
@@ -142,12 +108,7 @@ export default function AddToken(props: Props) {
             <InputLabel infoIcon>Mainchain ID</InputLabel>
           </Box>
 
-          <Input
-            value={chainId}
-            onChange={onChangeChainId}
-            placeholder={'Enter the chain ID of your existing token'}
-            focused={onHint === Hintable.CHAIN_ID}
-          />
+          <Input value={chainId} onChange={onChangeChainId} placeholder={'Enter the chain ID of your existing token'} />
         </Box>
         {chainId && (
           <>

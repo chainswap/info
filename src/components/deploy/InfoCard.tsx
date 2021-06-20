@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-import { DeployStatusType } from '../../pages/Deploy/index'
 import { Box } from '@material-ui/core'
 import theme, { TYPE } from '../../theme/index'
 import Divider from '../Divider/Divider'

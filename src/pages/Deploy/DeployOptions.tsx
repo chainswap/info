@@ -34,7 +34,7 @@ export default function DeployOptions(props: Props) {
             onClick: onClickNewToken,
           },
         ].map(({ title, brief, onClick }) => (
-          <OptionCard onClick={onClick}>
+          <OptionCard key={title} onClick={onClick}>
             <TYPE.primary marginBottom="6px">{title}</TYPE.primary>
             <TYPE.medium>{brief}</TYPE.medium>
           </OptionCard>

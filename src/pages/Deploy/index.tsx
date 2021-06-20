@@ -44,16 +44,10 @@ export type ChainState = Chain & DeployStatus
 
 export default function Deploy() {
   const [state, setState] = useState(DEPLOY_STATE.OPTIONS)
-  const [address, setAddress] = useState('')
-  const [chainId, setChainId] = useState('')
-  const [deployStatus, setDeployStatus] = useState<DeployStatusType>({
-    confirmed: false,
-    deploying: false,
-    deployed: false,
-  })
+
   const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
 
-  const { showModal, hideModal } = useModal()
+  const { hideModal } = useModal()
 
   const toMapping = useCallback(() => {
     setState(DEPLOY_STATE.MAPPING)
@@ -83,7 +77,7 @@ export default function Deploy() {
       {state === DEPLOY_STATE.OPTIONS && (
         <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
       )}
-      {state === DEPLOY_STATE.ADD && <AddToken />}
+      {state === DEPLOY_STATE.ADD && <AddToken toMapping={toMapping} />}
       {state === DEPLOY_STATE.MAPPING && (
         <Mapping
           data={dummyData.mainchainInfo}

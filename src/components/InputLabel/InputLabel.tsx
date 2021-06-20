@@ -2,7 +2,6 @@ import React from 'react'
 import { InputLabel as MuiInputLabel } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { ReactComponent as InfoIcon } from '../../assets/images/info_icon.svg'
-import { Text } from 'rebass'
 
 interface Props {
   children?: React.ReactNode

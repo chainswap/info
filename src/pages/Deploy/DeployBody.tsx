@@ -2,9 +2,6 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 import { TYPE } from '../../theme/index'
 import DeployStepper from '../../components/deploy/DeployStepper'
-import Button from '../../components/Button/Button'
-import { ReactComponent as Loader } from '../../assets/images/loader.svg'
-import { Text } from 'rebass'
 
 interface Props {
   header: string
@@ -18,7 +15,7 @@ interface Props {
 }
 
 export default function DeployBody(props: Props) {
-  const { activeStep, header, children, btnText, loading, loadingText, onClick, btnDisabled } = props
+  const { activeStep, header, children } = props
 
   return (
     <Box padding={'24px 32px 32px 32px'}>

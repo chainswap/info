@@ -24,6 +24,7 @@ const useStyles = makeStyles({
   },
   icon: {
     marginLeft: 4,
+    cursor: 'pointer',
   },
 })
 

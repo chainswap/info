@@ -9,12 +9,6 @@ import Chain from '../../models/chain'
 import { ChainList } from 'data/dummyData'
 
 const dummyData = {
-  tokenInfo: {
-    'Token name': 'ETH',
-    'Token symby': 'XXXXX',
-    'Token decimals': 'XXXXX',
-    'Total supply': 'XXXXX',
-  },
   mainchainInfo: {
     'Token contract address': 'XXXXXXXXXXXXXXX',
     'Mappable contract address': 'XXXXXXXXXXXXXXX',
@@ -44,9 +38,7 @@ export type ChainState = Chain & DeployStatus
 
 export default function Deploy() {
   const [state, setState] = useState(DEPLOY_STATE.OPTIONS)
-
   const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
-
   const { hideModal } = useModal()
 
   const toMapping = useCallback(() => {

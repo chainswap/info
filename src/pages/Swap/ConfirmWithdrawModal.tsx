@@ -29,9 +29,16 @@ interface Props {
   onConfirm: () => void
 }
 
-const Fadable = styled('div')({
-  opacity: (props: { faded: boolean }) => (props.faded ? 0.4 : 1),
+const Faded = styled('div')({
+  opacity: 0.4,
 })
+
+const Fadable = ({ children, faded }: { children: React.ReactNode; faded: boolean }) => {
+  if (faded) {
+    return <Faded>{children}</Faded>
+  }
+  return <>{children}</>
+}
 
 const Instruction = ({ to }: { to: Chain }) => {
   return (

@@ -51,7 +51,7 @@ export default function Input(props: Props) {
   const { focused, placeholder, onChange, value, disabled, type } = props
 
   return (
-    <>
+    <div>
       {props.label && <InputLabel>{props.label}</InputLabel>}
       <InputBase
         fullWidth={true}
@@ -63,6 +63,6 @@ export default function Input(props: Props) {
         disabled={disabled}
         type={type}
       />
-    </>
+    </div>
   )
 }

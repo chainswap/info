@@ -4,6 +4,7 @@ import DeployOptions from './DeployOptions'
 import AddExistingToken from './AddExistingToken'
 import MappingContract from './MappingContract'
 import BridgeContract from './BridgeContract'
+import AddNewToken from './AddNewToken'
 import useModal from 'hooks/useModal'
 import Chain from 'models/chain'
 import { ChainList } from 'data/dummyData'
@@ -19,7 +20,7 @@ const dummyData = {
 enum DEPLOY_STATE {
   OPTIONS = 'options',
   ADD_EXISTING = 'add existing',
-  DD_NEW = 'add new',
+  ADD_NEW = 'add new',
   MAPPING = 'mapping',
   BRIDGE = 'bridge',
 }
@@ -68,7 +69,10 @@ export default function Deploy() {
   return (
     <AppBody>
       {state === DEPLOY_STATE.OPTIONS && (
-        <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD_EXISTING)} onClickNewToken={() => {}} />
+        <DeployOptions
+          onClickExistingToken={() => setState(DEPLOY_STATE.ADD_EXISTING)}
+          onClickNewToken={() => setState(DEPLOY_STATE.ADD_NEW)}
+        />
       )}
       {state === DEPLOY_STATE.ADD_EXISTING && <AddExistingToken onNext={toMapping} />}
       {state === DEPLOY_STATE.MAPPING && (
@@ -80,6 +84,7 @@ export default function Deploy() {
         />
       )}
       {state === DEPLOY_STATE.BRIDGE && <BridgeContract data={dummyData.mainchainInfo} chains={selectedChains} />}
+      {state === DEPLOY_STATE.ADD_NEW && <AddNewToken />}
     </AppBody>
   )
 }

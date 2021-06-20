@@ -1,8 +1,6 @@
 import React from 'react'
 import { ButtonBase, Theme } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/styles'
-import Spinner from 'components/Spinner'
-
 interface Props {
   onClick?: () => void
   primary?: boolean

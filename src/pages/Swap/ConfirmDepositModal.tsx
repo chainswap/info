@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import Modal from '../../components/Modal/Modal'
-import Button from '../../components/Button/Button'
-import Currency from '../../models/currency'
-import Chain from '../../models/chain'
-import SwapChain from '../../components/swap/SwapChain'
-import ChainAddress from '../../components/swap/ChainAddress'
-import { TYPE } from '../../theme/index'
-import LogoText from '../../components/LogoText/LogoText'
+import Modal from 'components/Modal/Modal'
+import Button from 'components/Button/Button'
+import Currency from 'models/currency'
+import Chain from 'models/chain'
+import SwapChain from 'components/swap/SwapChain'
+import ChainAddress from 'components/swap/ChainAddress'
+import { TYPE } from 'theme/index'
+import LogoText from 'components/LogoText/LogoText'
 
 interface Props {
   children?: React.ReactNode

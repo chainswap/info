@@ -1,13 +1,13 @@
 import React, { useState, ChangeEvent, useEffect } from 'react'
 import { Box } from '@material-ui/core'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
-import ChainSelect from '../../components/ChainSelect/ChainSelect'
-import Currency from '../../models/currency'
-import Chain from '../../models/chain'
-import Input from '../../components/Input/Input'
-import { TYPE } from '../../theme/index'
-import Switcher from '../../components/swap/Switcher'
-import useCurrency from '../../hooks/useCurrency'
+import CurrencyInputPanel from 'components/CurrencyInputPanel/CurrencyInputPanel'
+import ChainSelect from 'components/ChainSelect/ChainSelect'
+import Currency from 'models/currency'
+import Chain from 'models/chain'
+import Input from 'components/Input/Input'
+import { TYPE } from 'theme/index'
+import Switcher from 'components/swap/Switcher'
+import useCurrency from 'hooks/useCurrency'
 
 interface Props {
   showChainSelect: boolean

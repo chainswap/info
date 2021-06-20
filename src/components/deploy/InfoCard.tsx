@@ -11,7 +11,7 @@ import LogoText from '../LogoText/LogoText'
 interface Props {
   toggleConfirm?: () => void
   confirmText?: string
-  status?: DeployStatusType
+  confirmed?: boolean
   data: Object
   header?: string
   logo?: string
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function InfoCard(props: Props) {
-  const { data, status, toggleConfirm, confirmText, header, editable, logo } = props
+  const { data, confirmed, toggleConfirm, confirmText, header, editable, logo } = props
 
   const getHeader = useCallback(() => {
     if (logo && header) {
@@ -55,11 +55,11 @@ export default function InfoCard(props: Props) {
           ))}
         </Box>
 
-        {status && confirmText && toggleConfirm && (
+        {confirmText && (
           <>
             <Divider />
             <Box display="flex" padding="13px 24px 16px 24px">
-              <Checkbox checked={status.confirmed} onChange={toggleConfirm} />
+              <Checkbox checked={!!confirmed} onChange={toggleConfirm} />
               <TYPE.mediumGray>{confirmText}</TYPE.mediumGray>
             </Box>
           </>

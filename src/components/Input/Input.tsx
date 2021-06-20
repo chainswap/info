@@ -28,8 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: (props: { outlined?: boolean }) => `1px solid ${props.outlined ? 'rgba(255,255,255,.4)' : 'transparent'}`,
     },
     focused: {
-      border: '1px solid',
-      borderColor: theme.palette.primary.main,
+      border: `1px solid ${theme.palette.primary.main} !important`,
     },
     input: {
       '&::-webkit-outer-spin-button': {
@@ -63,6 +62,7 @@ export default function Input(props: Props) {
         value={value}
         disabled={disabled}
         type={type}
+        autoFocus
       />
     </>
   )

@@ -5,7 +5,6 @@ import AddToken from './AddToken'
 import Mapping from './Mapping'
 import Bridge from './Bridge'
 import useModal from '../../hooks/useModal'
-import AddTokenMessageBox from './AddTokenMessageBox'
 import Chain from '../../models/chain'
 import { ChainList } from 'data/dummyData'
 
@@ -56,42 +55,10 @@ export default function Deploy() {
 
   const { showModal, hideModal } = useModal()
 
-  const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setAddress(e.target.value)
-  }, [])
-
-  const onChangeChainId = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setChainId(e.target.value)
-  }, [])
-
-  const toggleConfirm = useCallback(() => {
-    setDeployStatus({
-      confirmed: !deployStatus.confirmed,
-      deploying: false,
-      deployed: false,
-    })
-  }, [deployStatus])
-
   const toMapping = useCallback(() => {
     setState(DEPLOY_STATE.MAPPING)
     hideModal()
   }, [setState, hideModal])
-
-  const onDeploy = useCallback(() => {
-    setDeployStatus({
-      confirmed: true,
-      deploying: true,
-      deployed: false,
-    })
-    setTimeout(() => {
-      setDeployStatus({
-        deploying: false,
-        confirmed: true,
-        deployed: true,
-      })
-      showModal(<AddTokenMessageBox data={dummyData.mainchainInfo} action={toMapping} />)
-    }, 500)
-  }, [setDeployStatus, showModal, toMapping])
 
   const onChainSelect = useCallback((e: ChangeEvent<{ value: string[] }>) => {
     const symbols: string[] = e.target.value
@@ -116,18 +83,7 @@ export default function Deploy() {
       {state === DEPLOY_STATE.OPTIONS && (
         <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
       )}
-      {state === DEPLOY_STATE.ADD && (
-        <AddToken
-          address={address}
-          onChangeAddress={onChangeAddress}
-          chainId={chainId}
-          onChangeChainId={onChangeChainId}
-          toggleConfirm={toggleConfirm}
-          onDeploy={onDeploy}
-          status={deployStatus}
-          data={dummyData.tokenInfo}
-        />
-      )}
+      {state === DEPLOY_STATE.ADD && <AddToken />}
       {state === DEPLOY_STATE.MAPPING && (
         <Mapping
           data={dummyData.mainchainInfo}

@@ -10,11 +10,11 @@ interface Props {
   header: string
   activeStep: number
   children: React.ReactNode
-  onClick: () => void
-  btnText: string
-  loading: boolean
-  loadingText: string
-  btnDisabled: boolean
+  onClick?: () => void
+  btnText?: string
+  loading?: boolean
+  loadingText?: string
+  btnDisabled?: boolean
 }
 
 export default function DeployBody(props: Props) {
@@ -27,16 +27,6 @@ export default function DeployBody(props: Props) {
         <DeployStepper activeStep={activeStep} />
       </Box>
       {children}
-      <Button disabled={btnDisabled} onClick={onClick}>
-        {loading ? (
-          <>
-            <Loader />
-            <Text marginLeft={32}>{loadingText}</Text>
-          </>
-        ) : (
-          btnText
-        )}
-      </Button>
     </Box>
   )
 }

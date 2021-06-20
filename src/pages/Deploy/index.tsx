@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, useCallback } from 'react'
 import AppBody from '../AppBody'
 import DeployOptions from './DeployOptions'
-import AddToken from './AddToken'
+import AddExistingToken from './AddExistingToken'
 import MappingContract from './MappingContract'
 import BridgeContract from './BridgeContract'
 import useModal from 'hooks/useModal'
@@ -69,7 +69,7 @@ export default function Deploy() {
       {state === DEPLOY_STATE.OPTIONS && (
         <DeployOptions onClickExistingToken={() => setState(DEPLOY_STATE.ADD)} onClickNewToken={() => {}} />
       )}
-      {state === DEPLOY_STATE.ADD && <AddToken onNext={toMapping} />}
+      {state === DEPLOY_STATE.ADD && <AddExistingToken onNext={toMapping} />}
       {state === DEPLOY_STATE.MAPPING && (
         <MappingContract
           chainList={ChainList}

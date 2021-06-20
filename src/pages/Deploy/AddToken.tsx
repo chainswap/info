@@ -15,11 +15,6 @@ const dummyData = {
     'Token decimals': 'XXXXX',
     'Total supply': 'XXXXX',
   },
-  mainchainInfo: {
-    'Token contract address': 'XXXXXXXXXXXXXXX',
-    'Mappable contract address': 'XXXXXXXXXXXXXXX',
-    'Mainchain ID': 'XXX',
-  },
 }
 
 enum AddTokenInstruction {

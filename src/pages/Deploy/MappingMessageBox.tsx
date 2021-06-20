@@ -36,8 +36,8 @@ export default function MappingMessageBox(props: Props) {
             header={chain.symbol}
             logo={chain.logo}
             data={{
-              'Token contract address': 'XXXXXXXXXXXXXXXXXXXXXX',
-              'Chain ID': 'XXX',
+              'Token contract address': chain.address,
+              'Chain ID': chain.id,
             }}
             copyable
           />

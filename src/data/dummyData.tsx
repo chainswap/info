@@ -12,11 +12,15 @@ export const ETH = {
   symbol: 'ETH',
   name: 'ETH',
   balance: 0,
+  id: 'XXX',
+  address: 'XXXXXXXXXXXXXXX',
 }
 
 export const BSC = {
   logo: DummyLogo,
   symbol: 'BSC',
+  id: 'XXX',
+  address: 'XXXXXXXXXXXXXXX',
 }
 
 export const MATTER = {
@@ -98,22 +102,32 @@ export const ChainList = [
   {
     logo: DummyLogo,
     symbol: 'ETH',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'BSC',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'OEC',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'HECO',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'Polygon',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
 ]
 

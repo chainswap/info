@@ -7,11 +7,6 @@ interface Props {
   header: string
   activeStep: number
   children: React.ReactNode
-  onClick?: () => void
-  btnText?: string
-  loading?: boolean
-  loadingText?: string
-  btnDisabled?: boolean
 }
 
 export default function DeployBody(props: Props) {

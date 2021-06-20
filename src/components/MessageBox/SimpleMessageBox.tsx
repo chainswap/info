@@ -9,7 +9,7 @@ interface Props {
   children?: React.ReactNode
   type: 'success' | 'failure' | 'support' | 'network'
   header: string
-  action: () => void
+  action?: () => void
   actionText?: string
   message?: string
 }

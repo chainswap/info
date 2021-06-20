@@ -8,6 +8,14 @@ import useModal from 'hooks/useModal'
 import Chain from 'models/chain'
 import { ChainList } from 'data/dummyData'
 
+const dummyData = {
+  mainchainInfo: {
+    'Token contract address': 'XXXXXXXXXXXXXXX',
+    'Mappable contract address': 'XXXXXXXXXXXXXXX',
+    'Mainchain ID': 'XXX',
+  },
+}
+
 enum DEPLOY_STATE {
   OPTIONS = 'options',
   ADD = 'add',
@@ -70,7 +78,7 @@ export default function Deploy() {
           onNext={toBridge}
         />
       )}
-      {state === DEPLOY_STATE.BRIDGE && <BridgeContract />}
+      {state === DEPLOY_STATE.BRIDGE && <BridgeContract data={dummyData.mainchainInfo} chains={selectedChains} />}
     </AppBody>
   )
 }

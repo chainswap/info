@@ -8,7 +8,6 @@ import ChainSelect from 'components/ChainSelect/ChainSelect'
 import { ChainState } from './index'
 import useModal from 'hooks/useModal'
 import MappingMessageBox from './MappingMessageBox'
-
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { useMemo } from 'react'
 
@@ -20,7 +19,7 @@ const dummyData = {
   },
 }
 
-enum MappingInstruction {
+enum MappingError {
   Select = 'Select Chain',
   Deploy = 'Deploy on Chain',
 }
@@ -55,21 +54,13 @@ export default function MappingContract(props: Props) {
     [chains]
   )
 
-  const getInstruction = useMemo(() => {
+  const error = useMemo(() => {
     if (chains.length < 2) {
-      return MappingInstruction.Select
+      return MappingError.Select
     }
     if (!(chains[0].deployed && chains[1].deployed)) {
-      return MappingInstruction.Deploy
+      return MappingError.Deploy
     }
-  }, [chains])
-
-  const allDeployed = useMemo(() => {
-    if (chains[0]?.deployed && chains[1]?.deployed) {
-      return true
-    }
-
-    return false
   }, [chains])
 
   return (
@@ -115,10 +106,9 @@ export default function MappingContract(props: Props) {
         ))}
       </Box>
       <ErrorAndActionButton
-        instruction={!allDeployed}
+        error={error}
         onAction={() => showModal(<MappingMessageBox chains={chains} data={dummyData.mainchainInfo} action={onNext} />)}
         actionText={'Next Step'}
-        instructionText={getInstruction}
       />
     </DeployBody>
   )

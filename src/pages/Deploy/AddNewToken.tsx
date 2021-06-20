@@ -1,20 +1,15 @@
 import React, { useState } from 'react'
 import DeployBody from './DeployBody'
 import DeployAddForm from './DeployAddForm'
-import Checkbox from 'components/Checkbox/Checkbox'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { useMemo } from 'react'
 import { useCallback } from 'react'
 
 export default function AddNewToken() {
-  const [{ confirmed, deploying }, setDeployStatus] = useState<{
-    confirmed: boolean
+  const [{ deploying }] = useState<{
     deploying: boolean
-    deployed: boolean
   }>({
-    confirmed: false,
     deploying: false,
-    deployed: false,
   })
 
   const [{ name, symby, declaims, totalSupply, checked, chainId }, setFormData] = useState<{
@@ -26,7 +21,7 @@ export default function AddNewToken() {
     chainId: string
   }>({ name: '', symby: '', declaims: '', totalSupply: '', checked: false, chainId: '' })
 
-  const getInstruction = useMemo(() => {
+  const error = useMemo(() => {
     if (!name) {
       return 'Enter Token Name'
     }
@@ -51,7 +46,7 @@ export default function AddNewToken() {
       checked: !checked,
       chainId,
     })
-  }, [name, symby, declaims, totalSupply, checked])
+  }, [name, symby, declaims, totalSupply, checked, chainId])
 
   return (
     <DeployBody header="Add New Token" activeStep={0}>
@@ -74,8 +69,7 @@ export default function AddNewToken() {
         actionText="Deploy"
         pending={deploying}
         pendingText="Deploying"
-        instruction={!confirmed}
-        instructionText={getInstruction}
+        error={error}
       />
     </DeployBody>
   )

@@ -17,7 +17,7 @@ const dummyData = {
   },
 }
 
-enum AddTokenInstruction {
+enum AddTokenError {
   ENTER_ADDRESS = 'Enter Token Contract Address',
   ENTER_CHAIN_ID = 'Enter the Chain ID',
 }
@@ -56,12 +56,12 @@ export default function AddToken(props: Props) {
     })
   }, [confirmed])
 
-  const getInstruction = useMemo(() => {
+  const error = useMemo(() => {
     if (!address) {
-      return AddTokenInstruction.ENTER_ADDRESS
+      return AddTokenError.ENTER_ADDRESS
     }
     if (!chainId) {
-      return AddTokenInstruction.ENTER_CHAIN_ID
+      return AddTokenError.ENTER_CHAIN_ID
     }
   }, [address, chainId])
 
@@ -98,12 +98,11 @@ export default function AddToken(props: Props) {
         )}
 
         <ErrorAndActionButton
-          instruction={!address || !chainId}
+          error={error}
           onAction={onNext}
           pending={deploying}
           pendingText={'Loading'}
           actionText={'Next Step'}
-          instructionText={getInstruction}
         />
       </DeployBody>
     </>

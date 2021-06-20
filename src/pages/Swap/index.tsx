@@ -25,7 +25,7 @@ import useCurrency from 'hooks/useCurrency'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { useMemo } from 'react'
 
-enum SWAP_INSTRUCTION {
+enum SWAP_ERROR {
   SELECT_TOKEN = 'Select Token',
   SELECT_CHAIN = 'Select Chain',
   ENTER_AMOUNT = 'Enter Amount',
@@ -188,15 +188,15 @@ export default function Swap() {
     setAuthorized(true)
   }, [])
 
-  const getInstruction = useMemo(() => {
+  const error = useMemo(() => {
     if (!currency) {
-      return SWAP_INSTRUCTION.SELECT_TOKEN
+      return SWAP_ERROR.SELECT_TOKEN
     }
     if (!from || !to) {
-      return SWAP_INSTRUCTION.SELECT_CHAIN
+      return SWAP_ERROR.SELECT_CHAIN
     }
     if (!amount) {
-      return SWAP_INSTRUCTION.ENTER_AMOUNT
+      return SWAP_ERROR.ENTER_AMOUNT
     }
   }, [currency, from, to, amount])
 
@@ -217,8 +217,7 @@ export default function Swap() {
           pending={attemptingDeposit}
           pendingText={'Depositing'}
           disableAction={depositCompleted}
-          instruction={!currency || !from || !to || !amount}
-          instructionText={getInstruction}
+          error={error}
         />
       )
     }
@@ -239,8 +238,7 @@ export default function Swap() {
             actionText={`Deposit in ${to?.symbol} Chain`}
             pending={attemptingWithdraw}
             pendingText={'Withdrawing'}
-            instruction={depositCompleted && !withdrawCompleted && !amount}
-            instructionText={SWAP_INSTRUCTION.ENTER_AMOUNT}
+            error={depositCompleted && !withdrawCompleted && !amount ? SWAP_ERROR.ENTER_AMOUNT : undefined}
             disableAction={withdrawCompleted || !depositCompleted}
             width="232px"
           />
@@ -264,7 +262,7 @@ export default function Swap() {
     attemptingDeposit,
     attemptingWithdraw,
     depositCompleted,
-    getInstruction,
+    error,
     showConfirmDepositModal,
     showConfirmWithdrawModal,
     withdrawCompleted,

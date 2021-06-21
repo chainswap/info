@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useCallback } from 'react'
+import React, { ChangeEvent, useState, useCallback, useMemo } from 'react'
 import { TYPE } from 'theme/index'
 import { Box } from '@material-ui/core'
 import Input from 'components/Input/Input'
@@ -6,16 +6,9 @@ import DeployBody from './DeployBody'
 import InfoCard from 'components/deploy/InfoCard'
 import InputLabel from 'components/InputLabel/InputLabel'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
-import { useMemo } from 'react'
-
-const dummyData = {
-  tokenInfo: {
-    'Token name': 'ETH',
-    'Token symby': 'XXXXX',
-    'Token decimals': 'XXXXX',
-    'Total supply': 'XXXXX',
-  },
-}
+import useModal from 'hooks/useModal'
+import AddTokenMessageBox from './AddTokenMessageBox'
+import { DeployData } from 'data/dummyData'
 
 enum AddTokenError {
   ENTER_ADDRESS = 'Enter Token Contract Address',
@@ -39,6 +32,7 @@ export default function AddToken(props: Props) {
     deploying: false,
     deployed: false,
   })
+  const { showModal } = useModal()
 
   const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value)
@@ -55,6 +49,10 @@ export default function AddToken(props: Props) {
       deployed: false,
     })
   }, [confirmed])
+
+  const onDeploy = useCallback(() => {
+    showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
+  }, [])
 
   const error = useMemo(() => {
     if (!address) {
@@ -86,7 +84,7 @@ export default function AddToken(props: Props) {
         {chainId && (
           <>
             <InfoCard
-              data={dummyData.tokenInfo}
+              data={DeployData.tokenInfo}
               confirmed={confirmed}
               toggleConfirm={toggleConfirm}
               confirmText={'I confirm the token information before deploying'}
@@ -99,10 +97,10 @@ export default function AddToken(props: Props) {
 
         <ErrorAndActionButton
           error={error}
-          onAction={onNext}
+          onAction={onDeploy}
           pending={deploying}
           pendingText={'Loading'}
-          actionText={'Next Step'}
+          actionText={'Deploy'}
         />
       </DeployBody>
     </>

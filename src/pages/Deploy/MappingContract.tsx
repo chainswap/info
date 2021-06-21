@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState, useMemo } from 'react'
 import DeployBody from './DeployBody'
 import InfoCard from 'components/deploy/InfoCard'
 import ChainMultiSelect from 'components/ChainSelect/ChainMultiSelect'
@@ -9,19 +9,12 @@ import { ChainState } from './index'
 import useModal from 'hooks/useModal'
 import MappingMessageBox from './MappingMessageBox'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
-import { useMemo } from 'react'
-
-const dummyData = {
-  mainchainInfo: {
-    'Token contract address': 'XXXXXXXXXXXXXXX',
-    'Mappable contract address': 'XXXXXXXXXXXXXXX',
-    'Mainchain ID': 'XXX',
-  },
-}
+import { DeployData } from 'data/dummyData'
 
 enum MappingError {
-  Select = 'Select Chain',
-  Deploy = 'Deploy on Chain',
+  SELECT = 'Select Chain',
+  FILL = 'Fill the Mainchain Info',
+  DEPLOY = 'Deploy on Chain',
 }
 
 interface Props {
@@ -29,10 +22,11 @@ interface Props {
   selectedChains: ChainState[]
   onChainSelect: (e: ChangeEvent<{ value: string[] }>) => void
   onNext: () => void
+  edit?: boolean
 }
 
 export default function MappingContract(props: Props) {
-  const { onChainSelect, chainList, selectedChains, onNext } = props
+  const { onChainSelect, chainList, selectedChains, onNext, edit } = props
   const [chains, setChains] = useState(selectedChains)
   const { showModal } = useModal()
 
@@ -55,17 +49,20 @@ export default function MappingContract(props: Props) {
   )
 
   const error = useMemo(() => {
+    if (edit) {
+      return MappingError.FILL
+    }
     if (chains.length < 2) {
-      return MappingError.Select
+      return MappingError.SELECT
     }
     if (!(chains[0].deployed && chains[1].deployed)) {
-      return MappingError.Deploy
+      return MappingError.DEPLOY
     }
   }, [chains])
 
   return (
     <DeployBody header={'Mapping token contract deployment'} activeStep={1}>
-      <InfoCard data={dummyData.mainchainInfo} header="Mainchain Info" editable />
+      <InfoCard data={DeployData.mainchainInfo} header="Mainchain Info" editable />
       <Box padding={'24px 0'}>
         <ChainMultiSelect
           label="Select Chain"
@@ -107,7 +104,9 @@ export default function MappingContract(props: Props) {
       </Box>
       <ErrorAndActionButton
         error={error}
-        onAction={() => showModal(<MappingMessageBox chains={chains} data={dummyData.mainchainInfo} action={onNext} />)}
+        onAction={() =>
+          showModal(<MappingMessageBox chains={chains} data={DeployData.mainchainInfo} action={onNext} />)
+        }
         actionText={'Next Step'}
       />
     </DeployBody>

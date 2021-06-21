@@ -7,15 +7,7 @@ import BridgeContract from './BridgeContract'
 import AddNewToken from './AddNewToken'
 import useModal from 'hooks/useModal'
 import Chain from 'models/chain'
-import { ChainList } from 'data/dummyData'
-
-const dummyData = {
-  mainchainInfo: {
-    'Token contract address': 'XXXXXXXXXXXXXXX',
-    'Mappable contract address': 'XXXXXXXXXXXXXXX',
-    'Mainchain ID': 'XXX',
-  },
-}
+import { ChainList, DeployData } from 'data/dummyData'
 
 enum DEPLOY_STATE {
   OPTIONS = 'options',
@@ -23,6 +15,7 @@ enum DEPLOY_STATE {
   ADD_NEW = 'add new',
   MAPPING = 'mapping',
   BRIDGE = 'bridge',
+  EDIT_MAPPING = 'edit mapping',
 }
 
 export type DeployStatusType = {
@@ -47,6 +40,10 @@ export default function Deploy() {
     setState(DEPLOY_STATE.MAPPING)
     hideModal()
   }, [setState, hideModal])
+  const toEditMapping = useCallback(() => {
+    setState(DEPLOY_STATE.EDIT_MAPPING)
+    hideModal()
+  }, [])
 
   const onChainSelect = useCallback((e: ChangeEvent<{ value: string[] }>) => {
     const symbols: string[] = e.target.value
@@ -83,8 +80,17 @@ export default function Deploy() {
           onNext={toBridge}
         />
       )}
-      {state === DEPLOY_STATE.BRIDGE && <BridgeContract data={dummyData.mainchainInfo} chains={selectedChains} />}
-      {state === DEPLOY_STATE.ADD_NEW && <AddNewToken />}
+      {state === DEPLOY_STATE.BRIDGE && <BridgeContract data={DeployData.mainchainInfo} chains={selectedChains} />}
+      {state === DEPLOY_STATE.ADD_NEW && <AddNewToken onNext={toEditMapping} />}
+      {state === DEPLOY_STATE.EDIT_MAPPING && (
+        <MappingContract
+          chainList={ChainList}
+          onChainSelect={onChainSelect}
+          selectedChains={selectedChains}
+          onNext={toBridge}
+          edit
+        />
+      )}
     </AppBody>
   )
 }

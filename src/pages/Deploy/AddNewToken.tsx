@@ -5,21 +5,30 @@ import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { useMemo } from 'react'
 import { useCallback } from 'react'
 import Chain from 'models/chain'
-import { ChainList } from 'data/dummyData'
+import { ChainList, DeployData } from 'data/dummyData'
+import useModal from 'hooks/useModal'
+import AddTokenMessageBox from './AddTokenMessageBox'
 
-export default function AddNewToken() {
-  const [{ deploying }] = useState<{
+interface Props {
+  onNext: () => void
+}
+
+export default function AddNewToken(props: Props) {
+  const { onNext } = props
+  const [{ deploying, deployed }, setDeployStatus] = useState<{
     deploying: boolean
+    deployed: boolean
   }>({
     deploying: false,
+    deployed: false,
   })
-
   const [name, setName] = useState('')
   const [symby, setSymby] = useState('')
   const [declaims, setDeclaims] = useState('')
   const [totalSupply, setTotalSupply] = useState('')
   const [chain, setChain] = useState<Chain | null>(null)
   const [checked, setChecked] = useState(false)
+  const { showModal } = useModal()
 
   const error = useMemo(() => {
     if (!name) {
@@ -53,6 +62,16 @@ export default function AddNewToken() {
     setChecked(!checked)
   }, [checked])
 
+  const onDeploy = useCallback(() => {
+    setDeployStatus({
+      deploying: true,
+      deployed,
+    })
+    setTimeout(() => {
+      showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
+    }, 500)
+  }, [])
+
   return (
     <DeployBody header="Add New Token" activeStep={0}>
       <DeployAddForm
@@ -70,7 +89,7 @@ export default function AddNewToken() {
         onChecked={onChecked}
       />
       <ErrorAndActionButton
-        onAction={() => {}}
+        onAction={onDeploy}
         actionText="Deploy"
         pending={deploying}
         pendingText="Deploying"

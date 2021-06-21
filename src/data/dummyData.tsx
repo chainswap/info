@@ -1,17 +1,26 @@
 import DummyLogo from '../assets/images/bsc.svg'
 import Transaction from '../models/transaction'
 import Notification from '../models/notification'
+import AaveIcon from '../assets/images/currency/aave.svg'
+import AmpIcon from '../assets/images/currency/amp.svg'
+import AntIcon from '../assets/images/currency/ant.svg'
+import BnbIcon from '../assets/images/currency/bnb.svg'
+import EthIcon from '../assets/images/currency/eth.svg'
 
 export const ETH = {
   logo: DummyLogo,
   symbol: 'ETH',
   name: 'ETH',
   balance: 0,
+  id: 'XXX',
+  address: 'XXXXXXXXXXXXXXX',
 }
 
 export const BSC = {
   logo: DummyLogo,
   symbol: 'BSC',
+  id: 'XXX',
+  address: 'XXXXXXXXXXXXXXX',
 }
 
 export const MATTER = {
@@ -58,16 +67,34 @@ export const claimModalData = [
 
 export const CurrencyList = [
   {
-    logo: DummyLogo,
-    symbol: 'TOKEN',
-    name: 'ChainSwap.com Governance Token',
+    logo: EthIcon,
+    symbol: 'ETH',
+    name: 'Ether',
+    balance: 900,
+  },
+  {
+    logo: AaveIcon,
+    symbol: 'AAVE',
+    name: 'Aave',
     balance: 800,
   },
   {
-    logo: DummyLogo,
-    symbol: 'MATTER',
-    name: 'Antimatter.Finance Governance Token',
-    balance: 400,
+    logo: AmpIcon,
+    symbol: 'AMP',
+    name: 'Amp',
+    balance: 700,
+  },
+  {
+    logo: AntIcon,
+    symbol: 'ANT',
+    name: 'Aragon Network Token',
+    balance: 600,
+  },
+  {
+    logo: BnbIcon,
+    symbol: 'BNB',
+    name: 'Binance Coin',
+    balance: 500,
   },
 ]
 
@@ -75,22 +102,32 @@ export const ChainList = [
   {
     logo: DummyLogo,
     symbol: 'ETH',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'BSC',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'OEC',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'HECO',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
     logo: DummyLogo,
     symbol: 'Polygon',
+    id: 'XXX',
+    address: 'XXXXXXXXXXXXXXXXXXXX',
   },
 ]
 

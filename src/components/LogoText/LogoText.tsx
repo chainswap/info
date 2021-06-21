@@ -6,6 +6,8 @@ import Image from '../Image/Image'
 interface Props {
   logo: string
   text: string
+  fontWeight?: number
+  fontSize?: number
   size?: 'small' | 'large'
 }
 
@@ -13,6 +15,8 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     alignItems: 'center',
+    fontWeight: (props: { fontWeight?: number }) => props.fontWeight ?? 400,
+    fontSize: (props: { fontSize?: number }) => props.fontSize ?? 16,
     '& img': {
       marginRight: (props: Props) => (props.size === 'small' ? '4px' : '12px'),
     },

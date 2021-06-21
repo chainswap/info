@@ -1,23 +1,21 @@
 import React, { ChangeEvent } from 'react'
 import { styled, Box } from '@material-ui/core'
-import CurrencySearchModal from '../swap/SearchModal/CurrencySearchModal'
 import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
-import Currency from '../../models/currency'
 import InputLabel from '../InputLabel/InputLabel'
 import SelectButton from '../Button/SelectButton'
 import useModal from '../../hooks/useModal'
 import LogoText from '../LogoText/LogoText'
 import theme, { TYPE } from '../../theme/index'
+import SelectCurrencyModal from 'pages/Swap/SelectCurrencyModal'
+import { useCallback } from 'react'
+import useCurrency from '../../hooks/useCurrency'
 
 interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  selectedCurrency: Currency | null
-  options: Currency[]
   onMax?: () => void
   disabled: boolean
-  onCurrencySelect: (currency: Currency) => void
   placeholder?: string
   selectActive?: boolean
   inputFocused?: boolean
@@ -58,30 +56,21 @@ const ButtonWrapper = styled('div')({
 })
 
 export default function CurrencyInputPanel(props: Props) {
-  const {
-    selectedCurrency,
-    options,
-    onMax,
-    value,
-    disabled,
-    onCurrencySelect,
-    placeholder,
-    selectActive,
-    inputFocused,
-  } = props
-  const { showModal, hideModal } = useModal()
+  const { onMax, value, disabled, placeholder, selectActive, inputFocused } = props
+  const { showModal } = useModal()
+  const { currency } = useCurrency()
 
-  const showCurrencySearch = () => {
-    showModal(<CurrencySearchModal currencies={options} onCurrencySelect={onCurrencySelect} onDismiss={hideModal} />)
-  }
+  const showCurrencySearch = useCallback(() => {
+    showModal(<SelectCurrencyModal />)
+  }, [showModal])
 
   return (
     <div>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <InputLabel>Amount</InputLabel>
-        {selectedCurrency && (
+        {currency && (
           <TYPE.mediumGray>
-            Balance: {selectedCurrency.balance} ${selectedCurrency.symbol}
+            Balance: {currency.balance} ${currency.symbol}
           </TYPE.mediumGray>
         )}
       </Box>
@@ -94,7 +83,7 @@ export default function CurrencyInputPanel(props: Props) {
           disabled={disabled}
           focused={inputFocused}
         />
-        {selectedCurrency && onMax && (
+        {currency && onMax && (
           <ButtonWrapper>
             <OutlineButton width="64px" height="28px" onClick={onMax} color={theme.textColor.text1} borderRadius="20px">
               Max
@@ -102,11 +91,7 @@ export default function CurrencyInputPanel(props: Props) {
           </ButtonWrapper>
         )}
         <SelectButton width={'180px'} onClick={showCurrencySearch} disabled={disabled} primary={selectActive}>
-          {selectedCurrency ? (
-            <LogoText logo={selectedCurrency.logo} text={selectedCurrency.symbol} />
-          ) : (
-            <>Select Token</>
-          )}
+          {currency ? <LogoText logo={currency.logo} text={currency.symbol} /> : <>Select Token</>}
         </SelectButton>
       </InputRow>
     </div>

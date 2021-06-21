@@ -1,9 +1,9 @@
 import React from 'react'
-import DetailedMessagebox from '../../components/MessageBox/DetailedMessageBox'
+import DetailedMessagebox from 'components/MessageBox/DetailedMessageBox'
 import { Box } from '@material-ui/core'
-import TextButton from '../../components/Button/TextButton'
-import InfoCard from '../../components/deploy/InfoCard'
-import Chain from '../../models/chain'
+import TextButton from 'components/Button/TextButton'
+import InfoCard from 'components/deploy/InfoCard'
+import Chain from 'models/chain'
 
 interface Props {
   action: () => void
@@ -36,9 +36,10 @@ export default function MappingMessageBox(props: Props) {
             header={chain.symbol}
             logo={chain.logo}
             data={{
-              'Token contract address': 'XXXXXXXXXXXXXXXXXXXXXX',
-              'Chain ID': 'XXX',
+              'Token contract address': chain.address,
+              'Chain ID': chain.id,
             }}
+            copyable
           />
         ))}
       </Box>

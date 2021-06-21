@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-import { DeployStatusType } from '../../pages/Deploy/index'
 import { Box } from '@material-ui/core'
 import theme, { TYPE } from '../../theme/index'
 import Divider from '../Divider/Divider'
@@ -7,20 +6,22 @@ import Checkbox from '../Checkbox/Checkbox'
 import { Text } from 'rebass'
 import TextButton from '../Button/TextButton'
 import LogoText from '../LogoText/LogoText'
+import Copy from 'components/Copy/Copy'
 
 interface Props {
   toggleConfirm?: () => void
   confirmText?: string
-  status?: DeployStatusType
+  confirmed?: boolean
   data: Object
   header?: string
   logo?: string
   editable?: boolean
   onEdit?: () => void
+  copyable?: boolean
 }
 
 export default function InfoCard(props: Props) {
-  const { data, status, toggleConfirm, confirmText, header, editable, logo } = props
+  const { data, confirmed, toggleConfirm, confirmText, header, editable, logo, copyable } = props
 
   const getHeader = useCallback(() => {
     if (logo && header) {
@@ -50,16 +51,19 @@ export default function InfoCard(props: Props) {
           {Object.keys(data).map((key, i) => (
             <Box key={i} display="flex" justifyContent="space-between">
               <TYPE.smallGray>{key}:</TYPE.smallGray>
-              <TYPE.small>{data[key as keyof typeof data]}</TYPE.small>
+              <Box display="flex">
+                <TYPE.small marginRight={copyable ? '8px' : '0px'}>{data[key as keyof typeof data]}</TYPE.small>
+                {copyable && <Copy toCopy={`${data[key as keyof typeof data]}`} />}
+              </Box>
             </Box>
           ))}
         </Box>
 
-        {status && confirmText && toggleConfirm && (
+        {confirmText && (
           <>
             <Divider />
             <Box display="flex" padding="13px 24px 16px 24px">
-              <Checkbox checked={status.confirmed} onChange={toggleConfirm} />
+              <Checkbox checked={!!confirmed} onChange={toggleConfirm} />
               <TYPE.mediumGray>{confirmText}</TYPE.mediumGray>
             </Box>
           </>

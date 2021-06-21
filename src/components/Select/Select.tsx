@@ -64,9 +64,11 @@ const useStyles = makeStyles((theme: Theme) =>
       width: (props: Props) => (props.size === 'small' ? 172 : 176),
       borderRadius: theme.shape.borderRadius,
       marginTop: 8,
+      backgroundColor: 'transparent',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      overflow: 'hidden',
       '& ul': {
         background: '#0F0F10',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
         padding: 0,
       },
       '& li': {

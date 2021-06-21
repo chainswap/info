@@ -24,6 +24,7 @@ import { useUserLogined } from '../../state/user/hooks'
 import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
 import { ConfirmedTransactionList, PendingTransactionList, NotificationList } from '../../data/dummyData'
+import PlainSelect from '../Select/PlainSelect'
 
 enum Mode {
   VISITOR,
@@ -50,6 +51,21 @@ const NavLinks = [
   {
     name: 'Info',
     link: routes.info,
+  },
+]
+
+const AboutNavItems = [
+  {
+    name: 'Apply for listing',
+    link: null,
+  },
+  {
+    name: 'Auditing report',
+    link: null,
+  },
+  {
+    name: 'Support',
+    link: null,
   },
 ]
 
@@ -150,7 +166,7 @@ export default function Header() {
   const classes = useStyles()
 
   const [mode, setMode] = useState(Mode.VISITOR)
-  const [address] = useState('0x72ef586A2c515B605A873ad9a8FBdFD43Df77123')
+  const [address] = useState('0xKos369cd6vwd94wq1gt4hr87ujv')
   // const address = null
   const [chain, setChain] = useState(ChainList[0])
   const [amount] = useState(1.24)
@@ -183,6 +199,11 @@ export default function Header() {
                 {nav.name}
               </NavLink>
             ))}
+            <PlainSelect placeholder="about">
+              {AboutNavItems.map((item) => (
+                <MenuItem key={item.name}>{item.name}</MenuItem>
+              ))}
+            </PlainSelect>
           </LinksWrapper>
         </Box>
 

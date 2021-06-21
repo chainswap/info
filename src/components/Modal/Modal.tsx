@@ -1,17 +1,19 @@
 import React from 'react'
-import { Dialog, makeStyles, Theme } from '@material-ui/core'
-import { styled, createStyles } from '@material-ui/styles'
+import { Dialog, makeStyles, Theme, Box, IconButton } from '@material-ui/core'
+import { createStyles } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
 import useModal from '../../hooks/useModal'
 import { TYPE } from '../../theme/index'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { useRef } from 'react'
+import { ReactComponent as ArrowLeft } from 'assets/images/arrow_left.svg'
 
 interface Props {
   children?: React.ReactNode
-  label?: string
-  showIcon?: boolean
+  title?: string
+  closeIcon?: boolean
   width?: string
+  onReturnClick?: () => void
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,32 +27,29 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 20,
       overflowX: 'hidden',
       position: 'absolute',
-      top: `calc(${theme.height.header} + 80px)`,
     },
     backdrop: {
       backgroundColor: 'rgba(0,0,0,.8)',
     },
+    closeIconContainer: {
+      padding: 0,
+      '&:hover $closeIcon': {
+        color: theme.textColor.text1,
+      },
+    },
+    closeIcon: {
+      color: theme.textColor.text3,
+    },
   })
 )
 
-const CloseBtn = styled('div')({
-  position: 'absolute',
-  right: 30,
-  top: 24,
-  color: '#FFFFFF',
-  opacity: 0.6,
-  zIndex: 999,
-  '&:hover': {
-    cursor: 'pointer',
-  },
-})
-
 export default function Modal(props: Props) {
-  const { children, label, showIcon } = props
+  const { children, title, closeIcon, onReturnClick } = props
   const classes = useStyles(props)
   const { isOpen, hideModal } = useModal()
   const node = useRef<any>()
   useOnClickOutside(node, hideModal)
+
   return (
     <>
       <Dialog
@@ -59,15 +58,24 @@ export default function Modal(props: Props) {
         PaperProps={{ className: classes.paper, ref: node }}
         BackdropProps={{ className: classes.backdrop }}
       >
-        {label && (
-          <TYPE.mediumHeader textAlign="center" marginTop="24px">
-            {label}
-          </TYPE.mediumHeader>
-        )}
-        {showIcon && (
-          <CloseBtn onClick={hideModal}>
-            <CloseIcon />
-          </CloseBtn>
+        {(onReturnClick || closeIcon || title) && (
+          <Box display="flex" justifyContent="space-between" alignItems="center" padding="20px 30px">
+            {onReturnClick ? (
+              <IconButton onClick={onReturnClick}>
+                <ArrowLeft />
+              </IconButton>
+            ) : (
+              <Box width="24px" />
+            )}
+            {title && <TYPE.mediumHeader textAlign="center">{title}</TYPE.mediumHeader>}
+            {closeIcon ? (
+              <IconButton className={classes.closeIconContainer} onClick={hideModal}>
+                <CloseIcon className={classes.closeIcon} />
+              </IconButton>
+            ) : (
+              <Box width="24px" />
+            )}
+          </Box>
         )}
         {children}
       </Dialog>

@@ -9,12 +9,13 @@ import Header from '../components/Header/Header'
 import theme from '../theme/index'
 import routes from '../constants/routes'
 import { ModalProvider } from '../context/ModalContext'
+import { CurrencyProvider } from '../context/CurrencyContext'
 
 const BodyWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  // justifyContent: 'center',
+  justifyContent: 'center',
   padding: 50,
   height: `calc(100vh - ${theme.height.header} - 50px)`,
   width: '100%',
@@ -35,19 +36,20 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ModalProvider>
-          {/* <ModalRoot /> */}
-          <Header />
-          <BodyWrapper id="body">
-            <Switch>
-              <Route strict path={routes.swap} exact component={Swap} />
-              <Route strict path={routes.deploy} exact component={Deploy} />
-              <Route strict path={routes.liquidity} exact component={Liquidity} />
-              <Route strict path={routes.farm} exact component={Swap} />
-              <Route strict path={routes.info} exact component={Swap} />
-            </Switch>
-          </BodyWrapper>
-        </ModalProvider>
+        <CurrencyProvider>
+          <ModalProvider>
+            <Header />
+            <BodyWrapper id="body">
+              <Switch>
+                <Route strict path={routes.swap} exact component={Swap} />
+                <Route strict path={routes.deploy} exact component={Deploy} />
+                <Route strict path={routes.liquidity} exact component={Liquidity} />
+                <Route strict path={routes.farm} exact component={Swap} />
+                <Route strict path={routes.info} exact component={Swap} />
+              </Switch>
+            </BodyWrapper>
+          </ModalProvider>
+        </CurrencyProvider>
       </ThemeProvider>
     </>
   )

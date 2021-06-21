@@ -1,12 +1,13 @@
 import React, { useState, ChangeEvent, useEffect } from 'react'
 import { Box } from '@material-ui/core'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel/CurrencyInputPanel'
-import ChainSelect from '../../components/ChainSelect/ChainSelect'
-import Currency from '../../models/currency'
-import Chain from '../../models/chain'
-import Input from '../../components/Input/Input'
-import { TYPE } from '../../theme/index'
-import Switcher from '../../components/swap/Switcher'
+import CurrencyInputPanel from 'components/CurrencyInputPanel/CurrencyInputPanel'
+import ChainSelect from 'components/ChainSelect/ChainSelect'
+import Currency from 'models/currency'
+import Chain from 'models/chain'
+import Input from 'components/Input/Input'
+import { TYPE } from 'theme/index'
+import Switcher from 'components/swap/Switcher'
+import useCurrency from 'hooks/useCurrency'
 
 interface Props {
   showChainSelect: boolean
@@ -16,7 +17,7 @@ interface Props {
   currency: Currency | null
   currencyOptions: Currency[]
   onMax: () => void
-  onCurrencySelect: (currency: Currency) => void
+  setSelectedCurrency: (currency: Currency) => void
   userLogined: boolean
   from: Chain | null
   to: Chain | null
@@ -41,10 +42,7 @@ export default function Form(props: Props) {
     showDestination,
     onChangeAmount,
     amount,
-    currency,
-    currencyOptions,
     onMax,
-    onCurrencySelect,
     userLogined,
     from,
     to,
@@ -56,6 +54,7 @@ export default function Form(props: Props) {
     hintable,
   } = props
   const [onHint, setOnHint] = useState<Hintable | null>(null)
+  const { currency } = useCurrency()
 
   // onHint
   useEffect(() => {
@@ -74,17 +73,15 @@ export default function Form(props: Props) {
     if (!amount) {
       return setOnHint(Hintable.CURRENCY_INPUT)
     }
-  }, [userLogined, currency, from, to, amount, hintable])
+    setOnHint(null)
+  }, [currency, userLogined, from, to, amount, hintable])
 
   return (
     <>
       <CurrencyInputPanel
         onChange={onChangeAmount}
         value={amount}
-        selectedCurrency={currency}
-        options={currencyOptions}
         onMax={onMax}
-        onCurrencySelect={onCurrencySelect}
         disabled={!userLogined}
         selectActive={onHint === Hintable.CURRENCY_SELECT}
         inputFocused={!amount && onHint === Hintable.CURRENCY_INPUT}

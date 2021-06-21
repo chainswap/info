@@ -10,12 +10,11 @@ import Currency from 'models/currency'
 import ChainSelect from 'components/ChainSelect/ChainSelect'
 import { ChainList } from 'data/dummyData'
 import Chain from 'models/chain'
-import Button from 'components/Button/Button'
 import Image from 'components/Image/Image'
 import { LiquidityError } from './LiquidityForm'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import useModal from 'hooks/useModal'
-import TxnSubmittedMessageBox from 'components/swap/TxnSubmittedMessageBox'
+import TxnSubmittedMessageBox from 'pages/Swap/TxnSubmittedMessageBox'
 
 export default function WithdrawLiquidity({
   onReturnClick,

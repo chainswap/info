@@ -8,10 +8,10 @@ interface Props {
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   label?: string
-  type?: string
-  style?: React.CSSProperties
   disabled?: boolean
   focused?: boolean
+  outlined?: boolean
+  type?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,11 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 48,
       paddingLeft: 20,
       borderRadius: 14,
-      border: '1px solid transparent',
+      border: (props: { outlined?: boolean }) => `1px solid ${props.outlined ? 'rgba(255,255,255,.4)' : 'transparent'}`,
     },
     focused: {
-      border: '1px solid',
-      borderColor: theme.palette.primary.main,
+      border: `1px solid ${theme.palette.primary.main} !important`,
     },
     input: {
       '&::-webkit-outer-spin-button': {
@@ -49,16 +48,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Input(props: Props) {
   const classes = useStyles(props)
-  const { focused, ...restProps } = props
+  const { focused, placeholder, onChange, value, disabled, type } = props
 
   return (
     <>
       {props.label && <InputLabel>{props.label}</InputLabel>}
       <InputBase
         fullWidth={true}
-        {...restProps}
+        placeholder={placeholder}
         classes={{ ...classes }}
-        inputRef={(input) => input && props.focused && input.focus()}
+        inputRef={(input) => input && focused && input.focus()}
+        onChange={onChange}
+        value={value}
+        disabled={disabled}
+        type={type}
       />
     </>
   )

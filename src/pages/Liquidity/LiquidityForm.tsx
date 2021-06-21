@@ -4,7 +4,7 @@ import CurrencyInputPanel from 'components/CurrencyInputPanel/CurrencyInputPanel
 import AppBody from 'pages/AppBody'
 import { useUserLogined } from 'state/user/hooks'
 import { TYPE } from 'theme'
-import { ChainList, CurrencyList } from 'data/dummyData'
+import { ChainList } from 'data/dummyData'
 import Currency from 'models/currency'
 import ChainSelect from 'components/ChainSelect/ChainSelect'
 import Chain from 'models/chain'
@@ -65,9 +65,6 @@ export default function LiquidityForm({
         <CurrencyInputPanel
           onChange={onAmount}
           value={amount}
-          selectedCurrency={currency}
-          options={CurrencyList}
-          onCurrencySelect={onCurrency}
           disabled={!userLogined}
           placeholder="Enter amount"
           onMax={() => {}}

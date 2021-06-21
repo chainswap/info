@@ -10,6 +10,8 @@ import useModal from 'hooks/useModal'
 import MappingMessageBox from './MappingMessageBox'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { DeployData } from 'data/dummyData'
+import DeployMappingForm from './DeployMappingForm'
+import Divider from 'components/Divider/Divider'
 
 enum MappingError {
   SELECT = 'Select Chain',
@@ -55,14 +57,23 @@ export default function MappingContract(props: Props) {
     if (chains.length < 2) {
       return MappingError.SELECT
     }
-    if (!(chains[0].deployed && chains[1].deployed)) {
+    if (!((chains[0].deployed === chains[1].deployed) === true)) {
       return MappingError.DEPLOY
     }
   }, [chains])
 
   return (
     <DeployBody header={'Mapping token contract deployment'} activeStep={1}>
-      <InfoCard data={DeployData.mainchainInfo} header="Mainchain Info" editable />
+      {edit ? (
+        <>
+          <DeployMappingForm />
+          <Box m="20px" />
+          <Divider extension={40} />
+        </>
+      ) : (
+        <InfoCard data={DeployData.mainchainInfo} header="Mainchain Info" editable />
+      )}
+
       <Box padding={'24px 0'}>
         <ChainMultiSelect
           label="Select Chain"

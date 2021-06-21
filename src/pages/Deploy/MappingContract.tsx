@@ -30,6 +30,9 @@ interface Props {
 export default function MappingContract(props: Props) {
   const { onChainSelect, chainList, selectedChains, onNext, edit } = props
   const [chains, setChains] = useState(selectedChains)
+  const [tokenAddress, setTokenAddress] = useState('')
+  const [mappableAddress, setMappableAddress] = useState('')
+  const [mainChainId, setMainChainId] = useState('')
   const { showModal } = useModal()
 
   useEffect(() => {
@@ -49,15 +52,18 @@ export default function MappingContract(props: Props) {
     },
     [chains]
   )
+  const onTokenAddress = useCallback((e) => setTokenAddress(e.target.value), [])
+  const onMappableAddress = useCallback((e) => setMappableAddress(e.target.value), [])
+  const onMainChainId = useCallback((e) => setMainChainId(e.target.value), [])
 
   const error = useMemo(() => {
-    if (edit) {
+    if (edit && (!tokenAddress || !mappableAddress || !mainChainId)) {
       return MappingError.FILL
     }
     if (chains.length < 2) {
       return MappingError.SELECT
     }
-    if (!((chains[0].deployed === chains[1].deployed) === true)) {
+    if (!((chains[0].deployed === true && chains[1].deployed) === true)) {
       return MappingError.DEPLOY
     }
   }, [chains])
@@ -66,7 +72,14 @@ export default function MappingContract(props: Props) {
     <DeployBody header={'Mapping token contract deployment'} activeStep={1}>
       {edit ? (
         <>
-          <DeployMappingForm />
+          <DeployMappingForm
+            tokenAddress={tokenAddress}
+            mappableAddress={mappableAddress}
+            mainChainId={mainChainId}
+            onTokenAddress={onTokenAddress}
+            onMappableAddress={onMappableAddress}
+            onMainChainId={onMainChainId}
+          />
           <Box m="20px" />
           <Divider extension={40} />
         </>

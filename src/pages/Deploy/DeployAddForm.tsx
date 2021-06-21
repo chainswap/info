@@ -24,6 +24,7 @@ interface Props {
 const Row = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
+  gridColumnGap: '16px',
 })
 
 export default function DeployAddForm(props: Props) {
@@ -46,20 +47,12 @@ export default function DeployAddForm(props: Props) {
     <>
       <Box display="grid" gridGap="24px">
         <Row>
-          <Box width="232px">
-            <Input label="Name" placeholder="Enter token name" value={name} onChange={onName} />
-          </Box>
-          <Box width="232px">
-            <Input label="Symby" placeholder="Symby" value={symby} onChange={onSymby} />
-          </Box>
+          <Input label="Name" placeholder="Enter token name" value={name} onChange={onName} />
+          <Input label="Symby" placeholder="Symby" value={symby} onChange={onSymby} />
         </Row>
         <Row>
-          <Box width="232px">
-            <Input label="Declaims" placeholder="Declaims" value={declaims} onChange={onDeclaims} />
-          </Box>
-          <Box width="232px">
-            <Input label="Total Supply" placeholder="Total Supply" value={totalSupply} onChange={onTotalSupply} />
-          </Box>
+          <Input label="Declaims" placeholder="Declaims" value={declaims} onChange={onDeclaims} />
+          <Input label="Total Supply" placeholder="Total Supply" value={totalSupply} onChange={onTotalSupply} />
         </Row>
         <ChainSelect
           label="Main Chain"

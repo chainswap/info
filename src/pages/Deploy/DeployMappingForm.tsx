@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react'
-import { Box, styled } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import Input from 'components/Input/Input'
 import { Text } from 'rebass'
 import theme from 'theme'

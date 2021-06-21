@@ -70,7 +70,7 @@ export default function AddNewToken(props: Props) {
     setTimeout(() => {
       showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
     }, 500)
-  }, [])
+  }, [deployed, onNext, showModal])
 
   return (
     <DeployBody header="Add New Token" activeStep={0}>

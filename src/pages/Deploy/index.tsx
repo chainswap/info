@@ -43,7 +43,7 @@ export default function Deploy() {
   const toEditMapping = useCallback(() => {
     setState(DEPLOY_STATE.EDIT_MAPPING)
     hideModal()
-  }, [])
+  }, [hideModal])
 
   const onChainSelect = useCallback((e: ChangeEvent<{ value: string[] }>) => {
     const symbols: string[] = e.target.value

@@ -66,7 +66,7 @@ export default function MappingContract(props: Props) {
     if (!((chains[0].deployed === true && chains[1].deployed) === true)) {
       return MappingError.DEPLOY
     }
-  }, [chains])
+  }, [edit, chains, tokenAddress, mappableAddress, mainChainId])
 
   return (
     <DeployBody header={'Mapping token contract deployment'} activeStep={1}>

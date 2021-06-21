@@ -52,7 +52,7 @@ export default function AddToken(props: Props) {
 
   const onDeploy = useCallback(() => {
     showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
-  }, [])
+  }, [onNext, showModal])
 
   const error = useMemo(() => {
     if (!address) {

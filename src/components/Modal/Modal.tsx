@@ -14,11 +14,19 @@ interface Props {
   closeIcon?: boolean
   width?: string
   onReturnClick?: () => void
+  isCardOnMobile?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
+    mobileRoot: {
+      '& .MuiDialog-scrollPaper': {
+        [theme.breakpoints.down('sm')]: {
+          alignItems: 'flex-end',
+        },
+      },
+    },
     paper: {
       width: (props: Props) => props.width || 480,
       background: theme.bgColor.bg1,
@@ -27,9 +35,28 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 20,
       overflowX: 'hidden',
       position: 'absolute',
+      [theme.breakpoints.down('sm')]: {
+        width: 'calc(100% - 32px)!important',
+      },
+    },
+    mobilePaper: {
+      [theme.breakpoints.down('sm')]: {
+        border: 'none',
+        borderTop: '1px solid ' + theme.bgColor.bg4,
+        width: '100%!important',
+        height: `calc(100% - ${theme.height.mobileHeader})`,
+        margin: 0,
+        paddingBottom: '30px',
+        borderRadius: 0,
+      },
     },
     backdrop: {
       backgroundColor: 'rgba(0,0,0,.8)',
+    },
+    mobileBackdrop: {
+      [theme.breakpoints.down('sm')]: {
+        background: 'none',
+      },
     },
     closeIconContainer: {
       padding: 0,
@@ -44,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function Modal(props: Props) {
-  const { children, title, closeIcon, onReturnClick } = props
+  const { children, title, closeIcon, onReturnClick, isCardOnMobile } = props
   const classes = useStyles(props)
   const { isOpen, hideModal } = useModal()
   const node = useRef<any>()
@@ -54,9 +81,9 @@ export default function Modal(props: Props) {
     <>
       <Dialog
         open={isOpen}
-        className={classes.root}
-        PaperProps={{ className: classes.paper, ref: node }}
-        BackdropProps={{ className: classes.backdrop }}
+        className={`${classes.root}${isCardOnMobile ? ' ' + classes.mobileRoot : ''}`}
+        PaperProps={{ className: `${classes.paper}${isCardOnMobile ? ' ' + classes.mobilePaper : ''}`, ref: node }}
+        BackdropProps={{ className: `${classes.backdrop}${isCardOnMobile ? ' ' + classes.mobileBackdrop : ''}` }}
       >
         {(onReturnClick || closeIcon || title) && (
           <Box display="flex" justifyContent="space-between" alignItems="center" padding="20px 30px">

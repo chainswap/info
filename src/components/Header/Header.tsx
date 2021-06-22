@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AppBar, Box, MenuItem, makeStyles } from '@material-ui/core'
-import { styled } from '@material-ui/styles'
+import { X, ChevronUp, Menu } from 'react-feather'
+import { AppBar, Box, MenuItem, makeStyles, styled } from '@material-ui/core'
 import { Text } from 'rebass'
 import StatusIcon from '../../assets/images/status_icon.svg'
 import { ChainList } from '../../data/dummyData'
@@ -25,6 +25,8 @@ import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
 import { ConfirmedTransactionList, PendingTransactionList, NotificationList } from '../../data/dummyData'
 import PlainSelect from '../Select/PlainSelect'
+import { HideOnMobile, ShowOnMobile } from 'theme'
+import Modal from 'components/Modal/Modal'
 
 enum Mode {
   VISITOR,
@@ -79,6 +81,22 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     boxShadow: 'none',
     padding: '0 60px 00 40px',
+    [theme.breakpoints.down('md')]: {
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      top: 'unset',
+      borderTop: '1px solid ' + theme.bgColor.bg4,
+      justifyContent: 'center',
+    },
+  },
+  actionButton: {
+    [theme.breakpoints.down('md')]: {
+      maxWidth: 320,
+      width: '100%',
+      borderRadius: 49,
+      height: 40,
+    },
   },
   mainLogo: {
     '& img': {
@@ -120,6 +138,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const useMobileStyle = makeStyles((theme) => ({
+  root: {
+    position: 'relative',
+    height: theme.height.mobileHeader,
+    backgroundColor: '#131315',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    boxShadow: 'none',
+    padding: '28px 24px',
+  },
+  mainLogo: {
+    '& img': {
+      width: 136,
+      height: 34.7,
+    },
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  navLink: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    fontSize: 24,
+    color: theme.textColor.text1,
+    padding: '13px 24px',
+    width: '100%',
+    textAlign: 'left',
+    '&.active': {
+      color: theme.palette.primary.main,
+    },
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
+}))
+
 const LinksWrapper = styled('div')({
   marginLeft: 60.2,
 })
@@ -156,7 +211,9 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
             {shortenAddress(address)}
           </TextButton>
         </Box>
-        <Copy toCopy={address} />
+        <HideOnMobile>
+          <Copy toCopy={address} />
+        </HideOnMobile>
       </Box>
     </Box>
   )
@@ -188,30 +245,34 @@ export default function Header() {
 
   return (
     <>
+      <MobileHeader />
       <AppBar className={classes.root}>
-        <Box display="flex" alignItems="center">
-          <NavLink id={'chainswap'} to={routes.swap} className={classes.mainLogo}>
-            <Image src={ChainSwap} alt={'chainswap'} />
-          </NavLink>
-          <LinksWrapper>
-            {NavLinks.map((nav) => (
-              <NavLink key={nav.name} id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
-                {nav.name}
-              </NavLink>
-            ))}
-            <PlainSelect placeholder="about">
-              {AboutNavItems.map((item) => (
-                <MenuItem key={item.name}>{item.name}</MenuItem>
+        <HideOnMobile>
+          <Box display="flex" alignItems="center">
+            <NavLink id={'chainswap'} to={routes.swap} className={classes.mainLogo}>
+              <Image src={ChainSwap} alt={'chainswap'} />
+            </NavLink>
+            <LinksWrapper>
+              {NavLinks.map((nav) => (
+                <NavLink key={nav.name} id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
+                  {nav.name}
+                </NavLink>
               ))}
-            </PlainSelect>
-          </LinksWrapper>
-        </Box>
-
+              <PlainSelect placeholder="about">
+                {AboutNavItems.map((item) => (
+                  <MenuItem key={item.name}>{item.name}</MenuItem>
+                ))}
+              </PlainSelect>
+            </LinksWrapper>
+          </Box>
+        </HideOnMobile>
         {mode === Mode.USER ? (
           <Box display="flex">
-            <Box mr={'16px'}>
-              <ClaimButton onClick={() => setShowClaimModal(true)}>Claim list</ClaimButton>
-            </Box>
+            <HideOnMobile>
+              <Box mr={'16px'}>
+                <ClaimButton onClick={() => setShowClaimModal(true)}>Claim list</ClaimButton>
+              </Box>
+            </HideOnMobile>
             <Box mr={'8px'}>
               <Select defaultValue={chain.symbol} value={chain.symbol} size={'small'} onChange={onChangeChain}>
                 {ChainList.map((option) => (
@@ -230,6 +291,7 @@ export default function Header() {
           </Box>
         ) : (
           <Button
+            classname={classes.actionButton}
             fontSize={'14px'}
             width={'140px'}
             height={'32px'}
@@ -248,5 +310,70 @@ export default function Header() {
 
       {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
     </>
+  )
+}
+
+function Accordion({ children, placeholder }: { children: React.ReactNode; placeholder: string }) {
+  const classes = useMobileStyle()
+  const [isOpen, setIsOpen] = useState(false)
+  const handleClick = useCallback(() => {
+    setIsOpen((state) => !state)
+  }, [])
+  return (
+    <>
+      <Box className={classes.navLink} display="flex" alignItems="center" gridGap={12} onClick={handleClick}>
+        {placeholder} <ChevronUp style={isOpen ? {} : { transform: 'rotate(180deg)' }} />
+      </Box>
+      <Box padding="0 15px"> {isOpen && children}</Box>
+    </>
+  )
+}
+
+function MobileHeader() {
+  const classes = useMobileStyle()
+  const { showModal, hideModal, isOpen } = useModal()
+
+  const MobileMenu = useCallback(
+    () => (
+      <Modal isCardOnMobile>
+        <Box display="grid" gridGap="15px">
+          {NavLinks.map((nav) => (
+            <NavLink
+              key={nav.name}
+              id={`${nav.link}-nav-link`}
+              to={nav.link}
+              className={classes.navLink}
+              onClick={hideModal}
+            >
+              {nav.name}
+            </NavLink>
+          ))}
+          <Accordion placeholder="About">
+            {AboutNavItems.map((item) => (
+              <MenuItem key={item.name} onClick={hideModal}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Accordion>
+        </Box>
+      </Modal>
+    ),
+    [classes.navLink, hideModal]
+  )
+  const handleClick = useCallback(() => {
+    showModal(<MobileMenu />)
+  }, [MobileMenu, showModal])
+
+  return (
+    <ShowOnMobile>
+      <AppBar className={classes.root}>
+        <Box display="flex" alignItems="center">
+          <NavLink id={'chainswap'} to={routes.swap} className={classes.mainLogo}>
+            <Image src={ChainSwap} alt={'chainswap'} />
+          </NavLink>
+        </Box>
+        <TextButton onClick={isOpen ? hideModal : handleClick}>{isOpen ? <X /> : <Menu />}</TextButton>
+      </AppBar>
+    </ShowOnMobile>
   )
 }

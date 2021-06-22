@@ -21,13 +21,18 @@ const BodyWrapper = styled('div')(({ theme }) => ({
   width: '100%',
   overflowX: 'hidden',
   overflowY: 'auto',
-  [theme.breakpoints.down('md')]: {
-    justifyContent: 'flex-start',
-    padding: 50,
-  },
   '@media (max-height:800px)': {
     justifyContent: 'flex-start',
     padding: 50,
+  },
+  [theme.breakpoints.down('md')]: {
+    height: `calc(100vh - ${theme.height.header} - ${theme.height.mobileHeader} - 23px)`,
+    justifyContent: 'flex-start',
+    padding: 50,
+  },
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'flex-start',
+    padding: '0 16px',
   },
 }))
 

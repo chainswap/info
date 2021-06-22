@@ -1,6 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
-import { Box } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 import TextButton from 'components/Button/TextButton'
 import { ReactComponent as ArrowLeft } from 'assets/images/arrow_left.svg'
 import { TYPE } from 'theme'
@@ -12,7 +11,7 @@ interface Props {
   title?: string
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     width: (props: { width?: number }) => props.width || 560,
@@ -21,9 +20,12 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     border: '1px solid rgba(255, 255, 255, 0.2)',
     boxSizing: 'border-box',
-    overflow: 'scroll',
+    overflow: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%!important',
+    },
   },
-})
+}))
 
 export default function AppBody({ onReturnClick, title, children, ...props }: Props) {
   const classes = useStyles(props)

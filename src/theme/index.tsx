@@ -1,4 +1,4 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme, Theme, useTheme } from '@material-ui/core'
+import { unstable_createMuiStrictModeTheme as createMuiTheme, Theme, useTheme, styled } from '@material-ui/core'
 import { Text, TextProps } from 'rebass'
 
 interface TextColor {
@@ -24,6 +24,7 @@ interface Gradient {
 
 interface Height {
   header: string
+  mobileHeader: string
 }
 
 interface Gray {
@@ -103,6 +104,7 @@ const theme: Theme = createMuiTheme({
   },
   height: {
     header: '88px',
+    mobileHeader: '77px',
   },
   shape: {
     borderRadius: 10,
@@ -173,3 +175,16 @@ export const TYPE = {
     return <TextWrapper fontWeight={400} fontSize={13} textColor="text1" {...props} />
   },
 }
+
+export const HideOnMobile = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    display: 'none',
+  },
+}))
+
+export const ShowOnMobile = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.down('md')]: {
+    display: 'block',
+  },
+}))

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Modal from '../Modal/Modal'
-import { Box } from '@material-ui/core'
+import { Box, useTheme, useMediaQuery } from '@material-ui/core'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
 import { useSetUser } from '../../state/user/hooks'
@@ -13,6 +13,8 @@ const WALLET_VIEWS = {
 export default function WalletModal({ onDismiss }: { onDismiss: () => void }) {
   const [walletView] = useState(WALLET_VIEWS.OPTIONS)
   const setUser = useSetUser()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
   const getOptions = () => {
     return Object.keys(SUPPORTED_WALLETS).map((key) => {
@@ -40,7 +42,7 @@ export default function WalletModal({ onDismiss }: { onDismiss: () => void }) {
 
   return (
     <Modal closeIcon={walletView === WALLET_VIEWS.OPTIONS} title="Connect to a wallet">
-      <Box width={480} padding="32px" display="flex" flexDirection="column" alignItems="center">
+      <Box width={matches ? '100%' : 480} padding="32px" display="flex" flexDirection="column" alignItems="center">
         <Box display="grid" gridGap="12px">
           {getOptions()}
         </Box>

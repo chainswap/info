@@ -11,6 +11,7 @@ interface Props {
   color?: string
   children?: React.ReactNode
   fontSize?: string
+  classname?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,11 +38,11 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function Button(props: Props) {
-  const { onClick, disabled } = props
+  const { onClick, disabled, classname } = props
   const classes = useStyles(props)
 
   return (
-    <ButtonBase classes={{ ...classes }} onClick={onClick} disabled={disabled}>
+    <ButtonBase classes={{ ...classes }} onClick={onClick} disabled={disabled} className={classname}>
       {props.children}
     </ButtonBase>
   )

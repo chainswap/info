@@ -1,9 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary, makeStyles, Box } from '@material-ui/core'
 import { ChevronDown } from 'react-feather'
-import { TYPE } from '../../theme'
+import Currency from 'models/currency'
+import Chain from 'models/chain'
+import { HideOnMobile, TYPE } from '../../theme'
 import SecondaryButton from '../Button/SecondaryButton'
 import Divider from '../Divider/Divider'
 import { ExternalLink } from '../Link'
+import Image from 'components/Image/Image'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
       height: '100%',
       width: '132px',
       padding: '14px 16px',
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: 104,
+      },
     },
   },
   details: {
@@ -50,8 +56,8 @@ export default function LiquidityAccordion({
   onWithdraw,
   onClaim,
 }: {
-  asset: string
-  chain: number
+  asset: Currency
+  chain: Chain
   data: {
     'Pooled BSC': string
     'Your pool share': string
@@ -68,12 +74,20 @@ export default function LiquidityAccordion({
       <AccordionSummary className={classes.summary}>
         <Box display="flex" justifyContent="space-between" width="100%">
           <Box display="flex" alignItems="center" gridGap="21px">
-            <TYPE.bold className="asset">{asset}</TYPE.bold>
-            <TYPE.bold>{chain}</TYPE.bold>
+            <Box display="flex" alignItems="center" className="asset" gridGap={5}>
+              <Image src={asset.logo}></Image>
+              <TYPE.bold>{asset.symbol}</TYPE.bold>
+            </Box>
+            <Box display="flex" alignItems="center" gridGap={5}>
+              <Image src={chain.logo}></Image>
+              <TYPE.bold>{chain.symbol} Chain</TYPE.bold>
+            </Box>
           </Box>
           <Box display="flex" alignItems="center" padding="0 15px" gridGap="8px">
-            <TYPE.body>Manage</TYPE.body>
-            <ChevronDown className="chevron" />
+            <HideOnMobile>
+              <TYPE.body>Manage</TYPE.body>
+            </HideOnMobile>
+            <ChevronDown className="chevron" width={20} />
           </Box>
         </Box>
       </AccordionSummary>

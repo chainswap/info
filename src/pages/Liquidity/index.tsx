@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core'
+import { Box, useMediaQuery, useTheme } from '@material-ui/core'
 import OutlineButton from 'components/Button/OutlineButton'
 import { ChainList, ETH } from 'data/dummyData'
 import useModal, { useWalletModal } from 'hooks/useModal'
@@ -7,9 +7,9 @@ import { useUserLogined } from 'state/user/hooks'
 import Button from '../../components/Button/Button'
 import TextButton from '../../components/Button/TextButton'
 import Divider from '../../components/Divider/Divider'
-import LiquidityAccordion from '../../components/liquidity/Accordion'
+import LiquidityAccordion from '../../components/liquidity/LiquidityAccordion'
 import Table from '../../components/Table/Table'
-import { TYPE } from '../../theme'
+import { HideOnMobile, TYPE, ShowOnMobile } from '../../theme'
 import AppBody from '../AppBody'
 import AddLiquidity from './AddLiquidity'
 import ArbitrageModal from './ArbitrageModal'
@@ -17,6 +17,8 @@ import DepositLiquidity from './DepositLiquidity'
 import WithdrawLiquidity from './WithdrawLiquidity'
 import Currency from 'models/currency'
 import ClaimLiquidityModal from './ClaimModal'
+import Image from 'components/Image/Image'
+import ArbitrageAccordion from 'components/liquidity/ArbitrageAccordion'
 
 export enum LiquidityState {
   DEFAULT = 'default',
@@ -28,7 +30,7 @@ export enum LiquidityState {
 const dummyData = [
   {
     asset: ETH,
-    chain: 1,
+    chain: ChainList[1],
     data: {
       'Pooled BSC': '0.003 BSC',
       'Your pool share': '1.28%',
@@ -38,7 +40,7 @@ const dummyData = [
   },
   {
     asset: ETH,
-    chain: 1,
+    chain: ChainList[1],
     data: {
       'Pooled BSC': '0.003 BSC',
       'Your pool share': '1.28%',
@@ -50,14 +52,14 @@ const dummyData = [
 
 const dummyTableData = [
   {
-    asset: 'ETH',
+    asset: ETH,
     fromChain: 'ETH',
     toChain: 'BSC',
     size: '100 ETH',
     reward: '1.25X',
   },
   {
-    asset: 'ETH',
+    asset: ETH,
     fromChain: 'ETH',
     toChain: 'BSC',
     size: '100 ETH',
@@ -68,13 +70,19 @@ const dummyTableData = [
 export default function Liquidity() {
   const [state, setState] = useState(LiquidityState.DEFAULT)
   const [currentAsset, setCurrentAsset] = useState<Currency | null>(null)
+
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const { showModal, hideModal } = useModal()
   const { showWalletModal } = useWalletModal()
   const userLogined = useUserLogined()
 
   const tableRows = useMemo(() => {
     return dummyTableData.map(({ asset, fromChain, toChain, size, reward }) => [
-      asset,
+      <>
+        <Image src={asset.logo} />
+        {asset.symbol}
+      </>,
       `From ${fromChain === 'ETH' ? 'Ethereum' : fromChain} to ${toChain === 'ETH' ? 'Ethereum' : toChain}`,
       size,
       reward,
@@ -129,7 +137,7 @@ export default function Liquidity() {
       {state === LiquidityState.WITHDRAW && <WithdrawLiquidity onReturnClick={handleBack} currency={currentAsset} />}
       {state === LiquidityState.DEFAULT && (
         <AppBody width={560}>
-          <Box display="grid" gridGap="20px" padding="20px 40px">
+          <Box display="grid" gridGap="20px" padding={matches ? '20px' : '20px 40px'}>
             <TYPE.largeHeader>Your Liquidity</TYPE.largeHeader>
             <TYPE.medium>
               Liquidity providers earn TOKEN rewards on all bridge swaps proportional to their share of the pool.
@@ -140,10 +148,10 @@ export default function Liquidity() {
             ) : (
               <OutlineButton onClick={showWalletModal}>Connect Wallet</OutlineButton>
             )}
-            <Divider />
+            <Divider extension={matches ? 20 : 40} />
             <Box>
               <Box display="flex" alignItems="center" gridGap="21px" width="100%">
-                <TYPE.gray className="asset" style={{ width: '132px' }} fontWeight={500}>
+                <TYPE.gray className="asset" style={{ width: matches ? '104px' : '132px' }} fontWeight={500}>
                   Asset
                 </TYPE.gray>
                 <TYPE.gray fontWeight={500}>Chain</TYPE.gray>
@@ -152,7 +160,7 @@ export default function Liquidity() {
                 {dummyData.map(({ asset, chain, data }, i) => (
                   <LiquidityAccordion
                     key={i}
-                    asset={asset.symbol}
+                    asset={asset}
                     chain={chain}
                     data={data}
                     onDeposit={handleDeposit(asset)}
@@ -168,10 +176,36 @@ export default function Liquidity() {
                 Import it
               </TextButton>
             </Box>
-            <Divider />
+            <Divider extension={matches ? 20 : 40} />
             <Box display="grid" gridGap="12px">
               <TYPE.mediumHeader>Arbitrage Opportunity</TYPE.mediumHeader>
-              <Table header={['Token', 'Chain', 'Size', 'Reward', '']} rows={tableRows} />
+              <HideOnMobile>
+                <Table header={['Token', 'Chain', 'Size', 'Reward', '']} rows={tableRows} />
+              </HideOnMobile>
+              <ShowOnMobile>
+                {dummyTableData.map(({ asset, fromChain, toChain, size, reward }, idx) => (
+                  <ArbitrageAccordion
+                    key={asset.symbol + idx}
+                    asset={asset}
+                    data={{
+                      Chain: `From ${fromChain === 'ETH' ? 'Ethereum' : fromChain} to ${
+                        toChain === 'ETH' ? 'Ethereum' : toChain
+                      }`,
+                      Size: size,
+                      Reward: reward,
+                    }}
+                    onArbirage={() => {
+                      showModal(
+                        <ArbitrageModal
+                          fromChain={ChainList.find(({ symbol }) => symbol === fromChain)}
+                          toChain={ChainList.find(({ symbol }) => symbol === toChain)}
+                          onDismiss={hideModal}
+                        />
+                      )
+                    }}
+                  />
+                ))}
+              </ShowOnMobile>
             </Box>
           </Box>
         </AppBody>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
-import { Box } from '@material-ui/core'
+import { Box, useTheme } from '@material-ui/core'
 import Image from '../Image/Image'
 import StatusIcon from '../../assets/images/status_icon.svg'
 import { Text } from 'rebass'
@@ -14,6 +14,8 @@ import Transaction from '../../models/transaction'
 import { ReactComponent as PendingIcon } from '../../assets/images/pending_icon.svg'
 import { ReactComponent as TxnSuccessIcon } from '../../assets/images/txn_success_icon.svg'
 import useModal from '../../hooks/useModal'
+import { HideOnMobile } from 'theme'
+import { useMediaQuery } from '@material-ui/core'
 
 interface Props {
   pendingTransactions: Transaction[]
@@ -52,6 +54,8 @@ export default function AccountMoal(props: Props) {
   const name = 'MetaMask'
   const account = '0xKos369cd6vwd94wq1gt4hr87ujv'
   const { hideModal, showModal } = useModal()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down('md'))
 
   function renderTransactions(transactions: Transaction[]) {
     function getStatusIcon(transaction: Transaction) {
@@ -72,7 +76,7 @@ export default function AccountMoal(props: Props) {
   }
 
   return (
-    <Modal closeIcon={false}>
+    <Modal closeIcon={true} isCardOnMobile>
       <Header>Connected with {name}</Header>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mx={'141px'}>
         <Image src={StatusIcon} alt={'status icon'} style={{ width: 28, height: 28 }} />
@@ -88,10 +92,12 @@ export default function AccountMoal(props: Props) {
         </Copy>
       </Box>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mx={'52px'}>
-        <OutlineButton width={'180px'} onClick={hideModal} primary>
-          Close
-        </OutlineButton>
-        <Button width={'180px'} onClick={() => showModal(<WalletModal onDismiss={hideModal} />)}>
+        <HideOnMobile>
+          <OutlineButton width={'180px'} onClick={hideModal} primary>
+            Close
+          </OutlineButton>
+        </HideOnMobile>
+        <Button width={matches ? '100%' : '180px'} onClick={() => showModal(<WalletModal onDismiss={hideModal} />)}>
           Change
         </Button>
       </Box>

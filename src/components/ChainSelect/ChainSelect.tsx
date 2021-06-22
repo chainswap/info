@@ -13,6 +13,7 @@ interface Props {
   onChange?: (e: any) => void
   width?: string
   active?: boolean
+  placeholder?: string
 }
 
 const useStyles = makeStyles({
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
 
 export default function ChainSelect(props: Props) {
   const classes = useStyles(props)
-  const { label, disabled, chainList, onChange, selectedChain, width, active } = props
+  const { label, disabled, chainList, onChange, selectedChain, width, active, placeholder } = props
 
   return (
     <div>
@@ -46,7 +47,7 @@ export default function ChainSelect(props: Props) {
         value={selectedChain?.symbol ?? ''}
         disabled={disabled}
         onChange={onChange}
-        placeholder={'Select Chain'}
+        placeholder={placeholder ?? 'Select Chain'}
         width={width}
         primary={active}
       >

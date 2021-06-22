@@ -4,22 +4,31 @@ import DeployAddForm from './DeployAddForm'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { useMemo } from 'react'
 import { useCallback } from 'react'
+import Chain from 'models/chain'
+import { ChainList, DeployData } from 'data/dummyData'
+import useModal from 'hooks/useModal'
+import AddTokenMessageBox from './AddTokenMessageBox'
 
-export default function AddNewToken() {
-  const [{ deploying }] = useState<{
+interface Props {
+  onNext: () => void
+}
+
+export default function AddNewToken(props: Props) {
+  const { onNext } = props
+  const [{ deploying, deployed }, setDeployStatus] = useState<{
     deploying: boolean
+    deployed: boolean
   }>({
     deploying: false,
+    deployed: false,
   })
-
-  const [{ name, symby, declaims, totalSupply, checked, chainId }, setFormData] = useState<{
-    name: string
-    symby: string
-    declaims: string
-    totalSupply: string
-    checked: boolean
-    chainId: string
-  }>({ name: '', symby: '', declaims: '', totalSupply: '', checked: false, chainId: '' })
+  const [name, setName] = useState('')
+  const [symby, setSymby] = useState('')
+  const [declaims, setDeclaims] = useState('')
+  const [totalSupply, setTotalSupply] = useState('')
+  const [chain, setChain] = useState<Chain | null>(null)
+  const [checked, setChecked] = useState(false)
+  const { showModal } = useModal()
 
   const error = useMemo(() => {
     if (!name) {
@@ -31,22 +40,37 @@ export default function AddNewToken() {
     if (!declaims) {
       return 'Enter Token declaims'
     }
-
     if (!totalSupply) {
       return 'Enter Token Total Supply'
     }
-  }, [name, symby, declaims, totalSupply])
+    if (!chain) {
+      return 'Select Chain'
+    }
+    if (!checked) {
+      return 'Confirm information'
+    }
+  }, [name, symby, declaims, totalSupply, chain, checked])
 
+  const onName = useCallback((e) => setName(e.target.value), [])
+  const onSymby = useCallback((e) => setSymby(e.target.value), [])
+  const onDeclaims = useCallback((e) => setDeclaims(e.target.value), [])
+  const onTotalSupply = useCallback((e) => setTotalSupply(e.target.value), [])
+  const onChainSelect = useCallback((e) => {
+    setChain(ChainList.find((chain) => chain.symbol === e.target.value) ?? null)
+  }, [])
   const onChecked = useCallback(() => {
-    setFormData({
-      name,
-      symby,
-      declaims,
-      totalSupply,
-      checked: !checked,
-      chainId,
+    setChecked(!checked)
+  }, [checked])
+
+  const onDeploy = useCallback(() => {
+    setDeployStatus({
+      deploying: true,
+      deployed,
     })
-  }, [name, symby, declaims, totalSupply, checked, chainId])
+    setTimeout(() => {
+      showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
+    }, 500)
+  }, [deployed, onNext, showModal])
 
   return (
     <DeployBody header="Add New Token" activeStep={0}>
@@ -55,17 +79,17 @@ export default function AddNewToken() {
         symby={symby}
         declaims={declaims}
         totalSupply={totalSupply}
-        chainId={chainId}
+        chain={chain}
         checked={checked}
-        onName={() => {}}
-        onSymby={() => {}}
-        onDeclaims={() => {}}
-        onTotalSupply={() => {}}
-        onChainId={() => {}}
+        onName={onName}
+        onSymby={onSymby}
+        onDeclaims={onDeclaims}
+        onTotalSupply={onTotalSupply}
+        onChain={onChainSelect}
         onChecked={onChecked}
       />
       <ErrorAndActionButton
-        onAction={() => {}}
+        onAction={onDeploy}
         actionText="Deploy"
         pending={deploying}
         pendingText="Deploying"

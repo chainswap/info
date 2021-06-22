@@ -163,3 +163,17 @@ export const NotificationList: Notification[] = [
     status: 'success',
   },
 ]
+
+export const DeployData = {
+  mainchainInfo: {
+    'Token contract address': 'XXXXXXXXXXXXXXX',
+    'Mappable contract address': 'XXXXXXXXXXXXXXX',
+    'Mainchain ID': 'XXX',
+  },
+  tokenInfo: {
+    'Token name': 'ETH',
+    'Token symby': 'XXXXX',
+    'Token decimals': 'XXXXX',
+    'Total supply': 'XXXXX',
+  },
+}

@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'not-allowed',
       backgroundColor: theme.gray.dark,
     },
+    formControl: {
+      width: '100%',
+    },
   })
 )
 
@@ -51,7 +54,7 @@ export default function Input(props: Props) {
   const { focused, placeholder, onChange, value, disabled, type } = props
 
   return (
-    <>
+    <div className={classes.formControl}>
       {props.label && <InputLabel>{props.label}</InputLabel>}
       <InputBase
         fullWidth={true}
@@ -63,6 +66,6 @@ export default function Input(props: Props) {
         disabled={disabled}
         type={type}
       />
-    </>
+    </div>
   )
 }

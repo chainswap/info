@@ -7,11 +7,13 @@ import { TYPE } from '../../theme/index'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { useRef } from 'react'
 import { ReactComponent as ArrowLeft } from 'assets/images/arrow_left.svg'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 interface Props {
   children?: React.ReactNode
   title?: string
   closeIcon?: boolean
+  returnIcon?: boolean
   width?: string
   onReturnClick?: () => void
   isCardOnMobile?: boolean
@@ -71,8 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function Modal(props: Props) {
-  const { children, title, closeIcon, onReturnClick, isCardOnMobile } = props
+  const { children, title, closeIcon, isCardOnMobile, returnIcon, onReturnClick } = props
   const classes = useStyles(props)
+  const { matches } = useBreakpoint()
   const { isOpen, hideModal } = useModal()
   const node = useRef<any>()
   useOnClickOutside(node, hideModal)
@@ -85,17 +88,17 @@ export default function Modal(props: Props) {
         PaperProps={{ className: `${classes.paper}${isCardOnMobile ? ' ' + classes.mobilePaper : ''}`, ref: node }}
         BackdropProps={{ className: `${classes.backdrop}${isCardOnMobile ? ' ' + classes.mobileBackdrop : ''}` }}
       >
-        {(onReturnClick || closeIcon || title) && (
+        {(returnIcon || closeIcon || title || onReturnClick) && (
           <Box display="flex" justifyContent="space-between" alignItems="center" padding="20px 30px">
-            {onReturnClick ? (
-              <IconButton onClick={onReturnClick}>
+            {(returnIcon && !matches) || onReturnClick ? (
+              <IconButton onClick={onReturnClick ?? hideModal}>
                 <ArrowLeft />
               </IconButton>
             ) : (
               <Box width="24px" />
             )}
             {title && <TYPE.mediumHeader textAlign="center">{title}</TYPE.mediumHeader>}
-            {closeIcon ? (
+            {closeIcon || (returnIcon && matches) ? (
               <IconButton className={classes.closeIconContainer} onClick={hideModal}>
                 <CloseIcon className={classes.closeIcon} />
               </IconButton>

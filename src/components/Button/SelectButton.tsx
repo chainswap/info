@@ -34,6 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       display: 'flex',
       justifyContent: 'space-between',
+      [theme.breakpoints.down('sm')]: {
+        position: 'unset',
+        right: 'unset',
+        top: 'unset',
+        width: '100%!important',
+      },
     },
     disabled: {
       // opacity: theme.palette.action.disabledOpacity,

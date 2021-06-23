@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import { styled, Box } from '@material-ui/core'
 import Input from '../Input/Input'
 import OutlineButton from '../Button/OutlineButton'
@@ -6,7 +6,7 @@ import InputLabel from '../InputLabel/InputLabel'
 import SelectButton from '../Button/SelectButton'
 import useModal from '../../hooks/useModal'
 import LogoText from '../LogoText/LogoText'
-import theme, { TYPE } from '../../theme/index'
+import theme, { HideOnMobile, TYPE, ShowOnMobile } from '../../theme/index'
 import SelectCurrencyModal from 'pages/Swap/SelectCurrencyModal'
 import { useCallback } from 'react'
 import useCurrency from '../../hooks/useCurrency'
@@ -47,13 +47,16 @@ const StyledInput = styled(Input)({
   position: 'absolute',
 })
 
-const ButtonWrapper = styled('div')({
+const ButtonWrapper = styled('div')(({ theme }) => ({
   position: 'absolute',
   right: 196,
   height: '100%',
   display: 'flex',
   alignItems: 'center',
-})
+  [theme.breakpoints.down('sm')]: {
+    right: 20,
+  },
+}))
 
 export default function CurrencyInputPanel(props: Props) {
   const { onMax, value, disabled, placeholder, selectActive, inputFocused } = props
@@ -65,35 +68,51 @@ export default function CurrencyInputPanel(props: Props) {
   }, [showModal])
 
   return (
-    <div>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <InputLabel>Amount</InputLabel>
-        {currency && (
-          <TYPE.mediumGray>
-            Balance: {currency.balance} ${currency.symbol}
-          </TYPE.mediumGray>
-        )}
-      </Box>
-      <InputRow>
-        <StyledInput
-          placeholder={placeholder ?? 'Enter amount to swap'}
-          value={value.toString()}
-          onChange={props.onChange}
-          type={'number'}
-          disabled={disabled}
-          focused={inputFocused}
-        />
-        {currency && onMax && (
-          <ButtonWrapper>
-            <OutlineButton width="64px" height="28px" onClick={onMax} color={theme.textColor.text1} borderRadius="20px">
-              Max
-            </OutlineButton>
-          </ButtonWrapper>
-        )}
+    <Box display="grid" gridGap="24px">
+      <ShowOnMobile breakpoint={'sm'}>
+        <InputLabel>Token</InputLabel>
         <SelectButton width={'180px'} onClick={showCurrencySearch} disabled={disabled} primary={selectActive}>
           {currency ? <LogoText logo={currency.logo} text={currency.symbol} /> : <>Select Token</>}
         </SelectButton>
-      </InputRow>
-    </div>
+      </ShowOnMobile>
+      <div>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <InputLabel>Amount</InputLabel>
+          {currency && (
+            <TYPE.mediumGray>
+              Balance: {currency.balance} ${currency.symbol}
+            </TYPE.mediumGray>
+          )}
+        </Box>
+        <InputRow>
+          <StyledInput
+            placeholder={placeholder ?? 'Enter amount to swap'}
+            value={value.toString()}
+            onChange={props.onChange}
+            type={'number'}
+            disabled={disabled}
+            focused={inputFocused}
+          />
+          {currency && onMax && (
+            <ButtonWrapper>
+              <OutlineButton
+                width="64px"
+                height="28px"
+                onClick={onMax}
+                color={theme.textColor.text1}
+                borderRadius="20px"
+              >
+                Max
+              </OutlineButton>
+            </ButtonWrapper>
+          )}
+          <HideOnMobile breakpoint={'sm'}>
+            <SelectButton width={'180px'} onClick={showCurrencySearch} disabled={disabled} primary={selectActive}>
+              {currency ? <LogoText logo={currency.logo} text={currency.symbol} /> : <>Select Token</>}
+            </SelectButton>
+          </HideOnMobile>
+        </InputRow>
+      </div>
+    </Box>
   )
 }

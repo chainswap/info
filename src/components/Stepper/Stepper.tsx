@@ -83,7 +83,7 @@ export default function Stepper(props: Props) {
                       ) : (
                         <div
                           className={clsx(classes.icon, {
-                            [classes.active]: index == activeStep,
+                            [classes.active]: index === activeStep,
                           })}
                         >
                           {label}

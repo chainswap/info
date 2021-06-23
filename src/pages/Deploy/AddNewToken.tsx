@@ -11,10 +11,12 @@ import AddTokenMessageBox from './AddTokenMessageBox'
 
 interface Props {
   onNext: () => void
+  step: number
+  onStep: (step: number) => void
 }
 
 export default function AddNewToken(props: Props) {
-  const { onNext } = props
+  const { onNext, step, onStep } = props
   const [{ deploying, deployed }, setDeployStatus] = useState<{
     deploying: boolean
     deployed: boolean
@@ -28,8 +30,6 @@ export default function AddNewToken(props: Props) {
   const [totalSupply, setTotalSupply] = useState('')
   const [chain, setChain] = useState<Chain | null>(null)
   const [checked, setChecked] = useState(false)
-  const [step, setStep] = useState(0)
-  const [completedSteps, setCompletedStep] = useState({})
   const { showModal } = useModal()
 
   const error = useMemo(() => {
@@ -73,8 +73,6 @@ export default function AddNewToken(props: Props) {
       showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
     }, 500)
   }, [deployed, onNext, showModal])
-
-  const onStep = useCallback((step: number) => setStep(step), [])
 
   return (
     <DeployBody header="Add New Token" activeStep={step} onStep={onStep}>

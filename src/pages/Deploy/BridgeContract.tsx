@@ -6,9 +6,7 @@ import Chain from 'models/chain'
 import Button from 'components/Button/Button'
 import { useCallback } from 'react'
 import useModal from 'hooks/useModal'
-import SimpleMessageBox from 'components/MessageBox/SimpleMessageBox'
-import { TYPE } from 'theme/index'
-import TextButton from 'components/Button/TextButton'
+import DeployMessage from './DeployMessage'
 
 interface Props {
   chains: Chain[]
@@ -17,6 +15,7 @@ interface Props {
     'Mappable contract address': string
     'Mainchain ID': string
   }
+  edit?: boolean
 }
 
 export default function Bridge(props: Props) {
@@ -24,16 +23,7 @@ export default function Bridge(props: Props) {
   const { showModal } = useModal()
 
   const onDeploy = useCallback(() => {
-    showModal(
-      <SimpleMessageBox type="success" header="Congratulations!">
-        <TYPE.body textAlign="center" marginTop="12px">
-          You token is now on Chainswap and the cross functionality is enabled
-        </TYPE.body>
-        <Box margin="24px auto 32px">
-          <TextButton underline>View on Etherscan</TextButton>
-        </Box>
-      </SimpleMessageBox>
-    )
+    showModal(<DeployMessage />)
   }, [showModal])
 
   return (

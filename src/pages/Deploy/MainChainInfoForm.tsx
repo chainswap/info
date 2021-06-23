@@ -13,7 +13,7 @@ interface Props {
   onMainChainId: (e: SyntheticEvent) => void
 }
 
-export default function DeployMappingForm(props: Props) {
+export default function MainChainInfoForm(props: Props) {
   const { tokenAddress, mappableAddress, mainChainId, onTokenAddress, onMappableAddress, onMainChainId } = props
   return (
     <>

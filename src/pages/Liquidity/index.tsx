@@ -73,7 +73,7 @@ export default function Liquidity() {
   const [currentAsset, setCurrentAsset] = useState<Currency | null>(null)
 
   const { matches } = useBreakpoint()
-  const { showModal, hideModal } = useModal()
+  const { showModal } = useModal()
   const { showWalletModal } = useWalletModal()
   const userLogined = useUserLogined()
 

@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import { X } from 'react-feather'
 import { Box, styled, useTheme } from '@material-ui/core'
 import Button from 'components/Button/Button'
 import OutlineButton from 'components/Button/OutlineButton'

@@ -28,6 +28,8 @@ export default function AddNewToken(props: Props) {
   const [totalSupply, setTotalSupply] = useState('')
   const [chain, setChain] = useState<Chain | null>(null)
   const [checked, setChecked] = useState(false)
+  const [step, setStep] = useState(0)
+  const [completedSteps, setCompletedStep] = useState({})
   const { showModal } = useModal()
 
   const error = useMemo(() => {
@@ -72,8 +74,10 @@ export default function AddNewToken(props: Props) {
     }, 500)
   }, [deployed, onNext, showModal])
 
+  const onStep = useCallback((step: number) => setStep(step), [])
+
   return (
-    <DeployBody header="Add New Token" activeStep={0}>
+    <DeployBody header="Add New Token" activeStep={step} onStep={onStep}>
       <DeployAddForm
         name={name}
         symby={symby}

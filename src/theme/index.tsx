@@ -176,15 +176,15 @@ export const TYPE = {
   },
 }
 
-export const HideOnMobile = styled('div')(({ theme }) => ({
-  [theme.breakpoints.down('md')]: {
+export const HideOnMobile = styled('div')(({ theme, breakpoint }: { theme: Theme; breakpoint?: 'sm' | 'md' }) => ({
+  [theme.breakpoints.down(breakpoint ?? 'md')]: {
     display: 'none',
   },
 }))
 
-export const ShowOnMobile = styled('div')(({ theme }) => ({
+export const ShowOnMobile = styled('div')(({ theme, breakpoint }: { theme: Theme; breakpoint?: 'sm' | 'md' }) => ({
   display: 'none',
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down(breakpoint ?? 'md')]: {
     display: 'block',
   },
 }))

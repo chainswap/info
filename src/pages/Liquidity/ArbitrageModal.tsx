@@ -22,28 +22,19 @@ const Card = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }))
 
-export default function ArbitrageModal({
-  fromChain,
-  toChain,
-  onDismiss,
-}: {
-  fromChain?: Chain
-  toChain?: Chain
-  onDismiss: () => void
-}) {
+export default function ArbitrageModal({ fromChain, toChain }: { fromChain?: Chain; toChain?: Chain }) {
   const [amount, setAmount] = useState('')
   const theme = useTheme()
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value), [])
   return (
-    <Modal width="520px">
+    <Modal width="520px" title="Arbitrage Opportunity" closeIcon>
       <AppBody width={520}>
         <Box padding="20px 40px" display="grid" gridGap="24px">
-          <Box display="flex" justifyContent="space-between">
+          {/* <Box display="flex" justifyContent="space-between">
             <div />
             <TYPE.largeHeader>Arbitrage Opportunity</TYPE.largeHeader>
-            <X onClick={onDismiss} />
-          </Box>
+          </Box> */}
           <Box>
             {fromChain && toChain && (
               <Box display="flex" alignItems="center" justifyContent="space-between">

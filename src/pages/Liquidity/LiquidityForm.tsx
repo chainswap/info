@@ -11,6 +11,7 @@ import Chain from 'models/chain'
 import { LiquidityState } from '.'
 import { OutlinedCard } from 'components/Card'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 interface Props {
   liquidityState: LiquidityState
@@ -45,6 +46,7 @@ export default function LiquidityForm({
   onAction,
   cardData,
 }: Props) {
+  const { matches } = useBreakpoint()
   const userLogined = useUserLogined()
 
   const error = useMemo(() => {
@@ -61,7 +63,7 @@ export default function LiquidityForm({
 
   return (
     <AppBody onReturnClick={onReturnClick} title={liquidityState === LiquidityState.ADD ? 'Add Liquidity' : 'Deposit'}>
-      <Box padding="0 40px 40px" display="grid" gridGap="24px">
+      <Box padding={matches ? '0 20px 40px' : '0 40px 40px'} display="grid" gridGap="24px">
         <CurrencyInputPanel
           onChange={onAmount}
           value={amount}

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import Modal from '../Modal/Modal'
-import { Box, useTheme, useMediaQuery } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { SUPPORTED_WALLETS } from '../../constants'
 import Option from './Option'
 import { useSetUser } from '../../state/user/hooks'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 const WALLET_VIEWS = {
   OPTIONS: 'options',
@@ -13,8 +14,7 @@ const WALLET_VIEWS = {
 export default function WalletModal({ onDismiss }: { onDismiss: () => void }) {
   const [walletView] = useState(WALLET_VIEWS.OPTIONS)
   const setUser = useSetUser()
-  const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('sm'))
+  const { matches } = useBreakpoint()
 
   const getOptions = () => {
     return Object.keys(SUPPORTED_WALLETS).map((key) => {

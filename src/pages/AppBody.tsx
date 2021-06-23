@@ -1,8 +1,10 @@
 import React from 'react'
+import { X } from 'react-feather'
 import { Box, makeStyles } from '@material-ui/core'
 import TextButton from 'components/Button/TextButton'
 import { ReactComponent as ArrowLeft } from 'assets/images/arrow_left.svg'
 import { TYPE } from 'theme'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 interface Props {
   children: React.ReactNode
@@ -25,21 +27,37 @@ const useStyles = makeStyles((theme) => ({
       width: '100%!important',
     },
   },
+  box: {
+    padding: '20px 40px',
+    [theme.breakpoints.down('sm')]: {
+      padding: 20,
+    },
+  },
 }))
 
 export default function AppBody({ onReturnClick, title, children, ...props }: Props) {
   const classes = useStyles(props)
+  const { matches } = useBreakpoint()
 
   return (
     <div className={classes.root}>
       {(onReturnClick || title) && (
-        <Box display="flex" justifyContent="space-between" padding="20px 40px">
-          <TextButton onClick={onReturnClick}>
-            <ArrowLeft />
-          </TextButton>
+        <Box display="flex" justifyContent="space-between" className={classes.box}>
+          {onReturnClick && !matches && (
+            <TextButton onClick={onReturnClick}>
+              <ArrowLeft />
+            </TextButton>
+          )}
 
-          {title && <TYPE.largeHeader>{title}</TYPE.largeHeader>}
-          <div />
+          {title && <TYPE.mediumHeader>{title}</TYPE.mediumHeader>}
+
+          {onReturnClick && matches ? (
+            <TextButton onClick={onReturnClick}>
+              <X />
+            </TextButton>
+          ) : (
+            <div />
+          )}
         </Box>
       )}
       {children}

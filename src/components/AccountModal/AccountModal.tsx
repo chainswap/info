@@ -1,4 +1,3 @@
-import React from 'react'
 import { styled } from '@material-ui/styles'
 import { Box, useTheme } from '@material-ui/core'
 import Image from '../Image/Image'

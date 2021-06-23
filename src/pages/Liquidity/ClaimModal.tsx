@@ -6,16 +6,10 @@ import Modal from 'components/Modal/Modal'
 import { TYPE } from 'theme'
 import Image from 'components/Image/Image'
 
-export default function ClaimLiquidityModal({
-  onReturnClick,
-  currency,
-}: {
-  onReturnClick: () => void
-  currency: Currency
-}) {
+export default function ClaimLiquidityModal({ currency }: { currency: Currency }) {
   const handleClaim = useCallback(() => {}, [])
   return (
-    <Modal onReturnClick={onReturnClick} title="Claim Reward" width="440px">
+    <Modal returnIcon title="Claim Reward" width="440px">
       <Box padding="12px 40px 40px" display="grid" gridGap="20px">
         <TYPE.bold fontSize={40} style={{ textAlign: 'center', marginBottom: -10 }}>
           0.000141

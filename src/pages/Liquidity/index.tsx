@@ -1,4 +1,4 @@
-import { Box, useMediaQuery, useTheme } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import OutlineButton from 'components/Button/OutlineButton'
 import { ChainList, ETH } from 'data/dummyData'
 import useModal, { useWalletModal } from 'hooks/useModal'
@@ -19,6 +19,7 @@ import Currency from 'models/currency'
 import ClaimLiquidityModal from './ClaimModal'
 import Image from 'components/Image/Image'
 import ArbitrageAccordion from 'components/liquidity/ArbitrageAccordion'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 export enum LiquidityState {
   DEFAULT = 'default',
@@ -68,11 +69,10 @@ const dummyTableData = [
 ]
 
 export default function Liquidity() {
-  const [state, setState] = useState(LiquidityState.DEFAULT)
+  const [state, setState] = useState(LiquidityState.WITHDRAW)
   const [currentAsset, setCurrentAsset] = useState<Currency | null>(null)
 
-  const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('sm'))
+  const { matches } = useBreakpoint()
   const { showModal, hideModal } = useModal()
   const { showWalletModal } = useWalletModal()
   const userLogined = useUserLogined()
@@ -95,7 +95,6 @@ export default function Liquidity() {
             <ArbitrageModal
               fromChain={ChainList.find(({ symbol }) => symbol === fromChain)}
               toChain={ChainList.find(({ symbol }) => symbol === toChain)}
-              onDismiss={hideModal}
             />
           )
         }
@@ -103,7 +102,7 @@ export default function Liquidity() {
         Arbirage
       </TextButton>,
     ])
-  }, [hideModal, showModal])
+  }, [showModal])
 
   const handleBack = useCallback(() => {
     setState(LiquidityState.DEFAULT)
@@ -111,8 +110,8 @@ export default function Liquidity() {
   }, [])
 
   const handleClaim = useCallback(
-    (currency) => () => showModal(<ClaimLiquidityModal onReturnClick={hideModal} currency={currency} />),
-    [hideModal, showModal]
+    (currency) => () => showModal(<ClaimLiquidityModal currency={currency} />),
+    [showModal]
   )
   const handleAdd = useCallback(() => setState(LiquidityState.ADD), [])
   const handleDeposit = useCallback(
@@ -199,7 +198,6 @@ export default function Liquidity() {
                         <ArbitrageModal
                           fromChain={ChainList.find(({ symbol }) => symbol === fromChain)}
                           toChain={ChainList.find(({ symbol }) => symbol === toChain)}
-                          onDismiss={hideModal}
                         />
                       )
                     }}

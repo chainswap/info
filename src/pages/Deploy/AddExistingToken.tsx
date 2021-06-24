@@ -101,6 +101,7 @@ export default function AddToken(props: Props) {
           pending={deploying}
           pendingText={'Loading'}
           actionText={'Deploy'}
+          disableAction={!confirmed}
         />
       </DeployBody>
     </>

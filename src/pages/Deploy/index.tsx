@@ -20,12 +20,6 @@ enum DEPLOY_STATE {
   EDIT_BRIDGE = 'edit bridging',
 }
 
-export type DeployStatusType = {
-  confirmed: boolean
-  deploying: boolean
-  deployed: boolean
-}
-
 type DeployStatus = {
   deploying?: boolean
   deployed?: boolean

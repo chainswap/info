@@ -16,7 +16,7 @@ export default function DeployBody(props: Props) {
 
   return (
     <Box padding={'24px 32px 32px 32px'}>
-      <Box display={'flex'} justifyContent={'space-between'} marginBottom="24px">
+      <Box display="flex" alignItems="flex-start" justifyContent="space-between" marginBottom="24px">
         <TYPE.mediumHeader>{header}</TYPE.mediumHeader>
         <DeployStepper nonLinear={nonLinear} activeStep={activeStep} onStep={onStep} />
       </Box>

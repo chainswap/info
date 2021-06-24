@@ -72,11 +72,11 @@ export default function AddToken(props: Props) {
     setTimeout(() => {
       showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onMessage} />)
     }, 500)
-  }, [onStep, showModal])
+  }, [showModal, confirmed, onMessage])
 
   const header = useMemo(() => {
     return mode === DEPLOY_MODE.EXISTING ? 'Add an Existing Token' : 'Add New Token'
-  }, [])
+  }, [mode])
 
   const errorNew = useMemo(() => {
     if (!name) {
@@ -105,7 +105,7 @@ export default function AddToken(props: Props) {
         return AddTokenError.ENTER_CHAIN_ID
       }
     }
-  }, [address, chainId])
+  }, [address, chainId, mode])
 
   const onName = useCallback((e) => setName(e.target.value), [])
   const onSymby = useCallback((e) => setSymby(e.target.value), [])

@@ -26,32 +26,33 @@ export default function AddToken(props: Props) {
   const [{ confirmed, deploying }, setDeployStatus] = useState<{
     confirmed: boolean
     deploying: boolean
-    deployed: boolean
   }>({
     confirmed: false,
     deploying: false,
-    deployed: false,
   })
   const { showModal } = useModal()
 
   const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value)
   }, [])
-
   const onChangeChainId = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setChainId(e.target.value)
   }, [])
-
   const toggleConfirm = useCallback(() => {
     setDeployStatus({
       confirmed: !confirmed,
       deploying: false,
-      deployed: false,
     })
   }, [confirmed])
 
   const onDeploy = useCallback(() => {
-    showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
+    setDeployStatus({
+      confirmed,
+      deploying: true,
+    })
+    setTimeout(() => {
+      showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
+    }, 500)
   }, [onNext, showModal])
 
   const error = useMemo(() => {

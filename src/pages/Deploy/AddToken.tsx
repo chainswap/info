@@ -80,19 +80,19 @@ export default function AddToken(props: Props) {
 
   const errorNew = useMemo(() => {
     if (!name) {
-      return 'Enter Token Name'
+      return AddTokenError.ENTER_NAME
     }
     if (!symby) {
-      return 'Enter Token Symby'
+      return AddTokenError.ENTER_SYMBY
     }
     if (!declaims) {
-      return 'Enter Token declaims'
+      return AddTokenError.ENTER_DECLAIMS
     }
     if (!totalSupply) {
-      return 'Enter Token Total Supply'
+      return AddTokenError.ENTER_SUPPLY
     }
     if (!chain) {
-      return 'Select Chain'
+      return AddTokenError.SELECT_CHAIN
     }
   }, [name, symby, declaims, totalSupply, chain])
 

@@ -1,13 +1,12 @@
 import React, { useState, ChangeEvent, useCallback } from 'react'
+import { Box, styled } from '@material-ui/core'
 import AppBody from '../AppBody'
-import DeployOptions from './DeployOptions'
 import AddToken from './AddToken'
 import MappingContract from './MappingContract'
 import BridgeContract from './BridgeContract'
-import EditBridgeContract from './EditBridgeContract'
-import useModal from 'hooks/useModal'
 import Chain from 'models/chain'
-import { ChainList, DeployData } from 'data/dummyData'
+import { ChainList } from 'data/dummyData'
+import { TYPE } from 'theme/index'
 
 export enum DEPLOY_MODE {
   EXISTING = 'Existing',
@@ -27,21 +26,18 @@ type DeployStatus = {
 
 export type ChainState = Chain & DeployStatus
 
+const OptionCard = styled('div')({
+  width: 480,
+  padding: '16px 20px',
+  backgroundColor: '#211735',
+  borderRadius: 10,
+  cursor: 'pointer',
+})
+
 export default function Deploy() {
   const [mode, setMode] = useState<DEPLOY_MODE>()
   const [step, setStep] = useState(DEPLOY_STEP.ADD_TOKEN)
   const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
-  const { hideModal } = useModal()
-
-  const toMapping = useCallback(() => {
-    setStep(DEPLOY_STEP.ADD_TOKEN)
-    hideModal()
-  }, [setStep, hideModal])
-  const toEditMapping = useCallback(() => {
-    setMode(DEPLOY_MODE.NEW)
-    setStep(DEPLOY_STEP.ADD_TOKEN)
-    hideModal()
-  }, [hideModal])
 
   const onChainSelect = useCallback((e: ChangeEvent<{ value: string[] }>) => {
     const symbols: string[] = e.target.value
@@ -56,43 +52,53 @@ export default function Deploy() {
     setSelectedChains(selectedItems)
   }, [])
 
-  const toBridge = useCallback(() => {
-    hideModal()
-    setStep(DEPLOY_STEP.BRIDGE_CONTRACT)
-  }, [hideModal])
-  const toEditBridge = useCallback(() => {
-    setMode(DEPLOY_MODE.EXISTING)
-    setStep(DEPLOY_STEP.BRIDGE_CONTRACT)
-  }, [])
-
   const onStep = useCallback((step: DEPLOY_STEP) => setStep(step), [])
+  const onMode = useCallback((mode: DEPLOY_MODE) => setMode(mode), [])
 
   if (!mode) {
     return (
       <AppBody>
-        <DeployOptions
-          onExistingToken={() => setMode(DEPLOY_MODE.EXISTING)}
-          onNewToken={() => setMode(DEPLOY_MODE.NEW)}
-        />
+        <Box padding={'20px 40px 35px'}>
+          <TYPE.mediumHeader marginBottom="32px">Please select the following options for deployment</TYPE.mediumHeader>
+          <Box display="grid" gridGap="16px">
+            {[
+              {
+                title: 'Existing Token',
+                brief: 'You already deployed a token on Ethereum or EMV supportive chains',
+                onClick: () => setMode(DEPLOY_MODE.EXISTING),
+              },
+              {
+                title: 'New Token',
+                brief: "You haven't deployed any token contract yet",
+                onClick: () => setMode(DEPLOY_MODE.NEW),
+              },
+            ].map(({ title, brief, onClick }) => (
+              <OptionCard key={title} onClick={onClick}>
+                <TYPE.primary marginBottom="6px">{title}</TYPE.primary>
+                <TYPE.medium>{brief}</TYPE.medium>
+              </OptionCard>
+            ))}
+          </Box>
+        </Box>
       </AppBody>
     )
   }
 
   return (
     <AppBody>
-      {step === DEPLOY_STEP.ADD_TOKEN && <AddToken mode={mode} onNext={() => {}} onStep={onStep} />}
-      {/* {step === DEPLOY_STEP.MAPPING_CONTRACT && (
+      {step === DEPLOY_STEP.ADD_TOKEN && <AddToken mode={mode} onStep={onStep} />}
+      {step === DEPLOY_STEP.MAPPING_CONTRACT && (
         <MappingContract
-          chainList={ChainList}
+          mode={mode}
+          onStep={onStep}
+          onMode={onMode}
           onChainSelect={onChainSelect}
           selectedChains={selectedChains}
-          onNext={toBridge}
-          onEdit={toEditMapping}
         />
-      )} */}
-      {/* {step === DEPLOY_STEP.BRIDGE_CONTRACT && (
-        <BridgeContract data={DeployData.mainchainInfo} chains={selectedChains} onEdit={toEditBridge} />
-      )} */}
+      )}
+      {step === DEPLOY_STEP.BRIDGE_CONTRACT && (
+        <BridgeContract mode={mode} onMode={onMode} onStep={onStep} chains={selectedChains} />
+      )}
     </AppBody>
   )
 }

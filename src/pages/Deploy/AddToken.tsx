@@ -24,13 +24,12 @@ enum AddTokenError {
 }
 
 interface Props {
-  onNext: () => void
   mode?: DEPLOY_MODE
-  onStep?: (step: DEPLOY_STEP) => void
+  onStep: (step: DEPLOY_STEP) => void
 }
 
 export default function AddToken(props: Props) {
-  const { onNext, mode, onStep } = props
+  const { mode, onStep } = props
   const [address, setAddress] = useState('')
   const [chainId, setChainId] = useState('')
   const [{ confirmed, deploying }, setDeployStatus] = useState<{
@@ -45,7 +44,7 @@ export default function AddToken(props: Props) {
   const [declaims, setDeclaims] = useState('')
   const [totalSupply, setTotalSupply] = useState('')
   const [chain, setChain] = useState<Chain | null>(null)
-  const { showModal } = useModal()
+  const { showModal, hideModal } = useModal()
 
   const onChangeAddress = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value)
@@ -60,21 +59,26 @@ export default function AddToken(props: Props) {
     })
   }, [confirmed])
 
+  const onMessage = useCallback(() => {
+    onStep(DEPLOY_STEP.MAPPING_CONTRACT)
+    hideModal()
+  }, [onStep, hideModal])
+
   const onDeploy = useCallback(() => {
     setDeployStatus({
       confirmed,
       deploying: true,
     })
     setTimeout(() => {
-      showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onNext} />)
+      showModal(<AddTokenMessageBox data={DeployData.mainchainInfo} action={onMessage} />)
     }, 500)
-  }, [onNext, showModal])
+  }, [onStep, showModal])
 
   const header = useMemo(() => {
     return mode === DEPLOY_MODE.EXISTING ? 'Add an Existing Token' : 'Add New Token'
   }, [])
 
-  const NewError = useMemo(() => {
+  const errorNew = useMemo(() => {
     if (!name) {
       return 'Enter Token Name'
     }
@@ -92,7 +96,7 @@ export default function AddToken(props: Props) {
     }
   }, [name, symby, declaims, totalSupply, chain])
 
-  const ExistingError = useMemo(() => {
+  const errorExisting = useMemo(() => {
     if (mode === DEPLOY_MODE.EXISTING) {
       if (!address) {
         return AddTokenError.ENTER_ADDRESS
@@ -171,7 +175,7 @@ export default function AddToken(props: Props) {
         )}
 
         <ErrorAndActionButton
-          error={mode === DEPLOY_MODE.EXISTING ? ExistingError : NewError}
+          error={mode === DEPLOY_MODE.EXISTING ? errorExisting : errorNew}
           onAction={onDeploy}
           pending={deploying}
           pendingText={'Loading'}

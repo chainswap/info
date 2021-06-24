@@ -11,10 +11,12 @@ import AddTokenMessageBox from './AddTokenMessageBox'
 
 interface Props {
   onNext: () => void
+  step: number
+  onStep: (step: number) => void
 }
 
 export default function AddNewToken(props: Props) {
-  const { onNext } = props
+  const { onNext, step, onStep } = props
   const [{ deploying, deployed }, setDeployStatus] = useState<{
     deploying: boolean
     deployed: boolean
@@ -73,7 +75,7 @@ export default function AddNewToken(props: Props) {
   }, [deployed, onNext, showModal])
 
   return (
-    <DeployBody header="Add New Token" activeStep={0}>
+    <DeployBody header="Add New Token" activeStep={step} onStep={onStep}>
       <DeployAddForm
         name={name}
         symby={symby}

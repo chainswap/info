@@ -10,7 +10,7 @@ import useModal from 'hooks/useModal'
 import MappingMessageBox from './MappingMessageBox'
 import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { DeployData } from 'data/dummyData'
-import DeployMappingForm from './DeployMappingForm'
+import MainChainInfoForm from './MainChainInfoForm'
 import Divider from 'components/Divider/Divider'
 
 enum MappingError {
@@ -25,10 +25,11 @@ interface Props {
   onChainSelect: (e: ChangeEvent<{ value: string[] }>) => void
   onNext: () => void
   edit?: boolean
+  onStep?: (step: number) => void
 }
 
 export default function MappingContract(props: Props) {
-  const { onChainSelect, chainList, selectedChains, onNext, edit } = props
+  const { onChainSelect, chainList, selectedChains, onNext, edit, onStep } = props
   const [chains, setChains] = useState(selectedChains)
   const [tokenAddress, setTokenAddress] = useState('')
   const [mappableAddress, setMappableAddress] = useState('')
@@ -69,10 +70,10 @@ export default function MappingContract(props: Props) {
   }, [edit, chains, tokenAddress, mappableAddress, mainChainId])
 
   return (
-    <DeployBody header={'Mapping token contract deployment'} activeStep={1}>
+    <DeployBody header={'Mapping token contract deployment'} activeStep={1} onStep={onStep}>
       {edit ? (
         <>
-          <DeployMappingForm
+          <MainChainInfoForm
             tokenAddress={tokenAddress}
             mappableAddress={mappableAddress}
             mainChainId={mainChainId}

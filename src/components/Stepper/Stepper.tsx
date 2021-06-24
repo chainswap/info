@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import MuiStepper from '@material-ui/core/Stepper'
+import MuiStepButton from '@material-ui/core/StepButton'
+import MuiStepLabel from '@material-ui/core/StepLabel'
 import MuiStep from '@material-ui/core/Step'
 import { makeStyles } from '@material-ui/styles'
-import { StepIconProps } from '@material-ui/core/StepIcon'
 import clsx from 'clsx'
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
   steps: number[]
   completedIcon: React.ReactNode
   connector: ReactElement
+  onStep?: (step: number) => void
 }
 
 const useStyles = makeStyles({
@@ -17,65 +19,81 @@ const useStyles = makeStyles({
     background: 'transparent',
     padding: 0,
   },
-})
-
-const useStepIconStyles = makeStyles({
-  root: {
-    color: '#eaeaf0',
-    display: 'flex',
+  icon: {
+    borderRadius: '50%',
+    border: '1px solid #FFFFFF',
+    opacity: 0.4,
+    width: 22,
     height: 22,
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   active: {
-    '& $circle': {
-      opacity: 1,
-    },
-  },
-  circle: {
-    width: 24,
-    height: 24,
-    borderRadius: '50%',
-    backgroundColor: 'transparent',
-    border: '1px solid #FFFFFF',
-    color: '#FFFFFF',
-    textAlign: 'center',
-    opacity: 0.4,
+    opacity: 1,
   },
   completed: {
-    color: '#24FF00',
-    width: 24,
-    height: 24,
-    borderRadius: '50%',
-    border: '1px solid #24FF00',
-    textAlign: 'center',
+    color: 'transparent !important',
+  },
+  text: {
+    color: 'white !important',
+  },
+  button: {
+    '&.Mui-disabled': {
+      cursor: 'pointer',
+      pointerEvents: 'auto',
+    },
+  },
+  label: {
+    '&.Mui-disabled': {
+      cursor: 'pointer',
+      pointerEvents: 'auto',
+      userSelect: 'all',
+    },
   },
 })
 
-function StepIcon(props: StepIconProps & { completedIcon: React.ReactNode }) {
-  const classes = useStepIconStyles()
-  const { completed, active, icon, completedIcon } = props
-
-  return (
-    <div
-      className={clsx(classes.root, {
-        [classes.active]: active,
-      })}
-    >
-      {completed ? completedIcon : <div className={classes.circle}>{icon}</div>}
-    </div>
-  )
-}
-
 export default function Stepper(props: Props) {
-  const { activeStep, steps, completedIcon, connector } = props
+  const { activeStep, steps, completedIcon, connector, onStep } = props
   const classes = useStyles(props)
 
+  const onClick = useCallback((e) => onStep && onStep(parseInt(e.currentTarget.value)), [onStep])
+
   return (
-    <MuiStepper className={classes.root} activeStep={activeStep} connector={connector}>
-      {steps.map((step) => {
+    <MuiStepper nonLinear classes={{ root: classes.root }} activeStep={activeStep} connector={connector}>
+      {steps.map((label, index) => {
         return (
-          <MuiStep key={step}>
-            <StepIcon icon={step} completedIcon={completedIcon} />
+          <MuiStep key={label}>
+            <MuiStepButton className={classes.button} onClick={onClick} value={index}>
+              <MuiStepLabel
+                disabled
+                className={classes.label}
+                StepIconProps={{
+                  classes: {
+                    root: classes.icon,
+                    active: classes.active,
+                    completed: classes.completed,
+                    text: classes.text,
+                  },
+                  completed: index < activeStep,
+                  icon: (
+                    <>
+                      {index < activeStep ? (
+                        completedIcon
+                      ) : (
+                        <div
+                          className={clsx(classes.icon, {
+                            [classes.active]: index === activeStep,
+                          })}
+                        >
+                          {label}
+                        </div>
+                      )}
+                    </>
+                  ),
+                }}
+              />
+            </MuiStepButton>
           </MuiStep>
         )
       })}

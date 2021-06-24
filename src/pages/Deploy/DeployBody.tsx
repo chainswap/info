@@ -7,16 +7,17 @@ interface Props {
   header: string
   activeStep: number
   children: React.ReactNode
+  onStep?: (step: number) => void
 }
 
 export default function DeployBody(props: Props) {
-  const { activeStep, header, children } = props
+  const { activeStep, header, children, onStep } = props
 
   return (
     <Box padding={'24px 32px 32px 32px'}>
       <Box display={'flex'} justifyContent={'space-between'} marginBottom="24px">
         <TYPE.mediumHeader>{header}</TYPE.mediumHeader>
-        <DeployStepper activeStep={activeStep} />
+        <DeployStepper activeStep={activeStep} onStep={onStep} />
       </Box>
       {children}
     </Box>

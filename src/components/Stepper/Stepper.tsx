@@ -44,20 +44,11 @@ const useStyles = makeStyles({
       padding: 0,
     },
   },
-  // label: {
-  //   '&.Mui-disabled': {
-  //     cursor: 'pointer',
-  //     pointerEvents: 'auto',
-  //     userSelect: 'all',
-  //   },
-  // },
-  iconContainer: {},
 })
 
 export default function Stepper(props: Props) {
   const { activeStep, steps, completedIcon, connector, onStep, nonLinear } = props
   const classes = useStyles(props)
-
   const onClick = useCallback((e) => onStep && onStep(parseInt(e.currentTarget.value)), [onStep])
 
   return (

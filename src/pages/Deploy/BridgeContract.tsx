@@ -16,10 +16,11 @@ interface Props {
     'Mainchain ID': string
   }
   edit?: boolean
+  onEdit: () => void
 }
 
 export default function Bridge(props: Props) {
-  const { chains, data } = props
+  const { chains, data, onEdit } = props
   const { showModal } = useModal()
 
   const onDeploy = useCallback(() => {
@@ -29,7 +30,7 @@ export default function Bridge(props: Props) {
   return (
     <DeployBody header="Bridge Factory Contract" activeStep={2}>
       <Box display={'grid'} gridGap={16} width="100%">
-        <InfoCard data={data} header="Mainchain Info" editable />
+        <InfoCard data={data} header="Mainchain Info" editable onEdit={onEdit} />
         {chains.map((chain) => (
           <InfoCard
             key={chain.symbol}
@@ -41,6 +42,7 @@ export default function Bridge(props: Props) {
             }}
             copyable
             editable
+            onEdit={onEdit}
           />
         ))}
         <Button onClick={onDeploy}>Deploy</Button>

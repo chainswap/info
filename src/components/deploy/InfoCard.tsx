@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function InfoCard(props: Props) {
-  const { data, confirmed, toggleConfirm, confirmText, header, editable, logo, copyable } = props
+  const { data, confirmed, toggleConfirm, confirmText, header, editable, logo, copyable, onEdit } = props
 
   const getHeader = useCallback(() => {
     if (logo && header) {
@@ -40,7 +40,7 @@ export default function InfoCard(props: Props) {
           <Box display="flex" justifyContent="space-between" alignItems="center" padding="12px 24px 0 24px">
             {getHeader()}
             {editable && (
-              <TextButton fontSize="14px" primary>
+              <TextButton fontSize="14px" onClick={onEdit} primary>
                 Edit
               </TextButton>
             )}

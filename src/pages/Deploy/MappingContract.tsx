@@ -26,10 +26,11 @@ interface Props {
   onNext: () => void
   edit?: boolean
   onStep?: (step: number) => void
+  onEdit: () => void
 }
 
 export default function MappingContract(props: Props) {
-  const { onChainSelect, chainList, selectedChains, onNext, edit, onStep } = props
+  const { onChainSelect, chainList, selectedChains, onNext, edit, onStep, onEdit } = props
   const [chains, setChains] = useState(selectedChains)
   const [tokenAddress, setTokenAddress] = useState('')
   const [mappableAddress, setMappableAddress] = useState('')
@@ -85,7 +86,7 @@ export default function MappingContract(props: Props) {
           <Divider extension={40} />
         </>
       ) : (
-        <InfoCard data={DeployData.mainchainInfo} header="Mainchain Info" editable />
+        <InfoCard data={DeployData.mainchainInfo} header="Mainchain Info" editable onEdit={onEdit} />
       )}
 
       <Box padding={'24px 0'}>

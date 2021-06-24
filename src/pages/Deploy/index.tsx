@@ -59,6 +59,9 @@ export default function Deploy() {
     hideModal()
     setState(DEPLOY_STATE.BRIDGE)
   }, [hideModal])
+  const toEditBridge = useCallback(() => {
+    setState(DEPLOY_STATE.EDIT_BRIDGE)
+  }, [])
 
   // const onAddExistingStep = useCallback((step: number) => {
   //   setStep(step)
@@ -96,9 +99,12 @@ export default function Deploy() {
           onChainSelect={onChainSelect}
           selectedChains={selectedChains}
           onNext={toBridge}
+          onEdit={toEditMapping}
         />
       )}
-      {state === DEPLOY_STATE.BRIDGE && <BridgeContract data={DeployData.mainchainInfo} chains={selectedChains} />}
+      {state === DEPLOY_STATE.BRIDGE && (
+        <BridgeContract data={DeployData.mainchainInfo} chains={selectedChains} onEdit={toEditBridge} />
+      )}
 
       {/* Add New */}
       {state === DEPLOY_STATE.ADD_NEW && <AddNewToken onNext={toEditMapping} step={step} onStep={onAddNewStep} />}
@@ -109,6 +115,7 @@ export default function Deploy() {
           selectedChains={selectedChains}
           onNext={toBridge}
           onStep={onAddNewStep}
+          onEdit={toEditMapping}
           edit
         />
       )}

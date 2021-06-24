@@ -17,6 +17,7 @@ interface Props {
     'Mainchain ID': string
   }
   edit?: boolean
+  onStep: (step: number) => void
 }
 
 enum DeployError {
@@ -25,6 +26,7 @@ enum DeployError {
 }
 
 export default function EditBridgeContract(props: Props) {
+  const { onStep } = props
   const [mainTokenAddress, setMainTokenAddress] = useState('')
   const [mainMappableAddress, setMainMappableAddress] = useState('')
   const [mainChainId, setMainChainId] = useState('')
@@ -64,7 +66,7 @@ export default function EditBridgeContract(props: Props) {
   }, [showModal])
 
   return (
-    <DeployBody header="Bridge Factory Contract" activeStep={2}>
+    <DeployBody header="Bridge Factory Contract" activeStep={2} onStep={onStep}>
       <MainChainInfoForm
         tokenAddress={mainTokenAddress}
         mappableAddress={mainMappableAddress}

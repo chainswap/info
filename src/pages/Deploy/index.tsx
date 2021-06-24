@@ -120,7 +120,7 @@ export default function Deploy() {
         />
       )}
       {state === DEPLOY_STATE.EDIT_BRIDGE && (
-        <EditBridgeContract data={DeployData.mainchainInfo} chains={selectedChains} edit />
+        <EditBridgeContract data={DeployData.mainchainInfo} chains={selectedChains} onStep={onAddNewStep} edit />
       )}
     </AppBody>
   )

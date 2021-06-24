@@ -3,8 +3,8 @@ import { Box, styled } from '@material-ui/core'
 import { TYPE } from 'theme/index'
 
 interface Props {
-  onClickExistingToken: () => void
-  onClickNewToken: () => void
+  onExistingToken: () => void
+  onNewToken: () => void
 }
 
 const OptionCard = styled('div')({
@@ -16,7 +16,7 @@ const OptionCard = styled('div')({
 })
 
 export default function DeployOptions(props: Props) {
-  const { onClickExistingToken, onClickNewToken } = props
+  const { onExistingToken, onNewToken } = props
 
   return (
     <Box padding={'20px 40px 35px'}>
@@ -26,12 +26,12 @@ export default function DeployOptions(props: Props) {
           {
             title: 'Existing Token',
             brief: 'You already deployed a token on Ethereum or EMV supportive chains',
-            onClick: onClickExistingToken,
+            onClick: onExistingToken,
           },
           {
             title: 'New Token',
             brief: "You haven't deployed any token contract yet",
-            onClick: onClickNewToken,
+            onClick: onNewToken,
           },
         ].map(({ title, brief, onClick }) => (
           <OptionCard key={title} onClick={onClick}>

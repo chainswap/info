@@ -66,7 +66,7 @@ export default function EditBridgeContract(props: Props) {
   }, [showModal])
 
   return (
-    <DeployBody header="Bridge Factory Contract" activeStep={2} onStep={onStep}>
+    <DeployBody header="Bridge Factory Contract" activeStep={2} onStep={onStep} nonLinear>
       <MainChainInfoForm
         tokenAddress={mainTokenAddress}
         mappableAddress={mainMappableAddress}

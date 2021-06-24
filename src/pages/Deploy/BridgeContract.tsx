@@ -28,7 +28,7 @@ export default function Bridge(props: Props) {
   }, [showModal])
 
   return (
-    <DeployBody header="Bridge Factory Contract" activeStep={2} nonLinear>
+    <DeployBody header="Bridge Factory Contract" activeStep={2}>
       <Box display={'grid'} gridGap={16} width="100%">
         <InfoCard data={data} header="Mainchain Info" editable onEdit={onEdit} />
         {chains.map((chain) => (

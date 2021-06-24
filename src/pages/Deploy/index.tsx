@@ -1,23 +1,23 @@
 import React, { useState, ChangeEvent, useCallback } from 'react'
 import AppBody from '../AppBody'
 import DeployOptions from './DeployOptions'
-import AddExistingToken from './AddExistingToken'
+import AddToken from './AddToken'
 import MappingContract from './MappingContract'
 import BridgeContract from './BridgeContract'
-import AddNewToken from './AddNewToken'
 import EditBridgeContract from './EditBridgeContract'
 import useModal from 'hooks/useModal'
 import Chain from 'models/chain'
 import { ChainList, DeployData } from 'data/dummyData'
 
-enum DEPLOY_STATE {
-  OPTIONS = 'options',
-  ADD_EXISTING = 'add existing',
-  ADD_NEW = 'add new',
-  MAPPING = 'mapping',
-  BRIDGE = 'bridge',
-  EDIT_MAPPING = 'edit mapping',
-  EDIT_BRIDGE = 'edit bridging',
+export enum DEPLOY_MODE {
+  EXISTING = 'Existing',
+  NEW = 'New',
+}
+
+export enum DEPLOY_STEP {
+  ADD_TOKEN,
+  MAPPING_CONTRACT,
+  BRIDGE_CONTRACT,
 }
 
 type DeployStatus = {
@@ -28,17 +28,18 @@ type DeployStatus = {
 export type ChainState = Chain & DeployStatus
 
 export default function Deploy() {
-  const [state, setState] = useState(DEPLOY_STATE.OPTIONS)
+  const [mode, setMode] = useState<DEPLOY_MODE>()
+  const [step, setStep] = useState(DEPLOY_STEP.ADD_TOKEN)
   const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
   const { hideModal } = useModal()
-  const [step, setStep] = useState(0)
 
   const toMapping = useCallback(() => {
-    setState(DEPLOY_STATE.MAPPING)
+    setStep(DEPLOY_STEP.ADD_TOKEN)
     hideModal()
-  }, [setState, hideModal])
+  }, [setStep, hideModal])
   const toEditMapping = useCallback(() => {
-    setState(DEPLOY_STATE.EDIT_MAPPING)
+    setMode(DEPLOY_MODE.NEW)
+    setStep(DEPLOY_STEP.ADD_TOKEN)
     hideModal()
   }, [hideModal])
 
@@ -57,43 +58,30 @@ export default function Deploy() {
 
   const toBridge = useCallback(() => {
     hideModal()
-    setState(DEPLOY_STATE.BRIDGE)
+    setStep(DEPLOY_STEP.BRIDGE_CONTRACT)
   }, [hideModal])
   const toEditBridge = useCallback(() => {
-    setState(DEPLOY_STATE.EDIT_BRIDGE)
+    setMode(DEPLOY_MODE.EXISTING)
+    setStep(DEPLOY_STEP.BRIDGE_CONTRACT)
   }, [])
 
-  // const onAddExistingStep = useCallback((step: number) => {
-  //   setStep(step)
-  //   const index: { [k: number]: DEPLOY_STATE } = {
-  //     0: DEPLOY_STATE.ADD_EXISTING,
-  //     1: DEPLOY_STATE.MAPPING,
-  //     2: DEPLOY_STATE.BRIDGE,
-  //   }
-  //   setState(index[step])
-  // }, [])
+  const onStep = useCallback((step: DEPLOY_STEP) => setStep(step), [])
 
-  const onAddNewStep = useCallback((step: number) => {
-    setStep(step)
-    const index: { [k: number]: DEPLOY_STATE } = {
-      0: DEPLOY_STATE.ADD_NEW,
-      1: DEPLOY_STATE.EDIT_MAPPING,
-      2: DEPLOY_STATE.EDIT_BRIDGE,
-    }
-    setState(index[step])
-  }, [])
+  if (!mode) {
+    return (
+      <AppBody>
+        <DeployOptions
+          onExistingToken={() => setMode(DEPLOY_MODE.EXISTING)}
+          onNewToken={() => setMode(DEPLOY_MODE.NEW)}
+        />
+      </AppBody>
+    )
+  }
 
   return (
     <AppBody>
-      {state === DEPLOY_STATE.OPTIONS && (
-        <DeployOptions
-          onClickExistingToken={() => setState(DEPLOY_STATE.ADD_EXISTING)}
-          onClickNewToken={() => setState(DEPLOY_STATE.ADD_NEW)}
-        />
-      )}
-      {/* Add Existing */}
-      {state === DEPLOY_STATE.ADD_EXISTING && <AddExistingToken onNext={toMapping} />}
-      {state === DEPLOY_STATE.MAPPING && (
+      {step === DEPLOY_STEP.ADD_TOKEN && <AddToken mode={mode} onNext={() => {}} onStep={onStep} />}
+      {/* {step === DEPLOY_STEP.MAPPING_CONTRACT && (
         <MappingContract
           chainList={ChainList}
           onChainSelect={onChainSelect}
@@ -101,27 +89,10 @@ export default function Deploy() {
           onNext={toBridge}
           onEdit={toEditMapping}
         />
-      )}
-      {state === DEPLOY_STATE.BRIDGE && (
+      )} */}
+      {/* {step === DEPLOY_STEP.BRIDGE_CONTRACT && (
         <BridgeContract data={DeployData.mainchainInfo} chains={selectedChains} onEdit={toEditBridge} />
-      )}
-
-      {/* Add New */}
-      {state === DEPLOY_STATE.ADD_NEW && <AddNewToken onNext={toEditMapping} step={step} onStep={onAddNewStep} />}
-      {state === DEPLOY_STATE.EDIT_MAPPING && (
-        <MappingContract
-          chainList={ChainList}
-          onChainSelect={onChainSelect}
-          selectedChains={selectedChains}
-          onNext={toBridge}
-          onStep={onAddNewStep}
-          onEdit={toEditMapping}
-          edit
-        />
-      )}
-      {state === DEPLOY_STATE.EDIT_BRIDGE && (
-        <EditBridgeContract data={DeployData.mainchainInfo} chains={selectedChains} onStep={onAddNewStep} edit />
-      )}
+      )} */}
     </AppBody>
   )
 }

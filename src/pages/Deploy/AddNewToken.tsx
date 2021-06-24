@@ -75,7 +75,7 @@ export default function AddNewToken(props: Props) {
   }, [deployed, onNext, showModal])
 
   return (
-    <DeployBody header="Add New Token" activeStep={step} onStep={onStep}>
+    <DeployBody header="Add New Token" activeStep={step} onStep={onStep} nonLinear>
       <DeployAddForm
         name={name}
         symby={symby}

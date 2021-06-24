@@ -71,7 +71,7 @@ export default function MappingContract(props: Props) {
   }, [edit, chains, tokenAddress, mappableAddress, mainChainId])
 
   return (
-    <DeployBody header={'Mapping token contract deployment'} activeStep={1} onStep={onStep}>
+    <DeployBody header={'Mapping token contract deployment'} activeStep={1} onStep={onStep} nonLinear>
       {edit ? (
         <>
           <MainChainInfoForm

@@ -43,6 +43,9 @@ const useStyles = makeStyles({
       cursor: 'pointer',
       pointerEvents: 'auto',
     },
+    '& .MuiStepLabel-iconContainer': {
+      padding: 0,
+    },
   },
   label: {
     '&.Mui-disabled': {
@@ -51,6 +54,7 @@ const useStyles = makeStyles({
       userSelect: 'all',
     },
   },
+  iconContainer: {},
 })
 
 export default function Stepper(props: Props) {

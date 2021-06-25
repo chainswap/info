@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       '&::before': {
         content: ({ value, defaultValue, placeholder }: Props) =>
-          !value && !defaultValue && placeholder ? '"' + placeholder + '"' : '""',
+          (!value || value.length === 0) && !defaultValue && placeholder ? '"' + placeholder + '"' : '""',
         position: 'absolute',
         left: 24,
         top: 14,

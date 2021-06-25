@@ -8,16 +8,17 @@ interface Props {
   activeStep: number
   children: React.ReactNode
   onStep?: (step: number) => void
+  nonLinear?: boolean
 }
 
 export default function DeployBody(props: Props) {
-  const { activeStep, header, children, onStep } = props
+  const { activeStep, header, children, onStep, nonLinear } = props
 
   return (
     <Box padding={'24px 32px 32px 32px'}>
-      <Box display={'flex'} justifyContent={'space-between'} marginBottom="24px">
+      <Box display="flex" alignItems="flex-start" justifyContent="space-between" marginBottom="24px">
         <TYPE.mediumHeader>{header}</TYPE.mediumHeader>
-        <DeployStepper activeStep={activeStep} onStep={onStep} />
+        <DeployStepper nonLinear={nonLinear} activeStep={activeStep} onStep={onStep} />
       </Box>
       {children}
     </Box>

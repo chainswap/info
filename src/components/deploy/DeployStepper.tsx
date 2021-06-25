@@ -7,6 +7,7 @@ import { ReactComponent as StepCompletedIcon } from '../../assets/images/step_co
 interface Props {
   activeStep: number
   onStep?: (step: number) => void
+  nonLinear?: boolean
 }
 
 const Connector = withStyles({
@@ -20,7 +21,7 @@ const Connector = withStyles({
 })(MuiStepConnector)
 
 export default function DeployStepper(props: Props) {
-  const { activeStep, onStep } = props
+  const { activeStep, onStep, nonLinear } = props
   return (
     <Stepper
       activeStep={activeStep}
@@ -28,6 +29,7 @@ export default function DeployStepper(props: Props) {
       completedIcon={<StepCompletedIcon />}
       connector={<Connector />}
       onStep={onStep}
+      nonLinear={nonLinear}
     />
   )
 }

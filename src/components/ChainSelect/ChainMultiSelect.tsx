@@ -38,8 +38,6 @@ export default function ChainMultiSelect(props: Props) {
     if (selectedChains.length > 0) {
       return selectedChains.map((chain: Chain) => chain.symbol).join(', ')
     }
-
-    return 'Select the chain to enable crosschain functionality'
   }, [selectedChains])
 
   return (
@@ -52,6 +50,7 @@ export default function ChainMultiSelect(props: Props) {
         width={width}
         multiple
         renderValue={renderValue}
+        placeholder="Select the chain to enable crosschain functionality"
       >
         {chainList.map((chain) => (
           <MenuItem

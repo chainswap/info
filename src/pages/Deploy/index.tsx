@@ -1,29 +1,22 @@
 import React, { useState, ChangeEvent, useCallback } from 'react'
+import { Box, styled } from '@material-ui/core'
 import AppBody from '../AppBody'
-import DeployOptions from './DeployOptions'
-import AddExistingToken from './AddExistingToken'
+import AddToken from './AddToken'
 import MappingContract from './MappingContract'
 import BridgeContract from './BridgeContract'
-import AddNewToken from './AddNewToken'
-import EditBridgeContract from './EditBridgeContract'
-import useModal from 'hooks/useModal'
 import Chain from 'models/chain'
-import { ChainList, DeployData } from 'data/dummyData'
+import { ChainList } from 'data/dummyData'
+import { TYPE } from 'theme/index'
 
-enum DEPLOY_STATE {
-  OPTIONS = 'options',
-  ADD_EXISTING = 'add existing',
-  ADD_NEW = 'add new',
-  MAPPING = 'mapping',
-  BRIDGE = 'bridge',
-  EDIT_MAPPING = 'edit mapping',
-  EDIT_BRIDGE = 'edit bridging',
+export enum DEPLOY_MODE {
+  EXISTING = 'Existing',
+  NEW = 'New',
 }
 
-export type DeployStatusType = {
-  confirmed: boolean
-  deploying: boolean
-  deployed: boolean
+export enum DEPLOY_STEP {
+  ADD_TOKEN,
+  MAPPING_CONTRACT,
+  BRIDGE_CONTRACT,
 }
 
 type DeployStatus = {
@@ -33,20 +26,18 @@ type DeployStatus = {
 
 export type ChainState = Chain & DeployStatus
 
-export default function Deploy() {
-  const [state, setState] = useState(DEPLOY_STATE.OPTIONS)
-  const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
-  const { hideModal } = useModal()
-  const [step, setStep] = useState(0)
+const OptionCard = styled('div')({
+  width: 480,
+  padding: '16px 20px',
+  backgroundColor: '#211735',
+  borderRadius: 10,
+  cursor: 'pointer',
+})
 
-  const toMapping = useCallback(() => {
-    setState(DEPLOY_STATE.MAPPING)
-    hideModal()
-  }, [setState, hideModal])
-  const toEditMapping = useCallback(() => {
-    setState(DEPLOY_STATE.EDIT_MAPPING)
-    hideModal()
-  }, [hideModal])
+export default function Deploy() {
+  const [mode, setMode] = useState<DEPLOY_MODE>()
+  const [step, setStep] = useState(DEPLOY_STEP.ADD_TOKEN)
+  const [selectedChains, setSelectedChains] = useState<ChainState[]>([])
 
   const onChainSelect = useCallback((e: ChangeEvent<{ value: string[] }>) => {
     const symbols: string[] = e.target.value
@@ -61,65 +52,52 @@ export default function Deploy() {
     setSelectedChains(selectedItems)
   }, [])
 
-  const toBridge = useCallback(() => {
-    hideModal()
-    setState(DEPLOY_STATE.BRIDGE)
-  }, [hideModal])
+  const onStep = useCallback((step: DEPLOY_STEP) => setStep(step), [])
+  const onMode = useCallback((mode: DEPLOY_MODE) => setMode(mode), [])
 
-  // const onAddExistingStep = useCallback((step: number) => {
-  //   setStep(step)
-  //   const index: { [k: number]: DEPLOY_STATE } = {
-  //     0: DEPLOY_STATE.ADD_EXISTING,
-  //     1: DEPLOY_STATE.MAPPING,
-  //     2: DEPLOY_STATE.BRIDGE,
-  //   }
-  //   setState(index[step])
-  // }, [])
-
-  const onAddNewStep = useCallback((step: number) => {
-    setStep(step)
-    const index: { [k: number]: DEPLOY_STATE } = {
-      0: DEPLOY_STATE.ADD_NEW,
-      1: DEPLOY_STATE.EDIT_MAPPING,
-      2: DEPLOY_STATE.EDIT_BRIDGE,
-    }
-    setState(index[step])
-  }, [])
+  if (!mode) {
+    return (
+      <AppBody>
+        <Box padding={'20px 40px 35px'}>
+          <TYPE.mediumHeader marginBottom="32px">Please select the following options for deployment</TYPE.mediumHeader>
+          <Box display="grid" gridGap="16px">
+            {[
+              {
+                title: 'Existing Token',
+                brief: 'You already deployed a token on Ethereum or EMV supportive chains',
+                onClick: () => setMode(DEPLOY_MODE.EXISTING),
+              },
+              {
+                title: 'New Token',
+                brief: "You haven't deployed any token contract yet",
+                onClick: () => setMode(DEPLOY_MODE.NEW),
+              },
+            ].map(({ title, brief, onClick }) => (
+              <OptionCard key={title} onClick={onClick}>
+                <TYPE.primary marginBottom="6px">{title}</TYPE.primary>
+                <TYPE.medium>{brief}</TYPE.medium>
+              </OptionCard>
+            ))}
+          </Box>
+        </Box>
+      </AppBody>
+    )
+  }
 
   return (
     <AppBody>
-      {state === DEPLOY_STATE.OPTIONS && (
-        <DeployOptions
-          onClickExistingToken={() => setState(DEPLOY_STATE.ADD_EXISTING)}
-          onClickNewToken={() => setState(DEPLOY_STATE.ADD_NEW)}
-        />
-      )}
-      {/* Add Existing */}
-      {state === DEPLOY_STATE.ADD_EXISTING && <AddExistingToken onNext={toMapping} />}
-      {state === DEPLOY_STATE.MAPPING && (
+      {step === DEPLOY_STEP.ADD_TOKEN && <AddToken mode={mode} onStep={onStep} />}
+      {step === DEPLOY_STEP.MAPPING_CONTRACT && (
         <MappingContract
-          chainList={ChainList}
+          mode={mode}
+          onStep={onStep}
+          onMode={onMode}
           onChainSelect={onChainSelect}
           selectedChains={selectedChains}
-          onNext={toBridge}
         />
       )}
-      {state === DEPLOY_STATE.BRIDGE && <BridgeContract data={DeployData.mainchainInfo} chains={selectedChains} />}
-
-      {/* Add New */}
-      {state === DEPLOY_STATE.ADD_NEW && <AddNewToken onNext={toEditMapping} step={step} onStep={onAddNewStep} />}
-      {state === DEPLOY_STATE.EDIT_MAPPING && (
-        <MappingContract
-          chainList={ChainList}
-          onChainSelect={onChainSelect}
-          selectedChains={selectedChains}
-          onNext={toBridge}
-          onStep={onAddNewStep}
-          edit
-        />
-      )}
-      {state === DEPLOY_STATE.EDIT_BRIDGE && (
-        <EditBridgeContract data={DeployData.mainchainInfo} chains={selectedChains} edit />
+      {step === DEPLOY_STEP.BRIDGE_CONTRACT && (
+        <BridgeContract mode={mode} onMode={onMode} onStep={onStep} chains={selectedChains} />
       )}
     </AppBody>
   )

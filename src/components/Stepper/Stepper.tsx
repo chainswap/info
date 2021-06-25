@@ -12,6 +12,7 @@ interface Props {
   completedIcon: React.ReactNode
   connector: ReactElement
   onStep?: (step: number) => void
+  nonLinear?: boolean
 }
 
 const useStyles = makeStyles({
@@ -39,35 +40,26 @@ const useStyles = makeStyles({
     color: 'white !important',
   },
   button: {
-    '&.Mui-disabled': {
-      cursor: 'pointer',
-      pointerEvents: 'auto',
-    },
-  },
-  label: {
-    '&.Mui-disabled': {
-      cursor: 'pointer',
-      pointerEvents: 'auto',
-      userSelect: 'all',
+    '& .MuiStepLabel-iconContainer': {
+      padding: 0,
     },
   },
 })
 
 export default function Stepper(props: Props) {
-  const { activeStep, steps, completedIcon, connector, onStep } = props
+  const { activeStep, steps, completedIcon, connector, onStep, nonLinear } = props
   const classes = useStyles(props)
-
   const onClick = useCallback((e) => onStep && onStep(parseInt(e.currentTarget.value)), [onStep])
 
   return (
-    <MuiStepper nonLinear classes={{ root: classes.root }} activeStep={activeStep} connector={connector}>
+    <MuiStepper nonLinear={nonLinear} classes={{ root: classes.root }} activeStep={activeStep} connector={connector}>
       {steps.map((label, index) => {
         return (
           <MuiStep key={label}>
-            <MuiStepButton className={classes.button} onClick={onClick} value={index}>
+            <MuiStepButton disabled={!nonLinear} className={classes.button} onClick={onClick} value={index}>
               <MuiStepLabel
                 disabled
-                className={classes.label}
+                // className={classes.label}
                 StepIconProps={{
                   classes: {
                     root: classes.icon,

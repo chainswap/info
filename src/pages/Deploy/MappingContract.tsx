@@ -3,7 +3,6 @@ import DeployBody from './DeployBody'
 import InfoCard from 'components/deploy/InfoCard'
 import ChainMultiSelect from 'components/ChainSelect/ChainMultiSelect'
 import { Box } from '@material-ui/core'
-import Chain from 'models/chain'
 import ChainSelect from 'components/ChainSelect/ChainSelect'
 import { ChainState } from './index'
 import useModal from 'hooks/useModal'
@@ -12,6 +11,8 @@ import ErrorAndActionButton from 'components/Button/ErrorAndActionButton'
 import { DeployData } from 'data/dummyData'
 import MainChainInfoForm from './MainChainInfoForm'
 import Divider from 'components/Divider/Divider'
+import { DEPLOY_MODE, DEPLOY_STEP } from './index'
+import { ChainList } from 'data/dummyData'
 
 enum MappingError {
   SELECT = 'Select Chain',
@@ -20,21 +21,20 @@ enum MappingError {
 }
 
 interface Props {
-  chainList: Chain[]
+  mode: DEPLOY_MODE
   selectedChains: ChainState[]
   onChainSelect: (e: ChangeEvent<{ value: string[] }>) => void
-  onNext: () => void
-  edit?: boolean
-  onStep?: (step: number) => void
+  onStep: (step: DEPLOY_STEP) => void
+  onMode: (mode: DEPLOY_MODE) => void
 }
 
 export default function MappingContract(props: Props) {
-  const { onChainSelect, chainList, selectedChains, onNext, edit, onStep } = props
+  const { onChainSelect, selectedChains, onStep, mode } = props
   const [chains, setChains] = useState(selectedChains)
   const [tokenAddress, setTokenAddress] = useState('')
   const [mappableAddress, setMappableAddress] = useState('')
   const [mainChainId, setMainChainId] = useState('')
-  const { showModal } = useModal()
+  const { showModal, hideModal } = useModal()
 
   useEffect(() => {
     setChains(selectedChains)
@@ -57,8 +57,13 @@ export default function MappingContract(props: Props) {
   const onMappableAddress = useCallback((e) => setMappableAddress(e.target.value), [])
   const onMainChainId = useCallback((e) => setMainChainId(e.target.value), [])
 
+  const onNext = useCallback(() => {
+    onStep(DEPLOY_STEP.BRIDGE_CONTRACT)
+    hideModal()
+  }, [onStep, hideModal])
+
   const error = useMemo(() => {
-    if (edit && (!tokenAddress || !mappableAddress || !mainChainId)) {
+    if (mode === DEPLOY_MODE.NEW && (!tokenAddress || !mappableAddress || !mainChainId)) {
       return MappingError.FILL
     }
     if (chains.length < 2) {
@@ -67,11 +72,16 @@ export default function MappingContract(props: Props) {
     if (!((chains[0].deployed === true && chains[1].deployed) === true)) {
       return MappingError.DEPLOY
     }
-  }, [edit, chains, tokenAddress, mappableAddress, mainChainId])
+  }, [mode, chains, tokenAddress, mappableAddress, mainChainId])
 
   return (
-    <DeployBody header={'Mapping token contract deployment'} activeStep={1} onStep={onStep}>
-      {edit ? (
+    <DeployBody
+      header={'Mapping token contract deployment'}
+      activeStep={1}
+      onStep={onStep}
+      nonLinear={mode === DEPLOY_MODE.NEW}
+    >
+      {mode === DEPLOY_MODE.NEW ? (
         <>
           <MainChainInfoForm
             tokenAddress={tokenAddress}
@@ -85,14 +95,14 @@ export default function MappingContract(props: Props) {
           <Divider extension={40} />
         </>
       ) : (
-        <InfoCard data={DeployData.mainchainInfo} header="Mainchain Info" editable />
+        <InfoCard data={DeployData.mainchainInfo} header="Mainchain Info" editable onEdit={() => {}} />
       )}
 
       <Box padding={'24px 0'}>
         <ChainMultiSelect
           label="Select Chain"
           selectedChains={selectedChains}
-          chainList={chainList}
+          chainList={ChainList}
           width="100%"
           onChainSelect={onChainSelect}
         />
@@ -101,7 +111,7 @@ export default function MappingContract(props: Props) {
             <Box display="flex" alignItems="flex-end" justifyContent="space-between" marginBottom={'16px'}>
               <ChainSelect
                 label={`Chain ${i + 1}`}
-                chainList={chainList}
+                chainList={ChainList}
                 selectedChain={chain}
                 disabled
                 width={'292px'}

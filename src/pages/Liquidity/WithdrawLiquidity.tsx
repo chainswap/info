@@ -3,7 +3,7 @@ import { Box, makeStyles } from '@material-ui/core'
 import { OutlinedCard } from 'components/Card'
 import AppBody from 'pages/AppBody'
 import Divider from 'components/Divider/Divider'
-import { HideOnMobile, ShowOnMobile, TYPE } from 'theme'
+import theme, { HideOnMobile, ShowOnMobile, TYPE } from 'theme'
 import Slider from 'components/Slider'
 import SmallButton from 'components/Button/SmallButton'
 import Currency from 'models/currency'
@@ -66,7 +66,7 @@ export default function WithdrawLiquidity({
   return (
     <AppBody title="Withdraw" onReturnClick={onReturnClick}>
       <Box padding={`0 ${matches ? 20 : 40}px 40px`} display="grid" gridGap="24px">
-        <OutlinedCard classname={classes.card} color={matches ? 'transparent' : ''}>
+        <OutlinedCard classname={classes.card} color={matches ? 'transparent' : theme.bgColor.bg4}>
           <Box padding={matches ? 0 : '16px 20px'} display="grid" gridGap={20}>
             <Box display="grid" gridGap={matches ? 18 : 5}>
               <TYPE.mediumGray fontWeight={500}>Amount</TYPE.mediumGray>

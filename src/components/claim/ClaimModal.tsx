@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core'
 import { Box, MenuItem, Dialog } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { Text } from 'rebass'
-import OutlineSelect from '../Select/OutlineSelect'
+import Select from '../Select/Select'
 import TextButton from '../Button/TextButton'
 import ClaimList from './ClaimList'
 import { claimModalData } from '../../data/dummyData'
@@ -59,8 +59,12 @@ const ClaimHeader = ({ onDismiss }: { onDismiss: () => void }) => {
         Claim List
       </Text>
       <Box marginRight={'70px'}>
-        <OutlineSelect
-          defaultValue={''}
+        <Select
+          size="medium"
+          primary={true}
+          width="160px"
+          height="36px"
+          placeholder="Select Token"
           onChange={() => {
             alert('setToken')
           }}
@@ -71,7 +75,7 @@ const ClaimHeader = ({ onDismiss }: { onDismiss: () => void }) => {
           <MenuItem key={'BSC'} value={'BSC'}>
             BSC
           </MenuItem>
-        </OutlineSelect>
+        </Select>
       </Box>
       <CloseBox onClick={onDismiss}>
         <Image src={CloseIcon} alt={'close icon'} />

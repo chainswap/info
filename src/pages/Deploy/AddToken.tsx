@@ -103,7 +103,7 @@ export default function AddToken(props: Props) {
     if (!chainId) {
       return AddTokenError.ENTER_CHAIN_ID
     }
-  }, [address, chainId, mode])
+  }, [address, chainId])
 
   const onName = useCallback((e) => setName(e.target.value), [])
   const onSymby = useCallback((e) => setSymby(e.target.value), [])

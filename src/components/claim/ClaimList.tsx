@@ -12,6 +12,7 @@ import FailureIcon from '../../assets/images/claim_list_failure.svg'
 import ClaimPopupModal from './ClaimPopupModal'
 import useModal from '../../hooks/useModal'
 import { claimModalData } from 'data/dummyData'
+import ClaimButton from 'components/Button/ClaimButton'
 
 enum Status {
   READY = 'ready',
@@ -98,9 +99,7 @@ export function ClaimListItem({
         </Box>
         <Box>
           {status === Status.READY ? (
-            <OutlineButton width={'62px'} height={'36px'} onClick={() => showModal(<ClaimPopupModal />)} primary>
-              Claim
-            </OutlineButton>
+            <ClaimButton onClick={() => showModal(<ClaimPopupModal />)}>Claim</ClaimButton>
           ) : status === Status.SUCCESS ? (
             <Image src={SuccessIcon} alt={'success icon'} />
           ) : (

@@ -5,6 +5,8 @@ import SelectButton from 'components/Button/SelectButton'
 import { CurrencyList } from 'data/dummyData'
 import { TYPE } from 'theme/index'
 import TextButton from 'components/Button/TextButton'
+import useModal from 'hooks/useModal'
+import SelectCurrencyModal from 'components/Modal/SelectCurrencyModal'
 
 const TextWrapper = styled('div')({
   position: 'absolute',
@@ -19,10 +21,19 @@ const Footer = styled('div')({
 })
 
 export default function Claim() {
+  const { showModal } = useModal()
+
   return (
     <Box position="relative">
       <AppBody title="Claim List" height={510} width={680}>
-        <SelectButton height="36px" width="160px" primary={true} right={40} top={20}>
+        <SelectButton
+          height="36px"
+          width="160px"
+          primary={true}
+          right={40}
+          top={20}
+          onClick={() => showModal(<SelectCurrencyModal />)}
+        >
           Select Button
         </SelectButton>
         <TextWrapper>

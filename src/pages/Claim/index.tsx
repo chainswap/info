@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled, Box } from '@material-ui/core'
 import AppBody from 'pages/AppBody'
 import SelectButton from 'components/Button/SelectButton'
-import { CurrencyList } from 'data/dummyData'
 import { TYPE } from 'theme/index'
 import TextButton from 'components/Button/TextButton'
 import useModal from 'hooks/useModal'
-import SelectCurrencyModal from 'components/Modal/SelectCurrencyModal'
+import SelectCurrency from 'components/SelectCurrency/SelectCurrency'
+import useCurrency from 'hooks/useCurrency'
+import Currency from 'models/currency'
+import LogoText from 'components/LogoText/LogoText'
 
 const TextWrapper = styled('div')({
   position: 'absolute',
@@ -22,6 +24,7 @@ const Footer = styled('div')({
 
 export default function Claim() {
   const { showModal } = useModal()
+  const { currency } = useCurrency()
 
   return (
     <Box position="relative">
@@ -29,12 +32,12 @@ export default function Claim() {
         <SelectButton
           height="36px"
           width="160px"
-          primary={true}
+          primary={!currency}
           right={40}
           top={20}
-          onClick={() => showModal(<SelectCurrencyModal />)}
+          onClick={() => showModal(<SelectCurrency />)}
         >
-          Select Button
+          {currency ? <LogoText logo={currency.logo} text={currency.symbol} /> : <>Select Token</>}
         </SelectButton>
         <TextWrapper>
           <TYPE.body>Please select a token to see your claim list</TYPE.body>

@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, useCallback } from 'react'
 import { Box } from '@material-ui/core'
 import Modal from 'components/Modal/Modal'
-import CurrencyList from 'components/swap/CurrencyList'
+import CurrencyList from 'components/SelectCurrency/CurrencyList'
 import TextButton from 'components/Button/TextButton'
 import Divider from 'components/Divider/Divider'
 import Input from 'components/Input/Input'

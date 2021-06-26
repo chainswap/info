@@ -7,7 +7,7 @@ import SelectButton from '../Button/SelectButton'
 import useModal from '../../hooks/useModal'
 import LogoText from '../LogoText/LogoText'
 import theme, { HideOnMobile, TYPE, ShowOnMobile } from '../../theme/index'
-import SelectCurrencyModal from 'components/Modal/SelectCurrencyModal'
+import SelectCurrencyModal from 'components/SelectCurrency/SelectCurrency'
 import { useCallback } from 'react'
 import useCurrency from '../../hooks/useCurrency'
 

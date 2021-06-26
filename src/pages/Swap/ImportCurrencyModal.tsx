@@ -10,7 +10,7 @@ import Checkbox from 'components/Checkbox/Checkbox'
 import Modal from 'components/Modal/Modal'
 import { useCallback } from 'react'
 import useModal from 'hooks/useModal'
-import SelectCurrencyModal from '../../components/Modal/SelectCurrencyModal'
+import SelectCurrency from '../../components/SelectCurrency/SelectCurrency'
 import OutlineButton from 'components/Button/OutlineButton'
 import Aave from 'assets/images/currency/aave.svg'
 import { TYPE } from 'theme/index'
@@ -33,7 +33,7 @@ export default function Import() {
   }
 
   const onReturnClick = useCallback(() => {
-    showModal(<SelectCurrencyModal />)
+    showModal(<SelectCurrency />)
   }, [showModal])
 
   return (

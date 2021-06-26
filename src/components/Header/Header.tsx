@@ -26,49 +26,12 @@ import { ConfirmedTransactionList, PendingTransactionList, NotificationList } fr
 import PlainSelect from '../Select/PlainSelect'
 import { HideOnMobile, ShowOnMobile } from 'theme'
 import Modal from 'components/Modal/Modal'
+import { NavLinks, AboutNavItems } from 'constants/navlinks'
 
 enum Mode {
   VISITOR,
   USER,
 }
-
-const NavLinks = [
-  {
-    name: 'Swap',
-    link: routes.swap,
-  },
-  {
-    name: 'Deploy',
-    link: routes.deploy,
-  },
-  {
-    name: 'Liquidity',
-    link: routes.liquidity,
-  },
-  {
-    name: 'Farm',
-    link: routes.farm,
-  },
-  {
-    name: 'Info',
-    link: routes.info,
-  },
-]
-
-const AboutNavItems = [
-  {
-    name: 'Apply for listing',
-    link: null,
-  },
-  {
-    name: 'Auditing report',
-    link: null,
-  },
-  {
-    name: 'Support',
-    link: null,
-  },
-]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -258,7 +221,7 @@ export default function Header() {
                   {nav.name}
                 </NavLink>
               ))}
-              <PlainSelect placeholder="about">
+              <PlainSelect placeholder="About">
                 {AboutNavItems.map((item) => (
                   <MenuItem key={item.name}>{item.name}</MenuItem>
                 ))}

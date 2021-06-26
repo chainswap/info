@@ -27,7 +27,7 @@ type DeployStatus = {
 export type ChainState = Chain & DeployStatus
 
 const OptionCard = styled('div')({
-  width: 480,
+  width: '100%',
   padding: '16px 20px',
   backgroundColor: '#211735',
   borderRadius: 10,

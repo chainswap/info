@@ -11,6 +11,7 @@ import Modal from '../../components/Modal/Modal'
 import { ReactComponent as ArrowRight } from '../../assets/images/arrow_forward.svg'
 import InputLabel from 'components/InputLabel/InputLabel'
 import useModal from 'hooks/useModal'
+import { useEffect } from 'react'
 
 const Card = styled('div')(({ theme }) => ({
   border: '1px solid ' + theme.textColor.text3,
@@ -19,6 +20,7 @@ const Card = styled('div')(({ theme }) => ({
   display: 'flex',
   padding: '14px 24px',
   alignItems: 'center',
+  justifyContent: 'space-between',
 }))
 
 const ButtonWrapper = styled('div')(({ theme }) => ({
@@ -36,11 +38,21 @@ export default function ArbitrageModal({ fromChain, toChain }: { fromChain?: Cha
   const [amount, setAmount] = useState('')
   const theme = useTheme()
   const { hideModal } = useModal()
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (amount !== '') {
+      setLoading(true)
+    }
+    setTimeout(() => {
+      setLoading(false)
+    })
+  }, [])
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value), [])
   return (
     <Modal width="520px" title="Arbitrage Opportunity" onReturnClick={() => hideModal()}>
-      <Box padding="20px 40px" display="grid" gridGap="24px">
+      <Box padding="0 40px 20px" display="grid" gridGap="24px">
         <ChainSelect label="from" disabled chainList={ChainList} selectedChain={ETH} width="100%" />
         <Box>
           {fromChain && toChain && (
@@ -73,8 +85,8 @@ export default function ArbitrageModal({ fromChain, toChain }: { fromChain?: Cha
         </Box>
 
         <Box>
-          <InputLabel>Your Estimated Reward</InputLabel>
           <Card>
+            <TYPE.mediumGray>Your Estimated Reward</TYPE.mediumGray>
             <TYPE.body>12345 TOKEN</TYPE.body>
           </Card>
         </Box>

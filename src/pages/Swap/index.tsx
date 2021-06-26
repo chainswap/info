@@ -311,9 +311,7 @@ export default function Swap() {
                 borderRadius="10px"
                 margin="20px auto 0"
               >
-                <Text fontSize="16px" fontWeight={400}>
-                  Now you can swap Matter
-                </Text>
+                <TYPE.body>Now you can swap Matter</TYPE.body>
                 <CheckIcon />
               </Box>
             </>

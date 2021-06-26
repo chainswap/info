@@ -9,7 +9,6 @@ import Chain from 'models/chain'
 import { TYPE } from 'theme'
 import Modal from '../../components/Modal/Modal'
 import { ReactComponent as ArrowRight } from '../../assets/images/arrow_forward.svg'
-import InputLabel from 'components/InputLabel/InputLabel'
 import useModal from 'hooks/useModal'
 import { useEffect } from 'react'
 
@@ -52,45 +51,53 @@ export default function ArbitrageModal({ fromChain, toChain }: { fromChain?: Cha
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value), [])
   return (
     <Modal width="520px" title="Arbitrage Opportunity" onReturnClick={() => hideModal()}>
-      <Box padding="0 40px 20px" display="grid" gridGap="24px">
-        <ChainSelect label="from" disabled chainList={ChainList} selectedChain={ETH} width="100%" />
-        <Box>
-          {fromChain && toChain && (
-            <Box display="flex" alignItems="center" justifyContent="space-between">
-              <ChainSelect label="from" disabled chainList={ChainList} selectedChain={fromChain} width="200px" />
-              <ArrowRight width="24px" height="24px" fill={theme.textColor.text4} style={{ marginTop: 17 }} />
-              <ChainSelect label="To" disabled chainList={ChainList} selectedChain={toChain} width="200px" />
-            </Box>
-          )}
-        </Box>
-        <Box position="relative">
-          <Input
-            value={amount}
-            onChange={handleChange}
-            placeholder="Enter amount"
-            label="Arbitrage Amount"
-            info="Balance: 1.24 MATTER"
-          />
-          <ButtonWrapper>
-            <OutlineButton
-              width="64px"
-              height="28px"
-              onClick={() => {}}
-              color={theme.textColor.text1}
-              borderRadius="20px"
-            >
-              Max
-            </OutlineButton>
-          </ButtonWrapper>
-        </Box>
+      <Box padding="0 40px 20px">
+        <Box display="grid" gridGap="24px" mb="12px">
+          <ChainSelect label="from" disabled chainList={ChainList} selectedChain={ETH} width="100%" />
+          <Box>
+            {fromChain && toChain && (
+              <Box display="flex" alignItems="center" justifyContent="space-between">
+                <ChainSelect label="from" disabled chainList={ChainList} selectedChain={fromChain} width="200px" />
+                <ArrowRight width="24px" height="24px" fill={theme.textColor.text4} style={{ marginTop: 17 }} />
+                <ChainSelect label="To" disabled chainList={ChainList} selectedChain={toChain} width="200px" />
+              </Box>
+            )}
+          </Box>
+          <Box position="relative">
+            <Input
+              value={amount}
+              onChange={handleChange}
+              placeholder="Enter amount"
+              label="Arbitrage Amount"
+              info="Balance: 1.24 MATTER"
+            />
+            <ButtonWrapper>
+              <OutlineButton
+                width="64px"
+                height="28px"
+                onClick={() => {}}
+                color={theme.textColor.text1}
+                borderRadius="20px"
+              >
+                Max
+              </OutlineButton>
+            </ButtonWrapper>
+          </Box>
 
-        <Box>
           <Card>
             <TYPE.mediumGray>Your Estimated Reward</TYPE.mediumGray>
             <TYPE.body>12345 TOKEN</TYPE.body>
           </Card>
+          {amount === '' ? <OutlineButton primary>Enter amount</OutlineButton> : <Button>Arbitrage</Button>}
         </Box>
-        {amount === '' ? <OutlineButton primary>Enter amount</OutlineButton> : <Button>Arbitrage</Button>}
+        <Box display="flex" justifyContent="space-between">
+          <TYPE.body>Base fee</TYPE.body>
+          <TYPE.body>0.005ETH</TYPE.body>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <TYPE.body>Percentage fee</TYPE.body>
+          <TYPE.body>10 USDT</TYPE.body>
+        </Box>
       </Box>
     </Modal>
   )

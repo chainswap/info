@@ -10,14 +10,16 @@ interface Props {
   children?: React.ReactNode
   primary?: boolean
   disabled?: boolean
+  right?: number
+  top?: number
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       position: 'absolute',
-      right: 0.6,
-      top: 1,
+      right: (props: Props) => props.right || 0.6,
+      top: (props: Props) => props.top || 1,
       width: (props: Props) => props.width || 160,
       height: (props: Props) => props.height || 46,
       backgroundColor: (props: Props) => (props.primary ? theme.palette.primary.main : theme.gray.main),

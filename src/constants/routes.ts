@@ -5,6 +5,7 @@ const Routes = {
   liquidity: '/liquidity',
   farm: '/farm',
   info: '/info',
+  claim: '/claim',
 }
 
 export default Routes

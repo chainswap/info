@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Swap from './Swap'
 import Deploy from './Deploy'
 import Liquidity from './Liquidity'
+import Claim from './Claim'
 import { styled, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
@@ -51,6 +52,7 @@ export default function App() {
                 <Route strict path={routes.liquidity} exact component={Liquidity} />
                 <Route strict path={routes.farm} exact component={Swap} />
                 <Route strict path={routes.info} exact component={Swap} />
+                <Route strict path={routes.claim} exact component={Claim} />
               </Switch>
             </BodyWrapper>
           </ModalProvider>

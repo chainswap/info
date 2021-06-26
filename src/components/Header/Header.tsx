@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { X, ChevronUp, Menu } from 'react-feather'
 import { AppBar, Box, MenuItem, makeStyles, styled } from '@material-ui/core'
 import { Text } from 'rebass'
@@ -230,7 +230,8 @@ export default function Header() {
   const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
   const { showModal, hideModal } = useModal()
-  const [showClaimModal, setShowClaimModal] = useState(false)
+  // const [showClaimModal, setShowClaimModal] = useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     if (userLogined) {
@@ -270,7 +271,13 @@ export default function Header() {
           <Box display="flex">
             <HideOnMobile>
               <Box mr={'16px'}>
-                <ClaimButton onClick={() => setShowClaimModal(true)}>Claim list</ClaimButton>
+                <ClaimButton
+                  onClick={() => {
+                    history.push(routes.claim)
+                  }}
+                >
+                  Claim List
+                </ClaimButton>
               </Box>
             </HideOnMobile>
             <Box mr={'8px'}>
@@ -308,7 +315,7 @@ export default function Header() {
         </Box>
       )}
 
-      {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
+      {/* {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />} */}
     </>
   )
 }

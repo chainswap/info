@@ -29,7 +29,7 @@ interface Props {
   hintable: boolean
 }
 
-enum Hintable {
+enum FormItem {
   CURRENCY_INPUT,
   CURRENCY_SELECT,
   CHAIN_SELECT_FROM,
@@ -53,27 +53,26 @@ export default function Form(props: Props) {
     chainList,
     hintable,
   } = props
-  const [onHint, setOnHint] = useState<Hintable | null>(null)
   const { currency } = useCurrency()
+  const [active, setActive] = useState<FormItem | null>(null)
 
-  // onHint
   useEffect(() => {
     if (!userLogined || !hintable) {
-      return setOnHint(null)
+      return setActive(null)
     }
     if (!currency) {
-      return setOnHint(Hintable.CURRENCY_SELECT)
+      return setActive(FormItem.CURRENCY_SELECT)
     }
     if (!from) {
-      return setOnHint(Hintable.CHAIN_SELECT_FROM)
+      return setActive(FormItem.CHAIN_SELECT_FROM)
     }
     if (!to) {
-      return setOnHint(Hintable.CHAIN_SELECT_TO)
+      return setActive(FormItem.CHAIN_SELECT_TO)
     }
     if (!amount) {
-      return setOnHint(Hintable.CURRENCY_INPUT)
+      return setActive(FormItem.CURRENCY_INPUT)
     }
-    setOnHint(null)
+    setActive(null)
   }, [currency, userLogined, from, to, amount, hintable])
 
   return (
@@ -83,8 +82,8 @@ export default function Form(props: Props) {
         value={amount}
         onMax={onMax}
         disabled={!userLogined}
-        selectActive={onHint === Hintable.CURRENCY_SELECT}
-        inputFocused={!amount && onHint === Hintable.CURRENCY_INPUT}
+        selectActive={active === FormItem.CURRENCY_SELECT}
+        inputFocused={!amount && active === FormItem.CURRENCY_INPUT}
       />
       {showChainSelect && (
         <Box display="flex" justifyContent="space-between" alignItems={'flex-end'} position={'relative'}>
@@ -94,7 +93,7 @@ export default function Form(props: Props) {
             chainList={chainList}
             onChange={onChangeFrom}
             width={'232px'}
-            active={onHint === Hintable.CHAIN_SELECT_FROM}
+            active={active === FormItem.CHAIN_SELECT_FROM}
           />
           <Box position={'absolute'} left={'calc(50% - 16px)'} zIndex={99} padding="0px" height="32px" bottom="8px">
             <Switcher />
@@ -105,7 +104,7 @@ export default function Form(props: Props) {
             chainList={chainList}
             onChange={onChangeTo}
             width={'232px'}
-            active={onHint === Hintable.CHAIN_SELECT_TO}
+            active={active === FormItem.CHAIN_SELECT_TO}
           />
         </Box>
       )}

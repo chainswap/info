@@ -271,29 +271,27 @@ export default function Swap() {
   return (
     <>
       <AppBody>
-        <Box padding={'20px 40px 0 40px'}>
+        <Box padding={'20px 40px 0 40px'} width="100%">
           <TYPE.largeHeader marginBottom="20px">Cross Chain Bridge</TYPE.largeHeader>
-          <Box display="grid" gridGap="20px">
-            <SwapForm
-              showChainSelect={userLogined}
-              showDestination={!!(amount && currency && from && to && !authorized)}
-              onChangeAmount={onChangeAmount}
-              amount={amount}
-              currency={currency}
-              currencyOptions={currencyOptions}
-              onMax={onMax}
-              setSelectedCurrency={setSelectedCurrency}
-              userLogined={userLogined}
-              from={from}
-              to={to}
-              onChangeFrom={onChangeFrom}
-              onChangeTo={onChangeTo}
-              address={address}
-              onChangeAddress={onChangeAddress}
-              chainList={ChainList}
-              hintable={!withdrawCompleted}
-            />
-          </Box>
+          <SwapForm
+            showChainSelect={userLogined}
+            showDestination={!!(amount && currency && from && to && !authorized)}
+            onChangeAmount={onChangeAmount}
+            amount={amount}
+            currency={currency}
+            currencyOptions={currencyOptions}
+            onMax={onMax}
+            setSelectedCurrency={setSelectedCurrency}
+            userLogined={userLogined}
+            from={from}
+            to={to}
+            onChangeFrom={onChangeFrom}
+            onChangeTo={onChangeTo}
+            address={address}
+            onChangeAddress={onChangeAddress}
+            chainList={ChainList}
+            hintable={!withdrawCompleted}
+          />
           {authorized && (
             <>
               <Box marginTop="16px">

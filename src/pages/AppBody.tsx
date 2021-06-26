@@ -16,7 +16,7 @@ interface Props {
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
-    width: (props: { width?: number }) => props.width || 560,
+    width: (props: { width?: number | string }) => props.width || 560,
     borderRadius: 20,
     background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #000000',
     justifyContent: 'center',

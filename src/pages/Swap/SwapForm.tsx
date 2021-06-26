@@ -8,6 +8,7 @@ import Input from 'components/Input/Input'
 import { TYPE } from 'theme/index'
 import Switcher from 'components/swap/Switcher'
 import useCurrency from 'hooks/useCurrency'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 interface Props {
   showChainSelect: boolean
@@ -54,6 +55,8 @@ export default function Form(props: Props) {
     hintable,
   } = props
   const { currency } = useCurrency()
+  const { matches } = useBreakpoint()
+
   const [active, setActive] = useState<FormItem | null>(null)
 
   useEffect(() => {
@@ -86,24 +89,39 @@ export default function Form(props: Props) {
         inputFocused={!amount && active === FormItem.CURRENCY_INPUT}
       />
       {showChainSelect && (
-        <Box display="flex" justifyContent="space-between" alignItems={'flex-end'} position={'relative'}>
+        <Box
+          mt="24px"
+          display="flex"
+          flexDirection={matches ? 'column' : 'row'}
+          justifyContent="space-between"
+          alignItems={matches ? 'center' : 'flex-end'}
+          position={'relative'}
+        >
           <ChainSelect
             label={'From'}
             selectedChain={from}
             chainList={chainList}
             onChange={onChangeFrom}
-            width={'232px'}
+            width={matches ? '100%' : '232px'}
             active={active === FormItem.CHAIN_SELECT_FROM}
           />
-          <Box position={'absolute'} left={'calc(50% - 16px)'} zIndex={99} padding="0px" height="32px" bottom="8px">
-            <Switcher />
-          </Box>
+
+          {matches ? (
+            <Box mt="12px">
+              <Switcher />
+            </Box>
+          ) : (
+            <Box position="absolute" left={'calc(50% - 16px)'} zIndex={1} height="32px" bottom="8px">
+              <Switcher />
+            </Box>
+          )}
+
           <ChainSelect
             label={'To'}
             selectedChain={to}
             chainList={chainList}
             onChange={onChangeTo}
-            width={'232px'}
+            width={matches ? '100%' : '232px'}
             active={active === FormItem.CHAIN_SELECT_TO}
           />
         </Box>

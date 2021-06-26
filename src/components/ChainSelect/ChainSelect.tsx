@@ -1,4 +1,4 @@
-import { MenuItem, makeStyles } from '@material-ui/core'
+import { MenuItem, makeStyles, Box } from '@material-ui/core'
 import Select from '../Select/Select'
 import LogoText from '../LogoText/LogoText'
 import Chain from '../../models/chain'
@@ -17,6 +17,9 @@ interface Props {
 }
 
 const useStyles = makeStyles({
+  root: {
+    width: (props: { width?: string }) => props.width,
+  },
   menuItem: {
     '&::before': {
       content: '""',
@@ -40,7 +43,7 @@ export default function ChainSelect(props: Props) {
   const { label, disabled, chainList, onChange, selectedChain, width, active, placeholder } = props
 
   return (
-    <div>
+    <div className={classes.root}>
       <InputLabel>{label}</InputLabel>
       <Select
         defaultValue={selectedChain?.symbol}

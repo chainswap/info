@@ -9,6 +9,7 @@ import SelectCurrency from 'components/SelectCurrency/SelectCurrency'
 import useCurrency from 'hooks/useCurrency'
 import Currency from 'models/currency'
 import LogoText from 'components/LogoText/LogoText'
+import ClaimList from 'components/claim/ClaimList'
 
 const TextWrapper = styled('div')({
   position: 'absolute',
@@ -39,9 +40,15 @@ export default function Claim() {
         >
           {currency ? <LogoText logo={currency.logo} text={currency.symbol} /> : <>Select Token</>}
         </SelectButton>
-        <TextWrapper>
-          <TYPE.body>Please select a token to see your claim list</TYPE.body>
-        </TextWrapper>
+        <Box padding="0 40px">
+          {currency ? (
+            <ClaimList />
+          ) : (
+            <TextWrapper>
+              <TYPE.body>Please select a token to see your claim list</TYPE.body>
+            </TextWrapper>
+          )}
+        </Box>
       </AppBody>
       <Footer>
         <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>

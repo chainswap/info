@@ -16,7 +16,6 @@ import { useUserLogined } from 'state/user/hooks'
 import { Text } from 'rebass'
 import Currency from 'models/currency'
 import { ReactComponent as CheckIcon } from 'assets/images/check_icon.svg'
-import ClaimModal from 'components/claim/ClaimModal'
 import Chain from 'models/chain'
 import { TYPE } from 'theme/index'
 import SwapForm from './SwapForm'
@@ -42,7 +41,6 @@ export default function Swap() {
   const [percentage, setPercentage] = useState(0)
   const [step, setStep] = useState(0)
   const [authorized, setAuthorized] = useState(false)
-  const [showClaimModal, setShowClaimModal] = useState(false)
   const { currency, setCurrency, currencyOptions } = useCurrency()
 
   // swap state
@@ -328,8 +326,6 @@ export default function Swap() {
         <Divider orientation={'horizontal'} />
         {authorized && currency && <QuotaInfo quota={quota} currency={currency.symbol} percentage={percentage} />}
       </AppBody>
-
-      {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
     </>
   )
 }

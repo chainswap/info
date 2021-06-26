@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { styled, Box } from '@material-ui/core'
 import AppBody from 'pages/AppBody'
 import SelectButton from 'components/Button/SelectButton'

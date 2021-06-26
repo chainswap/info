@@ -97,13 +97,11 @@ export default function AddToken(props: Props) {
   }, [name, symby, declaims, totalSupply, chain])
 
   const errorExisting = useMemo(() => {
-    if (mode === DEPLOY_MODE.EXISTING) {
-      if (!address) {
-        return AddTokenError.ENTER_ADDRESS
-      }
-      if (!chainId) {
-        return AddTokenError.ENTER_CHAIN_ID
-      }
+    if (!address) {
+      return AddTokenError.ENTER_ADDRESS
+    }
+    if (!chainId) {
+      return AddTokenError.ENTER_CHAIN_ID
     }
   }, [address, chainId, mode])
 

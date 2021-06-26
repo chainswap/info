@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react'
-import { InputBase, Theme } from '@material-ui/core'
+import { InputBase, Theme, Box } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import InputLabel from '../InputLabel/InputLabel'
+import { TYPE } from 'theme/index'
 
 interface Props {
   placeholder?: string
@@ -12,6 +13,7 @@ interface Props {
   focused?: boolean
   outlined?: boolean
   type?: string
+  info?: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,11 +53,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Input(props: Props) {
   const classes = useStyles(props)
-  const { focused, placeholder, onChange, value, disabled, type } = props
+  const { focused, placeholder, onChange, value, disabled, type, label, info } = props
 
   return (
     <div className={classes.formControl}>
-      {props.label && <InputLabel>{props.label}</InputLabel>}
+      <Box display="flex" justifyContent="space-between">
+        {label && <InputLabel>{props.label}</InputLabel>}
+        {info ? <TYPE.mediumGray>{info}</TYPE.mediumGray> : <div />}
+      </Box>
       <InputBase
         fullWidth={true}
         placeholder={placeholder}

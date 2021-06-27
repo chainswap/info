@@ -129,6 +129,9 @@ export const TYPE = {
   bold(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={16} textColor="text1" {...props} />
   },
+  largeBold(props: TextProps) {
+    return <TextWrapper fontWeight={500} fontSize={26} {...props} />
+  },
   primary(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={16} textColor="primary" {...props} />
   },
@@ -153,14 +156,14 @@ export const TYPE = {
   large(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={18} {...props} />
   },
-  extraLarge(props: TextProps) {
-    return <TextWrapper fontWeight={400} fontSize={24} {...props} />
-  },
   extremeLarge(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={40} {...props} />
   },
   smallGray(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={12} textColor="text3" {...props} />
+  },
+  extraSmallGray(props: TextProps) {
+    return <TextWrapper fontWeight={400} fontSize={10} textColor="text3" {...props} />
   },
   mediumGray(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={14} textColor="text3" {...props} />

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, useTheme } from '@material-ui/core'
+import { Box, useTheme, LinearProgress } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import { TYPE } from '../../theme/index'
 
 interface Props {
@@ -8,9 +9,18 @@ interface Props {
   currency: string
 }
 
+const useStyles = makeStyles({
+  progress: {
+    width: '100%',
+    height: '8px',
+    background: 'rgba(255, 255, 255, .2)',
+  },
+})
+
 export default function QuotaInfo(props: Props) {
   const { percentage, quota, currency } = props
   const theme = useTheme()
+  const classes = useStyles()
 
   return (
     <>
@@ -23,9 +33,7 @@ export default function QuotaInfo(props: Props) {
           <TYPE.mediumGray marginLeft="16px">{percentage}% / 100%</TYPE.mediumGray>
         </Box>
       </Box>
-      <Box bgcolor="rgba(255, 255, 255, .2)">
-        <Box bgcolor={theme.palette.primary.main} width={`${percentage}%`} height="8px" />
-      </Box>
+      <LinearProgress className={classes.progress} variant="determinate" value={percentage} />
     </>
   )
 }

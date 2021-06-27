@@ -69,7 +69,7 @@ const dummyTableData = [
 ]
 
 export default function Liquidity() {
-  const [state, setState] = useState(LiquidityState.WITHDRAW)
+  const [state, setState] = useState(LiquidityState.DEFAULT)
   const [currentAsset, setCurrentAsset] = useState<Currency | null>(null)
 
   const { matches } = useBreakpoint()

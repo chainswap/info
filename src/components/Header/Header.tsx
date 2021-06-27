@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { X, ChevronUp, Menu } from 'react-feather'
 import { AppBar, Box, MenuItem, makeStyles, styled } from '@material-ui/core'
 import { Text } from 'rebass'
@@ -12,7 +12,6 @@ import Image from '../Image/Image'
 import { shortenAddress } from '../../utils/utils'
 import Divider from '../../components/Divider/Divider'
 import WalletModal from '../../components/WalletModal/WalletModal'
-import ClaimModal from '../../components/claim/ClaimModal'
 import Button from '../../components/Button/Button'
 import Copy from '../Copy/Copy'
 import NotifyBox from './NotifyBox'
@@ -27,49 +26,12 @@ import { ConfirmedTransactionList, PendingTransactionList, NotificationList } fr
 import PlainSelect from '../Select/PlainSelect'
 import { HideOnMobile, ShowOnMobile } from 'theme'
 import Modal from 'components/Modal/Modal'
+import { NavLinks, AboutNavItems } from 'constants/navlinks'
 
 enum Mode {
   VISITOR,
   USER,
 }
-
-const NavLinks = [
-  {
-    name: 'Swap',
-    link: routes.swap,
-  },
-  {
-    name: 'Deploy',
-    link: routes.deploy,
-  },
-  {
-    name: 'Liquidity',
-    link: routes.liquidity,
-  },
-  {
-    name: 'Farm',
-    link: routes.farm,
-  },
-  {
-    name: 'Info',
-    link: routes.info,
-  },
-]
-
-const AboutNavItems = [
-  {
-    name: 'Apply for listing',
-    link: null,
-  },
-  {
-    name: 'Auditing report',
-    link: null,
-  },
-  {
-    name: 'Support',
-    link: null,
-  },
-]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -230,7 +192,8 @@ export default function Header() {
   const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
   const { showModal, hideModal } = useModal()
-  const [showClaimModal, setShowClaimModal] = useState(false)
+  // const [showClaimModal, setShowClaimModal] = useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     if (userLogined) {
@@ -258,7 +221,7 @@ export default function Header() {
                   {nav.name}
                 </NavLink>
               ))}
-              <PlainSelect placeholder="about">
+              <PlainSelect placeholder="About">
                 {AboutNavItems.map((item) => (
                   <MenuItem key={item.name}>{item.name}</MenuItem>
                 ))}
@@ -270,7 +233,13 @@ export default function Header() {
           <Box display="flex">
             <HideOnMobile>
               <Box mr={'16px'}>
-                <ClaimButton onClick={() => setShowClaimModal(true)}>Claim list</ClaimButton>
+                <ClaimButton
+                  onClick={() => {
+                    history.push(routes.claim)
+                  }}
+                >
+                  Claim List
+                </ClaimButton>
               </Box>
             </HideOnMobile>
             <Box mr={'8px'}>
@@ -308,7 +277,7 @@ export default function Header() {
         </Box>
       )}
 
-      {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />}
+      {/* {showClaimModal && <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} />} */}
     </>
   )
 }

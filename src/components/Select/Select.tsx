@@ -8,10 +8,10 @@ interface Props {
   defaultValue?: any
   value?: string | string[]
   disabled?: boolean
-  size?: 'large' | 'small'
-  selected?: boolean
+  size?: 'large' | 'medium' | 'small'
   placeholder?: string
   width?: string
+  height?: string
   multiple?: boolean
   renderValue?: any
   primary?: boolean
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: (props: Props) => (props.width ? props.width : '100%'),
-      height: (props: Props) => (props.size === 'small' ? 32 : 48),
+      height: (props: Props) => (props.height ? props.height : props.size === 'small' ? 32 : 48),
       borderRadius: theme.shape.borderRadius,
       paddingLeft: (props: Props) => (props.size === 'small' ? 8 : 24),
       cursor: (props: Props) => (props.disabled ? 'cursor' : 'pointer'),
@@ -44,11 +44,10 @@ const useStyles = makeStyles((theme: Theme) =>
         content: ({ value, defaultValue, placeholder }: Props) =>
           (!value || value.length === 0) && !defaultValue && placeholder ? '"' + placeholder + '"' : '""',
         position: 'absolute',
-        left: 24,
-        top: 14,
+        left: (props: Props) => (props.size === 'medium' ? 12 : 24),
         zIndex: 2,
         color: (props: Props) => (props.primary ? theme.palette.primary.contrastText : theme.textColor.text3),
-        fontSize: 16,
+        fontSize: (props: Props) => (props.size === 'medium' ? 13 : 16),
         fontWeight: 400,
       },
     },
@@ -57,8 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#FFFFFF',
       display: (props: Props) => (props.disabled ? 'none' : 'block'),
       opacity: (props: Props) => (props.size === 'small' ? 0.5 : 1),
-      fontSize: (props: Props) => (props.size === 'small' ? '12px' : '24px'),
-      top: (props: Props) => (props.size === 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)'),
+      fontSize: (props: Props) => (props.size === 'medium' ? '16px' : props.size === 'small' ? '12px' : '24px'),
+      top: (props: Props) =>
+        props.size === 'medium' ? 'calc(50% - 8px)' : props.size === 'small' ? 'calc(50% - 6px)' : 'calc(50% - 12px)',
     },
     paper: {
       width: (props: Props) => (props.size === 'small' ? 172 : 176),

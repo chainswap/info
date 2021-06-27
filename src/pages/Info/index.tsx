@@ -26,7 +26,7 @@ export default function Info() {
   return (
     <AppBody title="ChainSwap Stats" width={640}>
       <Wrapper>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <MainCard>
               <TYPE.extraSmallGray>TOTAL SWAAPED ASSETS VALUE</TYPE.extraSmallGray>

@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react'
+import { Box } from '@material-ui/core'
 import Table from 'components/Table/Table'
 import Image from 'components/Image/Image'
 import { ETH } from 'data/dummyData'
+import AppBody from 'pages/AppBody'
 
 const dummyTableData = [
   {
@@ -38,9 +40,13 @@ export default function TokenList() {
     ])
   }, [])
   return (
-    <Table
-      header={['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']}
-      rows={tableRows}
-    />
+    <AppBody title="Token List" width={880}>
+      <Box padding="0 20px 40px">
+        <Table
+          header={['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']}
+          rows={tableRows}
+        />
+      </Box>
+    </AppBody>
   )
 }

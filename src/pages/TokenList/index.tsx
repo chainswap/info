@@ -4,6 +4,7 @@ import Table from 'components/Table/Table'
 import Image from 'components/Image/Image'
 import { ETH } from 'data/dummyData'
 import AppBody from 'pages/AppBody'
+import Pager from 'components/Pager/Pager'
 
 const dummyTableData = [
   {
@@ -40,13 +41,20 @@ export default function TokenList() {
     ])
   }, [])
   return (
-    <AppBody title="Token List" width={880}>
-      <Box padding="0 20px 40px">
-        <Table
-          header={['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']}
-          rows={tableRows}
-        />
+    <>
+      <AppBody title="Token List" width={880} height={492}>
+        <Box padding="0 20px 40px">
+          <Table
+            header={['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']}
+            rows={tableRows}
+          />
+        </Box>
+      </AppBody>
+      <Box position="relative" width="880px" mt="15px">
+        <Box position="absolute" right="10px">
+          <Pager />
+        </Box>
       </Box>
-    </AppBody>
+    </>
   )
 }

@@ -67,22 +67,16 @@ function NextButton() {
   )
 }
 
-function PageInput() {
-  const classes = useStyles()
-
-  return <InputBase className={classes.input} defaultValue={1} />
-}
-
-export default function Pager() {
+export default function Pager({ current, total }: { current: number; total: number }) {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
       <PreviousButton />
-      <PageInput />
+      <InputBase className={classes.input} defaultValue={1} value={current} />
       <NextButton />
       <Box component="span" className={classes.span}>
-        of 100
+        of {total}
       </Box>
     </div>
   )

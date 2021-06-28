@@ -26,6 +26,8 @@ const dummyTableData = [
 
 export default function TokenList() {
   const [search, setSearch] = useState('')
+  const [totalPage] = useState(100)
+  const [page, setPage] = useState(1)
 
   const tableRows = useMemo(() => {
     return dummyTableData.map(({ asset, decimals, mainChain, verified, status }) => [
@@ -65,7 +67,7 @@ export default function TokenList() {
       </AppBody>
       <Box position="relative" width="880px" mt="15px">
         <Box position="absolute" right="10px">
-          <Pager />
+          <Pager current={page} total={totalPage} />
         </Box>
       </Box>
     </>

@@ -14,6 +14,8 @@ interface Props {
   outlined?: boolean
   type?: string
   info?: string
+  height?: string | number
+  width?: string | number
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,10 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: 'Roboto',
       fontWeight: 400,
       backgroundColor: 'rgba(255, 255, 255, 0.08)',
-      height: 48,
+      height: (props: Props) => props.height || 48,
       paddingLeft: 20,
       borderRadius: 14,
-      border: (props: { outlined?: boolean }) => `1px solid ${props.outlined ? 'rgba(255,255,255,.4)' : 'transparent'}`,
+      border: (props: Props) => `1px solid ${props.outlined ? 'rgba(255,255,255,.4)' : 'transparent'}`,
     },
     focused: {
       border: `1px solid ${theme.palette.primary.main} !important`,
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.gray.dark,
     },
     formControl: {
-      width: '100%',
+      width: (props: Props) => props.width || '100%',
     },
   })
 )

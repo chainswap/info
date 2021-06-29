@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { NavLink, useHistory, useLocation } from 'react-router-dom'
 import { X, ChevronUp, Menu } from 'react-feather'
 import { AppBar, Box, MenuItem, makeStyles, styled } from '@material-ui/core'
 import { Text } from 'rebass'
@@ -26,7 +26,8 @@ import { ConfirmedTransactionList, PendingTransactionList, NotificationList } fr
 import PlainSelect from '../Select/PlainSelect'
 import { HideOnMobile, ShowOnMobile } from 'theme'
 import Modal from 'components/Modal/Modal'
-import { NavLinks, AboutNavItems } from 'constants/navlinks'
+import { NavLinks, InfoNavLinks, AboutNavItems } from 'constants/navlinks'
+import Info from 'pages/Info'
 
 enum Mode {
   VISITOR,
@@ -143,6 +144,7 @@ const LinksWrapper = styled('div')({
 
 const WalletInfo = ({ amount, currency, address }: { amount: number; currency: string; address: string }) => {
   const { showModal } = useModal()
+
   const showAccountModal = () => {
     showModal(
       <AccountModal
@@ -183,7 +185,6 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
 
 export default function Header() {
   const classes = useStyles()
-
   const [mode, setMode] = useState(Mode.VISITOR)
   const [address] = useState('0xKos369cd6vwd94wq1gt4hr87ujv')
   // const address = null
@@ -194,6 +195,7 @@ export default function Header() {
   const { showModal, hideModal } = useModal()
   // const [showClaimModal, setShowClaimModal] = useState(false)
   const history = useHistory()
+  const location = useLocation()
 
   useEffect(() => {
     if (userLogined) {
@@ -216,16 +218,18 @@ export default function Header() {
               <Image src={ChainSwap} alt={'chainswap'} />
             </NavLink>
             <LinksWrapper>
-              {NavLinks.map((nav) => (
+              {(location.pathname === routes.info ? InfoNavLinks : NavLinks).map((nav) => (
                 <NavLink key={nav.name} id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
                   {nav.name}
                 </NavLink>
               ))}
-              <PlainSelect placeholder="About">
-                {AboutNavItems.map((item) => (
-                  <MenuItem key={item.name}>{item.name}</MenuItem>
-                ))}
-              </PlainSelect>
+              {location.pathname !== routes.info && (
+                <PlainSelect placeholder="About">
+                  {AboutNavItems.map((item) => (
+                    <MenuItem key={item.name}>{item.name}</MenuItem>
+                  ))}
+                </PlainSelect>
+              )}
             </LinksWrapper>
           </Box>
         </HideOnMobile>
@@ -301,12 +305,13 @@ function Accordion({ children, placeholder }: { children: React.ReactNode; place
 function MobileHeader() {
   const classes = useMobileStyle()
   const { showModal, hideModal, isOpen } = useModal()
+  const location = useLocation()
 
   const MobileMenu = useCallback(
     () => (
       <Modal isCardOnMobile>
         <Box display="grid" gridGap="15px">
-          {NavLinks.map((nav) => (
+          {(location.pathname === routes.info ? InfoNavLinks : NavLinks).map((nav) => (
             <NavLink
               key={nav.name}
               id={`${nav.link}-nav-link`}
@@ -317,13 +322,15 @@ function MobileHeader() {
               {nav.name}
             </NavLink>
           ))}
-          <Accordion placeholder="About">
-            {AboutNavItems.map((item) => (
-              <MenuItem key={item.name} onClick={hideModal}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Accordion>
+          {location.pathname !== routes.info && (
+            <Accordion placeholder="About">
+              {AboutNavItems.map((item) => (
+                <MenuItem key={item.name} onClick={hideModal}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Accordion>
+          )}
         </Box>
       </Modal>
     ),

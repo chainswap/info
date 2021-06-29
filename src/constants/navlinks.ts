@@ -23,6 +23,33 @@ const NavLinks = [
   },
 ]
 
+const InfoNavLinks = [
+  {
+    name: 'Apply for listing',
+    link: '/*',
+  },
+  {
+    name: 'Tokens',
+    link: routes.token,
+  },
+  {
+    name: 'Statistics',
+    link: '/*',
+  },
+  {
+    name: 'History',
+    link: '/*',
+  },
+  {
+    name: 'Explorer',
+    link: '/*',
+  },
+  {
+    name: 'Support',
+    link: '/*',
+  },
+]
+
 const AboutNavItems = [
   {
     name: 'Apply for listing',
@@ -38,4 +65,4 @@ const AboutNavItems = [
   },
 ]
 
-export { NavLinks, AboutNavItems }
+export { NavLinks, InfoNavLinks, AboutNavItems }

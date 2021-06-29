@@ -6,6 +6,7 @@ const Routes = {
   farm: '/farm',
   info: '/info',
   claim: '/claim',
+  token: '/token',
 }
 
 export default Routes

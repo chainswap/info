@@ -12,6 +12,7 @@ interface Props {
   height?: number
   onReturnClick?: () => void
   title?: string
+  titleCenter?: boolean
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function AppBody({ onReturnClick, title, children, ...props }: Props) {
+export default function AppBody({ onReturnClick, title, children, titleCenter, ...props }: Props) {
   const classes = useStyles(props)
   const { matches } = useBreakpoint()
 
@@ -50,6 +51,8 @@ export default function AppBody({ onReturnClick, title, children, ...props }: Pr
               <ArrowLeft />
             </TextButton>
           )}
+
+          {titleCenter && <div />}
 
           {title && <TYPE.mediumHeader>{title}</TYPE.mediumHeader>}
 

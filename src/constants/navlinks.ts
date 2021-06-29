@@ -26,7 +26,7 @@ const NavLinks = [
 const InfoNavLinks = [
   {
     name: 'Apply for listing',
-    link: '/*',
+    link: routes.apply,
   },
   {
     name: 'Tokens',
@@ -34,19 +34,19 @@ const InfoNavLinks = [
   },
   {
     name: 'Statistics',
-    link: '/*',
+    link: routes.statistics,
   },
   {
     name: 'History',
-    link: '/*',
+    link: routes.history,
   },
   {
     name: 'Explorer',
-    link: '/*',
+    link: routes.explorer,
   },
   {
     name: 'Support',
-    link: '/*',
+    link: routes.support,
   },
 ]
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback, ChangeEvent } from 'react'
 import { NavLink, useHistory, useLocation } from 'react-router-dom'
 import { X, ChevronUp, Menu } from 'react-feather'
 import { AppBar, Box, MenuItem, makeStyles, styled } from '@material-ui/core'
@@ -27,12 +27,22 @@ import PlainSelect from '../Select/PlainSelect'
 import { HideOnMobile, ShowOnMobile } from 'theme'
 import Modal from 'components/Modal/Modal'
 import { NavLinks, InfoNavLinks, AboutNavItems } from 'constants/navlinks'
-import Info from 'pages/Info'
+import { useMemo } from 'react'
 
 enum Mode {
-  VISITOR,
-  USER,
+  App,
+  Info,
 }
+
+const InfoRoutes = [
+  routes.info,
+  routes.apply,
+  routes.token,
+  routes.statistics,
+  routes.history,
+  routes.explorer,
+  routes.support,
+]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -185,7 +195,6 @@ const WalletInfo = ({ amount, currency, address }: { amount: number; currency: s
 
 export default function Header() {
   const classes = useStyles()
-  const [mode, setMode] = useState(Mode.VISITOR)
   const [address] = useState('0xKos369cd6vwd94wq1gt4hr87ujv')
   // const address = null
   const [chain, setChain] = useState(ChainList[0])
@@ -193,20 +202,21 @@ export default function Header() {
   const [currency] = useState('MATTER')
   const userLogined = useUserLogined()
   const { showModal, hideModal } = useModal()
-  // const [showClaimModal, setShowClaimModal] = useState(false)
   const history = useHistory()
   const location = useLocation()
 
-  useEffect(() => {
-    if (userLogined) {
-      setMode(Mode.USER)
+  const mode = useMemo(() => {
+    if (InfoRoutes.includes(location.pathname)) {
+      return Mode.Info
     }
-  }, [userLogined])
 
-  function onChangeChain(e: any) {
+    return Mode.App
+  }, [location])
+
+  const onChangeChain = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const chain = ChainList.filter((el) => el.symbol === e.target.value)[0]
     setChain(chain)
-  }
+  }, [])
 
   return (
     <>
@@ -218,12 +228,12 @@ export default function Header() {
               <Image src={ChainSwap} alt={'chainswap'} />
             </NavLink>
             <LinksWrapper>
-              {(location.pathname === routes.info ? InfoNavLinks : NavLinks).map((nav) => (
+              {(mode === Mode.Info ? InfoNavLinks : NavLinks).map((nav) => (
                 <NavLink key={nav.name} id={`${nav.link}-nav-link`} to={nav.link} className={classes.navLink}>
                   {nav.name}
                 </NavLink>
               ))}
-              {location.pathname !== routes.info && (
+              {mode === Mode.App && (
                 <PlainSelect placeholder="About">
                   {AboutNavItems.map((item) => (
                     <MenuItem key={item.name}>{item.name}</MenuItem>
@@ -233,7 +243,7 @@ export default function Header() {
             </LinksWrapper>
           </Box>
         </HideOnMobile>
-        {mode === Mode.USER ? (
+        {userLogined ? (
           <Box display="flex">
             <HideOnMobile>
               <Box mr={'16px'}>
@@ -275,7 +285,7 @@ export default function Header() {
         )}
       </AppBar>
 
-      {mode === Mode.USER && (
+      {userLogined && (
         <Box position={'absolute'} right={'60px'} top={'72px'}>
           <NotifyBox notifications={NotificationList} />
         </Box>
@@ -307,11 +317,19 @@ function MobileHeader() {
   const { showModal, hideModal, isOpen } = useModal()
   const location = useLocation()
 
+  const mode = useMemo(() => {
+    if (InfoRoutes.includes(location.pathname)) {
+      return Mode.Info
+    }
+
+    return Mode.App
+  }, [location])
+
   const MobileMenu = useCallback(
     () => (
       <Modal isCardOnMobile>
         <Box display="grid" gridGap="15px">
-          {(location.pathname === routes.info ? InfoNavLinks : NavLinks).map((nav) => (
+          {(mode === Mode.Info ? InfoNavLinks : NavLinks).map((nav) => (
             <NavLink
               key={nav.name}
               id={`${nav.link}-nav-link`}
@@ -322,7 +340,7 @@ function MobileHeader() {
               {nav.name}
             </NavLink>
           ))}
-          {location.pathname !== routes.info && (
+          {mode === Mode.App && (
             <Accordion placeholder="About">
               {AboutNavItems.map((item) => (
                 <MenuItem key={item.name} onClick={hideModal}>

@@ -8,6 +8,7 @@ import Pager from 'components/Pager/Pager'
 import Input from 'components/Input/Input'
 import { TYPE } from 'theme/index'
 import LogoText from 'components/LogoText/LogoText'
+import { shortenAddress } from '../../utils/utils'
 
 const dummyTableData = [
   {
@@ -37,7 +38,7 @@ export default function TokenList() {
       asset.symbol,
       decimals,
       <LogoText logo={mainChain.logo} text={mainChain.symbol} fontSize={12} />,
-      asset.address,
+      shortenAddress(asset.address),
       verified ? <TYPE.highlight>verified</TYPE.highlight> : '',
       <TYPE.highlight>{status}</TYPE.highlight>,
     ])

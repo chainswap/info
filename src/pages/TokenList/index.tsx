@@ -6,6 +6,8 @@ import { ETH } from 'data/dummyData'
 import AppBody from 'pages/AppBody'
 import Pager from 'components/Pager/Pager'
 import Input from 'components/Input/Input'
+import { TYPE } from 'theme/index'
+import LogoText from 'components/LogoText/LogoText'
 
 const dummyTableData = [
   {
@@ -31,18 +33,13 @@ export default function TokenList() {
 
   const tableRows = useMemo(() => {
     return dummyTableData.map(({ asset, decimals, mainChain, verified, status }) => [
-      <>
-        <Image src={asset.logo} />
-        {asset.symbol}
-      </>,
+      <LogoText logo={asset.logo} text={asset.symbol} fontSize={12} />,
       asset.symbol,
       decimals,
-      <>
-        <Image src={mainChain.logo} alt="main chain logo" /> {mainChain.symbol}
-      </>,
+      <LogoText logo={mainChain.logo} text={mainChain.symbol} fontSize={12} />,
       asset.address,
-      verified ? 'verified' : '',
-      status,
+      verified ? <TYPE.highlight>verified</TYPE.highlight> : '',
+      <TYPE.highlight>{status}</TYPE.highlight>,
     ])
   }, [])
   return (

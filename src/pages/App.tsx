@@ -5,7 +5,9 @@ import Deploy from './Deploy'
 import Liquidity from './Liquidity'
 import Claim from './Claim'
 import Info from './Info'
+import History from './History'
 import TokenList from './TokenList'
+import Explorer from './Explorer'
 import { styled, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
@@ -56,6 +58,9 @@ export default function App() {
                 <Route strict path={routes.info} exact component={Info} />
                 <Route strict path={routes.claim} exact component={Claim} />
                 <Route strict path={routes.token} exact component={TokenList} />
+                <Route strict path={routes.statistics} exact component={Info} />
+                <Route strict path={routes.history} exact component={History} />
+                <Route strict path={routes.explorer} exact component={Explorer} />
               </Switch>
             </BodyWrapper>
           </ModalProvider>

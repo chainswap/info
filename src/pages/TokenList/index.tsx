@@ -47,7 +47,7 @@ export default function TokenList() {
   }, [])
   return (
     <>
-      <AppBody title="Token List" width={880} height={492}>
+      <AppBody title="Token List" titleCenter width={880} height={492}>
         <Box position="absolute" right="20px" top="20px">
           <Input
             placeholder="name/symbol/token/address"

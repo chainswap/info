@@ -6,7 +6,14 @@ const Routes = {
   farm: '/farm',
   info: '/info',
   claim: '/claim',
+
+  // info routes
+  apply: '/apply',
   token: '/token',
+  statistics: '/statistics',
+  history: '/history',
+  explorer: '/explorer',
+  support: '/support',
 }
 
 export default Routes

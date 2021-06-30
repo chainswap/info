@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import AppBody from 'pages/AppBody'
 import useBreakpoint from 'hooks/useBreakpoint'
-import InfoCard from './InfoCard'
+import InfoCard from '../../components/info/InfoCard'
 
 const Wrapper = styled('div')({
   padding: '0 40px 20px',
@@ -13,7 +13,7 @@ export default function Info() {
   const { matches } = useBreakpoint()
 
   return (
-    <AppBody title="ChainSwap Stats" width={640}>
+    <AppBody title="ChainSwap Stats" titleCenter width={640}>
       <Wrapper>
         <Grid container spacing={1}>
           <Grid item xs={12}>

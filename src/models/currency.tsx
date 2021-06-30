@@ -3,4 +3,5 @@ export default interface Currency {
   symbol: string
   name: string
   balance: number
+  address: string
 }

@@ -9,21 +9,67 @@ import Input from 'components/Input/Input'
 import { TYPE } from 'theme/index'
 import LogoText from 'components/LogoText/LogoText'
 import { shortenAddress } from '../../utils/utils'
+import useBreakpoint from 'hooks/useNavLinks'
+import CollapsibleTable from 'pages/Info/InfoTable'
 
-const dummyTableData = [
+const dummyData = [
   {
     asset: ETH,
-    mainChain: ETH,
-    decimals: '18',
+    decimals: 18,
+    mainchain: ETH,
     verified: true,
     status: 'Live',
+    supportChains: [
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+    ],
   },
   {
     asset: ETH,
-    mainChain: ETH,
-    decimals: '18',
+    decimals: 18,
+    mainchain: ETH,
     verified: true,
     status: 'Live',
+    supportChains: [
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+      {
+        asset: ETH,
+        tokenAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+        mappingAddress: '0x1c9491865a1de77c5b6e19d2e6a5f1d7a6f2b25f',
+      },
+    ],
   },
 ]
 
@@ -31,18 +77,29 @@ export default function TokenList() {
   const [search, setSearch] = useState('')
   const [totalPage] = useState(100)
   const [page, setPage] = useState(1)
+  // const matches = useBreakpoint()
 
-  const tableRows = useMemo(() => {
-    return dummyTableData.map(({ asset, decimals, mainChain, verified, status }) => [
-      <LogoText logo={asset.logo} text={asset.symbol} fontSize={12} />,
-      asset.symbol,
-      decimals,
-      <LogoText logo={mainChain.logo} text={mainChain.symbol} fontSize={12} />,
-      shortenAddress(asset.address),
-      verified ? <TYPE.highlight>verified</TYPE.highlight> : '',
-      <TYPE.highlight>{status}</TYPE.highlight>,
-    ])
+  const rowData = useMemo(() => {
+    return dummyData.map(({ asset, decimals, mainchain, verified, status, supportChains }) => {
+      return {
+        main: [
+          <LogoText logo={asset.logo} text={asset.symbol} />,
+          asset.symbol,
+          decimals,
+          <LogoText logo={mainchain.logo} text={mainchain.symbol} />,
+          asset.address,
+          <TYPE.highlight>{verified ? 'verified' : ''}</TYPE.highlight>,
+          <TYPE.highlight>{status}</TYPE.highlight>,
+        ],
+        sub: supportChains.map(({ asset, tokenAddress, mappingAddress }) => [
+          <LogoText logo={asset.logo} text={asset.symbol} />,
+          <TYPE.smallGray>{tokenAddress}</TYPE.smallGray>,
+          <TYPE.smallGray>{mappingAddress}</TYPE.smallGray>,
+        ]),
+      }
+    })
   }, [])
+
   return (
     <>
       <AppBody title="Token List" titleCenter width={880} height={492}>
@@ -57,9 +114,10 @@ export default function TokenList() {
         </Box>
 
         <Box padding="0 20px 40px">
-          <Table
-            header={['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']}
-            rows={tableRows}
+          <CollapsibleTable
+            headers={['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']}
+            subHeaders={['Support Chain', 'Token contract address', 'Mapping contract address']}
+            rows={rowData}
           />
         </Box>
       </AppBody>

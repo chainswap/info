@@ -15,6 +15,7 @@ import theme from '../theme/index'
 import routes from '../constants/routes'
 import { ModalProvider } from '../context/ModalContext'
 import { CurrencyProvider } from '../context/CurrencyContext'
+import SocialLinks from 'components/SocialLinks/SocialLinks'
 
 const BodyWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -62,6 +63,7 @@ export default function App() {
                 <Route strict path={routes.history} exact component={History} />
                 <Route strict path={routes.explorer} exact component={Explorer} />
               </Switch>
+              <SocialLinks />
             </BodyWrapper>
           </ModalProvider>
         </CurrencyProvider>

@@ -91,7 +91,10 @@ export default function TokenList() {
           <TYPE.highlight>{status}</TYPE.highlight>,
         ],
         sub: supportChains.map(({ asset, tokenAddress, mappingAddress }) => [
-          <LogoText logo={asset.logo} text={asset.symbol} fontSize={12} />,
+          <Box display="flex" alignItems="center">
+            <Image src={asset.logo} alt={`${asset.symbol} logo`} />
+            <TYPE.smallGray ml="8px">{asset.symbol}</TYPE.smallGray>
+          </Box>,
           <TYPE.smallGray>{tokenAddress}</TYPE.smallGray>,
           <TYPE.smallGray>{mappingAddress}</TYPE.smallGray>,
         ]),

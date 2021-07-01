@@ -13,11 +13,12 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import Currency from 'models/currency'
 
 interface RowProps {
-  main: (JSX.Element | string)[]
-  sub: (JSX.Element | string)[][]
+  main: (JSX.Element | string | number)[]
+  sub: (JSX.Element | string | number)[][]
 }
 
 interface Props {
@@ -26,13 +27,25 @@ interface Props {
   rows: RowProps[]
 }
 
-const headers = ['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']
-const subHeaders = ['Support Chain', 'Token contract address', 'Mapping contract address']
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: theme.bgColor.bg2,
+      backgroundColor: 'transparent',
+      '& .MuiTable-root': {
+        borderCollapse: 'separate',
+        borderSpacing: '0 3px',
+      },
+      '& .MuiTableCell-root': {
+        border: 'none',
+        padding: 12,
+        marginBottom: 3,
+      },
+    },
+    head: {
+      '& .MuiTableCell-head': {
+        fontSize: 12,
+        color: theme.textColor.text3,
+      },
     },
   })
 )
@@ -41,15 +54,31 @@ const useRowStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       backgroundColor: theme.bgColor.bg2,
-      '& > *': {
-        borderBottom: 'unset',
+      '&:hover': { backgroundColor: theme.bgColor.bg3 },
+      // '& td': {
+      //   marginBottom: '5px',
+      // },
+      '& td:first-child': {
+        borderTopLeftRadius: theme.shape.borderRadius,
+        borderBottomLeftRadius: theme.shape.borderRadius,
+      },
+      '& td:last-child': {
+        borderTopRightRadius: theme.shape.borderRadius,
+        borderBottomRightRadius: theme.shape.borderRadius,
+      },
+    },
+    icon: {
+      color: theme.textColor.text3,
+      fontSize: 13,
+      '&:hover': {
+        color: theme.textColor.text1,
       },
     },
   })
 )
 
-function Row(props: { row: RowProps }) {
-  const { row } = props
+function Row(props: { row: RowProps; headers: string[] }) {
+  const { row, headers } = props
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
 
@@ -57,11 +86,11 @@ function Row(props: { row: RowProps }) {
     <React.Fragment>
       <TableRow className={classes.root}>
         {row.main.map((cell) => (
-          <TableCell align="right">{cell}</TableCell>
+          <TableCell align="left">{cell}</TableCell>
         ))}
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            <ArrowForwardIosIcon className={classes.icon} />
           </IconButton>
         </TableCell>
       </TableRow>
@@ -72,7 +101,7 @@ function Row(props: { row: RowProps }) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    {subHeaders.map((header) => (
+                    {headers.map((header) => (
                       <TableCell>{header}</TableCell>
                     ))}
                   </TableRow>
@@ -96,13 +125,13 @@ function Row(props: { row: RowProps }) {
 }
 
 export default function CollapsibleTable(props: Props) {
-  const classes = useStyles()
-  const { rows } = props
+  const classes = useStyles(props)
+  const { rows, headers, subHeaders } = props
 
   return (
     <TableContainer classes={{ ...classes }} component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead>
+        <TableHead className={classes.head}>
           <TableRow>
             {headers.map((header) => (
               <TableCell>{header}</TableCell>
@@ -111,7 +140,7 @@ export default function CollapsibleTable(props: Props) {
         </TableHead>
         <TableBody>
           {rows.map((row, i) => (
-            <Row key={i} row={row} />
+            <Row key={i} row={row} headers={subHeaders} />
           ))}
         </TableBody>
       </Table>

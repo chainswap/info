@@ -77,22 +77,21 @@ export default function TokenList() {
   const [search, setSearch] = useState('')
   const [totalPage] = useState(100)
   const [page, setPage] = useState(1)
-  // const matches = useBreakpoint()
 
   const rowData = useMemo(() => {
     return dummyData.map(({ asset, decimals, mainchain, verified, status, supportChains }) => {
       return {
         main: [
-          <LogoText logo={asset.logo} text={asset.symbol} />,
+          <LogoText logo={asset.logo} text={asset.symbol} fontSize={12} />,
           asset.symbol,
           decimals,
-          <LogoText logo={mainchain.logo} text={mainchain.symbol} />,
+          <LogoText logo={mainchain.logo} text={mainchain.symbol} fontSize={12} />,
           asset.address,
           <TYPE.highlight>{verified ? 'verified' : ''}</TYPE.highlight>,
           <TYPE.highlight>{status}</TYPE.highlight>,
         ],
         sub: supportChains.map(({ asset, tokenAddress, mappingAddress }) => [
-          <LogoText logo={asset.logo} text={asset.symbol} />,
+          <LogoText logo={asset.logo} text={asset.symbol} fontSize={12} />,
           <TYPE.smallGray>{tokenAddress}</TYPE.smallGray>,
           <TYPE.smallGray>{mappingAddress}</TYPE.smallGray>,
         ]),

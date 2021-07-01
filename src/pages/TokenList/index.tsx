@@ -74,7 +74,7 @@ const dummyData = [
 export default function TokenList() {
   const [search, setSearch] = useState('')
   const [totalPage] = useState(100)
-  const [page, setPage] = useState(1)
+  const [page] = useState(1)
 
   const rowData = useMemo(() => {
     return dummyData.map(({ asset, decimals, mainchain, verified, status, supportChains }) => {

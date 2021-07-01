@@ -8,6 +8,7 @@ import Info from './Info'
 import History from './History'
 import TokenList from './TokenList'
 import Explorer from './Explorer'
+import Support from './Support'
 import { styled, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
@@ -62,6 +63,7 @@ export default function App() {
                 <Route strict path={routes.statistics} exact component={Info} />
                 <Route strict path={routes.history} exact component={History} />
                 <Route strict path={routes.explorer} exact component={Explorer} />
+                <Route strict path={routes.support} exact component={Support} />
               </Switch>
               <SocialLinks />
             </BodyWrapper>

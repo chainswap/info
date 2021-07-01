@@ -1,6 +1,6 @@
 import { styled } from '@material-ui/core'
 import { HTMLProps } from 'react'
-import { TYPE } from '../../theme'
+import theme, { TYPE } from 'theme/index'
 
 // export function ExternalLink({
 //   target = '_blank',
@@ -22,7 +22,6 @@ import { TYPE } from '../../theme'
 // }
 
 const StyledExternalLink = styled('a')({
-  textDecoration: 'none',
   '&:hover': {
     opacity: 0.6,
   },
@@ -37,7 +36,7 @@ export function ExternalLink({
 }: Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref'> & { href: string }) {
   return (
     <StyledExternalLink target={target} rel={rel} href={href} {...rest}>
-      <TYPE.bold fontSize={12}>{children}</TYPE.bold>
+      {children}
     </StyledExternalLink>
   )
 }

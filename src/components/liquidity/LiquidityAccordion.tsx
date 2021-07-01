@@ -103,7 +103,9 @@ export default function LiquidityAccordion({
           </Box>
           <Divider />
           <Box display="flex" justifyContent="center">
-            <ExternalLink href="">View accrued fees and analytics</ExternalLink>
+            <ExternalLink href="">
+              <TYPE.bold>View accrued fees and analytics</TYPE.bold>
+            </ExternalLink>
           </Box>
           <Divider />
           <Box padding="5px 16px" display="grid" gridGap="16px">

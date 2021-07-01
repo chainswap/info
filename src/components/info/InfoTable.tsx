@@ -30,6 +30,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      maxHeight: 380,
       backgroundColor: 'transparent',
       '& .MuiTable-root': {
         borderCollapse: 'separate',
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     head: {
       '& .MuiTableCell-head': {
         fontSize: 12,
+        backgroundColor: theme.bgColor.bg1,
         color: theme.textColor.text3,
       },
     },
@@ -99,16 +101,18 @@ const useRowStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function Row(props: { row: RowProps; subHeaders?: string[]; collapsible?: boolean }) {
-  const { row, subHeaders, collapsible } = props
+function Row(props: { row: RowProps; subHeaders?: string[]; collapsible?: boolean; colSpan: number }) {
+  const { row, subHeaders, collapsible, colSpan } = props
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
 
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
-        {row.main.map((cell) => (
-          <TableCell align="left">{cell}</TableCell>
+        {row.main.map((cell, idx) => (
+          <TableCell key={idx} align="left">
+            {cell}
+          </TableCell>
         ))}
         {collapsible && (
           <TableCell>
@@ -120,13 +124,13 @@ function Row(props: { row: RowProps; subHeaders?: string[]; collapsible?: boolea
       </TableRow>
       {collapsible && subHeaders && (
         <TableRow className={classes.collapsible}>
-          <TableCell style={{ padding: open ? 6 : 0 }} colSpan={8}>
+          <TableCell style={{ padding: open ? 6 : 0 }} colSpan={colSpan + 1}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Table>
                 <TableHead>
                   <TableRow>
-                    {subHeaders.map((header) => (
-                      <TableCell>{header}</TableCell>
+                    {subHeaders.map((header, idx) => (
+                      <TableCell key={idx}>{header}</TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
@@ -158,18 +162,18 @@ export default function InfoTable(props: Props) {
   const { rows, headers, subHeaders, collapsible } = props
 
   return (
-    <TableContainer classes={{ ...classes }} component={Paper}>
-      <Table aria-label="collapsible table">
+    <TableContainer className={classes.root} component={Paper}>
+      <Table stickyHeader>
         <TableHead className={classes.head}>
           <TableRow>
-            {headers.map((header) => (
-              <TableCell>{header}</TableCell>
+            {headers.map((header, idx) => (
+              <TableCell key={idx}>{header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, i) => (
-            <Row key={i} row={row} subHeaders={subHeaders} collapsible={collapsible} />
+          {rows.map((row, idx) => (
+            <Row key={idx} row={row} subHeaders={subHeaders} collapsible={collapsible} colSpan={headers.length} />
           ))}
         </TableBody>
       </Table>

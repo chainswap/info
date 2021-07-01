@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, useTheme, LinearProgress } from '@material-ui/core'
+import { Box, LinearProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 import { TYPE } from '../../theme/index'
 
@@ -19,7 +19,6 @@ const useStyles = makeStyles({
 
 export default function QuotaInfo(props: Props) {
   const { percentage, quota, currency } = props
-  const theme = useTheme()
   const classes = useStyles()
 
   return (

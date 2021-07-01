@@ -1,7 +1,6 @@
 import React from 'react'
 import { makeStyles, Box } from '@material-ui/core'
 import { TYPE } from 'theme/index'
-import useBreakpoint from 'hooks/useBreakpoint'
 
 interface Props {
   children?: React.ReactNode
@@ -23,7 +22,6 @@ const useStyles = makeStyles({
 export default function InfoCard(props: Props) {
   const classes = useStyles(props)
   const { children, title, value, unit, size } = props
-  const { matches } = useBreakpoint()
 
   return (
     <div className={classes.card}>

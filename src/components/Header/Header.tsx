@@ -352,7 +352,7 @@ function MobileHeader() {
         </Box>
       </Modal>
     ),
-    [classes.navLink, hideModal]
+    [classes.navLink, hideModal, mode]
   )
   const handleClick = useCallback(() => {
     showModal(<MobileMenu />)

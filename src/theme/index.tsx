@@ -115,6 +115,21 @@ const theme: Theme = createMuiTheme({
     main: '#333333',
     dark: '#262626',
   },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*::-webkit-scrollbar': {
+          width: '6px',
+          borderRadius: 10,
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: '#303030',
+          outline: 'none',
+          borderRadius: 3,
+        },
+      },
+    },
+  },
 })
 
 export default theme

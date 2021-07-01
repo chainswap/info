@@ -6,7 +6,6 @@ import InfoTable from 'components/info/InfoTable'
 import { CurrencyList, ChainList } from 'data/dummyData'
 import Image from 'components/Image/Image'
 import { TYPE } from 'theme/index'
-import { useCallback } from 'react'
 
 enum Status {
   SUCCESS = 'success',

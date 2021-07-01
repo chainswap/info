@@ -5,11 +5,8 @@ import { ReactComponent as TwitterIcon } from 'assets/images/twitter.svg'
 import { ReactComponent as TelagramIcon } from 'assets/images/telagram.svg'
 import { ExternalLink } from '../Link'
 import Social from 'constants/social'
-import useBreakpoint from 'hooks/useNavLinks'
 
 export default function SocialLinks() {
-  const matches = useBreakpoint()
-
   return (
     <Box position="absolute" display="flex" gridColumnGap="40px" bottom="28px" right="60px">
       <ExternalLink href={Social.medium}>

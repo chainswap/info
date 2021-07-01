@@ -1,30 +1,30 @@
 import React from 'react'
-import { Theme } from '@material-ui/core'
+import {
+  Theme,
+  Box,
+  Collapse,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import Box from '@material-ui/core/Box'
-import Collapse from '@material-ui/core/Collapse'
-import IconButton from '@material-ui/core/IconButton'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
-import Currency from 'models/currency'
 
 interface RowProps {
   main: (JSX.Element | string | number)[]
-  sub: (JSX.Element | string | number)[][]
+  sub?: (JSX.Element | string | number)[][]
 }
 
 interface Props {
   headers: string[]
   subHeaders: string[]
   rows: RowProps[]
+  collapsible?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -99,8 +99,8 @@ const useRowStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function Row(props: { row: RowProps; headers: string[] }) {
-  const { row, headers } = props
+function Row(props: { row: RowProps; headers: string[]; collapsible?: boolean }) {
+  const { row, headers, collapsible } = props
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
 
@@ -110,11 +110,13 @@ function Row(props: { row: RowProps; headers: string[] }) {
         {row.main.map((cell) => (
           <TableCell align="left">{cell}</TableCell>
         ))}
-        <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            <ArrowForwardIosIcon className={classes.icon} />
-          </IconButton>
-        </TableCell>
+        {collapsible && (
+          <TableCell>
+            <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+              <ArrowForwardIosIcon className={classes.icon} />
+            </IconButton>
+          </TableCell>
+        )}
       </TableRow>
       <TableRow className={classes.collapsible}>
         <TableCell style={{ padding: open ? 6 : 0 }} colSpan={8}>
@@ -128,7 +130,7 @@ function Row(props: { row: RowProps; headers: string[] }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {row.sub.map((row, idx) => (
+                {row.sub?.map((row, idx) => (
                   <TableRow key={row[0].toString() + idx}>
                     {row.map((data, idx) => (
                       <TableCell colSpan={1} key={idx}>
@@ -149,9 +151,9 @@ function Row(props: { row: RowProps; headers: string[] }) {
   )
 }
 
-export default function CollapsibleTable(props: Props) {
+export default function InfoTable(props: Props) {
   const classes = useStyles(props)
-  const { rows, headers, subHeaders } = props
+  const { rows, headers, subHeaders, collapsible } = props
 
   return (
     <TableContainer classes={{ ...classes }} component={Paper}>
@@ -165,7 +167,7 @@ export default function CollapsibleTable(props: Props) {
         </TableHead>
         <TableBody>
           {rows.map((row, i) => (
-            <Row key={i} row={row} headers={subHeaders} />
+            <Row key={i} row={row} headers={subHeaders} collapsible={collapsible} />
           ))}
         </TableBody>
       </Table>

@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Box, styled } from '@material-ui/core'
-import Table from 'components/Table/Table'
+import { Box } from '@material-ui/core'
 import Image from 'components/Image/Image'
 import { ETH } from 'data/dummyData'
 import AppBody from 'pages/AppBody'
@@ -9,8 +8,7 @@ import Input from 'components/Input/Input'
 import { TYPE } from 'theme/index'
 import LogoText from 'components/LogoText/LogoText'
 import { shortenAddress } from '../../utils/utils'
-import useBreakpoint from 'hooks/useNavLinks'
-import CollapsibleTable from 'pages/Info/InfoTable'
+import InfoTable from 'components/info/InfoTable'
 
 const dummyData = [
   {
@@ -86,7 +84,7 @@ export default function TokenList() {
           asset.symbol,
           decimals,
           <LogoText logo={mainchain.logo} text={mainchain.symbol} fontSize={12} />,
-          asset.address,
+          shortenAddress(asset.address),
           <TYPE.highlight>{verified ? 'verified' : ''}</TYPE.highlight>,
           <TYPE.highlight>{status}</TYPE.highlight>,
         ],
@@ -116,10 +114,11 @@ export default function TokenList() {
         </Box>
 
         <Box padding="0 20px 40px">
-          <CollapsibleTable
+          <InfoTable
             headers={['Token', 'Symbol', 'Decimals', 'Main Chain', 'Token Address', 'Verify', 'Status']}
             subHeaders={['Support Chain', 'Token contract address', 'Mapping contract address']}
             rows={rowData}
+            collapsible
           />
         </Box>
       </AppBody>

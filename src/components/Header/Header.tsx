@@ -24,10 +24,11 @@ import TextButton from '../Button/TextButton'
 import AccountModal from '../../components/AccountModal/AccountModal'
 import { ConfirmedTransactionList, PendingTransactionList, NotificationList } from '../../data/dummyData'
 import PlainSelect from '../Select/PlainSelect'
-import { HideOnMobile, ShowOnMobile } from 'theme'
+import { HideOnMobile, ShowOnMobile, TYPE } from 'theme'
 import Modal from 'components/Modal/Modal'
 import { NavLinks, InfoNavLinks, AboutNavItems } from 'constants/navlinks'
 import { useMemo } from 'react'
+import { ExternalLink } from 'components/Link'
 
 enum Mode {
   App,
@@ -236,7 +237,18 @@ export default function Header() {
               {mode === Mode.App && (
                 <PlainSelect placeholder="About">
                   {AboutNavItems.map((item) => (
-                    <MenuItem key={item.name}>{item.name}</MenuItem>
+                    <MenuItem key={item.name}>
+                      {item.externalLink && (
+                        <ExternalLink href={item.externalLink} className={classes.navLink}>
+                          <TYPE.small>{item.name}</TYPE.small>
+                        </ExternalLink>
+                      )}
+                      {item.link && (
+                        <NavLink className={classes.navLink} to={item.link}>
+                          <TYPE.small>{item.name}</TYPE.small>
+                        </NavLink>
+                      )}
+                    </MenuItem>
                   ))}
                 </PlainSelect>
               )}

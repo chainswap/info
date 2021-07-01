@@ -168,7 +168,7 @@ export const TYPE = {
     return <TextWrapper fontWeight={500} {...props} fontFamily="Futura PT" />
   },
   small(props: TextProps) {
-    return <TextWrapper fontWeight={400} fontSize={12} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={12} textColor="text1" {...props} />
   },
   medium(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={14} {...props} />

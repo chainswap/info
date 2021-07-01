@@ -54,14 +54,17 @@ const AboutNavItems = [
   {
     name: 'Apply for listing',
     link: null,
+    externalLink: 'https://docs.chainswap.com/',
   },
   {
     name: 'Auditing report',
     link: null,
+    externalLink: 'https://docs.chainswap.com/',
   },
   {
     name: 'Support',
-    link: null,
+    link: routes.support,
+    externalLink: null,
   },
 ]
 

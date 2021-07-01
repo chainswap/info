@@ -169,6 +169,7 @@ export default function InfoTable(props: Props) {
             {headers.map((header, idx) => (
               <TableCell key={idx}>{header}</TableCell>
             ))}
+            {collapsible && <TableCell />}
           </TableRow>
         </TableHead>
         <TableBody>

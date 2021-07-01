@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     border: '1px solid rgba(255, 255, 255, 0.2)',
     boxSizing: 'border-box',
-    overflow: 'auto',
+    // overflow: 'auto',
     [theme.breakpoints.down('sm')]: {
       width: '100%!important',
     },

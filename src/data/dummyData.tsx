@@ -1,4 +1,3 @@
-import DummyLogo from '../assets/images/bsc.svg'
 import Transaction from '../models/transaction'
 import Notification from '../models/notification'
 import AaveIcon from '../assets/images/currency/aave.svg'
@@ -6,9 +5,10 @@ import AmpIcon from '../assets/images/currency/amp.svg'
 import AntIcon from '../assets/images/currency/ant.svg'
 import BnbIcon from '../assets/images/currency/bnb.svg'
 import EthIcon from '../assets/images/currency/eth.svg'
+import BscIcon from '../assets/images/bsc.svg'
 
 export const ETH = {
-  logo: DummyLogo,
+  logo: EthIcon,
   symbol: 'ETH',
   name: 'ETH',
   balance: 0,
@@ -17,14 +17,14 @@ export const ETH = {
 }
 
 export const BSC = {
-  logo: DummyLogo,
+  logo: BscIcon,
   symbol: 'BSC',
   id: 'XXX',
   address: 'XXXXXXXXXXXXXXX',
 }
 
 export const MATTER = {
-  logo: DummyLogo,
+  logo: BscIcon,
   symbol: 'MATTER',
   name: 'MATTER',
   balance: 0,
@@ -100,31 +100,31 @@ export const CurrencyList = [
 
 export const ChainList = [
   {
-    logo: DummyLogo,
+    logo: BscIcon,
     symbol: 'ETH',
     id: 'XXX',
     address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
-    logo: DummyLogo,
+    logo: BscIcon,
     symbol: 'BSC',
     id: 'XXX',
     address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
-    logo: DummyLogo,
+    logo: BscIcon,
     symbol: 'OEC',
     id: 'XXX',
     address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
-    logo: DummyLogo,
+    logo: BscIcon,
     symbol: 'HECO',
     id: 'XXX',
     address: 'XXXXXXXXXXXXXXXXXXXX',
   },
   {
-    logo: DummyLogo,
+    logo: BscIcon,
     symbol: 'Polygon',
     id: 'XXX',
     address: 'XXXXXXXXXXXXXXXXXXXX',

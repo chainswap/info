@@ -22,7 +22,7 @@ interface RowProps {
 
 interface Props {
   headers: string[]
-  subHeaders: string[]
+  subHeaders?: string[]
   rows: RowProps[]
   collapsible?: boolean
 }
@@ -99,8 +99,8 @@ const useRowStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function Row(props: { row: RowProps; headers: string[]; collapsible?: boolean }) {
-  const { row, headers, collapsible } = props
+function Row(props: { row: RowProps; subHeaders?: string[]; collapsible?: boolean }) {
+  const { row, subHeaders, collapsible } = props
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
 
@@ -118,35 +118,37 @@ function Row(props: { row: RowProps; headers: string[]; collapsible?: boolean })
           </TableCell>
         )}
       </TableRow>
-      <TableRow className={classes.collapsible}>
-        <TableCell style={{ padding: open ? 6 : 0 }} colSpan={8}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {headers.map((header) => (
-                    <TableCell>{header}</TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {row.sub?.map((row, idx) => (
-                  <TableRow key={row[0].toString() + idx}>
-                    {row.map((data, idx) => (
-                      <TableCell colSpan={1} key={idx}>
-                        {data}
-                      </TableCell>
+      {collapsible && subHeaders && (
+        <TableRow className={classes.collapsible}>
+          <TableCell style={{ padding: open ? 6 : 0 }} colSpan={8}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {subHeaders.map((header) => (
+                      <TableCell>{header}</TableCell>
                     ))}
-                    <TableCell>
-                      <Box width="120px" />
-                    </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Collapse>
-        </TableCell>
-      </TableRow>
+                </TableHead>
+                <TableBody>
+                  {row.sub?.map((row, idx) => (
+                    <TableRow key={row[0].toString() + idx}>
+                      {row.map((data, idx) => (
+                        <TableCell colSpan={1} key={idx}>
+                          {data}
+                        </TableCell>
+                      ))}
+                      <TableCell>
+                        <Box width="120px" />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      )}
     </React.Fragment>
   )
 }
@@ -167,7 +169,7 @@ export default function InfoTable(props: Props) {
         </TableHead>
         <TableBody>
           {rows.map((row, i) => (
-            <Row key={i} row={row} headers={subHeaders} collapsible={collapsible} />
+            <Row key={i} row={row} subHeaders={subHeaders} collapsible={collapsible} />
           ))}
         </TableBody>
       </Table>

@@ -120,12 +120,15 @@ const theme: Theme = createMuiTheme({
       '@global': {
         '*::-webkit-scrollbar': {
           width: '6px',
-          borderRadius: 10,
+          height: '6px',
         },
         '*::-webkit-scrollbar-thumb': {
           backgroundColor: '#303030',
           outline: 'none',
           borderRadius: 3,
+        },
+        '*::-webkit-scrollbar-corner': {
+          background: 'transparent',
         },
       },
     },

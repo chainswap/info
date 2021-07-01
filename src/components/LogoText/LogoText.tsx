@@ -15,8 +15,8 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     alignItems: 'center',
-    fontWeight: (props: { fontWeight?: number }) => props.fontWeight ?? 400,
-    fontSize: (props: { fontSize?: number }) => props.fontSize ?? 16,
+    fontWeight: (props: { fontWeight?: number }) => props.fontWeight || 400,
+    fontSize: (props: { fontSize?: number }) => props.fontSize || 16,
     '& img': {
       marginRight: (props: Props) => (props.size === 'small' ? '4px' : '12px'),
     },
@@ -29,7 +29,7 @@ export default function LogoText(props: Props) {
   return (
     <div className={classes.root}>
       <Image src={logo} alt={`${text} logo`} />
-      <Text fontSize={size === 'small' ? '13px' : '16px'}>{text}</Text>
+      <Text fontSize={size}>{text}</Text>
     </div>
   )
 }

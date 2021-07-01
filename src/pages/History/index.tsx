@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { Box } from '@material-ui/core'
-import Table from 'components/Table/Table'
 import AppBody from 'pages/AppBody'
 import Pager from 'components/Pager/Pager'
 import { TYPE } from 'theme/index'
+import InfoTable from 'components/info/InfoTable'
 
-const dummyTableData = [
+const dummyData = [
   {
     send: 'ETH',
     from: 'ETH',
@@ -27,8 +27,12 @@ export default function History() {
   const [page] = useState(1)
   const [address] = useState('0xKos369cd6vwd94wq1gt4hr87ujv')
 
-  const tableRows = useMemo(() => {
-    return dummyTableData.map(({ send, from, to, time, status }) => [send, from, to, time, status])
+  const rowData = useMemo(() => {
+    return dummyData.map(({ send, from, to, time, status }) => {
+      return {
+        main: [send, from, to, time, status],
+      }
+    })
   }, [])
 
   return (
@@ -38,7 +42,11 @@ export default function History() {
           {address}
         </TYPE.body>
         <Box padding="0 20px 40px">
-          <Table header={['Send', 'From', 'to', 'Time', 'Status']} rows={tableRows} />
+          <InfoTable
+            headers={['Send', 'From', 'to', 'Time', 'Status']}
+            subHeaders={['Support Chain', 'Token contract address', 'Mapping contract address']}
+            rows={rowData}
+          />
         </Box>
       </AppBody>
       <Box position="relative" width="880px" mt="15px">

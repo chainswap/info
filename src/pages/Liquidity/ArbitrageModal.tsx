@@ -10,7 +10,7 @@ import { TYPE } from 'theme'
 import Modal from '../../components/Modal/Modal'
 import { ReactComponent as ArrowRight } from '../../assets/images/arrow_forward.svg'
 import useModal from 'hooks/useModal'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 const Card = styled('div')(({ theme }) => ({
   border: '1px solid ' + theme.textColor.text3,
@@ -37,16 +37,16 @@ export default function ArbitrageModal({ fromChain, toChain }: { fromChain?: Cha
   const [amount, setAmount] = useState('')
   const theme = useTheme()
   const { hideModal } = useModal()
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (amount !== '') {
-      setLoading(true)
-    }
-    setTimeout(() => {
-      setLoading(false)
-    })
-  }, [])
+  // useEffect(() => {
+  //   if (amount !== '') {
+  //     setLoading(true)
+  //   }
+  //   setTimeout(() => {
+  //     setLoading(false)
+  //   })
+  // }, [])
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value), [])
   return (

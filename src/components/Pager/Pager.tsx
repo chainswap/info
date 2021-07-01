@@ -73,7 +73,7 @@ export default function Pager({ current, total }: { current: number; total: numb
   return (
     <div className={classes.root}>
       <PreviousButton />
-      <InputBase className={classes.input} defaultValue={1} value={current} />
+      <InputBase className={classes.input} value={current} />
       <NextButton />
       <Box component="span" className={classes.span}>
         of {total}

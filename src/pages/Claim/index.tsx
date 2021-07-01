@@ -7,7 +7,6 @@ import TextButton from 'components/Button/TextButton'
 import useModal from 'hooks/useModal'
 import SelectCurrency from 'components/SelectCurrency/SelectCurrency'
 import useCurrency from 'hooks/useCurrency'
-import Currency from 'models/currency'
 import LogoText from 'components/LogoText/LogoText'
 import ClaimList from 'components/claim/ClaimList'
 

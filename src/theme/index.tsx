@@ -8,6 +8,7 @@ interface TextColor {
   text4: string
   text5: string
   primary: string
+  highlight: string
 }
 
 interface BgColor {
@@ -91,6 +92,7 @@ const theme: Theme = createMuiTheme({
     text4: '#727272',
     text5: '#333333',
     primary: '#9867FF',
+    highlight: '#24ff00',
   },
   bgColor: {
     bg1: '#000000',
@@ -112,6 +114,21 @@ const theme: Theme = createMuiTheme({
   gray: {
     main: '#333333',
     dark: '#262626',
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*::-webkit-scrollbar': {
+          width: '6px',
+          borderRadius: 10,
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: '#303030',
+          outline: 'none',
+          borderRadius: 3,
+        },
+      },
+    },
   },
 })
 
@@ -176,6 +193,9 @@ export const TYPE = {
   },
   notification(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={13} textColor="text1" {...props} />
+  },
+  highlight(props: TextProps) {
+    return <TextWrapper fontWeight={400} fontSize={12} textColor="highlight" {...props} />
   },
 }
 

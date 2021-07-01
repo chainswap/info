@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .MuiTableCell-root': {
         border: 'none',
         padding: 12,
-        marginBottom: 3,
       },
     },
     head: {
@@ -55,9 +54,6 @@ const useRowStyles = makeStyles((theme: Theme) =>
     root: {
       backgroundColor: theme.bgColor.bg2,
       '&:hover': { backgroundColor: theme.bgColor.bg3 },
-      // '& td': {
-      //   marginBottom: '5px',
-      // },
       '& td:first-child': {
         borderTopLeftRadius: theme.shape.borderRadius,
         borderBottomLeftRadius: theme.shape.borderRadius,
@@ -73,6 +69,32 @@ const useRowStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: theme.textColor.text1,
       },
+    },
+    collapsible: {
+      backgroundColor: theme.bgColor.bg2,
+      width: '800px',
+      '& .MuiTableCell-head': {
+        fontSize: 12,
+        color: theme.textColor.text3,
+      },
+      '& .MuiTableRow-root': {
+        width: '100%',
+      },
+      '& .MuiTableCell-root': {
+        width: '100%',
+        borderRadius: theme.shape.borderRadius,
+        padding: 6,
+      },
+      '& .MuiCollapse-container': {
+        width: '100%',
+      },
+      '& .MuiCollapse-wrapper': {
+        width: '100%',
+      },
+      '& .MuiCollapse-wrapperInner': {
+        width: '100%',
+      },
+      '& .MuiCollapse-wrapperInner table': {},
     },
   })
 )
@@ -94,29 +116,32 @@ function Row(props: { row: RowProps; headers: string[] }) {
           </IconButton>
         </TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+      <TableRow className={classes.collapsible}>
+        <TableCell style={{ padding: open ? 6 : 0 }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box margin={1}>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    {headers.map((header) => (
-                      <TableCell>{header}</TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.sub.map((row, idx) => (
-                    <TableRow key={row[0].toString() + idx}>
-                      {row.map((data, idx) => (
-                        <TableCell key={idx}>{data}</TableCell>
-                      ))}
-                    </TableRow>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {headers.map((header) => (
+                    <TableCell>{header}</TableCell>
                   ))}
-                </TableBody>
-              </Table>
-            </Box>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {row.sub.map((row, idx) => (
+                  <TableRow key={row[0].toString() + idx}>
+                    {row.map((data, idx) => (
+                      <TableCell colSpan={1} key={idx}>
+                        {data}
+                      </TableCell>
+                    ))}
+                    <TableCell>
+                      <Box width="120px" />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </Collapse>
         </TableCell>
       </TableRow>

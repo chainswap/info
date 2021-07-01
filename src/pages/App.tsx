@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Swap from './Swap'
 import Deploy from './Deploy'
 import Liquidity from './Liquidity'
@@ -64,6 +64,7 @@ export default function App() {
                 <Route strict path={routes.history} exact component={History} />
                 <Route strict path={routes.explorer} exact component={Explorer} />
                 <Route strict path={routes.support} exact component={Support} />
+                <Redirect from="/" to={routes.swap} />
               </Switch>
               <SocialLinks />
             </BodyWrapper>

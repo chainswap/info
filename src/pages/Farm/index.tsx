@@ -1,6 +1,6 @@
 import React from 'react'
 import { ETH, BSC } from 'data/dummyData'
-import FarmCard from 'components/'
+import FarmCard from 'components/farm/FarmCard'
 
 const dummyData = [
   {

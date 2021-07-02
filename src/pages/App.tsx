@@ -9,6 +9,7 @@ import History from './History'
 import TokenList from './TokenList'
 import Explorer from './Explorer'
 import Support from './Support'
+import Farm from './Farm'
 import { styled, CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import Header from '../components/Header/Header'
@@ -56,7 +57,7 @@ export default function App() {
                 <Route strict path={routes.swap} exact component={Swap} />
                 <Route strict path={routes.deploy} exact component={Deploy} />
                 <Route strict path={routes.liquidity} exact component={Liquidity} />
-                <Route strict path={routes.farm} exact component={Swap} />
+                <Route strict path={routes.farm} exact component={Farm} />
                 <Route strict path={routes.info} exact component={Info} />
                 <Route strict path={routes.claim} exact component={Claim} />
                 <Route strict path={routes.token} exact component={TokenList} />

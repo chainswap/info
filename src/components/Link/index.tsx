@@ -1,6 +1,5 @@
 import { styled } from '@material-ui/core'
 import { HTMLProps } from 'react'
-import theme, { TYPE } from 'theme/index'
 
 // export function ExternalLink({
 //   target = '_blank',

@@ -52,7 +52,7 @@ export default function Farm() {
   return (
     <Wrapper>
       {dummyData.map((farm) => (
-        <>
+        <div key={farm.farmName}>
           <Box display="flex" alignItems="center" mb="40px" mt="80px">
             <Image src={farm.farmLogo} alt={`${farm.farmName} logo`} />
             <TYPE.header ml="16px" fontSize="24px">
@@ -61,12 +61,12 @@ export default function Farm() {
           </Box>
           <Box display="flex" flexWrap="wrap">
             {farm.pools.map((pool) => (
-              <Box mr="30px">
+              <Box key={pool.name} mr="30px">
                 <FarmCard data={pool} />
               </Box>
             ))}
           </Box>
-        </>
+        </div>
       ))}
     </Wrapper>
   )

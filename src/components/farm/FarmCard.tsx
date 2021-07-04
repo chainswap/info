@@ -7,10 +7,13 @@ import TextButton from 'components/Button/TextButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import clsx from 'clsx'
 import Divider from 'components/Divider/Divider'
+import { ReactComponent as BscIcon } from 'assets/images/bsc.svg'
+
+interface Props {
+  data: Object
+}
 
 // dummyData
-import { ReactComponent as BscIcon } from 'assets/images/bsc.svg'
-import { Type } from 'react-feather'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,10 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.bgColor.bg1,
       borderRadius: 32,
       border: `1px solid ${theme.bgColor.bg3}`,
-    },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
     },
     expand: {
       color: theme.textColor.text1,
@@ -41,8 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export default function FarmCard() {
+export default function FarmCard(props: Props) {
   const classes = useStyles()
+  const { data } = props
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -53,12 +53,12 @@ export default function FarmCard() {
     <Card className={classes.root}>
       <CardHeader avatar={<BscIcon />} title="Matter Token Pool" />
       <CardContent>
-        <Box display="flex" alignItems="flex-end">
+        <Box display="flex" alignItems="flex-end" justifyContent="space-between">
           <TYPE.extremeLarge>0.000</TYPE.extremeLarge>
           <TYPE.body>Token earned</TYPE.body>
           <TextButton primary>Claim Reward</TextButton>
         </Box>
-        <Box display="flex">
+        <Box display="flex" mt="15px">
           <OutlineButton>Stake</OutlineButton>
           <OutlineButton>UnStake</OutlineButton>
         </Box>
@@ -78,7 +78,18 @@ export default function FarmCard() {
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>Card Content</CardContent>
+        <CardContent>
+          <Box display="grid" gridGap="16px" width="100%" padding="16px 24px">
+            {['apy', 'staked', 'pooled'].map((key, i) => (
+              <Box key={i} display="flex" justifyContent="space-between">
+                <TYPE.smallGray>{key}:</TYPE.smallGray>
+                <Box display="flex">
+                  <TYPE.small>{data[key as keyof typeof data]}</TYPE.small>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </CardContent>
       </Collapse>
     </Card>
   )
